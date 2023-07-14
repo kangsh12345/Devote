@@ -20,8 +20,8 @@ jobs:
       - name: Run Token Transformer
         run: |
             npx token-transformer tokens.json ./src/global.json global
-            git config --global user.name "GitHub 디자인 계정 이름" 
-            git config --global user.email "GitHub 디자인 계정 이메일"
+            git config --global user.name "kangsh12345" 
+            git config --global user.email "kangshqwert@naver.com"
             git add .
             git commit -m '피그마 디자인 파일 변환'
             git push
