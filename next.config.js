@@ -1,4 +1,18 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin');
 
-module.exports = nextConfig
+const withVanillaExtract = createVanillaExtractPlugin();
+
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx$/,
+});
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  images: {
+    domains: [],
+  },
+};
+
+module.exports = withVanillaExtract(withMDX(nextConfig));
