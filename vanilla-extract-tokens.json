@@ -354,7 +354,7 @@
     "paragraphSpacing": {
       "0": "0"
     },
-    "DT": {
+    "desktop": {
       "hero-50": {
         "bold": {
           "fontFamily": "{fontFamilies.pretendard}",
@@ -636,7 +636,7 @@
         }
       }
     },
-    "MB": {
+    "mobile": {
       "hero-36": {
         "bold": {
           "fontFamily": "{fontFamilies.pretendard}",
