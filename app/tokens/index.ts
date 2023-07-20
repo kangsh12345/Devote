@@ -1,4 +1,4 @@
-import { breakpoints } from './breakpoint';
+import { borderStyles, borderWidths } from './border';
 import { colors } from './color';
 import { radii } from './radii';
 import { shadows } from './shadows';
@@ -17,7 +17,8 @@ import {
 } from './typography';
 
 export const tokens = {
-  breakpoints,
+  borderStyles,
+  borderWidths,
   colors,
   radii,
   shadows,
@@ -34,4 +35,5 @@ export const tokens = {
   typographies,
 };
 
+export type { Mode } from './color';
 export type Tokens = typeof tokens;
