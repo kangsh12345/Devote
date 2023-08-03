@@ -1,5 +1,11 @@
-import styles from './page.module.css';
+import { DarkModeToggle } from './components/DarkModeToggle/DarkModeToggle';
+import Text from './components/Test/Test';
 
 export default function Home() {
-  return <main className={styles.main}>devote</main>;
+  return (
+    <main>
+      <DarkModeToggle />
+      <Text />
+    </main>
+  );
 }
