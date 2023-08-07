@@ -1,10 +1,10 @@
-import { DarkModeToggle } from './components/DarkModeToggle/DarkModeToggle';
 import Text from './components/Test/Test';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 
 export default function Home() {
   return (
     <main>
-      <DarkModeToggle />
+      <ThemeSwitcher />
       <Text />
     </main>
   );

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { DarkModeProvider } from './components/DarkModeToggle/DarkModeToggle';
+import { ThemeProvider } from './components/ThemeProvider';
+import { getThemeMode } from './utils/cookies';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <DarkModeProvider>{children}</DarkModeProvider>
+        <ThemeProvider defaultMode={getThemeMode() ?? 'dark'}>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
