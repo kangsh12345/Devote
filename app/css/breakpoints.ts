@@ -1,6 +1,6 @@
 export const breakpoints = {
   desktop: 1440,
-  mobile: 810,
+  mobile: 0,
 };
 
 export type Breakpoint = keyof typeof breakpoints;

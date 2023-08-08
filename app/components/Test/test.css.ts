@@ -9,13 +9,6 @@ export const variants = recipe({
       brand: style([
         atoms({
           display: 'flex',
-          color: 'brandPrimary',
-          backgroundColor: {
-            base: 'brandPrimary',
-            hover: 'brandSecondary',
-          },
-          fontFamily: 'pretendard',
-          fontSize: '11',
         }),
         style({
           width: 100,

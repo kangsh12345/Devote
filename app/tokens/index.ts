@@ -9,9 +9,6 @@ import {
   fontWeights,
   letterSpacing,
   lineHeights,
-  paragraphIndent,
-  paragraphSpacing,
-  textCase,
   textDecoration,
   typographies,
 } from './typography';
@@ -28,9 +25,6 @@ export const tokens = {
   fontWeights,
   letterSpacing,
   lineHeights,
-  paragraphIndent,
-  paragraphSpacing,
-  textCase,
   textDecoration,
   typographies,
 };

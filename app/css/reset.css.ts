@@ -1,4 +1,6 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
+
+import { vars } from './vars.css';
 
 export const base = style({
   margin: 0,
@@ -87,3 +89,45 @@ export const element: Partial<Record<keyof JSX.IntrinsicElements, string>> = {
 };
 
 export type Element = keyof typeof element;
+
+globalStyle('*, *::before, *::after', {
+  boxSizing: 'border-box',
+});
+
+globalStyle('html', {
+  background: vars.colors.backgroundBase,
+  color: vars.colors.black,
+});
+
+globalStyle('body', {
+  display: 'flex',
+  flexDirection: 'column',
+  margin: 0,
+  // fontFamily:
+  //   'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,  "Helvetica Neue", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+  fontFamily: 'Pretendard',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center center',
+  backgroundRepeat: 'no-repeat',
+});
+
+globalStyle('h1, h2, h3, h4, p', {
+  margin: 0,
+});
+
+globalStyle('main', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  position: 'relative',
+  width: '100%',
+  height: '100%',
+  maxWidth: '1440px',
+  margin: '0 auto',
+  overflow: 'hidden',
+});
+
+globalStyle('a', {
+  textDecoration: 'none',
+});
