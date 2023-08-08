@@ -1,6 +1,7 @@
 // import type { Metadata } from 'next';
 
-import { ThemeProvider } from './components/ThemeProvider';
+import { ThemeProvider } from '@/app/components/atoms/ThemeProvider';
+
 import { getThemeMode } from './utils/cookies';
 
 // export const metadata: Metadata = {

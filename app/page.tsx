@@ -1,6 +1,6 @@
-import Test from './components/Test/Test';
-import { ThemeSwitcher } from './components/ThemeSwitcher';
-import Text from './components/Typography/Text';
+import Test from './components/atoms/Test/Test';
+import { ThemeSwitcher } from './components/atoms/ThemeSwitcher';
+import Text from './components/atoms/Typography/Text';
 
 export default function Home() {
   return (

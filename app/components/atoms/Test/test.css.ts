@@ -1,7 +1,6 @@
+import { atoms } from '@/app/css';
 import { style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
-
-import { atoms } from '../../css';
 
 export const variants = recipe({
   variants: {
