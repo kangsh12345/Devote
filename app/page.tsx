@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <ThemeSwitcher />
       <Test />
-      <Text size="h1" weight="bold">
+      <Text size="h1" weight="bold" color="brandPrimary">
         Text테스트
       </Text>
     </div>

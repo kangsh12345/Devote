@@ -9,10 +9,10 @@ export const variants = recipe({
       brand: style([
         atoms({
           display: 'flex',
-        }),
-        style({
-          width: 100,
-          height: 100,
+          width: '20',
+          height: '20',
+          backgroundColor: 'brandPrimary',
+          color: 'textPrimary',
         }),
       ]),
     },

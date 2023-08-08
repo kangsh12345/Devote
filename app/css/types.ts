@@ -76,9 +76,6 @@ export type Theme = {
   fontWeights: Tokens['fontWeights'];
   letterSpacing: Tokens['letterSpacing'];
   lineHeights: Tokens['lineHeights'];
-  paragraphIndent: Tokens['paragraphIndent'];
-  paragraphSpacing: Tokens['paragraphSpacing'];
-  textCase: Tokens['textCase'];
   textDecoration: Tokens['textDecoration'];
   typographies: Tokens['typographies'];
 };

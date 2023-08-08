@@ -1,4 +1,6 @@
 import { ElementType, ReactNode } from 'react';
+import { Sprinkles, sprinkles } from '@/app/css';
+import clsx from 'clsx';
 
 import { Box } from '../Box';
 import * as styles from './typography.css';
@@ -6,6 +8,7 @@ import * as styles from './typography.css';
 interface TextStyleProps {
   size: keyof typeof styles;
   weight: keyof typeof styles.h1;
+  color?: Sprinkles['color'];
 }
 
 export interface TextProps extends TextStyleProps {
@@ -13,8 +16,8 @@ export interface TextProps extends TextStyleProps {
   children: ReactNode;
 }
 
-export default ({ as = 'span', children, size, weight }: TextProps) => {
-  const typoClassName =
+export const useTextStyle = ({ size, weight, color }: TextStyleProps) => {
+  const typo =
     size === 'hero'
       ? styles.hero[weight].typo
       : size === 'h1'
@@ -33,8 +36,16 @@ export default ({ as = 'span', children, size, weight }: TextProps) => {
       ? styles.caption[weight].typo
       : '';
 
+  return clsx(typo, sprinkles({ color: color }));
+};
+
+export default ({ as = 'span', children, size, weight, color }: TextProps) => {
   return (
-    <Box as={as} display="block" className={typoClassName}>
+    <Box
+      as={as}
+      display="block"
+      className={useTextStyle({ size, weight, color })}
+    >
       {children}
     </Box>
   );
