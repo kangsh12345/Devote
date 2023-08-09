@@ -16,5 +16,5 @@ export {
   sprinkles,
 } from './sprinkles.css';
 export type { Theme } from './types';
-export { getModeColors, getVarName, motionSafe, rgb } from './utils';
+export { getModeColors, getVarName, motionSafe } from './utils';
 export { vars } from './vars.css';

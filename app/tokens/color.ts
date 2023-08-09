@@ -123,7 +123,6 @@ export const colors = {
     borderPrimary: '#4a5568',
     borderSecondary: '#2d3748',
     borderTertiary: '#1a202c',
-
     textPrimary: '#f7fafc',
     textSecondary: '#cbd5e0',
     textTertiary: '#a0aec0',

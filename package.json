@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@capsizecss/vanilla-extract": "^1.0.0",
-    "@mdx-js/loader": "^2.3.0",
     "@next/mdx": "^13.4.12",
     "@types/node": "20.4.2",
     "@types/react": "18.2.14",
@@ -28,6 +26,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vanilla-extract/css-utils": "^0.1.3",
