@@ -3,6 +3,7 @@
 import { Copyright } from '@phosphor-icons/react';
 
 import { Box } from '../Box';
+import { Stack } from '../Stack';
 import Text from '../Typography/Text';
 
 export interface CopyRightProps {
@@ -21,19 +22,13 @@ export const CopyRight = ({ size }: CopyRightProps) => {
       : { textSize: 'caption', copyrightSize: 16 };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      justifyContent="center"
-      alignItems="center"
-      width="56"
-      color="textDisabled"
-      gap="1"
-    >
-      <Copyright size={copyRightSize.copyrightSize} weight="bold" />
-      <Text size={copyRightSize.textSize} weight="medium">
-        Devote All Right Reserved
-      </Text>
+    <Box width="56" color="textDisabled">
+      <Stack space="1" direction="horizontal" justify="center">
+        <Copyright size={copyRightSize.copyrightSize} weight="bold" />
+        <Text size={copyRightSize.textSize} weight="medium">
+          Devote All Right Reserved
+        </Text>
+      </Stack>
     </Box>
   );
 };
