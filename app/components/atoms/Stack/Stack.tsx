@@ -1,5 +1,5 @@
-import { OptionalResponsiveObject, OptionalResponsiveValue } from '@/css';
-import { ReactNodeNoStrings } from '@/types';
+import { OptionalResponsiveObject, OptionalResponsiveValue } from '@/app/css';
+import { ReactNodeNoStrings } from '@/app/types';
 
 import { Box, BoxProps } from '../Box';
 import { Direction, directionToFlexDirection, wrapToFlexWrap } from './utils';

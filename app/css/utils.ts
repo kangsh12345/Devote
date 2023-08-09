@@ -1,6 +1,5 @@
+import { Mode, tokens } from '@/app/tokens';
 import { StyleRule } from '@vanilla-extract/css';
-
-import { Mode, tokens } from '../tokens';
 
 export const getVarName = (_value: string | null, path: string[]) =>
   path.join('-').replace('.', '_').replace('/', '__');

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Atoms, atoms, sprinkles } from '@/css';
+import { Atoms, atoms, sprinkles } from '@/app/css';
 import clsx, { ClassValue } from 'clsx';
 
 type HTMLProperties = Omit<

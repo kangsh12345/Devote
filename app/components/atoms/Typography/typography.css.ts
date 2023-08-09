@@ -1,4 +1,4 @@
-import { responsiveStyle, vars } from '@/css';
+import { responsiveStyle, vars } from '@/app/css';
 import { style } from '@vanilla-extract/css';
 
 const makeTypographyRules = (

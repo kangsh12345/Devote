@@ -1,5 +1,5 @@
 import { ElementType, ReactNode } from 'react';
-import { Sprinkles, sprinkles } from '@/css';
+import { Sprinkles, sprinkles } from '@/app/css';
 import clsx from 'clsx';
 
 import { Box } from '../Box';

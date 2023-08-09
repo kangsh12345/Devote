@@ -1,8 +1,8 @@
-import { CopyRight } from '@/components/atoms/CopyRight';
-import { Logo } from '@/components/atoms/Logo';
-import Test from '@/components/atoms/Test/Test';
-import { ThemeSwitcher } from '@/components/atoms/ThemeSwitcher';
-import Text from '@/components/atoms/Typography/Text';
+import { CopyRight } from '@/app/components/atoms/CopyRight';
+import { Logo } from '@/app/components/atoms/Logo';
+import Test from '@/app/components/atoms/Test/Test';
+import { ThemeSwitcher } from '@/app/components/atoms/ThemeSwitcher';
+import Text from '@/app/components/atoms/Typography/Text';
 
 export default function Home() {
   return (

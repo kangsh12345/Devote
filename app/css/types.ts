@@ -1,4 +1,4 @@
-import { Tokens } from '../tokens';
+import { Tokens } from '@/app/tokens';
 
 type ThemeColors = Tokens['colors']['base'] & {
   brandPrimary: string;

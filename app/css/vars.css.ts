@@ -1,3 +1,4 @@
+import { Mode, tokens } from '@/app/tokens';
 import {
   createGlobalTheme as createGlobalThemeWithoutPseudos,
   createGlobalThemeContract,
@@ -5,7 +6,6 @@ import {
 import { Contract, MapLeafNodes } from '@vanilla-extract/private';
 import merge from 'deepmerge';
 
-import { Mode, tokens } from '../tokens';
 import { Theme } from './types';
 import { getVarName } from './utils';
 

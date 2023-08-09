@@ -1,4 +1,4 @@
-import { atoms } from '@/css';
+import { atoms } from '@/app/css';
 import { style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 

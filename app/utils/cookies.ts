@@ -1,6 +1,5 @@
+import { Mode } from '@/app/tokens';
 import { parseCookies, setCookie } from 'nookies';
-
-import { Mode } from '../tokens';
 
 export const modeKey = 'mode';
 
