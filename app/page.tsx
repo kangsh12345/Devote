@@ -1,3 +1,4 @@
+import { CopyRight } from './components/atoms/CopyRight';
 import { Logo } from './components/atoms/Logo';
 import Test from './components/atoms/Test/Test';
 import { ThemeSwitcher } from './components/atoms/ThemeSwitcher';
@@ -12,6 +13,7 @@ export default function Home() {
         Text테스트
       </Text>
       <Logo size="md" />
+      <CopyRight size="md" />
     </div>
   );
 }
