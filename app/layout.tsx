@@ -1,8 +1,7 @@
 // import type { Metadata } from 'next';
 
-import { ThemeProvider } from '@/app/components/atoms/ThemeProvider';
-
-import { getThemeMode } from './utils/cookies';
+import { ThemeProvider } from '@/components/atoms/ThemeProvider';
+import { getThemeMode } from '@/utils/cookies';
 
 // export const metadata: Metadata = {
 //   title: 'Create Next App',

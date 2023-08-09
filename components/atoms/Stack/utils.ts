@@ -2,7 +2,7 @@ import {
   mapResponsiveValue,
   OptionalResponsiveObject,
   OptionalResponsiveValue,
-} from '@/app/css';
+} from '@/css';
 
 export type Direction = 'horizontal' | 'vertical';
 

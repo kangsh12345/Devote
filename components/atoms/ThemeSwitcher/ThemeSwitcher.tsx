@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback } from 'react';
-import { setThemeMode } from '@/app/utils/cookies';
-import { useIsMounted } from '@/app/utils/isMounted';
+import { setThemeMode } from '@/utils/cookies';
+import { useIsMounted } from '@/utils/isMounted';
 
 import { useTheme } from '../ThemeProvider';
 

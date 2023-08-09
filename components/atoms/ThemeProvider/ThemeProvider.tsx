@@ -8,8 +8,8 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { getModeColors } from '@/app/css';
-import { Mode } from '@/app/tokens';
+import { getModeColors } from '@/css';
+import { Mode } from '@/tokens';
 import { setElementVars } from '@vanilla-extract/dynamic';
 
 type ThemeContextValue = {

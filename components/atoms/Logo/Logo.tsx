@@ -1,4 +1,4 @@
-import Text from '@/app/components/atoms/Typography/Text';
+import Text from '@/components/atoms/Typography/Text';
 
 export interface LogoProps {
   size: 'xl' | 'lg' | 'md' | 'sm';
