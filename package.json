@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mantine/core": "^6.0.18",
-    "@mantine/hooks": "^6.0.18",
     "@next/mdx": "^13.4.12",
     "@phosphor-icons/react": "^2.0.10",
     "@types/node": "20.4.2",

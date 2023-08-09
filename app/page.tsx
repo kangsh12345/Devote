@@ -1,6 +1,8 @@
+'use client';
+
 import { CopyRight } from '@/app/components/atoms/CopyRight';
 import { Logo } from '@/app/components/atoms/Logo';
-import Test from '@/app/components/atoms/Test/Test';
+import { Test } from '@/app/components/atoms/Test';
 import { ThemeSwitcher } from '@/app/components/atoms/ThemeSwitcher';
 import Text from '@/app/components/atoms/Typography/Text';
 
