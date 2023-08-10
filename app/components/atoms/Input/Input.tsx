@@ -46,6 +46,8 @@ type BaseProps = FieldBaseProps & {
   onFocus?: NativeInputProps['onFocus'];
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
   uppercase?: boolean;
+  size?: 'lg' | 'md' | 'sm' | 'xs';
+  variant?: 'filled' | 'flushed' | 'outline';
 };
 
 type WithTypeEmail = {
@@ -104,6 +106,8 @@ export const Input = forwardRef(
       onChange,
       onFocus,
       onKeyDown,
+      size = 'md',
+      variant = 'outline',
       ...props
     }: Props,
     ref: Ref<HTMLInputElement>,
@@ -121,6 +125,7 @@ export const Input = forwardRef(
       : undefined;
     const hasError = error ? true : undefined;
     const className = styles.variants({
+      size: size,
       leftIcon: leftIcon ? true : undefined,
       rightIcon: rightIcon ? true : undefined,
     });
@@ -159,7 +164,7 @@ export const Input = forwardRef(
     }, [inputRef, max, units, onChange]);
 
     return (
-      // TODO: Label, error 영역 공간 들어가게, column spacing, size에 따른 input, 세부 디자인, error 발생시 border red
+      // TODO: size에 따른 input, 세부 디자인
       <Field
         description={description}
         error={error}
@@ -175,6 +180,8 @@ export const Input = forwardRef(
               styles.root({
                 disabled,
                 error: hasError,
+                size: size,
+                variant: variant,
               }),
             ]}
           >
@@ -182,7 +189,9 @@ export const Input = forwardRef(
               <Box
                 aria-hidden="true"
                 as="label"
-                className={styles.leftIcon}
+                className={styles.leftIcon({
+                  size: size,
+                })}
                 {...ids?.label}
               >
                 {leftIcon}
@@ -199,6 +208,8 @@ export const Input = forwardRef(
                 className={[
                   className,
                   styles.input({
+                    size: size,
+                    variant: variant,
                     disabled,
                     type: inputType,
                     theme: theme.mode,

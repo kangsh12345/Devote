@@ -11,17 +11,14 @@ export function Test() {
     <div>
       <div className={styles.variants({ color: 'brand' })}>example</div>
       <Input
-        hideLabel={false}
         label="Label"
-        description="description"
-        autoFocus={false}
-        name="name"
-        disabled={false}
-        placeholder="place holder"
-        rightIcon={<FileSearch />}
+        hideLabel
+        placeholder="Placeholder"
+        leftIcon={<FileSearch />}
         value={state}
-        uppercase={false}
         error="error"
+        size="lg"
+        variant="filled"
         onChange={event => setState(event.target.value)}
       />
     </div>

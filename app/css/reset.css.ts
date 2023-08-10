@@ -7,7 +7,7 @@ export const base = style({
   padding: 0,
   border: 0,
   boxSizing: 'border-box',
-  borderColor: '#1a202c',
+  borderColor: vars.colors.borderSecondary,
   borderStyle: 'solid',
   borderWidth: 0,
   fontSize: '100%',
