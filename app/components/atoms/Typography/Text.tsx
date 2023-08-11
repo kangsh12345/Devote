@@ -39,7 +39,13 @@ export const useTextStyle = ({ size, weight, color }: TextStyleProps) => {
   return clsx(typo, sprinkles({ color: color }));
 };
 
-export default ({ as = 'span', children, size, weight, color }: TextProps) => {
+export const Text = ({
+  as = 'span',
+  children,
+  size,
+  weight,
+  color,
+}: TextProps) => {
   return (
     <Box
       as={as}

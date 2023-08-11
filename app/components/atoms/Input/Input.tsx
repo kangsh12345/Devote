@@ -164,7 +164,6 @@ export const Input = forwardRef(
     }, [inputRef, max, units, onChange]);
 
     return (
-      // TODO: size에 따른 input, 세부 디자인
       <Field
         description={description}
         error={error}

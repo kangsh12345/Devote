@@ -1,10 +1,10 @@
 'use client';
 
+import { Text } from '@/app/components/atoms/Typography';
 import { Copyright } from '@phosphor-icons/react';
 
 import { Box } from '../Box';
 import { Stack } from '../Stack';
-import Text from '../Typography/Text';
 
 export interface CopyRightProps {
   size: 'lg' | 'md';
