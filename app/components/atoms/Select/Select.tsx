@@ -12,29 +12,64 @@ export interface SelectProps {
 }
 
 export const Select = ({ size = 'md', disabled = false }: SelectProps) => {
-  // Doing: lg select
   const [value, setValue] = useState('이번주');
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSelect = (newValue: string) => {
+    setValue(newValue);
+  };
 
   return (
-    <Box>
+    <Box
+      className={[
+        styles.button({
+          disabled,
+          size: size,
+        }),
+      ]}
+      color="textPrimary"
+      borderColor="borderPrimary"
+      borderWidth="px"
+      borderRadius="md"
+      display="flex"
+      alignItems="center"
+      onClick={handleOpen}
+    >
       <Box
-        className={[
-          styles.root({
-            disabled,
-            size: size,
-          }),
-        ]}
-        color="textPrimary"
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        borderColor="borderPrimary"
-        borderWidth="px"
-        borderRadius="md"
+        width="full"
       >
         {value}
         <CaretDown size="16" weight="bold" />
       </Box>
+      {isOpen ? (
+        <Box className={styles.ulContainer}>
+          <Box className={styles.ulBox}>
+            <Box as="ul">
+              <Box as="li" onClick={() => handleSelect('오늘')}>
+                오늘
+              </Box>
+              <Box as="li" onClick={() => handleSelect('이번주')}>
+                이번주
+              </Box>
+              <Box as="li" onClick={() => handleSelect('이번달')}>
+                이번달
+              </Box>
+              <Box as="li" onClick={() => handleSelect('전체')}>
+                전체
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      ) : (
+        ''
+      )}
     </Box>
   );
 };

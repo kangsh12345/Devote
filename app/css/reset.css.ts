@@ -45,10 +45,28 @@ const block = style({
 
 const list = style({
   listStyle: 'none',
+  margin: 0,
+  padding: 0,
+  textAlign: 'initial',
+});
+
+const li = style({
+  cursor: 'pointer',
+  fontSize: '0.875rem',
+  padding: '0.75rem 1rem',
+  ':hover': { backgroundColor: vars.colors.backgroundElevatedPrimary },
+  selectors: {
+    'li+li&': {
+      borderTop: `1px solid ${vars.colors.borderSecondary}`,
+    },
+    'li.active&': {
+      color: vars.colors.brandPrimary,
+    },
+  },
 });
 
 const div = style({
-  lineHeight: 0,
+  // lineHeight: 0,
 });
 
 const input = style({
@@ -85,6 +103,7 @@ export const element: Partial<Record<keyof JSX.IntrinsicElements, string>> = {
   input,
   ol: list,
   ul: list,
+  li: li,
   label,
 };
 
@@ -125,7 +144,7 @@ globalStyle('main', {
   height: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
-  overflow: 'hidden',
+  // overflow: 'hidden',
 });
 
 globalStyle('a', {
