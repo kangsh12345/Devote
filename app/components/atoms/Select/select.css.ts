@@ -1,5 +1,5 @@
-import { atoms } from '@/app/css';
-import { style } from '@vanilla-extract/css';
+import { atoms, vars } from '@/app/css';
+import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const parent = style({});
@@ -58,6 +58,11 @@ export const ulContainer = atoms({
   paddingTop: '3',
 });
 
+const rotate = keyframes({
+  '0%': { transform: 'scale(0.8)', opacity: 0.8, transformOrigin: 'top' },
+  '100%': { transform: 'scale(1)', opacity: 1, transformOrigin: 'top ' },
+});
+
 export const ulBox = recipe({
   base: [
     atoms({
@@ -66,6 +71,10 @@ export const ulBox = recipe({
       display: 'block',
       borderRadius: 'base',
       backgroundColor: 'backgroundBase',
+      boxShadow: 'base',
+    }),
+    style({
+      animation: `${rotate} 0.2s`,
     }),
   ],
   variants: {

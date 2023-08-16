@@ -59,9 +59,6 @@ const li = style({
     'li+li&': {
       borderTop: `1px solid ${vars.colors.borderSecondary}`,
     },
-    'li.active&': {
-      color: vars.colors.brandPrimary,
-    },
   },
 });
 
@@ -128,6 +125,7 @@ globalStyle('body', {
   backgroundSize: 'cover',
   backgroundPosition: 'center center',
   backgroundRepeat: 'no-repeat',
+  transition: 'background 0.125s ease-in 0s',
 });
 
 globalStyle('h1, h2, h3, h4, p', {
