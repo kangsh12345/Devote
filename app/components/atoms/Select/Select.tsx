@@ -13,7 +13,7 @@ export interface SelectProps {
 
 export const Select = ({ size = 'md', disabled = false }: SelectProps) => {
   const [value, setValue] = useState('이번주');
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -50,18 +50,34 @@ export const Select = ({ size = 'md', disabled = false }: SelectProps) => {
       </Box>
       {isOpen ? (
         <Box className={styles.ulContainer}>
-          <Box className={styles.ulBox}>
+          <Box className={styles.ulBox({ size: size })}>
             <Box as="ul">
-              <Box as="li" onClick={() => handleSelect('오늘')}>
+              <Box
+                as="li"
+                fontSize="inherit"
+                onClick={() => handleSelect('오늘')}
+              >
                 오늘
               </Box>
-              <Box as="li" onClick={() => handleSelect('이번주')}>
+              <Box
+                as="li"
+                fontSize="inherit"
+                onClick={() => handleSelect('이번주')}
+              >
                 이번주
               </Box>
-              <Box as="li" onClick={() => handleSelect('이번달')}>
+              <Box
+                as="li"
+                fontSize="inherit"
+                onClick={() => handleSelect('이번달')}
+              >
                 이번달
               </Box>
-              <Box as="li" onClick={() => handleSelect('전체')}>
+              <Box
+                as="li"
+                fontSize="inherit"
+                onClick={() => handleSelect('전체')}
+              >
                 전체
               </Box>
             </Box>

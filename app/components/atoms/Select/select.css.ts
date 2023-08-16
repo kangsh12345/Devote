@@ -58,20 +58,21 @@ export const ulContainer = atoms({
   paddingTop: '3',
 });
 
-export const ulBox = atoms({
-  borderWidth: 'px',
-  borderColor: 'borderPrimary',
-  display: 'block',
-  width: '28',
-  borderRadius: 'base',
-  backgroundColor: 'backgroundBase',
+export const ulBox = recipe({
+  base: [
+    atoms({
+      borderWidth: 'px',
+      borderColor: 'borderPrimary',
+      display: 'block',
+      borderRadius: 'base',
+      backgroundColor: 'backgroundBase',
+    }),
+  ],
+  variants: {
+    size: {
+      lg: atoms({ fontSize: '2', width: '28' }),
+      md: atoms({ fontSize: '1', width: '24' }),
+      sm: atoms({ fontSize: '0', width: '20' }),
+    },
+  },
 });
-
-// export const li = recipe({
-//   variants: {
-//     active: {
-//       true: atoms({ color: 'brandPrimary' }),
-//       false: {},
-//     },
-//   },
-// });
