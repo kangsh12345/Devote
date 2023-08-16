@@ -12,6 +12,7 @@ import * as styles from './test.css';
 
 export function Test() {
   const [state, setState] = useState('');
+  const list = ['오늘', '이번주', '이번달', '전체'];
 
   return (
     <div>
@@ -32,7 +33,7 @@ export function Test() {
       </Text>
       <Logo size="md" />
       <CopyRight size="md" />
-      <Select size="lg" />
+      <Select size="lg" list={list} />
     </div>
   );
 }

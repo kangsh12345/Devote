@@ -8,11 +8,16 @@ import * as styles from './select.css';
 
 export interface SelectProps {
   size: 'lg' | 'md' | 'sm';
+  list: string[];
   disabled?: boolean;
 }
 
-export const Select = ({ size = 'md', disabled = false }: SelectProps) => {
-  const [value, setValue] = useState('이번주');
+export const Select = ({
+  size = 'md',
+  list,
+  disabled = false,
+}: SelectProps) => {
+  const [value, setValue] = useState(list[1]);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -48,38 +53,20 @@ export const Select = ({ size = 'md', disabled = false }: SelectProps) => {
         {value}
         <CaretDown size="16" weight="bold" />
       </Box>
-      {isOpen ? (
+      {list.length > 0 && isOpen ? (
         <Box className={styles.ulContainer}>
           <Box className={styles.ulBox({ size: size })}>
             <Box as="ul">
-              <Box
-                as="li"
-                fontSize="inherit"
-                onClick={() => handleSelect('오늘')}
-              >
-                오늘
-              </Box>
-              <Box
-                as="li"
-                fontSize="inherit"
-                onClick={() => handleSelect('이번주')}
-              >
-                이번주
-              </Box>
-              <Box
-                as="li"
-                fontSize="inherit"
-                onClick={() => handleSelect('이번달')}
-              >
-                이번달
-              </Box>
-              <Box
-                as="li"
-                fontSize="inherit"
-                onClick={() => handleSelect('전체')}
-              >
-                전체
-              </Box>
+              {list.map((li, idx) => (
+                <Box
+                  as="li"
+                  fontSize="inherit"
+                  onClick={() => handleSelect(li)}
+                  key={idx}
+                >
+                  {li}
+                </Box>
+              ))}
             </Box>
           </Box>
         </Box>
