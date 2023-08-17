@@ -7,7 +7,7 @@ import { Text } from '@/app/components/atoms/Typography';
 import { FileSearch } from '@phosphor-icons/react';
 
 import { Input } from '../Input';
-import { Popover } from '../Popover';
+import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
 import * as styles from './test.css';
@@ -15,7 +15,13 @@ import * as styles from './test.css';
 export function Test() {
   const [state, setState] = useState('');
   const selectList = ['오늘', '이번주', '이번달', '전체'];
-  const popvoerList = ['대제목1', '대제목2', '중제목1', '소제목1', '대제목3'];
+  const popoverList: ListItem[] = [
+    { value: '대제목1', heading: 1 },
+    { value: '대제목2', heading: 1 },
+    { value: '중제목1', heading: 2 },
+    { value: '소제목1', heading: 3 },
+    { value: '대제목3', heading: 1 },
+  ];
 
   return (
     <Stack space="4">
@@ -37,7 +43,7 @@ export function Test() {
       <Logo size="md" />
       <CopyRight size="md" />
       <Select size="md" list={selectList} />
-      <Popover size="md" list={popvoerList} />
+      <Popover size="md" list={popoverList} />
     </Stack>
   );
 }

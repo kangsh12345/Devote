@@ -24,6 +24,9 @@ export const base = style({
   "Segoe UI Symbol",`,
   verticalAlign: 'baseline',
   WebkitTapHighlightColor: 'transparent',
+  transitionDuration: '200ms',
+  transitionProperty: 'all',
+  transitionTimingFunction: 'cubic-bezier(0.42, 0, 0.58, 1)',
 });
 
 const button = style({

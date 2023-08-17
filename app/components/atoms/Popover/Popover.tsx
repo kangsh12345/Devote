@@ -6,9 +6,14 @@ import { List } from '@phosphor-icons/react';
 import { Box } from '../Box';
 import * as styles from './popover.css';
 
+export interface ListItem {
+  value: string;
+  heading: 1 | 2 | 3;
+}
+
 export interface PopoverProps {
   size: 'lg' | 'md' | 'sm';
-  list: string[];
+  list: ListItem[];
   disabled?: boolean;
 }
 
@@ -57,13 +62,16 @@ export const Popover = ({
             <Box as="ul">
               {list.map((li, idx) => (
                 <Box
-                  className={styles.liValue({ active: value === li })}
+                  className={styles.liValue({
+                    active: value === li.value,
+                    heading: li.heading ?? 1,
+                  })}
                   as="li"
                   fontSize="inherit"
-                  onClick={() => handleSelect(li)}
+                  onClick={() => handleSelect(li.value)}
                   key={idx}
                 >
-                  <Box>{li}</Box>
+                  <Box>{li.value}</Box>
                 </Box>
               ))}
             </Box>

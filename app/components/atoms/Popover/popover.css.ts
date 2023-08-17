@@ -117,13 +117,17 @@ export const liValue = recipe({
   variants: {
     active: {
       true: [
-        style({ transform: 'scale(1.02)' }),
+        style({ transform: 'scale(1.04)' }),
         atoms({
-          fontWeight: 500,
           color: 'textPrimary',
         }),
       ],
       false: {},
+    },
+    heading: {
+      1: {},
+      2: { paddingLeft: '1.5rem' },
+      3: { paddingLeft: '2rem' },
     },
   },
 });
