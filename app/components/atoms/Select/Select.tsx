@@ -59,6 +59,7 @@ export const Select = ({
             <Box as="ul">
               {list.map((li, idx) => (
                 <Box
+                  className={styles.liValue({ active: value === li })}
                   as="li"
                   fontSize="inherit"
                   onClick={() => handleSelect(li)}

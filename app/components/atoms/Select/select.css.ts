@@ -1,4 +1,4 @@
-import { atoms, vars } from '@/app/css';
+import { atoms } from '@/app/css';
 import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
@@ -82,6 +82,15 @@ export const ulBox = recipe({
       lg: atoms({ fontSize: '2', width: '28' }),
       md: atoms({ fontSize: '1', width: '24' }),
       sm: atoms({ fontSize: '0', width: '20' }),
+    },
+  },
+});
+
+export const liValue = recipe({
+  variants: {
+    active: {
+      true: atoms({ color: 'brandPrimary', fontWeight: 500 }),
+      false: {},
     },
   },
 });
