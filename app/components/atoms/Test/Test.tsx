@@ -10,6 +10,7 @@ import { Input } from '../Input';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
+import { ThemeSwitcher } from '../ThemeSwitcher';
 import * as styles from './test.css';
 
 export function Test() {
@@ -25,6 +26,7 @@ export function Test() {
 
   return (
     <Stack space="4">
+      <ThemeSwitcher size="lg" />
       <div className={styles.variants({ color: 'brand' })}>example</div>
       <Input
         label="Label"

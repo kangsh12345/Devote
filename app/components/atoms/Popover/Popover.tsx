@@ -44,7 +44,7 @@ export const Popover = ({
       width="min"
     >
       <Box
-        className={[styles.IconBox({ size: size })]}
+        className={[styles.IconBox({ size: size, open: isOpen })]}
         display="flex"
         justifyContent="center"
         alignItems="center"

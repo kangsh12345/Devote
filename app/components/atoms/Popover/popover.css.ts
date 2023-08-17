@@ -48,6 +48,12 @@ export const IconBox = recipe({
         width: '7',
       }),
     },
+    open: {
+      true: atoms({
+        backgroundColor: { base: 'opacityBlack300', hover: 'opacityBlack300' },
+      }),
+      false: {},
+    },
   },
 });
 

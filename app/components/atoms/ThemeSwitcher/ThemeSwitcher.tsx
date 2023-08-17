@@ -1,13 +1,18 @@
 'use client';
 
 import { useCallback } from 'react';
+import Image from 'next/image';
 import { setThemeMode } from '@/app/utils/cookies';
-import { useIsMounted } from '@/app/utils/isMounted';
 
+import { Box } from '../Box';
 import { useTheme } from '../ThemeProvider';
+import * as styles from './themeSwitcher.css';
 
-export const ThemeSwitcher = () => {
-  const isMounted = useIsMounted();
+export interface ThemeSwitcherProps {
+  size: 'lg' | 'md' | 'sm';
+}
+
+export const ThemeSwitcher = ({ size = 'md' }: ThemeSwitcherProps) => {
   const { mode, setMode } = useTheme();
 
   const toggleMode = useCallback(() => {
@@ -16,12 +21,21 @@ export const ThemeSwitcher = () => {
     setThemeMode(nextMode);
   }, [mode, setMode]);
 
+  const sizes =
+    size === 'lg'
+      ? { width: 10, height: 45 }
+      : size === 'md'
+      ? { width: 8, height: 41 }
+      : { width: 6, height: 37 };
+
   return (
-    <div
-      style={{ backgroundColor: '#ffe2e2', height: 100, width: 100 }}
-      onClick={toggleMode}
-    >
-      {isMounted ? mode : 'light'}
-    </div>
+    <Box onClick={toggleMode} width="min" className={styles.switcher}>
+      <Image
+        src="/image/DarkSwitcher1.svg"
+        alt="darkswitcher_logo"
+        width={sizes.width}
+        height={sizes.height}
+      />
+    </Box>
   );
 };

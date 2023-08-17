@@ -36,6 +36,7 @@ const makeColorScheme = (mode: Mode = 'light') => {
   return {
     colors: {
       ...tokens.colors.base,
+      filterTextPrimary: colors.filterTextPrimary,
       brandPrimary: colors.brandPrimary,
       brandSecondary: colors.brandSecondary,
       brandTertiary: colors.brandTertiary,

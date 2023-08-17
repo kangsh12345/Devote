@@ -28,6 +28,8 @@ export const colors = {
     hoverImg: 'rgba(0, 0, 0, 0.48)',
   },
   light: {
+    filterTextPrimary:
+      'brightness(0) saturate(100%) invert(3%) sepia(33%) saturate(2108%) hue-rotate(205deg) brightness(100%) contrast(86%)',
     brandPrimary: '#9f7aea',
     brandSecondary: '#b794f4',
     brandTertiary: '#d6bcfa',
@@ -86,6 +88,8 @@ export const colors = {
     backgroundSurfaceElevatedSecondaryDisabled: '#ffffff',
   },
   dark: {
+    filterTextPrimary:
+      'brightness(0) saturate(100%) invert(92%) sepia(2%) saturate(1378%) hue-rotate(190deg) brightness(108%) contrast(97%)',
     brandPrimary: '#a787e8',
     brandSecondary: '#b898f1',
     brandTertiary: '#d7bef8',
