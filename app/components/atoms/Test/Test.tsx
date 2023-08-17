@@ -7,15 +7,18 @@ import { Text } from '@/app/components/atoms/Typography';
 import { FileSearch } from '@phosphor-icons/react';
 
 import { Input } from '../Input';
+import { Popover } from '../Popover';
 import { Select } from '../Select';
+import { Stack } from '../Stack';
 import * as styles from './test.css';
 
 export function Test() {
   const [state, setState] = useState('');
-  const list = ['오늘', '이번주', '이번달', '전체'];
+  const selectList = ['오늘', '이번주', '이번달', '전체'];
+  const popvoerList = ['대제목1', '대제목2', '중제목1', '소제목1', '대제목3'];
 
   return (
-    <div>
+    <Stack space="4">
       <div className={styles.variants({ color: 'brand' })}>example</div>
       <Input
         label="Label"
@@ -33,7 +36,8 @@ export function Test() {
       </Text>
       <Logo size="md" />
       <CopyRight size="md" />
-      <Select size="lg" list={list} />
-    </div>
+      <Select size="md" list={selectList} />
+      <Popover size="md" list={popvoerList} />
+    </Stack>
   );
 }
