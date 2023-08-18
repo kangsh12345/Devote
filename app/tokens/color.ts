@@ -30,6 +30,8 @@ export const colors = {
   light: {
     filterTextPrimary:
       'brightness(0) saturate(100%) invert(3%) sepia(33%) saturate(2108%) hue-rotate(205deg) brightness(100%) contrast(86%)',
+    filterTextSecondary:
+      'brightness(0) saturate(100%) invert(51%) sepia(31%) saturate(275%) hue-rotate(176deg) brightness(91%) contrast(87%)',
     brandPrimary: '#9f7aea',
     brandSecondary: '#b794f4',
     brandTertiary: '#d6bcfa',
@@ -46,7 +48,7 @@ export const colors = {
     gray900: '#171923',
     opacityWhite50: 'rgba(255, 255, 255, 0.04)',
     opacityWhite100: 'rgba(255, 255, 255, 0.06)',
-    opacityWhite200: 'rgba(255, 255, 255, 0.08)',
+    opacityWhite200: 'rgba(255, 255, 255, 0.10)',
     opacityWhite300: 'rgba(255, 255, 255, 0.16)',
     opacityWhite400: 'rgba(255, 255, 255, 0.24)',
     opacityWhite500: 'rgba(255, 255, 255, 0.36)',
@@ -56,7 +58,7 @@ export const colors = {
     opacityWhite900: 'rgba(255, 255, 255, 0.92)',
     opacityBlack50: 'rgba(0, 0, 0, 0.04)',
     opacityBlack100: 'rgba(0, 0, 0, 0.06)',
-    opacityBlack200: 'rgba(0, 0, 0, 0.08)',
+    opacityBlack200: 'rgba(0, 0, 0, 0.10)',
     opacityBlack300: 'rgba(0, 0, 0, 0.16)',
     opacityBlack400: 'rgba(0, 0, 0, 0.24)',
     opacityBlack500: 'rgba(0, 0, 0, 0.36)',
@@ -90,6 +92,8 @@ export const colors = {
   dark: {
     filterTextPrimary:
       'brightness(0) saturate(100%) invert(92%) sepia(2%) saturate(1378%) hue-rotate(190deg) brightness(108%) contrast(97%)',
+    filterTextSecondary:
+      'brightness(0) saturate(100%) invert(89%) sepia(14%) saturate(190%) hue-rotate(171deg) brightness(96%) contrast(87%)',
     brandPrimary: '#a787e8',
     brandSecondary: '#b898f1',
     brandTertiary: '#d7bef8',
@@ -106,7 +110,7 @@ export const colors = {
     gray900: '#f7fafc',
     opacityWhite50: 'rgba(0, 0, 0, 0.04)',
     opacityWhite100: 'rgba(0, 0, 0, 0.06)',
-    opacityWhite200: 'rgba(0, 0, 0, 0.08)',
+    opacityWhite200: 'rgba(0, 0, 0, 0.10)',
     opacityWhite300: 'rgba(0, 0, 0, 0.16)',
     opacityWhite400: 'rgba(0, 0, 0, 0.24)',
     opacityWhite500: 'rgba(0, 0, 0, 0.36)',
@@ -116,7 +120,7 @@ export const colors = {
     opacityWhite900: 'rgba(0, 0, 0, 0.92)',
     opacityBlack50: 'rgba(255, 255, 255, 0.04)',
     opacityBlack100: 'rgba(255, 255, 255, 0.06)',
-    opacityBlack200: 'rgba(255, 255, 255, 0.08)',
+    opacityBlack200: 'rgba(255, 255, 255, 0.10)',
     opacityBlack300: 'rgba(255, 255, 255, 0.16)',
     opacityBlack400: 'rgba(255, 255, 255, 0.24)',
     opacityBlack500: 'rgba(255, 255, 255, 0.36)',

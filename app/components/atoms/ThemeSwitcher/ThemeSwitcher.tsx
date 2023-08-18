@@ -29,7 +29,6 @@ export const ThemeSwitcher = ({ size = 'md' }: ThemeSwitcherProps) => {
       : { width: 6, height: 37, src: '/image/DarkSwitcher3.svg' };
 
   return (
-    // TODO: hover시 아래로 살짝 내려오는 애니메이션
     <Box
       onClick={toggleMode}
       width="min"

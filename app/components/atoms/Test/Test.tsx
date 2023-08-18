@@ -1,13 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { CopyRight } from '@/app/components/atoms/CopyRight';
 import { Logo } from '@/app/components/atoms/Logo';
 import { Text } from '@/app/components/atoms/Typography';
+import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
 import { FileSearch } from '@phosphor-icons/react';
 
 import { Avatars } from '../Avatars';
 import { Input } from '../Input';
+import { ListToggle } from '../ListToggle';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
@@ -48,6 +51,20 @@ export function Test() {
       <CopyRight size="md" />
       <Select size="md" list={selectList} />
       <Avatars size="md" text="devote" />
+      <Stack direction="horizontal">
+        <ListToggle
+          size="md"
+          isActive={false}
+          color="primary"
+          icon={<Image src={squaresFourDutone} alt="icon" fill />}
+        />
+        <ListToggle
+          size="md"
+          isActive={true}
+          color="primary"
+          icon={<Image src={squaresFourDutone} alt="icon" fill />}
+        />
+      </Stack>
     </Stack>
   );
 }
