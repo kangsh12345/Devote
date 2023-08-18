@@ -23,15 +23,21 @@ export const ThemeSwitcher = ({ size = 'md' }: ThemeSwitcherProps) => {
 
   const sizes =
     size === 'lg'
-      ? { width: 10, height: 45 }
+      ? { width: 10, height: 45, src: '/image/DarkSwitcher1.svg' }
       : size === 'md'
-      ? { width: 8, height: 41 }
-      : { width: 6, height: 37 };
+      ? { width: 8, height: 41, src: '/image/DarkSwitcher2.svg' }
+      : { width: 6, height: 37, src: '/image/DarkSwitcher3.svg' };
 
   return (
-    <Box onClick={toggleMode} width="min" className={styles.switcher}>
+    // TODO: hover시 아래로 살짝 내려오는 애니메이션
+    <Box
+      onClick={toggleMode}
+      width="min"
+      className={styles.switcher}
+      padding="1.5"
+    >
       <Image
-        src="/image/DarkSwitcher1.svg"
+        src={sizes.src}
         alt="darkswitcher_logo"
         width={sizes.width}
         height={sizes.height}
