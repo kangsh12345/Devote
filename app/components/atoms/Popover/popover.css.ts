@@ -109,11 +109,11 @@ export const ulBox = recipe({
 export const liValue = recipe({
   base: [
     atoms({
-      transitionDuration: '200',
-      transitionProperty: 'all',
+      transitionProperty: 'transform',
       transitionTimingFunction: 'inOut',
     }),
     style({
+      transitionDuration: '100ms',
       selectors: {
         'li+li&': { border: 'none' },
         ':hover&': { backgroundColor: 'unset', color: vars.colors.textPrimary },

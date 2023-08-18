@@ -6,6 +6,7 @@ import { Logo } from '@/app/components/atoms/Logo';
 import { Text } from '@/app/components/atoms/Typography';
 import { FileSearch } from '@phosphor-icons/react';
 
+import { Avatars } from '../Avatars';
 import { Input } from '../Input';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
@@ -27,6 +28,7 @@ export function Test() {
   return (
     <Stack space="4">
       <ThemeSwitcher size="lg" />
+      <Popover size="md" list={popoverList} />
       <div className={styles.variants({ color: 'brand' })}>example</div>
       <Input
         label="Label"
@@ -45,7 +47,7 @@ export function Test() {
       <Logo size="md" />
       <CopyRight size="md" />
       <Select size="md" list={selectList} />
-      <Popover size="md" list={popoverList} />
+      <Avatars size="md" text="devote" />
     </Stack>
   );
 }
