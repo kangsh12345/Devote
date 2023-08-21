@@ -11,16 +11,19 @@ import { FileSearch } from '@phosphor-icons/react';
 import { Avatars } from '../Avatars';
 import { CloseButton } from '../Button';
 import { Input } from '../Input';
-import { ListToggle } from '../ListToggle';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
 import { ThemeSwitcher } from '../ThemeSwitcher';
+import { ListToggle, SidebarToggle } from '../Toggle';
 import * as styles from './test.css';
+
+//TODO: 컴포넌트, 컨테이너 분리 작업 사용 atom 이용
 
 export function Test() {
   const [state, setState] = useState('');
   const selectList = ['오늘', '이번주', '이번달', '전체'];
+
   const popoverList: ListItem[] = [
     { value: '대제목1', heading: 1 },
     { value: '대제목2', heading: 1 },
@@ -66,7 +69,10 @@ export function Test() {
           icon={<Image src={squaresFourDutone} alt="icon" fill />}
         />
       </Stack>
-      <CloseButton size="md" />
+      <Stack direction="horizontal">
+        <SidebarToggle size="lg" />
+      </Stack>
+      <CloseButton size="lg" />
     </Stack>
   );
 }
