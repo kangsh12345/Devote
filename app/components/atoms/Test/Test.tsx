@@ -9,6 +9,7 @@ import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone
 import { FileSearch } from '@phosphor-icons/react';
 
 import { Avatars } from '../Avatars';
+import { CloseButton } from '../Button';
 import { Input } from '../Input';
 import { ListToggle } from '../ListToggle';
 import { ListItem, Popover } from '../Popover';
@@ -65,6 +66,7 @@ export function Test() {
           icon={<Image src={squaresFourDutone} alt="icon" fill />}
         />
       </Stack>
+      <CloseButton size="md" />
     </Stack>
   );
 }
