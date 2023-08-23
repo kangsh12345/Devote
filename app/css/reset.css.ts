@@ -27,6 +27,7 @@ export const base = style({
   transitionDuration: '200ms',
   transitionProperty: 'all',
   transitionTimingFunction: 'cubic-bezier(0.42, 0, 0.58, 1)',
+  userSelect: 'none',
 });
 
 const button = style({
@@ -57,7 +58,7 @@ const li = style({
   cursor: 'pointer',
   fontSize: '0.875rem',
   padding: '0.75rem 1rem',
-  ':hover': { backgroundColor: vars.colors.backgroundElevatedPrimary },
+  ':hover': { backgroundColor: vars.colors.backgroundSurfaceBasePressed },
   selectors: {
     'li+li&': {
       borderTop: `1px solid ${vars.colors.borderSecondary}`,

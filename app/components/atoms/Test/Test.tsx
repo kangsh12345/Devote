@@ -5,11 +5,13 @@ import Image from 'next/image';
 import { CopyRight } from '@/app/components/atoms/CopyRight';
 import { Logo } from '@/app/components/atoms/Logo';
 import { Text } from '@/app/components/atoms/Typography';
+import MagnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duotone.svg';
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
 import { FileSearch } from '@phosphor-icons/react';
 
 import { Avatars } from '../Avatars';
 import { CloseButton } from '../Button';
+import { IconButton } from '../IconButton';
 import { Input } from '../Input';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
@@ -70,9 +72,16 @@ export function Test() {
         />
       </Stack>
       <Stack direction="horizontal">
-        <SidebarToggle size="lg" />
+        <SidebarToggle size="md" />
       </Stack>
-      <CloseButton size="lg" />
+      <CloseButton size="md" />
+      <Stack direction="horizontal">
+        <IconButton
+          size="md"
+          variant="normal"
+          icon={<Image src={MagnifyingGlass} alt="icon" fill />}
+        />
+      </Stack>
     </Stack>
   );
 }

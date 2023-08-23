@@ -2,8 +2,6 @@ import { atoms } from '@/app/css';
 import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-export const parent = style({});
-
 export const button = recipe({
   base: [
     atoms({
