@@ -8,6 +8,7 @@ export const button = recipe({
       position: 'relative',
       cursor: 'pointer',
       paddingTop: 'px',
+      flexShrink: 0,
     }),
   ],
   variants: {

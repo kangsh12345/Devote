@@ -2,14 +2,13 @@ import { atoms, vars } from '@/app/css';
 import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-export const parent = style({});
-
 export const button = recipe({
   base: [
     atoms({
       position: 'relative',
       cursor: 'pointer',
       paddingTop: 'px',
+      flexShrink: 0,
     }),
   ],
   variants: {

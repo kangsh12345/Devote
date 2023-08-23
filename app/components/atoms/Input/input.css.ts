@@ -10,6 +10,7 @@ export const root = recipe({
       transitionDuration: '150',
       transitionProperty: 'colors',
       transitionTimingFunction: 'inOut',
+      flexShrink: 0,
     }),
     style({
       boxSizing: 'border-box',

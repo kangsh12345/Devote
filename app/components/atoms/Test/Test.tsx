@@ -81,6 +81,11 @@ export function Test() {
           variant="normal"
           icon={<Image src={MagnifyingGlass} alt="icon" fill />}
         />
+        <IconButton
+          size="md"
+          variant="outline"
+          icon={<Image src={MagnifyingGlass} alt="icon" fill />}
+        />
       </Stack>
     </Stack>
   );

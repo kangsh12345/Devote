@@ -10,6 +10,7 @@ export const root = recipe({
       alignItems: 'center',
       justifyContent: 'center',
       cursor: 'pointer',
+      flexShrink: 0,
     }),
   ],
   variants: {

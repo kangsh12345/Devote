@@ -15,6 +15,7 @@ export const root = recipe({
         base: 'backgroundBase',
         hover: 'backgroundSurfaceBasePressed',
       },
+      flexShrink: 0,
     }),
   ],
   variants: {

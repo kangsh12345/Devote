@@ -32,9 +32,16 @@ export const Avatars = ({
       : { space: '5', avatar: 64 };
 
   return (
-    <Stack direction="horizontal" align="center" space={sizes.space}>
-      <Avatar size={sizes.avatar} variant="beam" name={name} colors={colors} />
-      <Box className={styles.text({ size: size })}>{text}</Box>
-    </Stack>
+    <Box width="min">
+      <Stack direction="horizontal" align="center" space={sizes.space}>
+        <Avatar
+          size={sizes.avatar}
+          variant="beam"
+          name={name}
+          colors={colors}
+        />
+        <Box className={styles.text({ size: size })}>{text}</Box>
+      </Stack>
+    </Box>
   );
 };
