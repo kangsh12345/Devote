@@ -15,6 +15,7 @@ import { Input } from '../Input';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
+import { IconText } from '../Text';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import { ListToggle, SidebarToggle } from '../Toggle';
 import * as styles from './test.css';
@@ -96,6 +97,13 @@ export function Test() {
       >
         Button
       </Button>
+      <IconText
+        size="md"
+        rightIcon={<SquaresFour />}
+        leftIcon={<SquaresFour />}
+      >
+        Icon Text
+      </IconText>
     </Stack>
   );
 }
