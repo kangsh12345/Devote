@@ -31,7 +31,7 @@ export const ThemeSwitcher = ({ size = 'md' }: ThemeSwitcherProps) => {
   return (
     <Box
       onClick={toggleMode}
-      width="min"
+      width="fit"
       className={styles.switcher}
       padding="1.5"
     >

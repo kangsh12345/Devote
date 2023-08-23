@@ -6,7 +6,7 @@ import {
   forwardRef,
   KeyboardEvent,
   KeyboardEventHandler,
-  ReactNode,
+  ReactElement,
   Ref,
   RefObject,
   useCallback,
@@ -32,10 +32,10 @@ type BaseProps = FieldBaseProps & {
   inputMode?: NativeInputProps['inputMode'];
   name?: string;
   placeholder?: NativeInputProps['placeholder'];
-  leftIcon?: ReactNode;
+  leftIcon?: ReactElement;
   readOnly?: NativeInputProps['readOnly'];
   spellCheck?: NativeInputProps['spellCheck'];
-  rightIcon?: ReactNode;
+  rightIcon?: ReactElement;
   tabIndex?: NativeInputProps['tabIndex'];
   textTransform?: BoxProps['textTransform'];
   type?: 'email' | 'number' | 'text' | 'datetime-local';

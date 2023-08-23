@@ -23,7 +23,7 @@ export const CopyRight = ({ size }: CopyRightProps) => {
 
   return (
     <Box width="56" color="textDisabled">
-      <Stack space="1" direction="horizontal" justify="center">
+      <Stack space="1" direction="horizontal" justify="center" align="center">
         <Copyright size={copyRightSize.copyrightSize} weight="bold" />
         <Text size={copyRightSize.textSize} weight="medium">
           Devote All Right Reserved

@@ -41,7 +41,7 @@ export const Popover = ({
         }),
       ]}
       color="textPrimary"
-      width="min"
+      width="fit"
     >
       <Box
         className={[styles.IconBox({ size: size, open: isOpen })]}

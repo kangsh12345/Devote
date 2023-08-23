@@ -7,11 +7,10 @@ import { Logo } from '@/app/components/atoms/Logo';
 import { Text } from '@/app/components/atoms/Typography';
 import MagnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duotone.svg';
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
-import { FileSearch } from '@phosphor-icons/react';
+import { FileSearch, SquaresFour } from '@phosphor-icons/react';
 
 import { Avatars } from '../Avatars';
-import { CloseButton } from '../Button';
-import { IconButton } from '../IconButton';
+import { Button, CloseButton, IconButton } from '../Button';
 import { Input } from '../Input';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
@@ -87,6 +86,16 @@ export function Test() {
           icon={<Image src={MagnifyingGlass} alt="icon" fill />}
         />
       </Stack>
+      <Button
+        size="md"
+        variant="solid"
+        radius="md"
+        color="brand"
+        rightIcon={<SquaresFour />}
+        leftIcon={<SquaresFour />}
+      >
+        Button
+      </Button>
     </Stack>
   );
 }

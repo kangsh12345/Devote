@@ -32,7 +32,7 @@ export const Avatars = ({
       : { space: '5', avatar: 64 };
 
   return (
-    <Box width="min">
+    <Box width="fit">
       <Stack direction="horizontal" align="center" space={sizes.space}>
         <Avatar
           size={sizes.avatar}
