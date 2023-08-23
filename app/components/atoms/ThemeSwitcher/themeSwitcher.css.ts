@@ -7,7 +7,7 @@ export const switcher = [
       ':hover&': { transform: 'translateY(8px)' },
     },
   }),
-  atoms({ flexShrink: 0 }),
+  atoms({ flexShrink: 0, cursor: 'pointer' }),
 ];
 
 globalStyle(`${switcher} > img`, {

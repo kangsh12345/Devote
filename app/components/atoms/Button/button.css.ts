@@ -5,6 +5,7 @@ import { recipe } from '@vanilla-extract/recipes';
 export const root = recipe({
   base: [
     atoms({
+      position: 'relative',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -80,7 +81,7 @@ export const root = recipe({
     },
     {
       variants: { variant: 'solid', color: 'brand' },
-      style: atoms({ backgroundColor: 'brandPrimary', color: 'textWhite' }),
+      style: atoms({ backgroundColor: 'brandPrimary', color: 'white' }),
     },
     {
       variants: { variant: 'outline', color: 'brand' },
@@ -92,7 +93,7 @@ export const root = recipe({
     },
     {
       variants: { variant: 'solid', color: 'blue' },
-      style: atoms({ backgroundColor: 'bluePrimary', color: 'textWhite' }),
+      style: atoms({ backgroundColor: 'bluePrimary', color: 'white' }),
     },
     {
       variants: { variant: 'outline', color: 'blue' },
@@ -104,7 +105,7 @@ export const root = recipe({
     },
     {
       variants: { variant: 'solid', color: 'red' },
-      style: atoms({ backgroundColor: 'redPrimary', color: 'textWhite' }),
+      style: atoms({ backgroundColor: 'redPrimary', color: 'white' }),
     },
     {
       variants: { variant: 'outline', color: 'red' },
@@ -116,7 +117,7 @@ export const root = recipe({
     },
     {
       variants: { variant: 'solid', color: 'green' },
-      style: atoms({ backgroundColor: 'greenPrimary', color: 'textWhite' }),
+      style: atoms({ backgroundColor: 'greenPrimary', color: 'white' }),
     },
     {
       variants: { variant: 'outline', color: 'green' },
@@ -128,7 +129,7 @@ export const root = recipe({
     },
     {
       variants: { variant: 'solid', color: 'orange' },
-      style: atoms({ backgroundColor: 'orangePrimary', color: 'textWhite' }),
+      style: atoms({ backgroundColor: 'orangePrimary', color: 'white' }),
     },
     {
       variants: { variant: 'outline', color: 'orange' },

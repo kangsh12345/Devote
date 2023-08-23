@@ -20,7 +20,7 @@ export const IconText = ({
     size === 'lg' ? '7' : size === 'md' ? '6' : size === 'sm' ? '5' : '4';
 
   return (
-    <Box className={styles.root({ size })} width="fit">
+    <Box className={styles.root({ size })} width="fit" color="textPrimary">
       <Stack
         direction="horizontal"
         space={

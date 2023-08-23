@@ -10,7 +10,6 @@ export const root = recipe({
       alignItems: 'center',
       justifyContent: 'center',
       cursor: 'pointer',
-      flexShrink: 0,
     }),
   ],
   variants: {
@@ -24,6 +23,7 @@ export const root = recipe({
       normal: [
         atoms({
           backgroundColor: 'backgroundBase',
+          flexShrink: 0,
         }),
       ],
       outline: [

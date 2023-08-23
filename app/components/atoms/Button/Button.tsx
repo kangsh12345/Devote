@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactElement } from 'react';
 
 import { Box } from '../Box';
+import { Hover } from '../Hover';
 import { Stack } from '../Stack';
 import * as styles from './button.css';
 
@@ -32,6 +33,7 @@ export const Button = ({
       className={styles.root({ size, variant, radius, color, disabled })}
       width="fit"
     >
+      <Hover radius={radius} />
       <Stack
         direction="horizontal"
         space={size === 'lg' || size === 'md' ? '2' : '1.5'}
