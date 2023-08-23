@@ -23,6 +23,7 @@ export type FieldBaseProps = {
   label: ReactNode;
   required?: NativeFormProps['required'];
   width?: BoxProps['width'];
+  size?: 'lg' | 'md' | 'sm' | 'xs';
 };
 
 type Props = FieldBaseProps & {
@@ -39,6 +40,7 @@ export const Field = ({
   label,
   required,
   width = 'full',
+  size,
 }: Props) => {
   const ids = useFieldIds({
     id,
@@ -77,7 +79,12 @@ export const Field = ({
   else content = children;
 
   return (
-    <Box display="flex" flexDirection="column" gap="3" width={width}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={size === 'lg' || size === 'md' ? '1.5' : '1'}
+      width={width}
+    >
       {hideLabel ? (
         <VisuallyHidden>{labelContent}</VisuallyHidden>
       ) : (
@@ -91,7 +98,9 @@ export const Field = ({
           <Box
             color="textTertiary"
             fontSize="0"
-            paddingX="4"
+            paddingX={
+              size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
+            }
             {...ids.description}
             height="3"
           >
@@ -104,7 +113,9 @@ export const Field = ({
             aria-live="polite"
             color="redPrimary"
             fontSize="0"
-            paddingX="4"
+            paddingX={
+              size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
+            }
             height="3"
             {...ids.error}
           >

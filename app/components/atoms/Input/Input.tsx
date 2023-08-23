@@ -172,6 +172,7 @@ export const Input = forwardRef(
         label={label}
         required={required}
         width={width}
+        size={size}
       >
         {ids => (
           <Box

@@ -46,7 +46,7 @@ export function Test() {
         leftIcon={<FileSearch />}
         value={state}
         error="error"
-        size="lg"
+        size="md"
         variant="filled"
         onChange={event => setState(event.target.value)}
       />
