@@ -1,4 +1,5 @@
 import { PropsWithChildren, ReactElement } from 'react';
+import { Tokens } from '@/app/tokens';
 
 import { Box } from '../Box';
 import { Hover } from '../Hover';
@@ -7,6 +8,7 @@ import * as styles from './button.css';
 
 export interface ButtonProps {
   size?: 'lg' | 'md' | 'sm' | 'xs';
+  width?: keyof Tokens['space'];
   variant?: 'solid' | 'outline';
   radius?: 'full' | 'md';
   color?: 'black' | 'brand' | 'gray' | 'blue' | 'red' | 'green' | 'orange';
@@ -17,6 +19,7 @@ export interface ButtonProps {
 
 export const Button = ({
   size = 'md',
+  width = 'full',
   variant = 'solid',
   radius = 'full',
   color = 'black',
@@ -31,7 +34,7 @@ export const Button = ({
   return (
     <Box
       className={styles.root({ size, variant, radius, color, disabled })}
-      width="fit"
+      width={width}
     >
       <Hover radius={radius} />
       <Stack
