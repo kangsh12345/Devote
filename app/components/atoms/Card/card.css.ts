@@ -7,8 +7,6 @@ export const root = recipe({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '76',
-      height: '60',
       borderRadius: 'lg',
       backgroundColor: 'backgroundBase',
       flexShrink: 0,
@@ -23,6 +21,16 @@ export const root = recipe({
         boxShadow: 'inline',
       }),
       filled: atoms({ boxShadow: 'inline' }),
+    },
+    type: {
+      modal: atoms({
+        width: 'full',
+        height: 'full',
+      }),
+      card: atoms({
+        width: '76',
+        height: '60',
+      }),
     },
   },
 });

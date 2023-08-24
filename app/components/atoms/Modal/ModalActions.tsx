@@ -4,13 +4,19 @@ import { Stack } from '../Stack';
 
 export interface ModalActionsProps {
   type?: 'left' | 'right' | 'column' | 'row';
+  leftButtonText: string;
+  rightButtonText: string;
 }
 
-export const ModalActions = ({ type = 'right' }: ModalActionsProps) => {
+export const ModalActions = ({
+  type = 'right',
+  leftButtonText,
+  rightButtonText,
+}: ModalActionsProps) => {
   return (
     <Box width="full">
       <Stack
-        space="3"
+        space="2.5"
         direction={type === 'column' ? 'vertical' : 'horizontal'}
         justify={type === 'right' ? 'flex-end' : 'flex-start'}
       >
@@ -22,7 +28,7 @@ export const ModalActions = ({ type = 'right' }: ModalActionsProps) => {
             color="gray"
             width={type === 'left' || type === 'right' ? 'fit' : 'full'}
           >
-            취소
+            {leftButtonText}
           </Button>
         </Box>
         <Box flex={type === 'left' || type === 'right' ? 'none' : 'auto'}>
@@ -30,10 +36,10 @@ export const ModalActions = ({ type = 'right' }: ModalActionsProps) => {
             size="lg"
             variant="solid"
             radius="md"
-            color="blue"
+            color="black"
             width={type === 'left' || type === 'right' ? 'fit' : 'full'}
           >
-            삭제
+            {rightButtonText}
           </Button>
         </Box>
       </Stack>

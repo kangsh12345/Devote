@@ -14,7 +14,7 @@ import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
 import { Card } from '../Card';
 import { Input } from '../Input';
-import { ModalActions } from '../Modal';
+import { ModalActions, ModalContent } from '../Modal';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
@@ -107,7 +107,20 @@ export function Test() {
           Icon Text
         </IconText>
         <Card variant="outline" />
-        <ModalActions type="right" />
+        <ModalActions
+          type="right"
+          leftButtonText="취소"
+          rightButtonText="삭제"
+        />
+        <ModalContent
+          type="right"
+          withCloseButton={true}
+          title="Delete User"
+          leftButtonText="취소"
+          rightButtonText="삭제"
+        >
+          Are you sure? You can't undo this action afterwards.
+        </ModalContent>
       </Stack>
     </Box>
   );
