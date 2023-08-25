@@ -2,7 +2,10 @@ import { atoms } from '@/app/css';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-export const root = [atoms({ zIndex: '30' }), style({ maxWidth: 448 })];
+export const root = [
+  atoms({ zIndex: '30', color: 'textPrimary' }),
+  style({ maxWidth: 448 }),
+];
 
 export const closeButton = atoms({
   position: 'absolute',

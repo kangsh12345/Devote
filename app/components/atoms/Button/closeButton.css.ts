@@ -12,8 +12,8 @@ export const root = recipe({
       color: 'textPrimary',
       borderRadius: 'md',
       backgroundColor: {
-        base: 'backgroundBase',
-        hover: 'backgroundSurfaceBasePressed',
+        base: 'backgroundSurfaceElevatedPrimaryDefault',
+        hover: 'backgroundSurfaceElevatedPrimaryPressed',
       },
       flexShrink: 0,
     }),

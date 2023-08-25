@@ -40,6 +40,21 @@ export function Test() {
     <Box paddingBottom="80">
       <Stack space="4">
         <ThemeSwitcher size="lg" />
+        <ModalOverlay visible={false} />
+        <ModalActions
+          type="right"
+          leftButtonText="취소"
+          rightButtonText="삭제"
+        />
+        <ModalContent
+          type="right"
+          withCloseButton={true}
+          title="Delete User"
+          leftButtonText="취소"
+          rightButtonText="삭제"
+        >
+          Are you sure? You can't undo this action afterwards.
+        </ModalContent>
         <Popover size="md" list={popoverList} />
         <Input
           label="Label"
@@ -107,21 +122,6 @@ export function Test() {
           Icon Text
         </IconText>
         <Card variant="outline" />
-        <ModalActions
-          type="right"
-          leftButtonText="취소"
-          rightButtonText="삭제"
-        />
-        <ModalContent
-          type="right"
-          withCloseButton={true}
-          title="Delete User"
-          leftButtonText="취소"
-          rightButtonText="삭제"
-        >
-          Are you sure? You can't undo this action afterwards.
-        </ModalContent>
-        <ModalOverlay visible={true} />
       </Stack>
     </Box>
   );
