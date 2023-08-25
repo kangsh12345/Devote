@@ -24,6 +24,9 @@ export const root = recipe({
     },
     type: {
       modal: atoms({
+        borderWidth: 'px',
+        borderColor: 'borderSecondary',
+        boxShadow: 'md',
         width: 'full',
         height: 'full',
       }),

@@ -14,7 +14,7 @@ import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
 import { Card } from '../Card';
 import { Input } from '../Input';
-import { ModalActions, ModalContent } from '../Modal';
+import { ModalActions, ModalContent, ModalOverlay } from '../Modal';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
@@ -121,6 +121,7 @@ export function Test() {
         >
           Are you sure? You can't undo this action afterwards.
         </ModalContent>
+        <ModalOverlay visible={true} />
       </Stack>
     </Box>
   );
