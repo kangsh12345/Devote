@@ -20,7 +20,7 @@ export const validStackComponents = [
 type Props = {
   as?: (typeof validStackComponents)[number];
   align?: BoxProps['alignItems'];
-  children: ReactNodeNoStrings;
+  children?: ReactNodeNoStrings;
   direction?: OptionalResponsiveValue<Direction>;
   flex?: BoxProps['flex'];
   justify?: BoxProps['justifyContent'];

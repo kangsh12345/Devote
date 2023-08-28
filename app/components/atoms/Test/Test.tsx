@@ -14,6 +14,7 @@ import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
 import { Card } from '../Card';
 import { Input } from '../Input';
+import { FolderList } from '../List';
 import { ModalActions, ModalContent, ModalOverlay } from '../Modal';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
@@ -122,6 +123,8 @@ export function Test() {
           Icon Text
         </IconText>
         <Card variant="outline" />
+        <FolderList size="lg" isOpened={false} />
+        <FolderList size="lg" isOpened={true} />
       </Stack>
     </Box>
   );
