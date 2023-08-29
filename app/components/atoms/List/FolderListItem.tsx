@@ -2,17 +2,17 @@ import { CaretDown, CaretRight } from '@phosphor-icons/react';
 
 import { Box } from '../Box';
 import { Stack } from '../Stack';
-import * as styles from './folderList.css';
+import * as styles from './folderListItem.css';
 
-export interface FolderListProps {
+export interface FolderListItemProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
   isOpened?: boolean;
 }
 
-export const FolderList = ({
+export const FolderListItem = ({
   size = 'md',
   isOpened = false,
-}: FolderListProps) => {
+}: FolderListItemProps) => {
   return (
     <Box width="full" className={styles.root({ size })}>
       <Stack
@@ -29,7 +29,7 @@ export const FolderList = ({
         align="center"
       >
         {isOpened ? (
-          <CaretRight
+          <CaretDown
             weight="duotone"
             size={
               size === 'xl'
@@ -42,7 +42,7 @@ export const FolderList = ({
             }
           />
         ) : (
-          <CaretDown
+          <CaretRight
             weight="duotone"
             size={
               size === 'xl'

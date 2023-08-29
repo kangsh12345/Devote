@@ -1,2 +1,2 @@
-export { FileList } from './FileList';
-export { FolderList } from './FolderList';
+export { FileListItem } from './FileListItem';
+export { FolderListItem } from './FolderListItem';
