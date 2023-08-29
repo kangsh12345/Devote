@@ -112,6 +112,8 @@ export const liValue = recipe({
       transitionTimingFunction: 'inOut',
     }),
     style({
+      fontSize: '0.875rem',
+      padding: '0.75rem 1rem',
       transitionDuration: '100ms',
       selectors: {
         'li+li&': { border: 'none' },

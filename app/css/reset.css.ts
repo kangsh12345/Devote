@@ -52,18 +52,7 @@ const list = style({
   margin: 0,
   padding: 0,
   textAlign: 'initial',
-});
-
-const li = style({
   cursor: 'pointer',
-  fontSize: '0.875rem',
-  padding: '0.75rem 1rem',
-  ':hover': { backgroundColor: vars.colors.backgroundSurfaceBasePressed },
-  selectors: {
-    'li+li&': {
-      borderTop: `1px solid ${vars.colors.borderSecondary}`,
-    },
-  },
 });
 
 const div = style({
@@ -104,7 +93,7 @@ export const element: Partial<Record<keyof JSX.IntrinsicElements, string>> = {
   input,
   ol: list,
   ul: list,
-  li: li,
+  li: list,
   label,
 };
 

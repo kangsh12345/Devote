@@ -1,4 +1,4 @@
-import { atoms } from '@/app/css';
+import { atoms, vars } from '@/app/css';
 import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
@@ -86,6 +86,20 @@ export const ulBox = recipe({
 });
 
 export const liValue = recipe({
+  base: [
+    style({
+      fontSize: '0.875rem',
+      padding: '0.75rem 1rem',
+      selectors: {
+        'li+li&': {
+          borderTop: `1px solid ${vars.colors.borderSecondary}`,
+        },
+        ':hover&': {
+          backgroundColor: vars.colors.backgroundSurfaceBasePressed,
+        },
+      },
+    }),
+  ],
   variants: {
     active: {
       true: atoms({ color: 'brandPrimary', fontWeight: 500 }),

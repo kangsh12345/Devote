@@ -1,18 +1,22 @@
+import { PropsWithChildren, ReactNode } from 'react';
 import { CaretDown, CaretRight, File, Folder } from '@phosphor-icons/react';
 
 import { Box } from '../Box';
 import { Stack } from '../Stack';
+import * as styles from './fileListItem.css';
 
 export interface FileListProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
   variant?: 'folder' | 'file';
   isOpened?: boolean;
   isActive?: boolean;
+  subdirectory?: ReactNode;
 }
 
 export interface Space {
   space: '1' | '1.5' | '2' | '2.5';
   icon: number;
+  box: '4' | '5' | '6' | '7';
 }
 
 export const FileListItem = ({
@@ -20,21 +24,26 @@ export const FileListItem = ({
   variant = 'folder',
   isOpened = false,
   isActive = false,
-}: FileListProps) => {
+  subdirectory,
+  children,
+}: PropsWithChildren<FileListProps>) => {
   const sizes: Space =
     size === 'sm'
-      ? { space: '1', icon: 16 }
+      ? { space: '1', icon: 16, box: '4' }
       : size === 'md'
-      ? { space: '1.5', icon: 20 }
+      ? { space: '1.5', icon: 20, box: '5' }
       : size === 'lg'
-      ? { space: '2', icon: 24 }
-      : { space: '2.5', icon: 28 };
+      ? { space: '2', icon: 24, box: '6' }
+      : { space: '2.5', icon: 28, box: '7' };
 
   return (
     <Box
+      as="li"
       width="full"
       backgroundColor={isActive ? 'opacityBlack50' : 'backgroundBase'}
       borderRadius="lg"
+      cursor="pointer"
+      className={styles.li}
     >
       <Box
         display="flex"
@@ -49,7 +58,7 @@ export const FileListItem = ({
             <CaretRight weight="bold" size={sizes.icon} />
           )
         ) : (
-          ''
+          <Box width={sizes.box} />
         )}
         <Stack direction="horizontal" align="center" space="1">
           <Box
@@ -64,10 +73,11 @@ export const FileListItem = ({
             )}
           </Box>
           <Box color="textPrimary" fontWeight={500}>
-            UserFolderName
+            {children}
           </Box>
         </Stack>
       </Box>
+      <Box as="ul">{subdirectory}</Box>
     </Box>
   );
 };
