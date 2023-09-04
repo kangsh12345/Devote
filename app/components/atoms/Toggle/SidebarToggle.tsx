@@ -22,19 +22,16 @@ export const SidebarToggle = ({
   const iconSize = size === 'lg' ? 28 : size === 'md' ? 24 : 20;
 
   return (
-    <Box className={styles.root({ size: size, disabled })}>
+    <Box
+      className={styles.root({ size: size, disabled })}
+      onClick={() =>
+        isOpen ? setIsOpen && setIsOpen(false) : setIsOpen && setIsOpen(true)
+      }
+    >
       {isOpen ? (
-        <CaretDoubleLeft
-          weight="duotone"
-          size={iconSize}
-          onClick={() => setIsOpen && setIsOpen(false)}
-        />
+        <CaretDoubleLeft weight="duotone" size={iconSize} />
       ) : (
-        <CaretDoubleRight
-          weight="duotone"
-          size={iconSize}
-          onClick={() => setIsOpen && setIsOpen(true)}
-        />
+        <CaretDoubleRight weight="duotone" size={iconSize} />
       )}
     </Box>
   );

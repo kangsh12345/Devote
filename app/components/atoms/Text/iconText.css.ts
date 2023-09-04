@@ -13,12 +13,12 @@ export const root = recipe({
   ],
   variants: {
     size: {
-      lg: atoms({
+      xl: atoms({
         fontSize: '3',
       }),
-      md: atoms({ fontSize: '2' }),
-      sm: atoms({ fontSize: '1' }),
-      xs: atoms({ fontSize: '0' }),
+      lg: atoms({ fontSize: '2' }),
+      md: atoms({ fontSize: '1' }),
+      sm: atoms({ fontSize: '0' }),
     },
   },
 });

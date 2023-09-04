@@ -22,7 +22,7 @@ export const SidebarLogo = ({
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Box className={styles.root}>
+    <Box className={styles.root({ isOpen })}>
       {/* 추후 atoms 로 묶어서 작업 */}
       {isOpen && <Logo />}
       <SidebarToggle

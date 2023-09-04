@@ -9,7 +9,8 @@ import MagnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duoto
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
 import { FileSearch, SquaresFour } from '@phosphor-icons/react';
 
-import { SidebarLogo } from '../../moecules/Sidebar';
+import { SidebarLogo } from '../../moecules/SidebarLogo';
+import { SidebarNav } from '../../moecules/SidebarNav';
 import { Avatars } from '../Avatars';
 import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
@@ -24,7 +25,7 @@ import { IconText } from '../Text';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import { ListToggle } from '../Toggle';
 
-//TODO: 컴포넌트, 컨테이너 분리 작업 사용 atom 이용
+//TODO: 컴포넌트, 컨테이너 분리 작업 사용 atom 이용 organisms에 적용
 
 export function Test() {
   const [state, setState] = useState('');
@@ -130,6 +131,14 @@ export function Test() {
         <FileList />
         <Box>----molecules----</Box>
         <SidebarLogo />
+        <SidebarNav
+          type="main"
+          size="lg"
+          isActive={true}
+          icon={<SquaresFour />}
+        >
+          SidebarNav
+        </SidebarNav>
       </Stack>
     </Box>
   );

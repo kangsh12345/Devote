@@ -5,7 +5,7 @@ import { Stack } from '../Stack';
 import * as styles from './iconText.css';
 
 export interface ButtonProps {
-  size?: 'lg' | 'md' | 'sm' | 'xs';
+  size?: 'xl' | 'lg' | 'md' | 'sm';
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
 }
@@ -17,10 +17,10 @@ export const IconText = ({
   children,
 }: PropsWithChildren<ButtonProps>) => {
   const iconSize =
-    size === 'lg' ? '7' : size === 'md' ? '6' : size === 'sm' ? '5' : '4';
+    size === 'xl' ? '7' : size === 'lg' ? '6' : size === 'md' ? '5' : '4';
 
   return (
-    <Box className={styles.root({ size })} width="fit" color="textPrimary">
+    <Box className={styles.root({ size })} width="fit">
       <Stack
         direction="horizontal"
         space={
