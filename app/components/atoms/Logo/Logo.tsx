@@ -1,10 +1,10 @@
 import { Text } from '@/app/components/atoms/Typography';
 
 export interface LogoProps {
-  size: 'xl' | 'lg' | 'md' | 'sm';
+  size?: 'xl' | 'lg' | 'md' | 'sm';
 }
 
-export const Logo = ({ size }: LogoProps) => {
+export const Logo = ({ size = 'md' }: LogoProps) => {
   const logoSize =
     size === 'xl'
       ? 'h1'

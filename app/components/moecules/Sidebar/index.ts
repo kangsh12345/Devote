@@ -1,0 +1,1 @@
+export { SidebarLogo } from './SidebarLogo';

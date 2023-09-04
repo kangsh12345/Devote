@@ -9,6 +9,7 @@ import MagnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duoto
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
 import { FileSearch, SquaresFour } from '@phosphor-icons/react';
 
+import { SidebarLogo } from '../../moecules/Sidebar';
 import { Avatars } from '../Avatars';
 import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
@@ -21,7 +22,7 @@ import { Select } from '../Select';
 import { Stack } from '../Stack';
 import { IconText } from '../Text';
 import { ThemeSwitcher } from '../ThemeSwitcher';
-import { ListToggle, SidebarToggle } from '../Toggle';
+import { ListToggle } from '../Toggle';
 
 //TODO: 컴포넌트, 컨테이너 분리 작업 사용 atom 이용
 
@@ -40,6 +41,7 @@ export function Test() {
   return (
     <Box paddingBottom="80">
       <Stack space="4">
+        <Box>----atoms----</Box>
         <ThemeSwitcher size="lg" />
         <ModalOverlay visible={false} />
         <ModalActions
@@ -90,7 +92,7 @@ export function Test() {
           />
         </Stack>
         <Stack direction="horizontal">
-          <SidebarToggle size="md" />
+          {/* <SidebarToggle size="md" /> */}
         </Stack>
         <CloseButton size="md" />
         <Stack direction="horizontal">
@@ -126,6 +128,8 @@ export function Test() {
         <FolderListItem size="lg" isOpened={false} />
         <FolderListItem size="lg" isOpened={true} />
         <FileList />
+        <Box>----molecules----</Box>
+        <SidebarLogo />
       </Stack>
     </Box>
   );
