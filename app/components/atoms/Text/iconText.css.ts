@@ -22,3 +22,9 @@ export const root = recipe({
     },
   },
 });
+
+export const iconWrapper = atoms({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});

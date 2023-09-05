@@ -121,15 +121,14 @@ export const root = recipe({
 });
 
 const container = atoms({
-  alignItems: 'center',
   display: 'flex',
+  alignItems: 'center',
   height: 'full',
   lineHeight: 0,
 });
 
 const text = atoms({
   color: 'textPrimary',
-  fontFamily: 'pretendard',
 });
 
 const affix = style([container, text, style({ lineHeight: 'normal' })]);

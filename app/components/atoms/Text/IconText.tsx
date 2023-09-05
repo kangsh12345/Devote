@@ -31,10 +31,9 @@ export const IconText = ({
       >
         {leftIcon && (
           <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
+            className={styles.iconWrapper}
             width={iconSize}
+            height={iconSize}
           >
             {leftIcon}
           </Box>
@@ -42,10 +41,9 @@ export const IconText = ({
         {children}
         {rightIcon && (
           <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
+            className={styles.iconWrapper}
             width={iconSize}
+            height={iconSize}
           >
             {rightIcon}
           </Box>

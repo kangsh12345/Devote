@@ -7,7 +7,7 @@ import { Logo } from '@/app/components/atoms/Logo';
 import { Text } from '@/app/components/atoms/Typography';
 import MagnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duotone.svg';
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
-import { FileSearch, SquaresFour } from '@phosphor-icons/react';
+import { SquaresFour } from '@phosphor-icons/react';
 
 import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
@@ -64,10 +64,10 @@ export function Test() {
           label="Label"
           hideLabel
           placeholder="Placeholder"
-          leftIcon={<FileSearch />}
+          leftIcon={<SquaresFour />}
           value={state}
           error="error"
-          size="md"
+          size="lg"
           variant="filled"
           onChange={event => setState(event.target.value)}
         />
@@ -92,9 +92,6 @@ export function Test() {
             icon={<Image src={squaresFourDutone} alt="icon" fill />}
           />
         </Stack>
-        <Stack direction="horizontal">
-          {/* <SidebarToggle size="md" /> */}
-        </Stack>
         <CloseButton size="md" />
         <Stack direction="horizontal">
           <IconButton
@@ -109,17 +106,18 @@ export function Test() {
           />
         </Stack>
         <Button
-          size="md"
+          size="lg"
           variant="solid"
           radius="md"
           color="brand"
+          // TODO: Image로 전체 변경해야겠다
           rightIcon={<SquaresFour />}
           leftIcon={<SquaresFour />}
         >
           Button
         </Button>
         <IconText
-          size="md"
+          size="lg"
           rightIcon={<SquaresFour />}
           leftIcon={<SquaresFour />}
         >

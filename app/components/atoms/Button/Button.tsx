@@ -47,6 +47,7 @@ export const Button = ({
             justifyContent="center"
             alignItems="center"
             width={iconSize}
+            height={iconSize}
           >
             {leftIcon}
           </Box>
@@ -58,6 +59,7 @@ export const Button = ({
             justifyContent="center"
             alignItems="center"
             width={iconSize}
+            height={iconSize}
           >
             {rightIcon}
           </Box>
