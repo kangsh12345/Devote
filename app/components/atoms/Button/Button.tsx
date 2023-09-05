@@ -28,8 +28,8 @@ export const Button = ({
   rightIcon,
   children,
 }: PropsWithChildren<ButtonProps>) => {
-  const iconSize =
-    size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3.5' : '3';
+  // const iconSize =
+  //   size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3.5' : '3';
 
   return (
     <Box
@@ -42,25 +42,13 @@ export const Button = ({
         space={size === 'lg' || size === 'md' ? '2' : '1.5'}
       >
         {leftIcon && (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            width={iconSize}
-            height={iconSize}
-          >
+          <Box display="flex" justifyContent="center" alignItems="center">
             {leftIcon}
           </Box>
         )}
         {children}
         {rightIcon && (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            width={iconSize}
-            height={iconSize}
-          >
+          <Box display="flex" justifyContent="center" alignItems="center">
             {rightIcon}
           </Box>
         )}

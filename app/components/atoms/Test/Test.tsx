@@ -110,18 +110,17 @@ export function Test() {
           variant="solid"
           radius="md"
           color="brand"
-          // TODO: Image로 전체 변경해야겠다
           rightIcon={<SquaresFour />}
           leftIcon={<SquaresFour />}
         >
-          Button
+          버튼
         </Button>
         <IconText
           size="lg"
-          rightIcon={<SquaresFour />}
-          leftIcon={<SquaresFour />}
+          rightIcon={<Image src={squaresFourDutone} alt="icon" fill />}
+          leftIcon={<Image src={squaresFourDutone} alt="icon" fill />}
         >
-          Icon Text
+          아이콘 텍스트
         </IconText>
         <Card variant="outline" />
         <FolderListItem size="lg" isOpened={false} />
@@ -133,9 +132,9 @@ export function Test() {
           type="main"
           size="lg"
           isActive={true}
-          icon={<SquaresFour />}
+          icon={<Image src={squaresFourDutone} alt="icon" fill />}
         >
-          SidebarNav
+          사이드바 네비게이션
         </SidebarNav>
       </Stack>
     </Box>

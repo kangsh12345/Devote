@@ -16,9 +16,6 @@ export const IconText = ({
   rightIcon,
   children,
 }: PropsWithChildren<ButtonProps>) => {
-  const iconSize =
-    size === 'xl' ? '7' : size === 'lg' ? '6' : size === 'md' ? '5' : '4';
-
   return (
     <Box className={styles.root({ size })} width="fit">
       <Stack
@@ -27,26 +24,13 @@ export const IconText = ({
           size === 'lg' || size === 'md' ? '2.5' : size === 'sm' ? '2' : '1.5'
         }
         align="center"
-        justify="center"
       >
         {leftIcon && (
-          <Box
-            className={styles.iconWrapper}
-            width={iconSize}
-            height={iconSize}
-          >
-            {leftIcon}
-          </Box>
+          <Box className={styles.iconWrapper({ size })}>{leftIcon}</Box>
         )}
         {children}
         {rightIcon && (
-          <Box
-            className={styles.iconWrapper}
-            width={iconSize}
-            height={iconSize}
-          >
-            {rightIcon}
-          </Box>
+          <Box className={styles.iconWrapper({ size })}>{rightIcon}</Box>
         )}
       </Stack>
     </Box>
