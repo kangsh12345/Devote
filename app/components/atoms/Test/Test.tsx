@@ -115,27 +115,27 @@ export function Test() {
         >
           버튼
         </Button>
-        <IconText
-          size="lg"
-          rightIcon={<Image src={squaresFourDutone} alt="icon" fill />}
-          leftIcon={<Image src={squaresFourDutone} alt="icon" fill />}
-        >
-          아이콘 텍스트
-        </IconText>
         <Card variant="outline" />
         <FolderListItem size="lg" isOpened={false} />
         <FolderListItem size="lg" isOpened={true} />
         <FileList />
+        <IconText
+          size="md"
+          rightIcon={<Image src={squaresFourDutone} alt="icon" fill />}
+          leftIcon={<Image src={squaresFourDutone} alt="icon" fill />}
+        >
+          Icon Text
+        </IconText>
         <Box>----molecules----</Box>
-        <SidebarLogo />
         <SidebarNav
           type="main"
-          size="lg"
+          size="md"
           isActive={true}
           icon={<Image src={squaresFourDutone} alt="icon" fill />}
         >
-          사이드바 네비게이션
+          Sidebar Nav
         </SidebarNav>
+        <SidebarLogo />
       </Stack>
     </Box>
   );

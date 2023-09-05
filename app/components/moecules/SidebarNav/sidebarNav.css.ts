@@ -14,8 +14,8 @@ export const root = recipe({
       sm: {},
     },
     isActive: {
-      true: atoms({ backgroundColor: 'opacityBlack100', color: 'textPrimary' }),
-      false: atoms({ color: 'textSecondary' }),
+      true: atoms({ backgroundColor: 'opacityBlack100' }),
+      false: {},
     },
   },
   compoundVariants: [

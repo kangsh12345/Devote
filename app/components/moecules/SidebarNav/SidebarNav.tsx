@@ -20,7 +20,12 @@ export const SidebarNav = ({
 }: PropsWithChildren<SidebarNavProps>) => {
   return (
     <Box className={styles.root({ type, isActive, size })}>
-      <IconText size={size} leftIcon={icon}>
+      <IconText
+        type="sidebarnav"
+        size={size}
+        leftIcon={icon}
+        isActive={isActive}
+      >
         {children}
       </IconText>
     </Box>
