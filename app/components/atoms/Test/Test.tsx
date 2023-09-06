@@ -10,6 +10,7 @@ import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone
 import { SquaresFour } from '@phosphor-icons/react';
 
 import { CardHover } from '../../moecules/CardHover';
+import { FolderBox } from '../../moecules/FolderBox';
 import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
 import { Avatars } from '../Avatars';
@@ -139,6 +140,7 @@ export function Test() {
         <SidebarLogo />
         {/* <Card variant="outline" /> */}
         <CardHover />
+        <FolderBox />
       </Stack>
     </Box>
   );

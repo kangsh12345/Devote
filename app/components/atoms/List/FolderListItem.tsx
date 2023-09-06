@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import { CaretDown, CaretRight } from '@phosphor-icons/react';
 
 import { Box } from '../Box';
@@ -12,7 +13,8 @@ export interface FolderListItemProps {
 export const FolderListItem = ({
   size = 'md',
   isOpened = false,
-}: FolderListItemProps) => {
+  children,
+}: PropsWithChildren<FolderListItemProps>) => {
   return (
     <Box width="full" className={styles.root({ size })}>
       <Stack
@@ -28,34 +30,36 @@ export const FolderListItem = ({
         direction="horizontal"
         align="center"
       >
-        {isOpened ? (
-          <CaretDown
-            weight="duotone"
-            size={
-              size === 'xl'
-                ? '28'
-                : size === 'lg'
-                ? '24'
-                : size === 'md'
-                ? '20'
-                : '16'
-            }
-          />
-        ) : (
-          <CaretRight
-            weight="duotone"
-            size={
-              size === 'xl'
-                ? '28'
-                : size === 'lg'
-                ? '24'
-                : size === 'md'
-                ? '20'
-                : '16'
-            }
-          />
-        )}
-        <Box>UserFolderName</Box>
+        <Box color="textSecondary" display="flex" alignItems="center">
+          {isOpened ? (
+            <CaretDown
+              weight="duotone"
+              size={
+                size === 'xl'
+                  ? '28'
+                  : size === 'lg'
+                  ? '24'
+                  : size === 'md'
+                  ? '20'
+                  : '16'
+              }
+            />
+          ) : (
+            <CaretRight
+              weight="duotone"
+              size={
+                size === 'xl'
+                  ? '28'
+                  : size === 'lg'
+                  ? '24'
+                  : size === 'md'
+                  ? '20'
+                  : '16'
+              }
+            />
+          )}
+        </Box>
+        <Box>{children}</Box>
       </Stack>
     </Box>
   );

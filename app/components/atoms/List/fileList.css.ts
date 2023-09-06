@@ -9,6 +9,7 @@ export const root = atoms({
   paddingTop: '6',
   paddingBottom: '5',
   flexShrink: 0,
+  width: 'full',
 });
 
 export const ul = style({});

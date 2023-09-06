@@ -5,7 +5,7 @@ import { recipe } from '@vanilla-extract/recipes';
 export const root = recipe({
   base: [
     atoms({
-      borderRadius: 'md',
+      borderRadius: 'lg',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
