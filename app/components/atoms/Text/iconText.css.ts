@@ -23,6 +23,7 @@ export const root = recipe({
     type: {
       normal: atoms({ color: 'textPrimary' }),
       sidebarnav: {},
+      cardhover: atoms({ color: 'textHoverWhite' }),
     },
     isActive: {
       true: {},
@@ -30,6 +31,10 @@ export const root = recipe({
     },
   },
   compoundVariants: [
+    {
+      variants: { type: 'sidebarnav', isActive: true },
+      style: atoms({ color: 'textPrimary' }),
+    },
     {
       variants: { type: 'sidebarnav', isActive: false },
       style: atoms({ color: 'textSecondary' }),
@@ -46,11 +51,36 @@ export const iconWrapper = recipe({
       md: atoms({ height: '5', width: '5' }),
       sm: atoms({ height: '4', width: '4' }),
     },
+    type: {
+      normal: style({ filter: vars.colors.filterTextPrimary }),
+      sidebarnav: {},
+      cardhover: style({ filter: vars.colors.filterOrangeSecondary }),
+    },
     isActive: {
-      true: style({ filter: vars.colors.filterTextPrimary }),
-      false: style({ filter: vars.colors.filterTextSecondary }),
+      true: {},
+      false: {},
     },
   },
+  compoundVariants: [
+    {
+      variants: {
+        type: 'sidebarnav',
+        isActive: true,
+      },
+      style: style({
+        filter: vars.colors.filterTextPrimary,
+      }),
+    },
+    {
+      variants: {
+        type: 'sidebarnav',
+        isActive: false,
+      },
+      style: style({
+        filter: vars.colors.filterTextSecondary,
+      }),
+    },
+  ],
 });
 
 export const textWrapper = recipe({

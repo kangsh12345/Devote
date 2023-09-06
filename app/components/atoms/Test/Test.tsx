@@ -9,6 +9,7 @@ import MagnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duoto
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
 import { SquaresFour } from '@phosphor-icons/react';
 
+import { CardHover } from '../../moecules/CardHover';
 import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
 import { Avatars } from '../Avatars';
@@ -120,7 +121,7 @@ export function Test() {
         <FolderListItem size="lg" isOpened={true} />
         <FileList />
         <IconText
-          size="md"
+          size="lg"
           rightIcon={<Image src={squaresFourDutone} alt="icon" fill />}
           leftIcon={<Image src={squaresFourDutone} alt="icon" fill />}
         >
@@ -129,13 +130,15 @@ export function Test() {
         <Box>----molecules----</Box>
         <SidebarNav
           type="main"
-          size="md"
+          size="lg"
           isActive={true}
           icon={<Image src={squaresFourDutone} alt="icon" fill />}
         >
           Sidebar Nav
         </SidebarNav>
         <SidebarLogo />
+        {/* <Card variant="outline" /> */}
+        <CardHover />
       </Stack>
     </Box>
   );

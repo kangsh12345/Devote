@@ -36,7 +36,7 @@ export const Button = ({
       className={styles.root({ size, variant, radius, color, disabled })}
       width={width}
     >
-      <Hover radius={radius} />
+      <Hover radius={radius} color="white" />
       <Stack
         direction="horizontal"
         space={size === 'lg' || size === 'md' ? '2' : '1.5'}

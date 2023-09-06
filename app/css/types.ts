@@ -3,6 +3,7 @@ import { Tokens } from '@/app/tokens';
 type ThemeColors = Tokens['colors']['base'] & {
   filterTextPrimary: string;
   filterTextSecondary: string;
+  filterOrangeSecondary: string;
   brandPrimary: string;
   brandSecondary: string;
   brandTertiary: string;
