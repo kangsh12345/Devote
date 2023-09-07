@@ -10,8 +10,11 @@ import { IconButton } from '../../atoms/Button';
 import { FileList, FolderListItem } from '../../atoms/List';
 import * as styles from './folderBox.css';
 
-export const FolderBox = () => {
-  const myBox = true;
+export interface FolderBoxProps {
+  own?: 'my' | 'other';
+}
+
+export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   const empty = true;
   const [mainOpen, setMainOpen] = useState(true);
 
@@ -25,7 +28,7 @@ export const FolderBox = () => {
                 김아무개
               </FolderListItem>
             </Box>
-            {myBox ? (
+            {own === 'my' ? (
               <Box className={styles.addBox({})}>
                 <IconButton
                   size="md"

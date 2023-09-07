@@ -21,7 +21,7 @@ export const IconText = ({
   children,
 }: PropsWithChildren<ButtonProps>) => {
   return (
-    <Box className={styles.root({ size, type, isActive })} width="fit">
+    <Box className={styles.root({ size, type, isActive })}>
       <Stack
         direction="horizontal"
         space={

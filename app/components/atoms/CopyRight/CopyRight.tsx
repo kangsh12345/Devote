@@ -7,7 +7,7 @@ import { Box } from '../Box';
 import { Stack } from '../Stack';
 
 export interface CopyRightProps {
-  size: 'lg' | 'md';
+  size?: 'lg' | 'md';
 }
 
 export interface CopyRightSizeProps {
@@ -15,7 +15,7 @@ export interface CopyRightSizeProps {
   copyrightSize: 18 | 16;
 }
 
-export const CopyRight = ({ size }: CopyRightProps) => {
+export const CopyRight = ({ size = 'md' }: CopyRightProps) => {
   const copyRightSize: CopyRightSizeProps =
     size === 'lg'
       ? { textSize: 'body2', copyrightSize: 18 }

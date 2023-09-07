@@ -7,13 +7,12 @@ export const root = recipe({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexShrink: 0,
-    width: '64',
     height: '16',
   }),
   variants: {
     isOpen: {
-      true: atoms({ paddingLeft: '6', paddingRight: '3' }),
-      false: atoms({ paddingLeft: '3', paddingRight: '3' }),
+      true: atoms({ paddingLeft: '6', paddingRight: '3', width: '64' }),
+      false: atoms({ paddingLeft: '3', paddingRight: '3', width: 'fit' }),
     },
   },
 });

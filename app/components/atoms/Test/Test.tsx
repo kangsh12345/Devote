@@ -5,14 +5,15 @@ import Image from 'next/image';
 import { CopyRight } from '@/app/components/atoms/CopyRight';
 import { Logo } from '@/app/components/atoms/Logo';
 import { Text } from '@/app/components/atoms/Typography';
-import MagnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duotone.svg';
+import magnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duotone.svg';
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
 import { SquaresFour } from '@phosphor-icons/react';
 
 import { CardHover } from '../../moecules/CardHover';
 import { FolderBox } from '../../moecules/FolderBox';
-import { SidebarLogo } from '../../moecules/SidebarLogo';
+// import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
+import { Sidebar } from '../../organisms/Sidebar';
 import { Avatars } from '../Avatars';
 import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
@@ -99,12 +100,12 @@ export function Test() {
           <IconButton
             size="md"
             variant="normal"
-            icon={<Image src={MagnifyingGlass} alt="icon" fill />}
+            icon={<Image src={magnifyingGlass} alt="icon" fill />}
           />
           <IconButton
             size="md"
             variant="outline"
-            icon={<Image src={MagnifyingGlass} alt="icon" fill />}
+            icon={<Image src={magnifyingGlass} alt="icon" fill />}
           />
         </Stack>
         <Button
@@ -137,10 +138,11 @@ export function Test() {
         >
           Sidebar Nav
         </SidebarNav>
-        <SidebarLogo />
+        {/* <SidebarLogo /> */}
         {/* <Card variant="outline" /> */}
         <CardHover />
         <FolderBox />
+        <Sidebar />
       </Stack>
     </Box>
   );

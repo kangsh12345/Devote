@@ -2,7 +2,14 @@ import { atoms } from '@/app/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = recipe({
-  base: [atoms({ cursor: 'pointer', borderRadius: 'md', width: 'full' })],
+  base: [
+    atoms({
+      cursor: 'pointer',
+      borderRadius: 'md',
+      width: 'full',
+      display: 'flex',
+    }),
+  ],
   variants: {
     type: {
       main: {},
