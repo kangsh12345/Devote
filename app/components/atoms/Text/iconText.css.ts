@@ -7,9 +7,7 @@ export const root = recipe({
     atoms({
       position: 'relative',
       display: 'flex',
-      // width: 'fit',
       alignItems: 'center',
-      justifyContent: 'center',
       flexShrink: 0,
       fontWeight: 500,
     }),

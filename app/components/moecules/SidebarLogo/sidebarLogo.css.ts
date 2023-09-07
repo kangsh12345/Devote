@@ -11,7 +11,7 @@ export const root = recipe({
   }),
   variants: {
     isOpen: {
-      true: atoms({ paddingLeft: '6', paddingRight: '3', width: '64' }),
+      true: atoms({ paddingLeft: '6', paddingRight: '3', width: '65' }),
       false: atoms({ paddingLeft: '3', paddingRight: '3', width: 'fit' }),
     },
   },

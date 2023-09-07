@@ -13,7 +13,7 @@ export const root = recipe({
   ],
   variants: {
     isOpen: {
-      true: atoms({ width: '64' }),
+      true: atoms({ width: '65' }),
       false: atoms({ width: 'fit' }),
     },
   },

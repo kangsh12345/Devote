@@ -6,7 +6,7 @@ export const root = recipe({
     atoms({
       display: 'flex',
       flexDirection: 'column',
-      width: '56',
+      width: '57',
       padding: '2',
       borderColor: 'borderPrimary',
       borderRadius: 'xl',
@@ -49,6 +49,8 @@ export const emptyBox = recipe({
       width: 'full',
       paddingTop: '6',
       paddingBottom: '5',
+      color: 'textPrimary',
+      fontWeight: 500,
     }),
   ],
 });

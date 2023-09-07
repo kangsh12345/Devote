@@ -22,7 +22,7 @@ export const CopyRight = ({ size = 'md' }: CopyRightProps) => {
       : { textSize: 'caption', copyrightSize: 16 };
 
   return (
-    <Box width="56" color="textDisabled">
+    <Box width="57" color="textDisabled">
       <Stack space="1" direction="horizontal" justify="center" align="center">
         <Copyright size={copyRightSize.copyrightSize} weight="bold" />
         <Text size={copyRightSize.textSize} weight="medium">
