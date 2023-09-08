@@ -13,6 +13,7 @@ import { CardHover } from '../../moecules/CardHover';
 import { FolderBox } from '../../moecules/FolderBox';
 // import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
+import { MarkdownHeader } from '../../organisms/MarkdownHeader';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
 import { Sidebar } from '../../organisms/Sidebar';
 import { Avatars } from '../Avatars';
@@ -44,8 +45,8 @@ export function Test() {
   ];
 
   return (
-    <Box paddingBottom="80">
-      <Stack space="4">
+    <Box paddingBottom="80" display="flex" width="full">
+      <Stack space="4" flex="auto">
         <Box>----atoms----</Box>
         <ThemeSwitcher size="lg" />
         <ModalOverlay visible={false} />
@@ -146,6 +147,7 @@ export function Test() {
         <Box>----organisms----</Box>
         <Sidebar />
         <PostSubHeader />
+        <MarkdownHeader />
       </Stack>
     </Box>
   );
