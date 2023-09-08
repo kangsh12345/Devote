@@ -64,6 +64,15 @@ const input = style({
   ':disabled': {
     cursor: 'inherit',
   },
+
+  '::placeholder': {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */ color: '#a0aec0',
+    opacity: 1 /* Firefox */,
+  },
+
+  ':-ms-input-placeholder': {
+    /* Internet Explorer 10-11 */ color: '#a0aec0',
+  },
 });
 
 const label = style({

@@ -13,7 +13,7 @@ export const root = recipe({
       backgroundColor: 'backgroundElevatedPrimary',
       borderLeftWidth: 'px',
       borderBottomWidth: 'px',
-      borderColor: 'backgroundElevatedPrimary',
+      borderColor: 'borderPrimary',
     }),
   ],
 });

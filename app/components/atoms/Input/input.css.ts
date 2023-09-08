@@ -29,7 +29,7 @@ export const root = recipe({
     },
     variant: {
       outline: atoms({
-        backgroundColor: 'white',
+        backgroundColor: 'backgroundBase',
         borderWidth: 'px',
       }),
       filled: atoms({
@@ -37,7 +37,7 @@ export const root = recipe({
         borderWidth: 'px',
       }),
       flushed: atoms({
-        backgroundColor: 'white',
+        backgroundColor: 'backgroundBase',
         borderBottomWidth: 'px',
       }),
     },
@@ -174,9 +174,9 @@ export const input = recipe({
       xs: atoms({ borderRadius: 'sm' }),
     },
     variant: {
-      outline: atoms({ backgroundColor: 'white' }),
+      outline: atoms({ backgroundColor: 'backgroundBase' }),
       filled: atoms({ backgroundColor: 'gray100' }),
-      flushed: atoms({ backgroundColor: 'white' }),
+      flushed: atoms({ backgroundColor: 'backgroundBase' }),
     },
     uppercase: {
       true: style({

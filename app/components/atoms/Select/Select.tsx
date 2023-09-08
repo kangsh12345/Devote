@@ -37,6 +37,7 @@ export const Select = ({
         }),
       ]}
       color="textPrimary"
+      backgroundColor="gray50"
       borderColor="borderPrimary"
       borderWidth="px"
       borderRadius="md"

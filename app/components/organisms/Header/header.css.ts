@@ -1,40 +1,38 @@
 import { atoms } from '@/app/css';
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = recipe({
   base: [
     atoms({
+      color: 'textPrimary',
+      position: 'relative',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '12',
+      height: '16',
       paddingX: '19.5',
-      backgroundColor: 'backgroundElevatedPrimary',
+      backgroundColor: 'backgroundElevatedSecondary',
       borderLeftWidth: 'px',
       borderBottomWidth: 'px',
       borderColor: 'borderPrimary',
+      overflow: 'hidden',
     }),
   ],
 });
 
-export const markdown = recipe({
+export const box = recipe({
   base: [
     atoms({
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       width: 'full',
-      position: 'relative',
     }),
   ],
 });
 
-export const iconBox = atoms({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '12',
-  height: '12',
-  color: 'textPrimary',
-  cursor: 'pointer',
-});
+export const switcher = [
+  atoms({ position: 'absolute', right: '8', top: '0' }),
+  style({ marginTop: -8 }),
+];

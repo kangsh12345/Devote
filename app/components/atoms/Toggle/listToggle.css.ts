@@ -27,7 +27,6 @@ export const root = recipe({
       true: {},
       false: atoms({
         backgroundColor: {
-          base: 'backgroundBase',
           hover: 'opacityBlack100',
         },
       }),

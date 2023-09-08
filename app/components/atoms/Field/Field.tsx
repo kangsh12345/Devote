@@ -93,36 +93,38 @@ export const Field = ({
 
       {content}
 
-      <Box display="flex" flexDirection="column" gap="4" width={width}>
-        {description && (
-          <Box
-            color="textTertiary"
-            fontSize="0"
-            paddingX={
-              size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
-            }
-            {...ids.description}
-            height="3"
-          >
-            {description}
-          </Box>
-        )}
+      {description && error && (
+        <Box display="flex" flexDirection="column" gap="4" width={width}>
+          {description && (
+            <Box
+              color="textTertiary"
+              fontSize="0"
+              paddingX={
+                size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
+              }
+              {...ids.description}
+              height="3"
+            >
+              {description}
+            </Box>
+          )}
 
-        {error && (
-          <Box
-            aria-live="polite"
-            color="redPrimary"
-            fontSize="0"
-            paddingX={
-              size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
-            }
-            height="3"
-            {...ids.error}
-          >
-            {error}
-          </Box>
-        )}
-      </Box>
+          {error && (
+            <Box
+              aria-live="polite"
+              color="redPrimary"
+              fontSize="0"
+              paddingX={
+                size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
+              }
+              height="3"
+              {...ids.error}
+            >
+              {error}
+            </Box>
+          )}
+        </Box>
+      )}
     </Box>
   );
 };

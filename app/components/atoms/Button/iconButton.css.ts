@@ -5,6 +5,7 @@ import { recipe } from '@vanilla-extract/recipes';
 export const root = recipe({
   base: [
     atoms({
+      position: 'relative',
       borderRadius: 'lg',
       display: 'flex',
       alignItems: 'center',
@@ -22,7 +23,6 @@ export const root = recipe({
     variant: {
       normal: [
         atoms({
-          backgroundColor: 'backgroundBase',
           flexShrink: 0,
         }),
       ],
