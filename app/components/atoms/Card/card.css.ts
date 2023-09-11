@@ -30,10 +30,21 @@ export const root = recipe({
         width: 'full',
         height: 'full',
       }),
-      card: atoms({
-        width: '76',
-        height: '60',
-      }),
+      card: {},
+    },
+    size: {
+      md: {},
+      sm: {},
     },
   },
+  compoundVariants: [
+    {
+      variants: { type: 'card', size: 'md' },
+      style: atoms({ width: '76', height: '60' }),
+    },
+    {
+      variants: { type: 'card', size: 'sm' },
+      style: atoms({ width: '30', height: '24' }),
+    },
+  ],
 });

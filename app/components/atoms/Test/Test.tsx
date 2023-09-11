@@ -15,6 +15,7 @@ import { FolderBox } from '../../moecules/FolderBox';
 import { SidebarNav } from '../../moecules/SidebarNav';
 import { Header } from '../../organisms/Header';
 import { MarkdownHeader } from '../../organisms/MarkdownHeader';
+import { PostCard } from '../../organisms/PostCard';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
 import { Sidebar } from '../../organisms/Sidebar';
 import { Avatars } from '../Avatars';
@@ -150,6 +151,7 @@ export function Test() {
         <PostSubHeader />
         <MarkdownHeader />
         <Header type="write" />
+        <PostCard variant="card" direction="column" />
       </Stack>
     </Box>
   );

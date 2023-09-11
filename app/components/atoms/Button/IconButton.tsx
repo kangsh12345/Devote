@@ -16,7 +16,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
   return (
     <Box className={styles.root({ size: size, variant: variant })}>
-      <Box className={styles.IconWrapper({ size: size, variant: variant })}>
+      <Box className={styles.iconWrapper({ size: size, variant: variant })}>
         {icon}
       </Box>
     </Box>

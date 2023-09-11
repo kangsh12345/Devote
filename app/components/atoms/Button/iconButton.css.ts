@@ -75,7 +75,7 @@ export const root = recipe({
   ],
 });
 
-export const IconWrapper = recipe({
+export const iconWrapper = recipe({
   base: [
     atoms({
       position: 'relative',
