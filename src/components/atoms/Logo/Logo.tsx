@@ -1,4 +1,5 @@
-import { Text } from '@/src/components/atoms/Typography';
+// import { Text } from '@/src/components/atoms/Typography';
+import { Box } from '../Box';
 
 export interface LogoProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
@@ -7,18 +8,18 @@ export interface LogoProps {
 export const Logo = ({ size = 'md' }: LogoProps) => {
   const logoSize =
     size === 'xl'
-      ? 'h1'
+      ? '10'
       : size === 'lg'
-      ? 'h2'
+      ? '7'
       : size === 'md'
-      ? 'h3'
+      ? '5'
       : size === 'sm'
-      ? 'h4'
-      : 'h3';
+      ? '3'
+      : '5';
 
   return (
-    <Text size={logoSize} weight="bold" color="textPrimary">
+    <Box fontSize={logoSize} fontWeight={700} color="textPrimary">
       Devote
-    </Text>
+    </Box>
   );
 };

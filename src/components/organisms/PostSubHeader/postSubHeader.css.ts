@@ -11,7 +11,6 @@ export const root = recipe({
       gap: '1.5',
       paddingX: '19.5',
       backgroundColor: 'backgroundElevatedPrimary',
-      borderLeftWidth: 'px',
       borderBottomWidth: 'px',
       borderColor: 'borderPrimary',
     }),

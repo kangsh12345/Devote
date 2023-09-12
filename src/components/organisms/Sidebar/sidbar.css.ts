@@ -7,8 +7,12 @@ export const root = recipe({
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
+      width: 'fit',
       height: 'viewHeight',
       backgroundColor: 'backgroundBase',
+      flexShrink: 0,
+      borderRightWidth: 'px',
+      borderColor: 'borderPrimary',
     }),
   ],
   variants: {

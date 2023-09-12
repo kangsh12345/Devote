@@ -13,7 +13,6 @@ export const root = recipe({
       height: '16',
       paddingX: '19.5',
       backgroundColor: 'backgroundElevatedSecondary',
-      borderLeftWidth: 'px',
       borderBottomWidth: 'px',
       borderColor: 'borderPrimary',
       overflow: 'hidden',

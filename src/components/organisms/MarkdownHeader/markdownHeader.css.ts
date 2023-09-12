@@ -10,7 +10,6 @@ export const root = recipe({
       height: '12',
       paddingX: '19.5',
       backgroundColor: 'backgroundElevatedPrimary',
-      borderLeftWidth: 'px',
       borderBottomWidth: 'px',
       borderColor: 'borderPrimary',
     }),
