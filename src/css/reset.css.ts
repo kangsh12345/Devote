@@ -140,10 +140,10 @@ globalStyle('main', {
   justifyContent: 'center',
   flexDirection: 'column',
   position: 'relative',
-  width: '100%',
-  height: '100%',
-  maxWidth: '1440px',
-  margin: '0 auto',
+  // width: '100%',
+  // height: '100%',
+  // maxWidth: '1440px',
+  // margin: '0 auto',
   // overflow: 'hidden',
 });
 
