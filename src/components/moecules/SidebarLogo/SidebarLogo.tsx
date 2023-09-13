@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import Link from 'next/link';
 
 import { Box } from '../../atoms/Box';
 import { Logo } from '../../atoms/Logo';
@@ -21,7 +22,11 @@ export const SidebarLogo = ({
   return (
     <Box className={styles.root({ isOpen })}>
       {/* 추후 atoms 로 묶어서 작업 */}
-      {isOpen && <Logo />}
+      {isOpen && (
+        <Link href="/">
+          <Logo />
+        </Link>
+      )}
       <SidebarToggle
         size={size}
         disabled={disabled}
