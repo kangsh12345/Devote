@@ -123,6 +123,7 @@ export function Test() {
           버튼
         </Button>
         <Card variant="outline" />
+        <Card skeleton />
         <FolderListItem size="lg" isOpened={false} />
         <FolderListItem size="lg" isOpened={true} />
         <FileList />
@@ -158,6 +159,7 @@ export function Test() {
           <PostCard variant="card" direction="row" />
           <PostCard variant="folder" direction="row" />
         </Stack>
+        <PostCard skeleton />
       </Stack>
     </Box>
   );

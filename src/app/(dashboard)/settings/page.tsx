@@ -1,10 +1,10 @@
 import { Header } from '@/src/components/organisms/Header';
 
-export default function RecentPage() {
+export default function SettingsPage() {
   return (
     <div>
       <Header />
-      recent
+      settings
     </div>
   );
 }

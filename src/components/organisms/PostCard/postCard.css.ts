@@ -1,5 +1,5 @@
 import { atoms } from '@/src/css';
-import { style } from '@vanilla-extract/css';
+import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const rootRow = recipe({
@@ -143,4 +143,22 @@ export const folderTitleColumn = atoms({
   paddingLeft: '1',
   fontSize: '5',
   fontWeight: 700,
+});
+
+const skeletonAnimation = keyframes({
+  '0%': {
+    backgroundColor: 'rgba(165, 165, 165, 0.1)',
+  },
+
+  '50%': {
+    backgroundColor: 'rgba(165, 165, 165, 0.3)',
+  },
+
+  '100%': {
+    backgroundColor: 'rgba(165, 165, 165, 0.1)',
+  },
+});
+
+export const skeleton = style({
+  animation: `${skeletonAnimation} 1.8s infinite`,
 });

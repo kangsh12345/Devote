@@ -10,12 +10,45 @@ import { IconText } from '../../atoms/Text';
 import { CardHover } from '../../moecules/CardHover';
 import * as styles from './postCard.css';
 
-export interface PostCardProps {
-  direction?: 'column' | 'row';
-  variant: 'card' | 'folder' | 'cardInFolder';
-}
+export type PostCardProps =
+  | {
+      direction?: 'column' | 'row';
+      variant: 'card' | 'folder' | 'cardInFolder';
+    }
+  | { skeleton: true };
 
-export const PostCard = ({ direction = 'row', variant }: PostCardProps) => {
+export const PostCard = (props: PostCardProps) => {
+  if ('skeleton' in props) {
+    return (
+      <Box className={styles.rootRow({})}>
+        <Box className={styles.wrapperRow({})}>
+          <Box className={styles.cardWrapperRow({})}>
+            <Card skeleton />
+          </Box>
+          <Box className={styles.contentWrapperRow({})}>
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              height="6"
+              width="36"
+              borderRadius="md"
+              // backgroundColor="backgroundElevatedSecondary"
+              className={styles.skeleton}
+            />
+            <Box
+              height="16"
+              borderRadius="md"
+              // backgroundColor={'backgroundElevatedSecondary'}
+              className={styles.skeleton}
+            />
+          </Box>
+        </Box>
+      </Box>
+    );
+  }
+  const direction = props.direction === undefined ? 'row' : props.direction;
+  const variant = props.variant;
+
   return (
     <>
       {direction === 'row' ? (
