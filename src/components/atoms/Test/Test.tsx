@@ -152,6 +152,7 @@ export function Test() {
         <PostSubHeader />
         <MarkdownHeader />
         <Header type="write" />
+        <Header type="auth" />
         <PostCard variant="card" direction="column" />
         <PostCard variant="cardInFolder" direction="column" />
         <PostCard variant="folder" direction="column" />
