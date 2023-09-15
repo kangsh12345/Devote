@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
@@ -33,7 +34,7 @@ export const Header = ({ type = 'popular', auth = false }: HeaderProps) => {
   const selectList = ['오늘', '이번주', '이번달', '전체'];
 
   return (
-    <Box className={styles.root({})}>
+    <Box className={styles.root({ type })}>
       <Box className={styles.box({})}>
         {type === 'auth' ? (
           <Box onClick={() => router.back()}>
@@ -120,15 +121,17 @@ export const Header = ({ type = 'popular', auth = false }: HeaderProps) => {
                 </>
               )}
               {(type === 'popular' || type === 'folder') && auth === false && (
-                <Button
-                  size="sm"
-                  variant="solid"
-                  radius="full"
-                  color="black"
-                  width="fit"
-                >
-                  로그인
-                </Button>
+                <Link href="/auth/login">
+                  <Button
+                    size="sm"
+                    variant="solid"
+                    radius="full"
+                    color="black"
+                    width="fit"
+                  >
+                    로그인
+                  </Button>
+                </Link>
               )}
               {type === 'write' && (
                 <>

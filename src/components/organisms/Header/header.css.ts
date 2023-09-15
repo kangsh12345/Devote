@@ -11,13 +11,22 @@ export const root = recipe({
       alignItems: 'center',
       justifyContent: 'center',
       height: '16',
-      paddingX: '19.5',
       backgroundColor: 'backgroundElevatedSecondary',
       borderBottomWidth: 'px',
       borderColor: 'borderPrimary',
       overflow: 'hidden',
     }),
   ],
+  variants: {
+    type: {
+      popular: atoms({ paddingX: '19.5' }),
+      folder: atoms({ paddingX: '19.5' }),
+      myFolder: atoms({ paddingX: '19.5' }),
+      post: atoms({ paddingX: '19.5' }),
+      write: atoms({ paddingX: '19.5' }),
+      auth: atoms({ paddingX: '8' }),
+    },
+  },
 });
 
 export const box = recipe({
