@@ -1,5 +1,4 @@
 import { atoms } from '@/src/css';
-import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = recipe({
@@ -41,8 +40,5 @@ export const box = recipe({
 });
 
 export const switcher = recipe({
-  base: [
-    atoms({ position: 'absolute', right: '8', top: '0' }),
-    style({ marginTop: -8 }),
-  ],
+  base: [atoms({ position: 'absolute', right: '8', top: '0' })],
 });
