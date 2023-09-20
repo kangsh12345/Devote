@@ -22,25 +22,6 @@ export const authOptions: NextAuthOptions = {
     maxAge: 1 * 24 * 60 * 60,
   },
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   console.log('fire signin Callback');
-    //   return true;
-    // },
-    // async redirect({ url, baseUrl }) {
-    //   console.log('fire redirect Callback');
-    //   return baseUrl;
-    // },
-    // async session({ session, user, token }) {
-    //   console.log('fire SESSION Callback');
-    //   return {
-    //     ...session,
-    //     user: {
-    //       ...session.user,
-    //       id: token.id,
-    //       randomKey: token.randomKey,
-    //     },
-    //   };
-    // },
     async session({ session, user }) {
       session.id = user.id;
       return Promise.resolve(session);

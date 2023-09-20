@@ -40,7 +40,9 @@ export const box = recipe({
   ],
 });
 
-export const switcher = [
-  atoms({ position: 'absolute', right: '8', top: '0' }),
-  style({ marginTop: -8 }),
-];
+export const switcher = recipe({
+  base: [
+    atoms({ position: 'absolute', right: '8', top: '0' }),
+    style({ marginTop: -8 }),
+  ],
+});

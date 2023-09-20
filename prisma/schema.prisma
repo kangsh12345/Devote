@@ -8,13 +8,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-model user {
-  id  String @id @default(cuid())
-  name  String?
-  email String? @unique
-  image String?
-}
-
 model Account {
   id                 String  @id @default(cuid())
   userId             String

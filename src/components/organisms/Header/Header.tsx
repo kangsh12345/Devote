@@ -159,7 +159,7 @@ export const Header = ({ type = 'popular', auth = false }: HeaderProps) => {
           </>
         )}
       </Box>
-      <Box className={styles.switcher}>
+      <Box className={styles.switcher()}>
         <ThemeSwitcher size="md" />
       </Box>
     </Box>
