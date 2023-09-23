@@ -13,7 +13,7 @@ export default function Google() {
           <GoogleLogin
             onSuccess={credentialResponse => {
               fetch(
-                `/api/auth/sign-up?credential=${credentialResponse.credential}`,
+                `/api/auth/sign-up/google?credential=${credentialResponse.credential}`,
               ).then(data => console.log(data));
             }}
             onError={() => {

@@ -7,6 +7,7 @@ import { getThemeMode } from '@/src/utils/cookies';
 import { Box } from '../components/atoms/Box';
 import { Sidebar } from '../components/organisms/Sidebar';
 import AuthSession from './AuthSession';
+import ReactQueryProvider from './ReactQueryProvider';
 
 // export const metadata: Metadata = {
 //   title: 'Create Next App',
@@ -18,16 +19,18 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko">
       <body>
         <main>
-          <AuthSession>
-            <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
-              <Box display="flex" gap="0" width="full">
-                <Sidebar />
-                <Box width="full" overflow="hidden">
-                  {children}
+          <ReactQueryProvider>
+            <AuthSession>
+              <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
+                <Box display="flex" gap="0" width="full">
+                  <Sidebar />
+                  <Box width="full" overflow="hidden">
+                    {children}
+                  </Box>
                 </Box>
-              </Box>
-            </ThemeProvider>
-          </AuthSession>
+              </ThemeProvider>
+            </AuthSession>
+          </ReactQueryProvider>
         </main>
       </body>
     </html>

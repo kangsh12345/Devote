@@ -121,7 +121,7 @@ export const Header = ({ type = 'popular', auth = false }: HeaderProps) => {
                 </>
               )}
               {(type === 'popular' || type === 'folder') && auth === false && (
-                <Link href="/auth/login">
+                <Link href="/auth/signin">
                   <Button
                     size="sm"
                     variant="solid"
