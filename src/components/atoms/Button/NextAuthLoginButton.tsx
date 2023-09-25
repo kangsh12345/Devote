@@ -4,7 +4,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { Box } from '../Box';
 
-export function GoogleLoginButton() {
+export function NextAuthLoginButton() {
   const { data: session } = useSession();
   return (
     <div className="flex flex-col">
@@ -16,7 +16,7 @@ export function GoogleLoginButton() {
       ) : (
         <>
           Not signed in <br />
-          <Box onClick={() => signIn('google')}>로그인</Box>
+          <Box onClick={() => signIn()}>로그인</Box>
         </>
       )}
     </div>

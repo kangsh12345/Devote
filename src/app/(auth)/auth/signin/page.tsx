@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from 'react';
 import { Box } from '@/src/components/atoms/Box';
-import { Button, GoogleLoginButton } from '@/src/components/atoms/Button';
+import { Button, NextAuthLoginButton } from '@/src/components/atoms/Button';
 import { Input } from '@/src/components/atoms/Input';
 import { Stack } from '@/src/components/atoms/Stack';
 
@@ -25,7 +25,7 @@ export default function Login() {
 
   return (
     <Box>
-      <GoogleLoginButton />
+      <NextAuthLoginButton />
       {/* 이메일 로그인 */}
       <Box as="form" onSubmit={handleEmailLogin}>
         <Stack>

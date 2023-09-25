@@ -122,7 +122,7 @@ export function Test() {
         >
           버튼
         </Button>
-        {/* <GoogleLoginButton /> */}
+        {/* <NextAuthLoginButton /> */}
         <Card variant="outline" />
         <Card skeleton />
         <FolderListItem size="lg" isOpened={false} />
