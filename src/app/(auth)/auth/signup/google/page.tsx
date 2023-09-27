@@ -6,9 +6,7 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 export default function Google() {
   return (
     <Box>
-      <GoogleOAuthProvider
-        clientId={String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}
-      >
+      <GoogleOAuthProvider clientId={String(process.env.GOOGLE_CLIENT_ID)}>
         <Box>
           <GoogleLogin
             onSuccess={credentialResponse => {

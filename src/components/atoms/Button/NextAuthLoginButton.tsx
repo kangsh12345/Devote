@@ -6,6 +6,8 @@ import { Box } from '../Box';
 
 export function NextAuthLoginButton() {
   const { data: session } = useSession();
+  console.log(`session : ${JSON.stringify(session)}`);
+
   return (
     <div className="flex flex-col">
       {session ? (
@@ -16,7 +18,17 @@ export function NextAuthLoginButton() {
       ) : (
         <>
           Not signed in <br />
-          <Box onClick={() => signIn()}>로그인</Box>
+          <Box
+            onClick={() =>
+              signIn('google', {
+                redirect: true,
+                callbackUrl: '/',
+              })
+            }
+          >
+            구글 로그인
+          </Box>
+          <Box onClick={() => signIn('github')}>GITHUB 로그인</Box>
         </>
       )}
     </div>

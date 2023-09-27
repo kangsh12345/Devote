@@ -1,13 +1,14 @@
 import { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-// import GoogleProvider from 'next-auth/providers/google';
-// import { PrismaAdapter } from '@next-auth/prisma-adapter';
-// import { PrismaClient } from '@prisma/client';
+import GitHub from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
-  // adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),
   providers: [
     Credentials({
       name: 'Credentials',
@@ -15,12 +16,10 @@ export const authOptions: NextAuthOptions = {
         email: {
           label: '이메일',
           type: 'text',
-          placeholder: '이메일',
         },
         password: {
           label: '비밀번호',
           type: 'password',
-          placeholder: '비밀번호',
         },
       },
 
@@ -38,22 +37,44 @@ export const authOptions: NextAuthOptions = {
 
         const user = await res.json();
 
-        return user.user;
+        if (user.user) {
+          return user.user;
+        } else {
+          return null;
+        }
       },
     }),
-    // GoogleProvider({
-    //   clientId: String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''),
-    //   clientSecret: String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || ''),
-    // }),
+
+    Google({
+      clientId: String(process.env.GOOGLE_CLIENT_ID || ''),
+      clientSecret: String(process.env.GOOGLE_CLIENT_SECRET || ''),
+    }),
+    GitHub({
+      clientId: String(process.env.GITHUB_CLIENT_ID || ''),
+      clientSecret: String(process.env.GITHUB_CLIENT_SECRET || ''),
+      allowDangerousEmailAccountLinking: true,
+    }),
   ],
-  // session: {
-  //   strategy: 'database',
-  //   maxAge: 1 * 24 * 60 * 60,
-  // },
-  // callbacks: {
-  //   async session({ session, user }) {
-  //     session.id = user.id;
-  //     return Promise.resolve(session);
-  //   },
-  // },
+  session: {
+    strategy: 'jwt',
+    maxAge: 1 * 24 * 60 * 60,
+  },
+  callbacks: {
+    async session({ session, token }) {
+      session.user.id = token.id;
+
+      return session;
+    },
+
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+
+      return token;
+    },
+  },
+  pages: {
+    signIn: '/auth/signin',
+  },
 };
