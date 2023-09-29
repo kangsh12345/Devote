@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
 import {
   ArrowLeft,
   FilePlus,
@@ -24,12 +25,13 @@ import * as styles from './header.css';
 
 export interface HeaderProps {
   type?: 'popular' | 'folder' | 'myFolder' | 'post' | 'write' | 'auth';
-  auth?: boolean;
 }
 
-export const Header = ({ type = 'popular', auth = false }: HeaderProps) => {
+export const Header = ({ type = 'popular' }: HeaderProps) => {
   const router = useRouter();
   const [state, setState] = useState('');
+
+  const { data: session } = useSession();
 
   const selectList = ['오늘', '이번주', '이번달', '전체'];
 
@@ -120,7 +122,7 @@ export const Header = ({ type = 'popular', auth = false }: HeaderProps) => {
                   />
                 </>
               )}
-              {(type === 'popular' || type === 'folder') && auth === false && (
+              {(type === 'popular' || type === 'folder') && !session ? (
                 <Link href="/auth/signin">
                   <Button
                     size="sm"
@@ -132,6 +134,18 @@ export const Header = ({ type = 'popular', auth = false }: HeaderProps) => {
                     로그인
                   </Button>
                 </Link>
+              ) : (
+                <Box onClick={() => signOut()}>
+                  <Button
+                    size="sm"
+                    variant="solid"
+                    radius="full"
+                    color="black"
+                    width="fit"
+                  >
+                    로그아웃
+                  </Button>
+                </Box>
               )}
               {type === 'write' && (
                 <>

@@ -1,1 +1,2 @@
-export { MarkdownDivide } from './Divide';
+export { Divide } from './Divide';
+export { MarkdownDivide } from './MarkdownDivide';

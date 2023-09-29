@@ -12,7 +12,6 @@ export interface NextAuthLoginButtonProps {
 
 export function NextAuthLoginButton({ name }: NextAuthLoginButtonProps) {
   const { data: session } = useSession();
-  console.log(`session : ${JSON.stringify(session)}`);
 
   const src =
     name === 'google' ? '/image/GoogleButton.svg' : '/image/GithubButton.svg';
