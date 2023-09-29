@@ -23,7 +23,7 @@ export default function Login() {
 
   return (
     <Box>
-      <NextAuthLoginButton />
+      <NextAuthLoginButton name="github" />
       {/* 이메일 로그인 */}
       <Stack>
         <Input

@@ -4,9 +4,17 @@ import { Header } from '@/src/components/organisms/Header';
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
   return (
-    <Box>
+    <Box height="full" backgroundColor="backgroundElevatedPrimary">
       <Header type="auth" />
-      {children}
+      <Box
+        display="flex"
+        height="full"
+        paddingY="10"
+        paddingX="2"
+        justifyContent="center"
+      >
+        {children}
+      </Box>
     </Box>
   );
 }

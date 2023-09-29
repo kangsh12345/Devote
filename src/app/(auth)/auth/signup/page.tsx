@@ -1,8 +1,8 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Box } from '@/src/components/atoms/Box';
-import { Button } from '@/src/components/atoms/Button';
+import { Button, NextAuthLoginButton } from '@/src/components/atoms/Button';
 import { Input } from '@/src/components/atoms/Input';
 import { Stack } from '@/src/components/atoms/Stack';
 
@@ -11,9 +11,7 @@ export default function Email() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     fetch(`/api/auth/sign-up/email`, {
       method: 'POST',
       body: JSON.stringify({
@@ -26,7 +24,7 @@ export default function Email() {
   };
 
   return (
-    <Box as="form" onSubmit={handleSubmit}>
+    <Box>
       <Stack>
         <Input
           label="email name"
@@ -56,10 +54,12 @@ export default function Email() {
           value={password}
           onChange={event => setPassword(event.target.value)}
         />
-        <Box as="button" type="submit">
+        <Box onClick={handleSubmit}>
           <Button>회원가입</Button>
         </Box>
       </Stack>
+      <NextAuthLoginButton name="google" />
+      <NextAuthLoginButton name="github" />
     </Box>
   );
 }

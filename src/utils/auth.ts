@@ -48,6 +48,7 @@ export const authOptions: NextAuthOptions = {
     Google({
       clientId: String(process.env.GOOGLE_CLIENT_ID || ''),
       clientSecret: String(process.env.GOOGLE_CLIENT_SECRET || ''),
+      allowDangerousEmailAccountLinking: true,
     }),
     GitHub({
       clientId: String(process.env.GITHUB_CLIENT_ID || ''),
