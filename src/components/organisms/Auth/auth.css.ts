@@ -8,6 +8,7 @@ export const root = atoms({
   gap: '6',
   padding: '10',
   borderWidth: 'px',
+  color: 'textPrimary',
   borderColor: 'borderSecondary',
   backgroundColor: 'backgroundBase',
   height: 'fit',
