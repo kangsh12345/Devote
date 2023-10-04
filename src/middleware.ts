@@ -1,27 +1,51 @@
-import { withAuth } from 'next-auth/middleware';
+import { NextRequest, NextResponse } from 'next/server';
+import { getToken, JWT } from 'next-auth/jwt';
 
-export default withAuth(function middleware() {}, {
-  callbacks: {
-    authorized: ({ req, token }) => {
-      const { pathname } = req.nextUrl;
+const withAuthList: string[] = ['/favorites', '/settings'];
+const withOutAuthList: string[] = ['/auth/:path*'];
 
-      if (token === null) {
-        if (
-          pathname.startsWith('/settings') ||
-          pathname.startsWith('/favorites')
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
-  },
-});
+const withAuth = (req: NextRequest, token: JWT | null) => {
+  const url = req.nextUrl.clone();
+  const { pathname } = req.nextUrl;
 
-// export const config = {
-//   matcher: ['/settings/:path*', '/favorites/:path*'],
-// };
+  if (!token) {
+    url.pathname = '/auth/signin';
+    url.search = `callbackUrl=${pathname}`;
 
-// TODO: 1) 추후 로그인 withAuth withOutAuth 구체화 시키기 2) Auth에 대한 블로그 글 작성
-//        (withAuth 사용해서 해보자)
-// TODO: input password 형식 생성, email vaild 유효성 검사 추가
+    return NextResponse.redirect(url);
+  }
+};
+
+const withOutAuth = (
+  req: NextRequest,
+  token: JWT | null,
+  to: string | null,
+) => {
+  const url = req.nextUrl.clone();
+
+  if (token) {
+    // TODO: 추후 env에 넣어 변경
+    url.pathname = to ?? '/';
+    url.search = '';
+
+    return NextResponse.redirect(url);
+  }
+};
+
+export async function middleware(req: NextRequest) {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const { pathname } = req.nextUrl;
+
+  const { searchParams } = req.nextUrl;
+  const callbackUrl = searchParams.get('callbackUrl');
+
+  const isWithAuth = withAuthList.includes(pathname);
+  const isWithOutAuth = pathname.startsWith('/auth');
+
+  if (isWithAuth) return withAuth(req, token);
+  else if (isWithOutAuth) return withOutAuth(req, token, callbackUrl);
+}
+
+export const config = {
+  matcher: [...withAuthList, ...withOutAuthList],
+};

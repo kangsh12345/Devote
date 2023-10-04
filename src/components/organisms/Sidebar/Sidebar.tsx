@@ -73,13 +73,8 @@ export const Sidebar = () => {
                   설정
                 </SidebarNav>
               </Link>
-              {/* auth 있을시 로그아웃 nav */}
               {session && (
-                <Box
-                  onClick={() =>
-                    signOut({ callbackUrl: 'http://localhost:3000' })
-                  }
-                >
+                <Box onClick={() => signOut({ callbackUrl: '/' })}>
                   <SidebarNav
                     type="sub"
                     isActive={false}

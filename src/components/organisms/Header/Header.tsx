@@ -135,7 +135,7 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                   </Button>
                 </Link>
               ) : (
-                <Box onClick={() => signOut()}>
+                <Box onClick={() => signOut({ callbackUrl: '/' })}>
                   <Button
                     size="sm"
                     variant="solid"

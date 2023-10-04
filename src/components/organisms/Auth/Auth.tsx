@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Box } from '@/src/components/atoms/Box';
 import { Button, NextAuthLoginButton } from '@/src/components/atoms/Button';
@@ -16,6 +17,9 @@ export interface AuthProps {
 }
 
 export const Auth = ({ type }: AuthProps) => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,7 +43,7 @@ export const Auth = ({ type }: AuthProps) => {
       email: email,
       password: password,
       redirect: true,
-      callbackUrl: '/',
+      callbackUrl: callbackUrl ?? '/',
     });
   };
 
