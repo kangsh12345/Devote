@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
 import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
 import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
 import gear from '@phosphor-icons/core/duotone/gear-duotone.svg';
@@ -20,6 +21,8 @@ import * as styles from './sidbar.css';
 
 export const Sidebar = () => {
   const pathname = usePathname();
+
+  const { data: session } = useSession();
 
   const [isOpen, setIsOpen] = useState(true);
 
@@ -71,13 +74,21 @@ export const Sidebar = () => {
                 </SidebarNav>
               </Link>
               {/* auth 있을시 로그아웃 nav */}
-              <SidebarNav
-                type="sub"
-                isActive={false}
-                icon={<Image src={signout} alt="icon" fill />}
-              >
-                로그아웃
-              </SidebarNav>
+              {session && (
+                <Box
+                  onClick={() =>
+                    signOut({ callbackUrl: 'http://localhost:3000' })
+                  }
+                >
+                  <SidebarNav
+                    type="sub"
+                    isActive={false}
+                    icon={<Image src={signout} alt="icon" fill />}
+                  >
+                    로그아웃
+                  </SidebarNav>
+                </Box>
+              )}
             </Stack>
             <CopyRight />
           </Box>
