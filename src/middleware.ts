@@ -14,6 +14,7 @@ const withAuth = (req: NextRequest, token: JWT | null) => {
 
     return NextResponse.redirect(url);
   }
+  return NextResponse.json({ status: 400, message: '토근 에러' });
 };
 
 const withOutAuth = (
@@ -24,12 +25,12 @@ const withOutAuth = (
   const url = req.nextUrl.clone();
 
   if (token) {
-    // TODO: 추후 env에 넣어 변경
     url.pathname = to ?? '/';
     url.search = '';
 
     return NextResponse.redirect(url);
   }
+  return NextResponse.json({ status: 400, message: '토근 에러' });
 };
 
 export async function middleware(req: NextRequest) {
