@@ -38,7 +38,7 @@ type BaseProps = FieldBaseProps & {
   rightIcon?: ReactElement;
   tabIndex?: NativeInputProps['tabIndex'];
   textTransform?: BoxProps['textTransform'];
-  type?: 'email' | 'number' | 'text' | 'datetime-local';
+  type?: 'email' | 'number' | 'text' | 'datetime-local' | 'password';
   units?: string;
   value?: string | number;
   onBlur?: NativeInputProps['onBlur'];
@@ -72,8 +72,19 @@ type WithTypeDateTime = {
   min?: NativeInputProps['min'];
 };
 
+type WithPassword = {
+  type?: 'password';
+  maxLength?: NativeInputProps['maxLength'];
+};
+
 type Props = BaseProps &
-  (WithTypeEmail | WithTypeText | WithTypeNumber | WithTypeDateTime);
+  (
+    | WithTypeEmail
+    | WithTypeText
+    | WithTypeNumber
+    | WithTypeDateTime
+    | WithPassword
+  );
 
 export const Input = forwardRef(
   (

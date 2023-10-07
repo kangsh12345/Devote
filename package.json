@@ -33,12 +33,14 @@
     "nookies": "^2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@mdx-js/loader": "^2.3.0",
     "@tanstack/react-query-devtools": "^4.35.3",
     "@types/bcrypt": "^5.0.0",
+    "@types/validator": "^13.11.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vanilla-extract/css-utils": "^0.1.3",

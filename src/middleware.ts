@@ -14,7 +14,6 @@ const withAuth = (req: NextRequest, token: JWT | null) => {
 
     return NextResponse.redirect(url);
   }
-  return NextResponse.json({ status: 400, message: '토근 에러' });
 };
 
 const withOutAuth = (
@@ -30,7 +29,6 @@ const withOutAuth = (
 
     return NextResponse.redirect(url);
   }
-  return NextResponse.json({ status: 400, message: '토근 에러' });
 };
 
 export async function middleware(req: NextRequest) {

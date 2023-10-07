@@ -93,12 +93,12 @@ export const Field = ({
 
       {content}
 
-      {description && error && (
+      {(description || error) && (
         <Box display="flex" flexDirection="column" gap="4" width={width}>
           {description && (
             <Box
               color="textTertiary"
-              fontSize="0"
+              fontSize="1"
               paddingX={
                 size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
               }
@@ -113,7 +113,7 @@ export const Field = ({
             <Box
               aria-live="polite"
               color="redPrimary"
-              fontSize="0"
+              fontSize="1"
               paddingX={
                 size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3' : '2'
               }
