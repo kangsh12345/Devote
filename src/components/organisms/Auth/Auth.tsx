@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Box } from '@/src/components/atoms/Box';
 import { Button, NextAuthLoginButton } from '@/src/components/atoms/Button';
@@ -18,6 +18,8 @@ export interface AuthProps {
 }
 
 export const Auth = ({ type }: AuthProps) => {
+  const router = useRouter();
+
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');
 
@@ -44,6 +46,20 @@ export const Auth = ({ type }: AuthProps) => {
       return;
     }
 
+    fetch(`/api/auth/sign-up/email/check`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) {
+          alert('이미 가입된 이메일 입니다.');
+          router.push('/auth/signin');
+        }
+      });
+
     fetch(`/api/auth/sign-up/email`, {
       method: 'POST',
       body: JSON.stringify({
@@ -52,7 +68,13 @@ export const Auth = ({ type }: AuthProps) => {
         password: password,
         image: 'https://source.boringavatars.com/beam',
       }),
-    }).then(data => console.log(data));
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data) {
+          router.push('/');
+        }
+      });
   };
 
   const handleEmailSignin = async () => {
@@ -161,6 +183,8 @@ export const Auth = ({ type }: AuthProps) => {
             <Input
               label="email password"
               // 추후 type password 구현
+              type="password"
+              maxLength={24}
               hideLabel
               placeholder="비밀번호를 입력해 주세요."
               variant="outline"
