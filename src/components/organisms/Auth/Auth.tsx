@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Box } from '@/src/components/atoms/Box';
 import { Button, NextAuthLoginButton } from '@/src/components/atoms/Button';
@@ -18,8 +18,6 @@ export interface AuthProps {
 }
 
 export const Auth = ({ type }: AuthProps) => {
-  const router = useRouter();
-
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');
 
@@ -34,7 +32,7 @@ export const Auth = ({ type }: AuthProps) => {
   const title = type === 'signin' ? '로그인' : '회원가입';
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,24}$/;
 
-  const handleEmailSignup = () => {
+  const handleEmailSignup = async () => {
     if (!passwordRegex.test(password)) {
       setPasswordError('특수기호 + 영문 + 숫자 조합 8자리 이상 입력해주세요.');
       setPasswordCheckError('올바른 비밀번호를 입력해주세요.');
@@ -46,35 +44,26 @@ export const Auth = ({ type }: AuthProps) => {
       return;
     }
 
-    fetch(`/api/auth/sign-up/email/check`, {
+    const res = await fetch(`/api/auth/sign-up/email/check`, {
       method: 'POST',
       body: JSON.stringify({
         email: email,
       }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (!data.success) {
-          alert('이미 가입된 이메일 입니다.');
-          router.push('/auth/signin');
-        }
-      });
+    }).then(res => res.json());
 
-    fetch(`/api/auth/sign-up/email`, {
-      method: 'POST',
-      body: JSON.stringify({
+    if (!res.success) {
+      setEmailError('이미 가입된 이메일 입니다.');
+      return;
+    } else {
+      await signIn('signup', {
         name: name,
         email: email,
         password: password,
         image: 'https://source.boringavatars.com/beam',
-      }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data) {
-          router.push('/');
-        }
+        redirect: true,
+        callbackUrl: '/',
       });
+    }
   };
 
   const handleEmailSignin = async () => {

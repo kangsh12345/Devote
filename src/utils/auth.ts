@@ -11,6 +11,7 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     Credentials({
+      id: 'credentials',
       name: 'Credentials',
       credentials: {
         email: {
@@ -31,6 +32,53 @@ export const authOptions: NextAuthOptions = {
             body: JSON.stringify({
               email: credentials?.email,
               password: credentials?.password,
+            }),
+          },
+        );
+
+        const user = await res.json();
+
+        if (user.user) {
+          return user.user;
+        } else {
+          return null;
+        }
+      },
+    }),
+
+    Credentials({
+      id: 'signup',
+      name: 'Signup',
+      credentials: {
+        name: {
+          label: '이름',
+          type: 'text',
+        },
+        email: {
+          label: '이메일',
+          type: 'text',
+        },
+        password: {
+          label: '비밀번호',
+          type: 'password',
+        },
+        image: {
+          label: '대표 이미지',
+          type: 'text',
+        },
+      },
+
+      async authorize(credentials) {
+        const res = await fetch(
+          `${process.env.NEXTAUTH_URL}/api/auth/sign-up/email`,
+          {
+            method: 'POST',
+
+            body: JSON.stringify({
+              name: credentials?.name,
+              email: credentials?.email,
+              password: credentials?.password,
+              image: credentials?.image,
             }),
           },
         );
