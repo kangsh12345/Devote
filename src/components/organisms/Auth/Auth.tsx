@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Box } from '@/src/components/atoms/Box';
 import { Button, NextAuthLoginButton } from '@/src/components/atoms/Button';
@@ -18,6 +18,7 @@ export interface AuthProps {
 }
 
 export const Auth = ({ type }: AuthProps) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');
 
@@ -67,11 +68,24 @@ export const Auth = ({ type }: AuthProps) => {
   };
 
   const handleEmailSignin = async () => {
+    if (!passwordRegex.test(password)) {
+      setPasswordError('특수기호 + 영문 + 숫자 조합 8자리 이상 입력해주세요.');
+      return;
+    } else if (emailError || passwordError) {
+      return;
+    }
+
     await signIn('credentials', {
       email: email,
       password: password,
-      redirect: true,
-      callbackUrl: callbackUrl ?? '/',
+      redirect: false,
+    }).then(res => {
+      if (!res?.error) {
+        router.push(callbackUrl ?? '/');
+      } else {
+        setPassword('');
+        setPasswordError('이메일 또는 비밀번호가 유효하지 않습니다.');
+      }
     });
   };
 
@@ -82,7 +96,7 @@ export const Auth = ({ type }: AuthProps) => {
         {type === 'signup' ? (
           <>
             <Input
-              label="email name"
+              label="name"
               hideLabel
               placeholder="닉네임을 입력해주세요."
               maxLength={24}
@@ -94,12 +108,12 @@ export const Auth = ({ type }: AuthProps) => {
               }}
             />
             <Input
-              // TODO: 중복된 이메일 시 deboune fetch를 이용하여 error message 출력
               error={emailError}
-              label="email email"
+              label="email"
               hideLabel
               placeholder="이메일을 입력해주세요."
               variant="outline"
+              maxLength={100}
               size="md"
               value={email}
               onChange={event => {
@@ -161,25 +175,45 @@ export const Auth = ({ type }: AuthProps) => {
           <>
             <Input
               error={emailError}
-              label="email email"
+              label="email"
               hideLabel
               placeholder="이메일을 입력해주세요."
               variant="outline"
+              maxLength={100}
               size="md"
               value={email}
-              onChange={event => setEmail(event.target.value)}
+              onChange={event => {
+                setEmail(event.target.value);
+                if (!isEmail(event.target.value)) {
+                  setEmailError('이메일 형식으로 작성해주세요.');
+                } else {
+                  setEmailError('');
+                }
+              }}
             />
             <Input
-              label="email password"
-              // 추후 type password 구현
+              error={passwordError}
               type="password"
-              maxLength={24}
+              label="email password"
               hideLabel
               placeholder="비밀번호를 입력해 주세요."
+              maxLength={24}
               variant="outline"
               size="md"
               value={password}
-              onChange={event => setPassword(event.target.value)}
+              onChange={event => {
+                setPassword(event.target.value);
+                if (
+                  passwordError === '이메일 또는 비밀번호가 유효하지 않습니다.'
+                ) {
+                  setPasswordError('');
+                } else if (
+                  passwordError !== '' &&
+                  passwordRegex.test(password)
+                ) {
+                  setPasswordError('');
+                }
+              }}
             />
           </>
         )}
