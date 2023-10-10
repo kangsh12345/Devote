@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import {
   ArrowLeft,
   FilePlus,
@@ -13,7 +13,7 @@ import {
   SquaresFour,
 } from '@phosphor-icons/react';
 
-import { Avatars } from '../../atoms/Avatars';
+import { AvatarMenu, Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Button, IconButton } from '../../atoms/Button';
 import { Input } from '../../atoms/Input';
@@ -134,18 +134,17 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                     로그인
                   </Button>
                 </Link>
+              ) : session && session.user.image ? (
+                <AvatarMenu image={session.user.image} />
               ) : (
-                <Box onClick={() => signOut({ callbackUrl: '/' })}>
-                  <Button
-                    size="sm"
-                    variant="solid"
-                    radius="full"
-                    color="black"
-                    width="fit"
-                  >
-                    로그아웃
-                  </Button>
-                </Box>
+                <Box
+                  width="9"
+                  height="9"
+                  position="relative"
+                  overflow="hidden"
+                  borderRadius="full"
+                  backgroundColor="gray400"
+                />
               )}
               {type === 'write' && (
                 <>

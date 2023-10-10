@@ -11,7 +11,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [],
+    dangerouslyAllowSVG: true,
+    domains: ['avatars.githubusercontent.com', 'source.boringavatars.com'],
   },
 };
 

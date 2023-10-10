@@ -66,7 +66,9 @@ export function Test() {
         >
           Are you sure? You can't undo this action afterwards.
         </ModalContent>
-        <Popover size="md" list={popoverList} />
+        <Box marginLeft="64">
+          <Popover size="md" list={popoverList} />
+        </Box>
         <Input
           label="Label"
           hideLabel
@@ -82,7 +84,7 @@ export function Test() {
           Text테스트
         </Text>
         <Logo size="md" />
-        <CopyRight size="md" />
+        <CopyRight />
         <Select size="md" list={selectList} />
         <Avatars size="md" text="devote" />
         <Stack direction="horizontal">

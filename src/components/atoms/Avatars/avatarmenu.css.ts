@@ -7,7 +7,6 @@ export const button = recipe({
     atoms({
       position: 'relative',
       cursor: 'pointer',
-      paddingTop: 'px',
       flexShrink: 0,
     }),
   ],
@@ -26,36 +25,6 @@ export const button = recipe({
   },
 });
 
-export const IconBox = recipe({
-  base: [
-    atoms({
-      backgroundColor: { base: 'opacityBlack100', hover: 'opacityBlack200' },
-    }),
-  ],
-  variants: {
-    size: {
-      lg: atoms({
-        height: '9',
-        width: '9',
-      }),
-      md: atoms({
-        height: '8',
-        width: '8',
-      }),
-      sm: atoms({
-        height: '7',
-        width: '7',
-      }),
-    },
-    open: {
-      true: atoms({
-        backgroundColor: { base: 'opacityBlack300', hover: 'opacityBlack300' },
-      }),
-      false: {},
-    },
-  },
-});
-
 export const ulContainer = [
   atoms({
     position: 'absolute',
@@ -63,15 +32,6 @@ export const ulContainer = [
     top: 'full',
     zIndex: '10',
     paddingTop: '2',
-    transitionDuration: '200',
-    transitionProperty: 'opacity',
-    transitionTimingFunction: 'inOut',
-  }),
-  style({
-    opacity: 0.5,
-    selectors: {
-      ':hover&': { opacity: 1 },
-    },
   }),
 ];
 
@@ -89,8 +49,8 @@ export const ulBox = recipe({
       borderRadius: 'base',
       backgroundColor: 'backgroundBase',
       color: 'textTertiary',
-      width: '52',
       wordWrap: 'break-word',
+      width: '36',
     }),
     style({
       animation: `${animations} 0.2s`,
@@ -110,32 +70,14 @@ export const liValue = recipe({
     atoms({
       transitionProperty: 'transform',
       transitionTimingFunction: 'inOut',
-      paddingX: '4',
-      paddingY: '3',
-      fontSize: '1',
     }),
     style({
+      fontSize: '0.875rem',
+      padding: '0.75rem 1rem',
       transitionDuration: '100ms',
       selectors: {
-        'li+li&': { border: 'none' },
         ':hover&': { backgroundColor: 'unset', color: vars.colors.textPrimary },
       },
     }),
   ],
-  variants: {
-    active: {
-      true: [
-        style({ transform: 'scale(1.04)' }),
-        atoms({
-          color: 'textPrimary',
-        }),
-      ],
-      false: {},
-    },
-    heading: {
-      1: {},
-      2: atoms({ paddingLeft: '6' }),
-      3: atoms({ paddingLeft: '8' }),
-    },
-  },
 });

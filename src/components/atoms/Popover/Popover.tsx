@@ -23,7 +23,7 @@ export const Popover = ({
   disabled = false,
 }: PopoverProps) => {
   const [value, setValue] = useState('');
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
