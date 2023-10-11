@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import star from '@phosphor-icons/core/fill/star-fill.svg';
 import {
   ArrowLeft,
   FilePlus,
@@ -19,6 +21,7 @@ import { Button, IconButton } from '../../atoms/Button';
 import { Input } from '../../atoms/Input';
 import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
+import { IconText } from '../../atoms/Text';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';
 import * as styles from './header.css';
@@ -170,6 +173,27 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                     저장
                   </Button>
                 </>
+              )}
+              {type === 'post' && (
+                <Stack direction="horizontal" space="6">
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    color="textTertiary"
+                    paddingLeft="6"
+                    fontSize="1"
+                  >
+                    2023년 7월 9일
+                  </Box>
+                  <IconText
+                    type="cardhover"
+                    size="lg"
+                    leftIcon={<Image src={star} alt="icon" fill />}
+                  >
+                    <Box color="textSecondary">20</Box>
+                  </IconText>
+                </Stack>
               )}
             </Stack>
           </>
