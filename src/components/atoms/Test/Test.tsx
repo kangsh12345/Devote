@@ -165,15 +165,25 @@ export function Test() {
         <Sidebar />
         <PostSubHeader />
         <MarkdownHeader />
+        <Header type="popular" />
+        <Header type="folder" />
+        <Header type="myFolder" />
+        <Header type="post" />
         <Header type="write" />
         <Header type="auth" />
 
-        <PostCard variant="card" direction="column" />
-        <PostCard variant="cardInFolder" direction="column" />
-        <PostCard variant="folder" direction="column" />
+        <Stack space="0">
+          <PostCard variant="card" direction="column" />
+          <PostCard variant="cardInFolder" direction="column" />
+          <PostCard variant="cardInFolder" direction="column" />
+          <PostCard variant="folder" direction="column" />
+        </Stack>
 
         <Box className={styles.cardContainer}>
           <PostCard variant="card" direction="row" />
+          <PostCard variant="folder" direction="row" />
+          <PostCard variant="folder" direction="row" />
+          <PostCard variant="folder" direction="row" />
           <PostCard variant="folder" direction="row" />
           <PostCard variant="folder" direction="row" />
         </Box>

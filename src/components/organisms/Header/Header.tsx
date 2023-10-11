@@ -78,7 +78,13 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
               )}
               {type !== 'popular' && (
                 <Stack direction="horizontal" space="2" align="center">
-                  <Avatars size="md" text="김아무개" />
+                  {type === 'myFolder' ? (
+                    <Box fontSize="2" fontWeight={500}>
+                      나의 폴더
+                    </Box>
+                  ) : (
+                    <Avatars size="md" text="김아무개" />
+                  )}
                   <Box fontSize="1" fontWeight={700} color="textSecondary">
                     / 프론트
                   </Box>
@@ -134,17 +140,14 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                     로그인
                   </Button>
                 </Link>
-              ) : session && session.user.image ? (
-                <AvatarMenu image={session.user.image} />
               ) : (
-                <Box
-                  width="9"
-                  height="9"
-                  position="relative"
-                  overflow="hidden"
-                  borderRadius="full"
-                  backgroundColor="gray400"
-                />
+                session &&
+                session.user.image &&
+                (type === 'popular' ||
+                  type === 'folder' ||
+                  type === 'myFolder') && (
+                  <AvatarMenu image={session.user.image} />
+                )
               )}
               {type === 'write' && (
                 <>

@@ -77,8 +77,8 @@ export const rootColumn = recipe({
     atoms({
       position: 'relative',
       display: 'flex',
-      paddingTop: '4',
-      paddingBottom: '6',
+      paddingTop: '3',
+      paddingBottom: '3',
       gap: '6',
     }),
   ],
@@ -106,11 +106,10 @@ export const subtitleColumn = recipe({
     atoms({
       display: 'flex',
       width: 'full',
-      height: 'full',
+      height: '6',
       alignItems: 'center',
       color: 'textSecondary',
       fontSize: '3',
-      fontWeight: 500,
     }),
   ],
   variants: {
