@@ -58,7 +58,13 @@ export const PostCard = (props: PostCardProps) => {
               {variant !== 'folder' ? (
                 <CardHover />
               ) : (
-                <FolderNotch size={240} weight="duotone" />
+                <Box className={styles.folderIconWrapper}>
+                  <FolderNotch
+                    width="calc(100%/16*9)"
+                    height="100%"
+                    weight="duotone"
+                  />
+                </Box>
               )}
             </Box>
             <Box className={styles.contentWrapperRow({})}>
@@ -72,17 +78,22 @@ export const PostCard = (props: PostCardProps) => {
               >
                 초기세팅
               </Box>
-              <Box
-                fontSize="1"
-                lineHeight={1}
-                height="16"
-                className={styles.overflowRow({ type: 'subtitle' })}
-              >
-                vscode 우측 하단 체크 표시로 prettier, eslint가 안떠있으면 출력
-                세션에서 어떤 문제가 있는지 확인하고 오류있는 부분을 고쳐야함
-                vscode 우측 하단 체크 표시로 prettier, eslint가 안떠있으면 출력
-                세션에서 어떤 문제가 있는지 확인하고 오류있는 부분을 고쳐야함
-              </Box>
+              {variant !== 'folder' ? (
+                <Box
+                  fontSize="1"
+                  lineHeight={1}
+                  height="16"
+                  className={styles.overflowRow({ type: 'subtitle' })}
+                >
+                  vscode 우측 하단 체크 표시로 prettier, eslint가 안떠있으면
+                  출력 세션에서 어떤 문제가 있는지 확인하고 오류있는 부분을
+                  고쳐야함 vscode 우측 하단 체크 표시로 prettier, eslint가
+                  안떠있으면 출력 세션에서 어떤 문제가 있는지 확인하고 오류있는
+                  부분을 고쳐야함
+                </Box>
+              ) : (
+                ''
+              )}
             </Box>
           </Box>
         </Box>
@@ -90,7 +101,17 @@ export const PostCard = (props: PostCardProps) => {
         <Box className={styles.rootColumn({})}>
           {variant === 'card' || variant === 'cardInFolder' ? (
             <>
-              <Card variant="outline" size="sm" />
+              <Box
+                display="flex"
+                flexShrink={0}
+                justifyContent="center"
+                alignItems="center"
+                height="24"
+              >
+                <Box width="23">
+                  <Card variant="outline" direction={direction} />
+                </Box>
+              </Box>
               <Box className={styles.contentWrapperColmn}>
                 <Box className={styles.mainContentColumn}>
                   <Stack space="3" direction="horizontal" align="center">
@@ -129,7 +150,7 @@ export const PostCard = (props: PostCardProps) => {
           ) : (
             <>
               <Box flexShrink={0}>
-                <FolderNotch size={120} weight="duotone" />
+                <FolderNotch size={92} weight="duotone" />
               </Box>
               <Box className={styles.folderTitleColumn}>폴더 제목</Box>
             </>

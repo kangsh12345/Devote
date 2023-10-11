@@ -7,15 +7,15 @@ export const rootRow = recipe({
     position: 'relative',
     padding: '5',
     flexShrink: 0,
-    width: 'fit',
+    // width: 'fit',
+    width: 'full',
   }),
 });
 
 export const wrapperRow = recipe({
   base: atoms({
     display: 'flex',
-    width: '80',
-    height: '90',
+    width: 'full',
     flexDirection: 'column',
   }),
 });
@@ -27,9 +27,16 @@ export const cardWrapperRow = recipe({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '60',
     width: 'full',
   }),
+});
+
+export const folderIconWrapper = atoms({
+  width: 'full',
+  height: 'auto',
+  aspectRatio: '16/9',
+  display: 'flex',
+  justifyContent: 'center',
 });
 
 export const contentWrapperRow = recipe({

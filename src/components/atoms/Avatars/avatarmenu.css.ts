@@ -48,9 +48,10 @@ export const ulBox = recipe({
       display: 'block',
       borderRadius: 'base',
       backgroundColor: 'backgroundBase',
-      color: 'textTertiary',
+      color: 'textSecondary',
       wordWrap: 'break-word',
       width: '36',
+      boxShadow: 'lg',
     }),
     style({
       animation: `${animations} 0.2s`,

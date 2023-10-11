@@ -37,6 +37,7 @@ const responsiveProperties = defineProperties({
   conditions: {
     wide: {},
     mobile: { '@media': `(min-width: ${breakpoints.mobile}px)` },
+    table: { '@media': `(min-width: ${breakpoints.table}px)` },
     desktop: { '@media': `(min-width: ${breakpoints.desktop}px)` },
   },
   properties: {
@@ -123,6 +124,7 @@ const unresponsiveProperties = defineProperties({
       '2/1': '2 / 1',
       '4/1': '4 / 1',
       '4/3': '4 / 3',
+      '5/4': '5 / 4',
       '16/9': '16 / 9',
     },
     cursor: ['default', 'pointer', 'not-allowed'],

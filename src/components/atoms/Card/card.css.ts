@@ -33,19 +33,19 @@ export const root = recipe({
       }),
       card: {},
     },
-    size: {
-      md: {},
-      sm: {},
+    direction: {
+      row: {},
+      column: {},
     },
   },
   compoundVariants: [
     {
-      variants: { type: 'card', size: 'md' },
-      style: atoms({ width: '76', height: '60' }),
+      variants: { type: 'card', direction: 'row' },
+      style: atoms({ width: 'full', height: 'auto', aspectRatio: '16/9' }),
     },
     {
-      variants: { type: 'card', size: 'sm' },
-      style: atoms({ width: '30', height: '24' }),
+      variants: { type: 'card', direction: 'column' },
+      style: atoms({ width: 'full', height: 'auto', aspectRatio: '5/4' }),
     },
   ],
 });
@@ -68,11 +68,12 @@ export const skeleton = recipe({
   base: [
     atoms({
       display: 'flex',
-      width: '76',
-      height: '60',
       borderRadius: 'lg',
       backgroundColor: 'backgroundElevatedSecondary',
       flexShrink: 0,
+      width: 'full',
+      height: 'auto',
+      aspectRatio: '16/9',
     }),
     style({
       animation: `${skeletonAnimation} 1.8s infinite`,

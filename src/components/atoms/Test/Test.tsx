@@ -31,6 +31,7 @@ import { Stack } from '../Stack';
 import { IconText } from '../Text';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import { ListToggle } from '../Toggle';
+import * as styles from './test.css';
 
 //TODO: 컴포넌트, 컨테이너 분리 작업 사용 atom 이용 organisms에 적용
 
@@ -124,9 +125,15 @@ export function Test() {
         >
           버튼
         </Button>
-        {/* <NextAuthLoginButton /> */}
-        <Card variant="outline" />
-        <Card skeleton />
+        {/* TODO: 추후 post 불러와서 child로 넘겨주는 식으로 동작 */}
+        <Box className={styles.cardContainer}>
+          <Card variant="outline" />
+          <Card variant="outline" />
+          <Card variant="outline" />
+          <Card variant="outline" />
+          <Card variant="outline" />
+          <Card skeleton />
+        </Box>
         <FolderListItem size="lg" isOpened={false} />
         <FolderListItem size="lg" isOpened={true} />
         <FileList />
@@ -148,7 +155,11 @@ export function Test() {
         </SidebarNav>
         {/* <SidebarLogo /> */}
         {/* <Card variant="outline" /> */}
-        <CardHover />
+        <Box width="106">
+          <Box className={styles.cardContainer}>
+            <CardHover />
+          </Box>
+        </Box>
         <FolderBox />
         <Box>----organisms----</Box>
         <Sidebar />
@@ -156,14 +167,21 @@ export function Test() {
         <MarkdownHeader />
         <Header type="write" />
         <Header type="auth" />
+
         <PostCard variant="card" direction="column" />
         <PostCard variant="cardInFolder" direction="column" />
         <PostCard variant="folder" direction="column" />
-        <Stack direction="horizontal">
+
+        <Box className={styles.cardContainer}>
           <PostCard variant="card" direction="row" />
           <PostCard variant="folder" direction="row" />
-        </Stack>
-        <PostCard skeleton />
+          <PostCard variant="folder" direction="row" />
+        </Box>
+        {/* <Box width="106">
+          <Box className={styles.cardContainer}>
+            <PostCard skeleton />
+          </Box>
+        </Box> */}
       </Stack>
     </Box>
   );

@@ -11,7 +11,7 @@ import * as styles from './cardHover.css';
 
 export const CardHover = () => {
   return (
-    <Box position="relative" width="fit" backgroundColor="backgroundBase">
+    <Box position="relative" width="full" backgroundColor="backgroundBase">
       <Card variant="outline">
         <Hover radius="lg">
           <Box
