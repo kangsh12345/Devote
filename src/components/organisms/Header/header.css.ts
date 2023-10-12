@@ -17,12 +17,30 @@ export const root = recipe({
   ],
   variants: {
     type: {
-      popular: atoms({ paddingX: '19.5' }),
-      folder: atoms({ paddingX: '19.5' }),
-      myFolder: atoms({ paddingX: '19.5' }),
-      post: atoms({ paddingX: '19.5' }),
-      write: atoms({ paddingX: '19.5' }),
-      auth: atoms({ paddingX: '8' }),
+      popular: atoms({
+        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingRight: { wide: '12', tablet: '19.5' },
+      }),
+      folder: atoms({
+        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingRight: { wide: '12', tablet: '19.5' },
+      }),
+      myFolder: atoms({
+        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingRight: { wide: '12', tablet: '19.5' },
+      }),
+      post: atoms({
+        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingRight: { wide: '12', tablet: '19.5' },
+      }),
+      write: atoms({
+        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingRight: { wide: '12', tablet: '19.5' },
+      }),
+      auth: atoms({
+        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingRight: { wide: '12', tablet: '19.5' },
+      }),
     },
   },
 });
@@ -39,5 +57,21 @@ export const box = recipe({
 });
 
 export const switcher = recipe({
-  base: [atoms({ position: 'absolute', right: '8', top: '0' })],
+  base: [
+    atoms({
+      position: 'absolute',
+      right: { wide: '4', tablet: '8' },
+      top: '0',
+    }),
+  ],
+});
+
+export const breakpoint = recipe({
+  base: [],
+  variants: {
+    type: {
+      header: atoms({ display: { wide: 'none', tablet: 'flex' } }),
+      side: atoms({ display: { wide: 'flex', tablet: 'none' } }),
+    },
+  },
 });

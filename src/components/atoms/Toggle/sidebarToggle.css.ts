@@ -11,10 +11,6 @@ export const root = recipe({
       cursor: 'pointer',
       color: 'textPrimary',
       borderRadius: 'md',
-      backgroundColor: {
-        base: 'backgroundBase',
-        hover: 'backgroundSurfaceBasePressed',
-      },
       flexShrink: 0,
     }),
   ],
@@ -43,6 +39,20 @@ export const root = recipe({
         }),
       ],
       false: {},
+    },
+    type: {
+      header: atoms({
+        backgroundColor: {
+          base: 'backgroundElevatedSecondary',
+          hover: 'gray200',
+        },
+      }),
+      side: atoms({
+        backgroundColor: {
+          base: 'backgroundBase',
+          hover: 'backgroundSurfaceBasePressed',
+        },
+      }),
     },
   },
 });

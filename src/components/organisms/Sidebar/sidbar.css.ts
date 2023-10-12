@@ -5,7 +5,6 @@ export const root = recipe({
   base: [
     atoms({
       position: 'relative',
-      display: 'flex',
       flexDirection: 'column',
       width: 'fit',
       height: 'viewHeight',
@@ -17,10 +16,24 @@ export const root = recipe({
   ],
   variants: {
     isOpen: {
-      true: atoms({ width: '65' }),
-      false: atoms({ width: 'fit' }),
+      true: {},
+      false: {},
+    },
+    type: {
+      sidebar: atoms({ display: { wide: 'none', tablet: 'flex' } }),
+      drawer: atoms({ display: 'flex' }),
     },
   },
+  compoundVariants: [
+    {
+      variants: { isOpen: true, type: 'sidebar' },
+      style: atoms({ width: '65' }),
+    },
+    {
+      variants: { isOpen: false, type: 'sidebar' },
+      style: atoms({ width: 'fit' }),
+    },
+  ],
 });
 
 export const contentBox = recipe({
@@ -38,7 +51,17 @@ export const contentBox = recipe({
       true: atoms({ paddingX: '4', paddingY: '6' }),
       false: {},
     },
+    type: {
+      sidebar: {},
+      drawer: {},
+    },
   },
+  compoundVariants: [
+    {
+      variants: { isOpen: false, type: 'drawer' },
+      style: atoms({ paddingX: '4', paddingY: '6' }),
+    },
+  ],
 });
 
 export const top = recipe({

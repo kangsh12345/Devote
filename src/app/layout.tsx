@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/src/components/atoms/ThemeProvider';
 import { getThemeMode } from '@/src/utils/cookies';
 
 import { Box } from '../components/atoms/Box';
+// import { Drawer } from '../components/moecules/Drawer';
 import { Sidebar } from '../components/organisms/Sidebar';
 import AuthSession from './AuthSession';
 import ReactQueryProvider from './ReactQueryProvider';
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <AuthSession>
               <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
                 <Box display="flex" gap="0" width="full">
+                  {/* <Drawer /> */}
                   <Box
                     width="auto"
                     position="sticky"

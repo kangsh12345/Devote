@@ -24,6 +24,8 @@ import { Stack } from '../../atoms/Stack';
 import { IconText } from '../../atoms/Text';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';
+import { Drawer } from '../../moecules/Drawer';
+import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './header.css';
 
 export interface HeaderProps {
@@ -33,6 +35,7 @@ export interface HeaderProps {
 export const Header = ({ type = 'popular' }: HeaderProps) => {
   const router = useRouter();
   const [state, setState] = useState('');
+  const [isOpen, setIsOpen] = useState(true);
 
   const { data: session } = useSession();
 
@@ -40,7 +43,13 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
 
   return (
     <Box className={styles.root({ type })}>
+      <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
       <Box className={styles.box({})}>
+        {(type === 'popular' || type === 'folder' || type === 'myFolder') && (
+          <Box className={styles.breakpoint({ type: 'side' })}>
+            <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
+          </Box>
+        )}
         {type === 'auth' ? (
           <Box onClick={() => router.back()}>
             <IconButton
@@ -50,63 +59,67 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
           </Box>
         ) : (
           <>
-            <Stack space="6" direction="horizontal">
-              {type === 'post' ||
-                (type === 'write' ? (
-                  ''
-                ) : (
-                  <Stack space="2" direction="horizontal" align="center">
-                    <ListToggle
-                      isActive={true}
-                      color="secondary"
-                      icon={<SquaresFour size={24} weight="duotone" />}
-                    />
-                    <ListToggle
-                      isActive={false}
-                      color="secondary"
-                      icon={<ListBullets size={24} weight="duotone" />}
-                    />
-                  </Stack>
-                ))}
-
-              {type === 'popular' && (
-                <Box
-                  fontSize="3"
-                  fontWeight={700}
-                  display="flex"
-                  alignItems="center"
-                >
-                  인기항목
-                </Box>
-              )}
-              {type !== 'popular' && (
-                <Stack direction="horizontal" space="2" align="center">
-                  {type === 'myFolder' ? (
-                    <Box fontSize="2" fontWeight={500}>
-                      나의 폴더
-                    </Box>
+            <Box display="flex" flexShrink={0}>
+              <Stack space="6" direction="horizontal">
+                {type === 'post' ||
+                  (type === 'write' ? (
+                    ''
                   ) : (
-                    <Avatars size="md" text="김아무개" />
-                  )}
-                  <Box fontSize="1" fontWeight={700} color="textSecondary">
-                    / 프론트
-                  </Box>
-                  {type === 'write' && (
-                    <Box paddingLeft="1" width="56">
-                      <Input
-                        label="input label"
-                        hideLabel
-                        placeholder="제목을 입력해주세요"
-                        variant="outline"
-                        size="sm"
-                        value={state}
-                        onChange={event => setState(event.target.value)}
-                      />
+                    <Box className={styles.breakpoint({ type: 'header' })}>
+                      <Stack space="2" direction="horizontal" align="center">
+                        <ListToggle
+                          isActive={true}
+                          color="secondary"
+                          icon={<SquaresFour size={24} weight="duotone" />}
+                        />
+                        <ListToggle
+                          isActive={false}
+                          color="secondary"
+                          icon={<ListBullets size={24} weight="duotone" />}
+                        />
+                      </Stack>
                     </Box>
-                  )}
-                </Stack>
-              )}
-            </Stack>
+                  ))}
+
+                {type === 'popular' && (
+                  <Box
+                    fontSize="3"
+                    fontWeight={700}
+                    display="flex"
+                    alignItems="center"
+                  >
+                    인기항목
+                  </Box>
+                )}
+                {type !== 'popular' && (
+                  <Stack direction="horizontal" space="2" align="center">
+                    {type === 'myFolder' ? (
+                      <Box fontSize="2" fontWeight={500}>
+                        나의 폴더
+                      </Box>
+                    ) : (
+                      <Avatars size="md" text="김아무개" />
+                    )}
+                    <Box fontSize="1" fontWeight={700} color="textSecondary">
+                      / 프론트
+                    </Box>
+                    {type === 'write' && (
+                      <Box paddingLeft="1" width="56">
+                        <Input
+                          label="input label"
+                          hideLabel
+                          placeholder="제목을 입력해주세요"
+                          variant="outline"
+                          size="sm"
+                          value={state}
+                          onChange={event => setState(event.target.value)}
+                        />
+                      </Box>
+                    )}
+                  </Stack>
+                )}
+              </Stack>
+            </Box>
             <Stack space="3" direction="horizontal" align="center">
               {/* TODO: Select Portal로 이동 b/c root overflow hidden */}
               {type === 'popular' && <Select size="sm" list={selectList} />}

@@ -13,32 +13,32 @@ const makeMediaQuery = (breakpoint: Breakpoint) => (styles?: CSSProps) =>
 
 const mediaQuery = {
   mobile: makeMediaQuery('mobile'),
-  table: makeMediaQuery('table'),
+  tablet: makeMediaQuery('tablet'),
   desktop: makeMediaQuery('desktop'),
 };
 
 type ResponsiveStyle = {
   wide?: CSSProps;
   mobile?: CSSProps;
-  table?: CSSProps;
+  tablet?: CSSProps;
   desktop?: CSSProps;
 };
 
 export const responsiveStyle = ({
   wide,
   mobile,
-  table,
+  tablet,
   desktop,
 }: ResponsiveStyle): StyleRule => {
   const { '@media': _, ...wideStyle } = (wide ?? {}) as any;
 
   return {
     ...wideStyle,
-    ...(mobile || table || desktop
+    ...(mobile || tablet || desktop
       ? {
           '@media': {
             ...mediaQuery.mobile(mobile ?? {}),
-            ...mediaQuery.table(table ?? {}),
+            ...mediaQuery.tablet(tablet ?? {}),
             ...mediaQuery.desktop(desktop ?? {}),
           },
         }

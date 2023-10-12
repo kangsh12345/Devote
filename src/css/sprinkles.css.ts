@@ -37,7 +37,7 @@ const responsiveProperties = defineProperties({
   conditions: {
     wide: {},
     mobile: { '@media': `(min-width: ${breakpoints.mobile}px)` },
-    table: { '@media': `(min-width: ${breakpoints.table}px)` },
+    tablet: { '@media': `(min-width: ${breakpoints.tablet}px)` },
     desktop: { '@media': `(min-width: ${breakpoints.desktop}px)` },
   },
   properties: {
@@ -100,6 +100,7 @@ const responsiveProperties = defineProperties({
     right: vars.space,
     textAlign: ['center', 'left', 'right'],
     top: vars.space,
+    visibility: ['hidden', 'visible'],
     width: vars.space,
   },
   shorthands: {
@@ -150,7 +151,6 @@ const unresponsiveProperties = defineProperties({
       out: 'cubic-bezier(0, 0, 0.2, 1)',
       inOut: 'cubic-bezier(0.42, 0, 0.58, 1)',
     },
-    visibility: ['hidden', 'visible'],
     whiteSpace: [
       'normal',
       'nowrap',

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -19,7 +19,17 @@ import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
 import * as styles from './sidbar.css';
 
-export const Sidebar = () => {
+export interface SidebarProps {
+  type?: 'sidebar' | 'drawer';
+  isOpenDrawer?: boolean;
+  setIsOpenDrawer?: Dispatch<SetStateAction<boolean>>;
+}
+
+export const Sidebar = ({
+  type = 'sidebar',
+  isOpenDrawer = false,
+  setIsOpenDrawer,
+}: SidebarProps) => {
   const pathname = usePathname();
 
   const { data: session } = useSession();
@@ -27,10 +37,18 @@ export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Box className={styles.root({ isOpen })}>
-      <SidebarLogo isOpen={isOpen} setIsOpen={setIsOpen} />
-      {isOpen && (
-        <Box className={styles.contentBox({ isOpen })}>
+    <Box className={styles.root({ isOpen, type })}>
+      {type === 'drawer' ? (
+        <SidebarLogo
+          isOpen={isOpenDrawer}
+          setIsOpen={setIsOpenDrawer}
+          type={type}
+        />
+      ) : (
+        <SidebarLogo isOpen={isOpen} setIsOpen={setIsOpen} type={type} />
+      )}
+      {(type === 'drawer' || (type === 'sidebar' && isOpen)) && (
+        <Box className={styles.contentBox({ isOpen, type })}>
           <Box className={styles.top({})}>
             <Stack space="1">
               <Link href="/">
