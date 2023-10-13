@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Box } from '../../atoms/Box';
 import { Logo } from '../../atoms/Logo';
+import { Stack } from '../../atoms/Stack';
 import { SidebarToggle } from '../../atoms/Toggle/SidebarToggle';
 import * as styles from './sidebarLogo.css';
 
@@ -23,20 +24,36 @@ export const SidebarLogo = ({
 }: SidebarToggleProps) => {
   return (
     <Box className={styles.root({ isOpen, type })}>
-      <Box position="absolute" left="4">
-        <SidebarToggle
-          size={size}
-          disabled={disabled}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-      </Box>
-      {type === 'drawer' || (type === 'sidebar' && isOpen) ? (
-        <Link href="/">
-          <Logo />
-        </Link>
+      {type === 'drawer' ? (
+        <Stack space="4" direction="horizontal" align="center">
+          <SidebarToggle
+            size={size}
+            disabled={disabled}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+          />
+          <Link href="/">
+            <Logo />
+          </Link>
+        </Stack>
       ) : (
-        <Box width="8" height="8" />
+        <>
+          <Box position="absolute" left="4">
+            <SidebarToggle
+              size={size}
+              disabled={disabled}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+            />
+          </Box>
+          {type === 'sidebar' && isOpen ? (
+            <Link href="/">
+              <Logo />
+            </Link>
+          ) : (
+            <Box width="8" height="8" />
+          )}
+        </>
       )}
     </Box>
   );

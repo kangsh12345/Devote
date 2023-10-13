@@ -4,7 +4,6 @@ import { recipe } from '@vanilla-extract/recipes';
 export const root = recipe({
   base: atoms({
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
     flexShrink: 0,
     height: '16',
@@ -16,7 +15,7 @@ export const root = recipe({
       false: {},
     },
     type: {
-      sidebar: {},
+      sidebar: atoms({ justifyContent: 'center' }),
       drawer: atoms({ paddingLeft: '4', paddingRight: '6', width: '65' }),
     },
   },

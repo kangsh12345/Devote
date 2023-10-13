@@ -24,7 +24,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <AuthSession>
               <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
                 <Box display="flex" gap="0" width="full">
-                  {/* <Drawer /> */}
                   <Box
                     width="auto"
                     position="sticky"

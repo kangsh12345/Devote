@@ -18,27 +18,27 @@ export const root = recipe({
   variants: {
     type: {
       popular: atoms({
-        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingLeft: { wide: '4', tablet: '19.5' },
         paddingRight: { wide: '12', tablet: '19.5' },
       }),
       folder: atoms({
-        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingLeft: { wide: '4', tablet: '19.5' },
         paddingRight: { wide: '12', tablet: '19.5' },
       }),
       myFolder: atoms({
-        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingLeft: { wide: '4', tablet: '19.5' },
         paddingRight: { wide: '12', tablet: '19.5' },
       }),
       post: atoms({
-        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingLeft: { wide: '4', tablet: '19.5' },
         paddingRight: { wide: '12', tablet: '19.5' },
       }),
       write: atoms({
-        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingLeft: { wide: '4', tablet: '19.5' },
         paddingRight: { wide: '12', tablet: '19.5' },
       }),
       auth: atoms({
-        paddingLeft: { wide: '6', tablet: '19.5' },
+        paddingLeft: { wide: '4', tablet: '19.5' },
         paddingRight: { wide: '12', tablet: '19.5' },
       }),
     },

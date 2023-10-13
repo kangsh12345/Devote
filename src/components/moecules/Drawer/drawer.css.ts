@@ -13,12 +13,6 @@ export const root = recipe({
       left: '0',
     }),
   ],
-  variants: {
-    isOpen: {
-      true: atoms({ visibility: 'visible' }),
-      false: atoms({ visibility: 'hidden' }),
-    },
-  },
 });
 
 export const overlay = recipe({

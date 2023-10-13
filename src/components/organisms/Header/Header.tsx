@@ -35,7 +35,7 @@ export interface HeaderProps {
 export const Header = ({ type = 'popular' }: HeaderProps) => {
   const router = useRouter();
   const [state, setState] = useState('');
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const { data: session } = useSession();
 
