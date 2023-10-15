@@ -25,6 +25,7 @@ const negativeSpace = {
   ['-3']: `${calc(space['3']).negate()}`,
   ['-3.5']: `${calc(space['3.5']).negate()}`,
   ['-4']: `${calc(space['4']).negate()}`,
+  ['-10']: `${calc(space['10']).negate()}`,
 };
 
 const margins = {
@@ -53,7 +54,7 @@ const responsiveProperties = defineProperties({
     borderBottomRightRadius: vars.radii,
     borderTopLeftRadius: vars.radii,
     borderTopRightRadius: vars.radii,
-    bottom: vars.space,
+    bottom: margins,
     display: ['block', 'flex', 'grid', 'inline-block', 'none', 'contents'],
     flex: {
       1: '1 1 0%',
@@ -76,7 +77,7 @@ const responsiveProperties = defineProperties({
     inset: vars.space,
     justifyContent: [...flexAlignment, 'space-around', 'space-between'],
     justifySelf: flexAlignment,
-    left: vars.space,
+    left: margins,
     letterSpacing: vars.letterSpacing,
     lineHeight: vars.lineHeights,
     textDecoration: vars.textDecoration,
@@ -97,9 +98,9 @@ const responsiveProperties = defineProperties({
     paddingRight: vars.space,
     paddingTop: vars.space,
     position: ['absolute', 'fixed', 'relative', 'sticky'],
-    right: vars.space,
+    right: margins,
     textAlign: ['center', 'left', 'right'],
-    top: vars.space,
+    top: margins,
     visibility: ['hidden', 'visible'],
     width: vars.space,
     opacity: [
