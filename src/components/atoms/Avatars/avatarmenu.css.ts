@@ -15,9 +15,7 @@ export const button = recipe({
       true: [
         atoms({
           cursor: 'not-allowed',
-        }),
-        style({
-          opacity: 0.5,
+          opacity: '0.5',
         }),
       ],
       false: {},
@@ -71,11 +69,12 @@ export const liValue = recipe({
     atoms({
       transitionProperty: 'transform',
       transitionTimingFunction: 'inOut',
+      transitionDuration: '100',
+      fontSize: '1',
+      paddingY: '3',
+      paddingX: '4',
     }),
     style({
-      fontSize: '0.875rem',
-      padding: '0.75rem 1rem',
-      transitionDuration: '100ms',
       selectors: {
         ':hover&': { backgroundColor: 'unset', color: vars.colors.textPrimary },
       },

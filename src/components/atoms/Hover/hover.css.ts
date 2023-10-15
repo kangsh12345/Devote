@@ -1,8 +1,11 @@
+import { atoms } from '@/src/css';
 import { style } from '@vanilla-extract/css';
 
-export const root = style({
-  opacity: 0,
-  selectors: {
-    ':hover&': { opacity: 1 },
-  },
-});
+export const root = [
+  atoms({ opacity: '0' }),
+  style({
+    selectors: {
+      ':hover&': { opacity: 1 },
+    },
+  }),
+];

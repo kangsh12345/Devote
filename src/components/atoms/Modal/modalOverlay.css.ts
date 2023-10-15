@@ -1,5 +1,4 @@
 import { atoms } from '@/src/css';
-import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = recipe({
@@ -12,8 +11,9 @@ export const root = recipe({
       left: '0',
       zIndex: '20',
       backgroundColor: 'opacityWhite600',
+      outline: '0',
+      boxSizing: 'border-box',
     }),
-    style({ boxSizing: 'border-box', outline: 0 }),
   ],
   variants: {
     visible: {

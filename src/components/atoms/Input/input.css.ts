@@ -11,8 +11,6 @@ export const root = recipe({
       transitionProperty: 'colors',
       transitionTimingFunction: 'inOut',
       flexShrink: 0,
-    }),
-    style({
       boxSizing: 'border-box',
     }),
   ],
@@ -159,8 +157,6 @@ export const input = recipe({
     atoms({
       position: 'relative',
       width: 'full',
-    }),
-    style({
       outline: 'none',
     }),
   ],
@@ -179,7 +175,7 @@ export const input = recipe({
       flushed: atoms({ backgroundColor: 'backgroundBase' }),
     },
     uppercase: {
-      true: style({
+      true: atoms({
         textTransform: 'uppercase',
       }),
       false: {},

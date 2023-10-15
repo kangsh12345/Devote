@@ -189,6 +189,8 @@ const unresponsiveProperties = defineProperties({
       '999': 999,
       auto: 'auto',
     },
+    boxSizing: ['border-box'],
+    outline: { '0': 0, none: 'none' },
   },
 });
 
