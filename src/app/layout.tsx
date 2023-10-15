@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/src/components/atoms/ThemeProvider';
 import { getThemeMode } from '@/src/utils/cookies';
 
 import { Box } from '../components/atoms/Box';
-// import { Drawer } from '../components/moecules/Drawer';
 import { Sidebar } from '../components/organisms/Sidebar';
 import AuthSession from './AuthSession';
 import ReactQueryProvider from './ReactQueryProvider';

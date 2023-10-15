@@ -144,6 +144,7 @@ const unresponsiveProperties = defineProperties({
       opacity: 'opacity',
       shadow: 'box-shadow',
       transform: 'transform',
+      visibility: 'visibility',
     },
     transitionTimingFunction: {
       linear: 'linear',

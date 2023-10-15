@@ -37,7 +37,7 @@ export const ulContainer = [
 
 const animations = keyframes({
   '0%': { transform: 'scale(0.8)', opacity: 0.8, transformOrigin: 'top' },
-  '100%': { transform: 'scale(1)', opacity: 1, transformOrigin: 'top ' },
+  '100%': { transform: 'scale(1)', opacity: 1, transformOrigin: 'top' },
 });
 
 export const ulBox = recipe({

@@ -1,4 +1,5 @@
 import { atoms } from '@/src/css';
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = recipe({
@@ -13,6 +14,12 @@ export const root = recipe({
       left: '0',
     }),
   ],
+  variants: {
+    isOpen: {
+      true: {},
+      false: style({ pointerEvents: 'none' }),
+    },
+  },
 });
 
 export const overlay = recipe({
@@ -27,7 +34,12 @@ export const overlay = recipe({
       display: 'block',
     }),
   ],
-  // opacity setOpen에 따라
+  variants: {
+    isOpen: {
+      true: style({ opacity: '1' }),
+      false: style({ opacity: '0', pointerEvents: 'none' }),
+    },
+  },
 });
 
 export const drawer = recipe({
@@ -41,4 +53,10 @@ export const drawer = recipe({
       backgroundColor: 'backgroundBase',
     }),
   ],
+  variants: {
+    isOpen: {
+      true: style({ opacity: '1', left: '0px' }),
+      false: style({ opacity: '0', left: '-40px', pointerEvents: 'none' }),
+    },
+  },
 });

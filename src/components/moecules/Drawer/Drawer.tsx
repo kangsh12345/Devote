@@ -12,21 +12,19 @@ export interface DrawerProps {
 export const Drawer = ({ isOpen, setIsOpen }: DrawerProps) => {
   return (
     <>
-      {isOpen && (
-        <Box className={styles.root({})}>
-          <Box
-            className={styles.overlay({})}
-            onClick={() => setIsOpen(false)}
+      <Box className={styles.root({ isOpen })}>
+        <Box
+          className={styles.overlay({ isOpen })}
+          onClick={() => setIsOpen(false)}
+        />
+        <Box className={styles.drawer({ isOpen })}>
+          <Sidebar
+            type="drawer"
+            isOpenDrawer={isOpen}
+            setIsOpenDrawer={setIsOpen}
           />
-          <Box className={styles.drawer({})}>
-            <Sidebar
-              type="drawer"
-              isOpenDrawer={isOpen}
-              setIsOpenDrawer={setIsOpen}
-            />
-          </Box>
         </Box>
-      )}
+      </Box>
     </>
   );
 };
