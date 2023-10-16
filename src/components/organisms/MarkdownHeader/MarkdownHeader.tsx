@@ -19,33 +19,33 @@ export const MarkdownHeader = () => {
     <Box className={styles.root({})}>
       <Box className={styles.markdown({})}>
         <Box className={styles.iconBox}>
-          <TextHOne size={24} weight="duotone" />
+          <TextHOne size="full" weight="duotone" />
         </Box>
         <Box className={styles.iconBox}>
-          <TextHTwo size={24} weight="duotone" />
+          <TextHTwo size="full" weight="duotone" />
         </Box>
         <Box className={styles.iconBox}>
-          <TextHThree size={24} weight="duotone" />
+          <TextHThree size="full" weight="duotone" />
         </Box>
         <Box className={styles.iconBox}>
-          <TextHFour size={24} weight="duotone" />
-        </Box>
-        <MarkdownDivide />
-        <Box className={styles.iconBox}>
-          <TextB size={24} weight="duotone" />
-        </Box>
-        <Box className={styles.iconBox}>
-          <TextStrikethrough size={24} weight="duotone" />
+          <TextHFour size="full" weight="duotone" />
         </Box>
         <MarkdownDivide />
         <Box className={styles.iconBox}>
-          <Tray size={24} weight="duotone" />
+          <TextB size="full" weight="duotone" />
         </Box>
         <Box className={styles.iconBox}>
-          <Link size={24} weight="duotone" />
+          <TextStrikethrough size="full" weight="duotone" />
+        </Box>
+        <MarkdownDivide />
+        <Box className={styles.iconBox}>
+          <Tray size="full" weight="duotone" />
         </Box>
         <Box className={styles.iconBox}>
-          <CodeSimple size={24} weight="bold" />
+          <Link size="full" weight="duotone" />
+        </Box>
+        <Box className={styles.iconBox}>
+          <CodeSimple size="full" weight="bold" />
         </Box>
       </Box>
     </Box>

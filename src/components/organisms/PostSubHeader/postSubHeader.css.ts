@@ -5,11 +5,12 @@ export const root = recipe({
   base: [
     atoms({
       display: 'flex',
+      height: '12',
+      width: 'full',
       alignItems: 'center',
       justifyContent: 'flex-end',
-      height: '12',
       gap: '1.5',
-      paddingX: '19.5',
+      paddingX: { wide: '4', tablet: '19.5' },
       backgroundColor: 'backgroundElevatedPrimary',
       borderBottomWidth: 'px',
       borderColor: 'borderPrimary',

@@ -8,7 +8,7 @@ export const root = recipe({
       alignItems: 'center',
       justifyContent: 'center',
       height: '12',
-      paddingX: '19.5',
+      paddingX: { wide: '4', tablet: '19.5' },
       backgroundColor: 'backgroundElevatedPrimary',
       borderBottomWidth: 'px',
       borderColor: 'borderPrimary',
@@ -23,17 +23,18 @@ export const markdown = recipe({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: 'full',
-      position: 'relative',
     }),
   ],
 });
 
 export const iconBox = atoms({
   display: 'flex',
+  position: 'relative',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '12',
+  maxWidth: { wide: '8', tablet: '12' },
   height: '12',
+  padding: { wide: '1.5', tablet: '3' },
   color: 'textPrimary',
   cursor: 'pointer',
 });

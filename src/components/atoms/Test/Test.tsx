@@ -18,6 +18,7 @@ import { MarkdownHeader } from '../../organisms/MarkdownHeader';
 import { PostCard } from '../../organisms/PostCard';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
 import { Sidebar } from '../../organisms/Sidebar';
+import { SubHeader } from '../../organisms/SubHeader';
 import { Avatars } from '../Avatars';
 import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
@@ -187,11 +188,13 @@ export function Test() {
           <PostCard variant="folder" direction="row" />
           <PostCard variant="folder" direction="row" />
         </Box>
-        {/* <Box width="106">
+        <Box width="106">
           <Box className={styles.cardContainer}>
             <PostCard skeleton />
           </Box>
-        </Box> */}
+        </Box>
+        <SubHeader />
+        <SubHeader type="write" />
       </Stack>
     </Box>
   );
