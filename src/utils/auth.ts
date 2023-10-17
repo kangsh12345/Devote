@@ -58,10 +58,6 @@ export const authOptions: NextAuthOptions = {
           label: '이메일',
           type: 'text',
         },
-        userId: {
-          label: '유저 아이디',
-          type: 'text',
-        },
         password: {
           label: '비밀번호',
           type: 'password',
@@ -81,7 +77,6 @@ export const authOptions: NextAuthOptions = {
             body: JSON.stringify({
               name: credentials?.name,
               email: credentials?.email,
-              userId: credentials?.userId,
               password: credentials?.password,
               image: credentials?.image,
             }),

@@ -12,7 +12,11 @@ const nextConfig = {
   swcMinify: true,
   images: {
     dangerouslyAllowSVG: true,
-    domains: ['avatars.githubusercontent.com', 'source.boringavatars.com'],
+    domains: [
+      'avatars.githubusercontent.com',
+      'source.boringavatars.com',
+      'lh3.googleusercontent.com',
+    ],
   },
 };
 

@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 interface RequestBody {
   name: string;
   email: string;
-  userId: string;
   password: string;
   image: string;
 }
@@ -18,7 +17,6 @@ async function signUp(info: RequestBody) {
       data: {
         name: info.name,
         email: info.email,
-        userId: info.userId,
         password: await bcrypt.hash(info.password, 10),
         image: info.image,
       },
