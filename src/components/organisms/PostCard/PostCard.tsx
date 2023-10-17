@@ -32,15 +32,9 @@ export const PostCard = (props: PostCardProps) => {
               height="6"
               width="36"
               borderRadius="md"
-              // backgroundColor="backgroundElevatedSecondary"
               className={styles.skeleton}
             />
-            <Box
-              height="16"
-              borderRadius="md"
-              // backgroundColor={'backgroundElevatedSecondary'}
-              className={styles.skeleton}
-            />
+            <Box height="16" borderRadius="md" className={styles.skeleton} />
           </Box>
         </Box>
       </Box>

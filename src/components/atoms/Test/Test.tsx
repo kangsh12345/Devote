@@ -188,10 +188,9 @@ export function Test() {
           <PostCard variant="folder" direction="row" />
           <PostCard variant="folder" direction="row" />
         </Box>
-        <Box width="106">
-          <Box className={styles.cardContainer}>
-            <PostCard skeleton />
-          </Box>
+
+        <Box className={styles.cardContainer}>
+          <PostCard skeleton />
         </Box>
         <SubHeader />
         <SubHeader type="write" />

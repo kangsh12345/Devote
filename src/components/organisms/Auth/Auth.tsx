@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -9,6 +9,7 @@ import { Button, NextAuthLoginButton } from '@/src/components/atoms/Button';
 import { Divide } from '@/src/components/atoms/Divide';
 import { Input } from '@/src/components/atoms/Input';
 import { Stack } from '@/src/components/atoms/Stack';
+import { useDebounce } from '@/src/utils/useDebounce';
 import isEmail from 'validator/lib/isEmail';
 
 import * as styles from './auth.css';
@@ -24,14 +25,34 @@ export const Auth = ({ type }: AuthProps) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
+  const debouncedId = useDebounce({ value: id });
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [idError, setIdError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordCheckError, setPasswordCheckError] = useState('');
 
   const title = type === 'signin' ? '로그인' : '회원가입';
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,24}$/;
+
+  useEffect(() => {
+    if (debouncedId) {
+      fetch(`/api/auth/sign-up/email/check/id`, {
+        method: 'POST',
+        body: JSON.stringify({
+          userId: debouncedId,
+        }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (!data.success) {
+            setIdError('중복된 아이디입니다.');
+          } else setIdError('');
+        });
+    }
+  }, [debouncedId]);
 
   const handleEmailSignup = async () => {
     if (!passwordRegex.test(password)) {
@@ -41,11 +62,14 @@ export const Auth = ({ type }: AuthProps) => {
     } else if (password != passwordCheck) {
       setPasswordCheckError('동일한 비밀번호를 입력해주세요.');
       return;
-    } else if (emailError || passwordError || passwordCheckError) {
+    } else if (
+      (emailError || passwordError || passwordCheckError || idError) &&
+      (email === '' || password === '' || passwordCheck === '' || id === '')
+    ) {
       return;
     }
 
-    const res = await fetch(`/api/auth/sign-up/email/check`, {
+    const res = await fetch(`/api/auth/sign-up/email/check/email`, {
       method: 'POST',
       body: JSON.stringify({
         email: email,
@@ -59,6 +83,7 @@ export const Auth = ({ type }: AuthProps) => {
       await signIn('signup', {
         name: name,
         email: email,
+        userId: id,
         password: password,
         image: 'https://source.boringavatars.com/beam',
         redirect: true,
@@ -98,7 +123,7 @@ export const Auth = ({ type }: AuthProps) => {
             <Input
               label="name"
               hideLabel
-              placeholder="닉네임을 입력해주세요."
+              placeholder="이름을 입력해주세요."
               maxLength={24}
               variant="outline"
               size="md"
@@ -107,6 +132,7 @@ export const Auth = ({ type }: AuthProps) => {
                 setName(event.target.value);
               }}
             />
+            {/* 추후 email로 6자리 코드 전송하여 인증 */}
             <Input
               error={emailError}
               label="email"
@@ -122,6 +148,22 @@ export const Auth = ({ type }: AuthProps) => {
                   setEmailError('이메일 형식으로 작성해주세요.');
                 } else {
                   setEmailError('');
+                }
+              }}
+            />
+            <Input
+              error={idError}
+              label="id"
+              hideLabel
+              placeholder="아이디를 입력해주세요."
+              variant="outline"
+              maxLength={100}
+              size="md"
+              value={id}
+              onChange={event => {
+                setId(event.target.value);
+                if (idError !== '') {
+                  setIdError('');
                 }
               }}
             />

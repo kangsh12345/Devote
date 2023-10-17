@@ -45,11 +45,11 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
     <Box className={styles.root({ type })}>
       <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
       <Box className={styles.box({})}>
-        {(type === 'popular' || type === 'folder' || type === 'myFolder') && (
-          <Box className={styles.breakpoint({ type: 'side' })}>
-            <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
-          </Box>
-        )}
+        {/* {(type === 'popular' || type === 'folder' || type === 'myFolder') && ( */}
+        <Box className={styles.breakpoint({ type: 'side' })}>
+          <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
+        </Box>
+        {/* )} */}
         {type === 'auth' ? (
           <Box onClick={() => router.back()}>
             <IconButton
@@ -166,6 +166,7 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                 )
               )}
               {type === 'write' && (
+                // TODO: 추후 fixed button이나 footer 버튼으로 변경
                 <>
                   <Button
                     size="sm"

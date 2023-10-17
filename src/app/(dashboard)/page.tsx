@@ -8,7 +8,6 @@ export default function PopularPage() {
   return (
     <Box>
       <Header />
-      main page
       <Test />
     </Box>
   );

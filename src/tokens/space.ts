@@ -48,6 +48,7 @@ export const space = {
   '90': '22.5rem',
   '96': '24rem',
   '106': '26.5rem',
+  '145': '36.25rem',
   auto: 'auto',
   full: '100%',
   fit: 'fit-content',
