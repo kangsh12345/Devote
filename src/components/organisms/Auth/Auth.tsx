@@ -259,7 +259,7 @@ export const Auth = ({ type }: AuthProps) => {
         fontSize="1"
         color="textTertiary"
       >
-        소셜 회원가입
+        소셜 {type === 'signin' ? '로그인' : '회원가입'}
       </Box>
       <Stack space="12" direction="horizontal">
         <NextAuthLoginButton name="google" />

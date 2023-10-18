@@ -122,6 +122,25 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
+
+    async signIn({ user }) {
+      try {
+        const res = await fetch(
+          `${process.env.NEXTAUTH_URL}/api/post/createDirectory`,
+          {
+            method: 'POST',
+
+            body: JSON.stringify({ email: user.email }),
+          },
+        );
+
+        console.log(res.json());
+
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
   },
   pages: {
     signIn: '/auth/signin',
