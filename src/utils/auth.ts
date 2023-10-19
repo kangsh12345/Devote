@@ -111,35 +111,28 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       session.user.id = token.id;
+      session.user.name = token.name;
+      session.user.dirName = token.dirName;
+      session.user.email = token.email;
+      session.user.image = token.image;
 
       return session;
     },
 
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
+        token.name = user.name;
+        token.dirName = user.dirName;
+        token.email = user.email;
+        token.image = user.image;
+      }
+
+      if (trigger === 'update' && session) {
+        token.dirName = session.user.dirName;
       }
 
       return token;
-    },
-
-    async signIn({ user }) {
-      try {
-        const res = await fetch(
-          `${process.env.NEXTAUTH_URL}/api/post/createDirectory`,
-          {
-            method: 'POST',
-
-            body: JSON.stringify({ email: user.email }),
-          },
-        );
-
-        console.log(res.json());
-
-        return true;
-      } catch (error) {
-        return false;
-      }
     },
   },
   pages: {

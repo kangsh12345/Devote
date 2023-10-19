@@ -70,7 +70,7 @@ export const Sidebar = ({
             </Stack>
             <FolderBox />
           </Box>
-          <FolderBox own="other" />
+          {/* <FolderBox own="other" /> */}
           <Box className={styles.bottom({})}>
             <Stack space="1">
               <Link href="/favorites">

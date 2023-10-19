@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import { CopyRight } from '@/src/components/atoms/CopyRight';
 import { Logo } from '@/src/components/atoms/Logo';
 import { Text } from '@/src/components/atoms/Typography';
@@ -48,10 +49,12 @@ export function Test() {
     { value: '대제목3', heading: 1 },
   ];
 
+  const { data: session } = useSession();
+
   return (
     <Box paddingBottom="80" display="flex" width="full">
       <Stack space="4" flex="auto">
-        <Box>----atoms----</Box>
+        <Box onClick={() => console.log(session)}>----atoms----</Box>
         <ThemeSwitcher size="lg" />
         <ModalOverlay visible={false} />
         <ModalActions

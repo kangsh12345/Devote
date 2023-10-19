@@ -3,11 +3,11 @@ import path from 'path';
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
-export const createDirectory = ({ email }: { email: string }) => {
-  const isExists = fs.existsSync(`${rootDirectory}/${email}`);
+export const createDirectory = ({ dirName }: { dirName: string }) => {
+  const isExists = fs.existsSync(`${rootDirectory}/${dirName}`);
 
   if (!isExists) {
-    fs.mkdirSync(`${rootDirectory}/${email}`, { recursive: true });
+    fs.mkdirSync(`${rootDirectory}/${dirName}`, { recursive: true });
 
     return 'create success';
   }
