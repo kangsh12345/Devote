@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 
 import { Box } from '../Box';
 import { CloseButton } from '../Button';
@@ -12,6 +12,9 @@ export interface ModalContentProps {
   title?: string;
   leftButtonText: string;
   rightButtonText: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setInput: Dispatch<SetStateAction<string>>;
+  handle: () => void;
 }
 
 export const ModalContent = ({
@@ -20,10 +23,13 @@ export const ModalContent = ({
   title,
   leftButtonText,
   rightButtonText,
+  setOpen,
+  setInput,
+  handle,
   children,
 }: PropsWithChildren<ModalContentProps>) => {
   return (
-    <Box width="fit" position="relative" className={styles.root}>
+    <Box width="106" position="fixed" className={styles.root}>
       <Card variant="elevated" type="modal">
         {withCloseButton && (
           <Box className={styles.closeButton}>
@@ -31,6 +37,7 @@ export const ModalContent = ({
           </Box>
         )}
         <Box
+          width="full"
           paddingX="3"
           paddingY="2"
           borderRadius="lg"
@@ -46,6 +53,9 @@ export const ModalContent = ({
           <Box className={styles.content}>{children}</Box>
           <Box className={styles.footer({ type })}>
             <ModalActions
+              setOpen={setOpen}
+              setInput={setInput}
+              handle={handle}
               type={type}
               leftButtonText={leftButtonText}
               rightButtonText={rightButtonText}

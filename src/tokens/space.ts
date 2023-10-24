@@ -51,6 +51,7 @@ export const space = {
   '145': '36.25rem',
   auto: 'auto',
   full: '100%',
+  half: '50%',
   fit: 'fit-content',
   max: 'max-content',
   min: 'min-content',

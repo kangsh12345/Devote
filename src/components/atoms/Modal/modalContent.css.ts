@@ -23,7 +23,7 @@ export const header = atoms({
 export const content = atoms({
   fontSize: '2',
   paddingX: '3',
-  paddingTop: '2',
+  paddingTop: '3',
   paddingBottom: '4',
 });
 

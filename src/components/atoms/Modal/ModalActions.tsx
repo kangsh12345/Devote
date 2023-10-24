@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 import { Box } from '../Box';
 import { Button } from '../Button';
 import { Stack } from '../Stack';
@@ -6,12 +8,18 @@ export interface ModalActionsProps {
   type?: 'left' | 'right' | 'column' | 'row';
   leftButtonText: string;
   rightButtonText: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setInput: Dispatch<SetStateAction<string>>;
+  handle: () => void;
 }
 
 export const ModalActions = ({
   type = 'right',
   leftButtonText,
   rightButtonText,
+  setOpen,
+  setInput,
+  handle,
 }: ModalActionsProps) => {
   return (
     <Box width="full">
@@ -20,7 +28,12 @@ export const ModalActions = ({
         direction={type === 'column' ? 'vertical' : 'horizontal'}
         justify={type === 'right' ? 'flex-end' : 'flex-start'}
       >
-        <Box flex={type === 'left' || type === 'right' ? 'none' : 'auto'}>
+        <Box
+          flex={type === 'left' || type === 'right' ? 'none' : 'auto'}
+          onClick={() => {
+            setOpen(false), setInput('');
+          }}
+        >
           <Button
             size="lg"
             variant="solid"
@@ -31,7 +44,10 @@ export const ModalActions = ({
             {leftButtonText}
           </Button>
         </Box>
-        <Box flex={type === 'left' || type === 'right' ? 'none' : 'auto'}>
+        <Box
+          flex={type === 'left' || type === 'right' ? 'none' : 'auto'}
+          onClick={handle}
+        >
           <Button
             size="lg"
             variant="solid"

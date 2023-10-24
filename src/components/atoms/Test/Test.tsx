@@ -11,7 +11,7 @@ import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone
 import { SquaresFour } from '@phosphor-icons/react';
 
 import { CardHover } from '../../moecules/CardHover';
-import { FolderBox } from '../../moecules/FolderBox';
+// import { FolderBox } from '../../moecules/FolderBox';
 // import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
 import { Header } from '../../organisms/Header';
@@ -26,7 +26,7 @@ import { Button, CloseButton, IconButton } from '../Button';
 import { Card } from '../Card';
 import { Input } from '../Input';
 import { FileList, FolderListItem } from '../List';
-import { ModalActions, ModalContent, ModalOverlay } from '../Modal';
+// import { ModalOverlay } from '../Modal';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
@@ -56,13 +56,8 @@ export function Test() {
       <Stack space="4" flex="auto">
         <Box onClick={() => console.log(session)}>----atoms----</Box>
         <ThemeSwitcher size="lg" />
-        <ModalOverlay visible={false} />
-        <ModalActions
-          type="right"
-          leftButtonText="취소"
-          rightButtonText="삭제"
-        />
-        <ModalContent
+        {/* <ModalOverlay visible={false} /> */}
+        {/* <ModalContent
           type="right"
           withCloseButton={true}
           title="Delete User"
@@ -70,7 +65,7 @@ export function Test() {
           rightButtonText="삭제"
         >
           Are you sure? You can't undo this action afterwards.
-        </ModalContent>
+        </ModalContent> */}
         <Box marginLeft="64">
           <Popover size="md" list={popoverList} />
         </Box>
@@ -164,7 +159,7 @@ export function Test() {
             <CardHover />
           </Box>
         </Box>
-        <FolderBox />
+        {/* <FolderBox /> */}
         <Box>----organisms----</Box>
         <Sidebar />
         <PostSubHeader />

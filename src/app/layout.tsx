@@ -24,6 +24,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <ReactQueryProvider>
             <AuthSession>
               <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
+                <div id="portal" />
                 <Box display="flex" gap="0" width="full" minWidth="145">
                   <Box
                     width="auto"

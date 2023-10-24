@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createDirectory } from '@/src/utils/mkdir';
+import { createDirectory } from '@/src/utils/fs';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
