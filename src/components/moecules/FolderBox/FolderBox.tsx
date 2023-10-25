@@ -52,35 +52,47 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
     type: 'rootFolder' | 'folder' | 'file',
   ) => {
     if (session) {
-      if (type === 'rootFolder') {
-        try {
-          await fetch(`/api/post/createDirectory`, {
-            method: 'POST',
-            body: JSON.stringify({
-              id: session.user.id,
-              dirName: rootDirectory,
-            }),
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (data.message === 'exist' || data.message === 'success') {
-                if (status === 'authenticated') {
-                  update({ user: { dirName: rootDirectory } });
-                  setCreateRootFolderOpen(false);
-                  setRootDirectory('');
-                  router.refresh();
-                }
-              }
-            });
-        } catch (error) {
-          console.error(error);
-        }
+      const dirName =
+        type === 'rootFolder'
+          ? rootDirectory
+          : queryId === undefined || queryId !== session.user.dirName
+          ? session.user.dirName + '/' + (type === 'folder' ? directory : file)
+          : queryId +
+            '/' +
+            querySlug +
+            '/' +
+            (type === 'folder' ? directory : file);
+
+      try {
+        await fetch(`/api/post/createDirectory`, {
+          method: 'POST',
+          body: JSON.stringify({
+            id: session.user.id,
+            dirName: dirName,
+            type: type,
+          }),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (
+              type === 'rootFolder' &&
+              (data.message === 'exist' || data.message === 'success') &&
+              status === 'authenticated'
+            ) {
+              update({ user: { dirName: rootDirectory } });
+              setCreateRootFolderOpen(false);
+              setRootDirectory('');
+              router.refresh();
+            }
+          });
+      } catch (error) {
+        console.error(error);
       }
     }
   };
 
   return (
-    <Box className={styles.root({})} onClick={() => console.log(tree)}>
+    <Box className={styles.root({})}>
       {session && session.user.dirName ? (
         mainOpen ? (
           <>

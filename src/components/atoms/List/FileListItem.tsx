@@ -1,4 +1,7 @@
-import { PropsWithChildren } from 'react';
+'use client';
+
+import { PropsWithChildren, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { TreeProps } from '@/src/utils/fs';
 import { CaretDown, CaretRight, File, Folder } from '@phosphor-icons/react';
 
@@ -8,8 +11,8 @@ import * as styles from './fileListItem.css';
 
 export interface FileListProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
+  path?: string;
   variant?: 'folder' | 'file';
-  isOpened?: boolean;
   isActive?: boolean;
   subdirectory?: TreeProps[];
 }
@@ -22,12 +25,16 @@ export interface Space {
 
 export const FileListItem = ({
   size = 'md',
+  path = '',
   variant = 'folder',
-  isOpened = false,
   isActive = false,
   subdirectory,
   children,
 }: PropsWithChildren<FileListProps>) => {
+  const [subIsOpen, setSubIsOpen] = useState(false);
+
+  const router = useRouter();
+
   const sizes: Space =
     size === 'sm'
       ? { space: '1', icon: 16, box: '4' }
@@ -46,7 +53,7 @@ export const FileListItem = ({
       cursor="pointer"
       className={styles.li}
     >
-      <Stack space="0.5">
+      <Stack space="0.75">
         <Box
           display="flex"
           alignItems="center"
@@ -54,38 +61,58 @@ export const FileListItem = ({
           color="textTertiary"
         >
           {variant === 'folder' ? (
-            isOpened ? (
-              <CaretDown weight="bold" size={sizes.icon} />
+            subIsOpen ? (
+              <Box height={sizes.box} zIndex="100">
+                <CaretDown
+                  weight="bold"
+                  size={sizes.icon}
+                  onClick={() => setSubIsOpen(false)}
+                />
+              </Box>
             ) : (
-              <CaretRight weight="bold" size={sizes.icon} />
+              <Box height={sizes.box} zIndex="100">
+                <CaretRight
+                  weight="bold"
+                  size={sizes.icon}
+                  onClick={() => setSubIsOpen(true)}
+                />
+              </Box>
             )
           ) : (
-            <Box width={sizes.box} />
+            <Box width={sizes.box} display="flex" flexShrink={0} />
           )}
-          <Stack direction="horizontal" align="center" space="1">
-            <Box
-              color={variant === 'folder' ? 'brandTertiary' : 'gray300'}
-              display="flex"
-              alignItems="center"
-            >
-              {variant === 'folder' ? (
-                <Folder size={sizes.icon} weight="fill" />
-              ) : (
-                <File size={sizes.icon} weight="fill" />
-              )}
-            </Box>
-            <Box color="textPrimary" fontWeight={500}>
-              {children}
-            </Box>
-          </Stack>
+          <Box
+            display="flex"
+            width="full"
+            onClick={() => router.push(`/posts/${path}`)}
+          >
+            <Stack direction="horizontal" align="center" space="1">
+              <Box
+                color={variant === 'folder' ? 'brandTertiary' : 'gray300'}
+                display="flex"
+                alignItems="center"
+                onClick={() => router.push(`/posts/${path}`)}
+              >
+                {variant === 'folder' ? (
+                  <Folder size={sizes.icon} weight="fill" />
+                ) : (
+                  <File size={sizes.icon} weight="fill" />
+                )}
+              </Box>
+              <Box color="textPrimary" fontWeight={500}>
+                {children}
+              </Box>
+            </Stack>
+          </Box>
         </Box>
-        {subdirectory &&
+        {subIsOpen &&
+          subdirectory &&
           subdirectory.map((item, idx) => (
             <Box as="ul" key={idx}>
               <FileListItem
                 size="lg"
+                path={item.path}
                 variant={item.type}
-                isOpened={true}
                 isActive={false}
                 subdirectory={item.children}
               >

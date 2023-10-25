@@ -15,8 +15,8 @@ export const FileList = ({ tree }: FileListProps) => {
         {tree.children.map((item, idx) => (
           <FileListItem
             size="lg"
+            path={item.path}
             variant={item.type}
-            isOpened={true}
             isActive={false}
             subdirectory={item.children}
             key={idx}

@@ -15,5 +15,5 @@ export const root = atoms({
 export const ul = style({});
 
 globalStyle(`${ul} > li:not(:last-child)`, {
-  marginBottom: 2,
+  marginBottom: 3,
 });

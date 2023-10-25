@@ -5,20 +5,22 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
-  const { id, dirName } = await req.json();
+  const { id, dirName, type } = await req.json();
 
   try {
-    const mkdirResponse = createDirectory({ dirName });
+    const mkdirResponse = createDirectory({ dirName, type });
 
     if (mkdirResponse === 'create success') {
-      const response = await prisma.user.update({
-        where: { id: id },
-        data: {
-          dirName: dirName,
-        },
-      });
+      if (type === 'rootDirectory') {
+        const response = await prisma.user.update({
+          where: { id: id },
+          data: {
+            dirName: dirName,
+          },
+        });
 
-      console.log(response);
+        console.log(response);
+      }
 
       return NextResponse.json({ message: 'success' }, { status: 200 });
     }
