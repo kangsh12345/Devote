@@ -144,8 +144,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               )}
             </Box>
             {tree ? (
-              // TODO: Next
-              <FileList />
+              <FileList tree={tree} />
             ) : (
               <Box className={styles.emptyBox({})}>비어있음</Box>
             )}

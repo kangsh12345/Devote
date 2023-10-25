@@ -12,13 +12,14 @@ async function getAllDirectory(dirName: string) {
   const tree: TreeProps = {
     path: dirName,
     name: dirName,
-    type: 'directory',
+    type: 'folder',
     children: [],
   };
 
   try {
     const response = findAllDirectory(path);
-    tree.children.push(response[0]);
+
+    tree.children = response;
     return tree;
   } catch (error) {
     console.error(error);

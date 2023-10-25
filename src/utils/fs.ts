@@ -17,7 +17,7 @@ export const createDirectory = ({ dirName }: { dirName: string }) => {
 export interface TreeProps {
   path: string;
   name: string;
-  type: 'file' | 'directory';
+  type: 'file' | 'folder';
   children: TreeProps[];
 }
 
@@ -33,7 +33,7 @@ export const findAllDirectory = (path: string) => {
       tempStack = {
         path: destPath.replace(`${rootDirectory}/`, ''),
         name: file.name,
-        type: 'directory',
+        type: 'folder',
         children: findAllDirectory(destPath),
       };
     } else {
@@ -45,6 +45,9 @@ export const findAllDirectory = (path: string) => {
       };
     }
     stack.push(tempStack);
+    stack.sort((a, b) => {
+      return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
+    });
   });
   return stack;
 };

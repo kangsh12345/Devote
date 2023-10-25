@@ -1,61 +1,29 @@
+import { TreeProps } from '@/src/utils/fs';
+
 import { Box } from '../Box';
 import * as styles from './fileList.css';
 import { FileListItem } from './FileListItem';
 
-export const FileList = () => {
+export interface FileListProps {
+  tree: TreeProps;
+}
+
+export const FileList = ({ tree }: FileListProps) => {
   return (
     <Box className={styles.root}>
       <Box as="ul" width="full" className={styles.ul}>
-        <FileListItem
-          size="lg"
-          variant="folder"
-          isOpened={true}
-          isActive={false}
-          subdirectory={
-            <>
-              <FileListItem
-                size="lg"
-                variant="folder"
-                isOpened={true}
-                subdirectory={
-                  <>
-                    <FileListItem size="lg" variant="file" isOpened={false}>
-                      뭐시기 글
-                    </FileListItem>
-                  </>
-                }
-              >
-                Next.js
-              </FileListItem>
-              <FileListItem
-                size="lg"
-                variant="folder"
-                isOpened={false}
-                isActive={false}
-              >
-                Typescript
-              </FileListItem>
-              <FileListItem
-                size="lg"
-                variant="file"
-                isOpened={false}
-                isActive={false}
-              >
-                FileName
-              </FileListItem>
-            </>
-          }
-        >
-          프론트
-        </FileListItem>
-        <FileListItem
-          size="lg"
-          variant="folder"
-          isOpened={false}
-          isActive={false}
-        >
-          백엔드
-        </FileListItem>
+        {tree.children.map((item, idx) => (
+          <FileListItem
+            size="lg"
+            variant={item.type}
+            isOpened={true}
+            isActive={false}
+            subdirectory={item.children}
+            key={idx}
+          >
+            {item.name}
+          </FileListItem>
+        ))}
       </Box>
     </Box>
   );

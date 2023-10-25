@@ -1,7 +1,8 @@
-import { globalStyle, style } from '@vanilla-extract/css';
+import { atoms } from '@/src/css';
+import { globalStyle } from '@vanilla-extract/css';
 
-export const li = style({});
+export const li = atoms({});
 
-globalStyle(`${li} > ul`, {
+globalStyle(`${li} > div > ul`, {
   marginLeft: 12,
 });

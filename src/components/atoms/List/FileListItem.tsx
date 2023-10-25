@@ -1,4 +1,5 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
+import { TreeProps } from '@/src/utils/fs';
 import { CaretDown, CaretRight, File, Folder } from '@phosphor-icons/react';
 
 import { Box } from '../Box';
@@ -10,7 +11,7 @@ export interface FileListProps {
   variant?: 'folder' | 'file';
   isOpened?: boolean;
   isActive?: boolean;
-  subdirectory?: ReactNode;
+  subdirectory?: TreeProps[];
 }
 
 export interface Space {
@@ -45,39 +46,54 @@ export const FileListItem = ({
       cursor="pointer"
       className={styles.li}
     >
-      <Box
-        display="flex"
-        alignItems="center"
-        gap={sizes.space}
-        color="textTertiary"
-      >
-        {variant === 'folder' ? (
-          isOpened ? (
-            <CaretDown weight="bold" size={sizes.icon} />
-          ) : (
-            <CaretRight weight="bold" size={sizes.icon} />
-          )
-        ) : (
-          <Box width={sizes.box} />
-        )}
-        <Stack direction="horizontal" align="center" space="1">
-          <Box
-            color={variant === 'folder' ? 'brandTertiary' : 'gray300'}
-            display="flex"
-            alignItems="center"
-          >
-            {variant === 'folder' ? (
-              <Folder size={sizes.icon} weight="fill" />
+      <Stack space="0.5">
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={sizes.space}
+          color="textTertiary"
+        >
+          {variant === 'folder' ? (
+            isOpened ? (
+              <CaretDown weight="bold" size={sizes.icon} />
             ) : (
-              <File size={sizes.icon} weight="fill" />
-            )}
-          </Box>
-          <Box color="textPrimary" fontWeight={500}>
-            {children}
-          </Box>
-        </Stack>
-      </Box>
-      <Box as="ul">{subdirectory}</Box>
+              <CaretRight weight="bold" size={sizes.icon} />
+            )
+          ) : (
+            <Box width={sizes.box} />
+          )}
+          <Stack direction="horizontal" align="center" space="1">
+            <Box
+              color={variant === 'folder' ? 'brandTertiary' : 'gray300'}
+              display="flex"
+              alignItems="center"
+            >
+              {variant === 'folder' ? (
+                <Folder size={sizes.icon} weight="fill" />
+              ) : (
+                <File size={sizes.icon} weight="fill" />
+              )}
+            </Box>
+            <Box color="textPrimary" fontWeight={500}>
+              {children}
+            </Box>
+          </Stack>
+        </Box>
+        {subdirectory &&
+          subdirectory.map((item, idx) => (
+            <Box as="ul" key={idx}>
+              <FileListItem
+                size="lg"
+                variant={item.type}
+                isOpened={true}
+                isActive={false}
+                subdirectory={item.children}
+              >
+                {item.name}
+              </FileListItem>
+            </Box>
+          ))}
+      </Stack>
     </Box>
   );
 };

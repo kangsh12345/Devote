@@ -70,6 +70,8 @@ export const top = recipe({
       display: 'flex',
       flexDirection: 'column',
       gap: '10',
+      height: 'full',
+      overflow: 'scroll',
     }),
   ],
 });

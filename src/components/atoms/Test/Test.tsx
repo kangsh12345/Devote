@@ -25,7 +25,7 @@ import { Box } from '../Box';
 import { Button, CloseButton, IconButton } from '../Button';
 import { Card } from '../Card';
 import { Input } from '../Input';
-import { FileList, FolderListItem } from '../List';
+// import { FileList, FolderListItem } from '../List';
 // import { ModalOverlay } from '../Modal';
 import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
@@ -133,9 +133,9 @@ export function Test() {
           <Card variant="outline" />
           <Card skeleton />
         </Box>
-        <FolderListItem size="lg" isOpened={false} />
-        <FolderListItem size="lg" isOpened={true} />
-        <FileList />
+        {/* <FolderListItem size="lg" isOpened={false} />
+        <FolderListItem size="lg" isOpened={true} /> */}
+        {/* <FileList /> */}
         <IconText
           size="lg"
           rightIcon={<Image src={squaresFourDutone} alt="icon" fill />}
