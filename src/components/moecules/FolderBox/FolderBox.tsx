@@ -36,7 +36,10 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   const queryId = decodeURIComponent(decodeURIComponent(query.id));
   const querySlug = decodeURIComponent(decodeURIComponent(query.slug));
 
-  const currentDirectory = queryId !== 'undefined' ? `/${querySlug}/...` : '/';
+  const currentDirectory =
+    query.id === session?.user.dirName && query.slug
+      ? `/${querySlug}/...`
+      : '/';
 
   useEffect(() => {
     if (session) {
@@ -55,12 +58,11 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       const dirName =
         type === 'rootFolder'
           ? rootDirectory
-          : queryId === undefined || queryId !== session.user.dirName
+          : !query.id || queryId !== session.user.dirName
           ? session.user.dirName + '/' + (type === 'folder' ? directory : file)
           : queryId +
             '/' +
-            querySlug +
-            '/' +
+            (query.slug ? querySlug + '/' : '') +
             (type === 'folder' ? directory : file);
 
       try {
