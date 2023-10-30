@@ -26,6 +26,7 @@ export const Auth = ({ type }: AuthProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
+  const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordCheckError, setPasswordCheckError] = useState('');
@@ -42,9 +43,26 @@ export const Auth = ({ type }: AuthProps) => {
       setPasswordCheckError('동일한 비밀번호를 입력해주세요.');
       return;
     } else if (
-      (emailError || passwordError || passwordCheckError) &&
-      (email === '' || password === '' || passwordCheck === '')
+      name === '' ||
+      email === '' ||
+      password === '' ||
+      passwordCheck === ''
     ) {
+      if (name === '') {
+        setNameError('이름을 입력해주세요.');
+      }
+      if (email === '') {
+        setEmailError('이메일을 입력해주세요.');
+      }
+      if (password === '') {
+        setPasswordError('비밀번호를 입력해주세요.');
+      }
+      if (passwordCheck === '') {
+        setPasswordCheckError('비밀번호를 입력해주세요.');
+      }
+
+      return;
+    } else if (emailError || passwordError || passwordCheckError) {
       return;
     }
 
@@ -99,6 +117,7 @@ export const Auth = ({ type }: AuthProps) => {
         {type === 'signup' ? (
           <>
             <Input
+              error={nameError}
               label="name"
               hideLabel
               placeholder="이름을 입력해주세요."
@@ -108,6 +127,9 @@ export const Auth = ({ type }: AuthProps) => {
               value={name}
               onChange={event => {
                 setName(event.target.value);
+                if (nameError !== '') {
+                  setNameError('');
+                }
               }}
             />
             {/* 추후 email로 6자리 코드 전송하여 인증 */}

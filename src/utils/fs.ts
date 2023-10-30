@@ -61,3 +61,12 @@ export const findAllDirectory = (path: string) => {
   });
   return stack;
 };
+
+export const rootDirectoryCheck = (dirName: string) => {
+  const isExists = fs.existsSync(`${rootDirectory}/${dirName}`);
+
+  if (isExists) {
+    return false;
+  }
+  return true;
+};

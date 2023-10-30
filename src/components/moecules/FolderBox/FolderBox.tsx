@@ -32,17 +32,18 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   const [file, setFile] = useState('');
   const [rootDirectory, setRootDirectory] = useState('');
   const [tree, setTree] = useState<TreeProps>();
+  const [inputError, setInputError] = useState('');
 
   const queryId = decodeURIComponent(decodeURIComponent(query.id));
   const querySlug = decodeURIComponent(decodeURIComponent(query.slug));
 
   const currentDirectory =
-    query.id === session?.user.dirName && query.slug
+    query.id && queryId === session?.user.dirName && query.slug
       ? `/${querySlug}/...`
       : '/';
 
   useEffect(() => {
-    if (session) {
+    if (session?.user.dirName) {
       fetch('/api/post/getAllDirectory')
         .then(res => res.json())
         .then(data => {
@@ -54,7 +55,37 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   const handleCreateRootDirectory = async (
     type: 'rootFolder' | 'folder' | 'file',
   ) => {
+    if (inputError) {
+      return;
+    }
+    if (
+      type === 'rootFolder'
+        ? rootDirectory === ''
+        : type === 'file'
+        ? file === ''
+        : directory === ''
+    ) {
+      setInputError('이름을 입력해주세요');
+      console.log('error');
+      return;
+    }
     if (session) {
+      if (type === 'rootFolder') {
+        const res = await fetch(`/api/post/rootDirectoryCheck`, {
+          method: 'POST',
+          body: JSON.stringify({
+            dirName: rootDirectory,
+          }),
+        }).then(res => res.json());
+
+        console.log(res);
+
+        if (!res.success) {
+          setInputError(res.message);
+          return;
+        }
+      }
+
       const dirName =
         type === 'rootFolder'
           ? rootDirectory
@@ -139,6 +170,8 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
                       inputLabel="create folder"
                       placeholder={currentDirectory}
                       value={directory}
+                      inputError={inputError}
+                      setInputError={setInputError}
                     />
                   )}
                   {createFileOpen && (
@@ -150,6 +183,8 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
                       inputLabel="create file"
                       placeholder={currentDirectory}
                       value={file}
+                      inputError={inputError}
+                      setInputError={setInputError}
                     />
                   )}
                 </Box>
@@ -157,7 +192,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
                 <Box />
               )}
             </Box>
-            {tree ? (
+            {tree && tree.children.length != 0 ? (
               <FileList tree={tree} />
             ) : (
               <Box className={styles.emptyBox({})}>비어있음</Box>
@@ -172,7 +207,13 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
         )
       ) : (
         <Box paddingY="1">
-          <Box onClick={() => setCreateRootFolderOpen(true)}>
+          <Box
+            onClick={() => {
+              session
+                ? setCreateRootFolderOpen(true)
+                : router.push('/auth/signin');
+            }}
+          >
             <Button
               size="md"
               variant="outline"
@@ -192,6 +233,9 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               inputLabel="create root folder"
               placeholder="폴더 이름을 입력해주세요."
               value={rootDirectory}
+              inputError={inputError}
+              setInputError={setInputError}
+              // 중복 확인 시작
             />
           )}
         </Box>

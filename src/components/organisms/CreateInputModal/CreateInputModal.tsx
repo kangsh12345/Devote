@@ -18,6 +18,8 @@ export interface CreateInputModalProps {
   placeholder: string;
   maxLength?: number;
   value: string;
+  inputError: string;
+  setInputError: Dispatch<SetStateAction<string>>;
 }
 
 export const CreateInputModal = ({
@@ -31,8 +33,10 @@ export const CreateInputModal = ({
   handle,
   inputLabel,
   placeholder,
-  maxLength = 15,
+  maxLength = 24,
   value,
+  inputError,
+  setInputError,
 }: CreateInputModalProps) => {
   return (
     <Modal
@@ -47,6 +51,7 @@ export const CreateInputModal = ({
     >
       <Input
         label={inputLabel}
+        error={inputError}
         hideLabel
         placeholder={placeholder}
         maxLength={maxLength}
@@ -55,6 +60,9 @@ export const CreateInputModal = ({
         value={value}
         onChange={event => {
           setInput(event.target.value);
+          if (inputError !== '') {
+            setInputError('');
+          }
         }}
       />
     </Modal>
