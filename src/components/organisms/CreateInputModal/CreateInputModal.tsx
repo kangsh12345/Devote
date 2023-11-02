@@ -38,6 +38,9 @@ export const CreateInputModal = ({
   inputError,
   setInputError,
 }: CreateInputModalProps) => {
+  const specialRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+  const doublespaceRegex = /\s\s+/g;
+
   return (
     <Modal
       handle={() => handle('folder')}
@@ -59,7 +62,11 @@ export const CreateInputModal = ({
         size="md"
         value={value}
         onChange={event => {
-          setInput(event.target.value);
+          setInput(
+            event.target.value
+              .replace(doublespaceRegex, ' ')
+              .replace(specialRegex, ''),
+          );
           if (inputError !== '') {
             setInputError('');
           }

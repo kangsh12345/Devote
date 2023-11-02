@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
       return NextResponse.json({ message: 'success' }, { status: 200 });
     }
-    return NextResponse.json({ message: 'exist' }, { status: 200 });
+    return NextResponse.json({ message: mkdirResponse }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 400 });
   }

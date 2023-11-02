@@ -37,6 +37,8 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   const queryId = decodeURIComponent(decodeURIComponent(query.id));
   const querySlug = decodeURIComponent(decodeURIComponent(query.slug));
 
+  const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
+
   const currentDirectory =
     query.id && queryId === session?.user.dirName && query.slug
       ? `/${querySlug}/...`
@@ -66,7 +68,16 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
         : directory === ''
     ) {
       setInputError('이름을 입력해주세요');
-      console.log('error');
+      return;
+    }
+    if (
+      type === 'rootFolder'
+        ? regex.test(rootDirectory) || rootDirectory.length > 24
+        : type === 'file'
+        ? regex.test(file) || file.length > 24
+        : regex.test(directory) || directory.length > 24
+    ) {
+      setInputError('올바른 이름을 입력해주세요.');
       return;
     }
     if (session) {
@@ -74,7 +85,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
         const res = await fetch(`/api/post/rootDirectoryCheck`, {
           method: 'POST',
           body: JSON.stringify({
-            dirName: rootDirectory,
+            dirName: rootDirectory.trim(),
           }),
         }).then(res => res.json());
 
@@ -88,13 +99,15 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
 
       const dirName =
         type === 'rootFolder'
-          ? rootDirectory
+          ? rootDirectory.trim()
           : !query.id || queryId !== session.user.dirName
-          ? session.user.dirName + '/' + (type === 'folder' ? directory : file)
+          ? session.user.dirName +
+            '/' +
+            (type === 'folder' ? directory.trim() : file.trim())
           : queryId +
             '/' +
             (query.slug ? querySlug + '/' : '') +
-            (type === 'folder' ? directory : file);
+            (type === 'folder' ? directory.trim() : file.trim());
 
       try {
         await fetch(`/api/post/createDirectory`, {
@@ -235,7 +248,6 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               value={rootDirectory}
               inputError={inputError}
               setInputError={setInputError}
-              // 중복 확인 시작
             />
           )}
         </Box>

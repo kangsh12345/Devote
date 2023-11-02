@@ -40,6 +40,7 @@ export const Modal = ({
         justifyContent="center"
         alignItems="center"
         paddingBottom="48"
+        zIndex="100"
       >
         <ModalOverlay visible setOpen={setOpen} />
         <ModalContent
