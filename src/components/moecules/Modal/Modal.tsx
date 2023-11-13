@@ -12,6 +12,7 @@ export interface ModalProps {
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
+  setInputError: Dispatch<SetStateAction<string>>;
   handle: () => void;
 }
 
@@ -23,6 +24,7 @@ export const Modal = ({
   rightButtonText,
   setOpen,
   setInput,
+  setInputError,
   handle,
   children,
 }: PropsWithChildren<ModalProps>) => {
@@ -42,10 +44,16 @@ export const Modal = ({
         paddingBottom="48"
         zIndex="100"
       >
-        <ModalOverlay visible setOpen={setOpen} />
+        <ModalOverlay
+          visible
+          setOpen={setOpen}
+          setInput={setInput}
+          setInputError={setInputError}
+        />
         <ModalContent
           setOpen={setOpen}
           setInput={setInput}
+          setInputError={setInputError}
           handle={handle}
           type={type}
           withCloseButton={withCloseButton}

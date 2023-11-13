@@ -45,6 +45,7 @@ export const CreateInputModal = ({
     <Modal
       handle={() => handle('folder')}
       setInput={setInput}
+      setInputError={setInputError}
       setOpen={setOpen}
       type={modalType}
       title={title}

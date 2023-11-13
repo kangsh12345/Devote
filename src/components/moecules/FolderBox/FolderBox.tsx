@@ -122,13 +122,22 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
           .then(data => {
             if (
               type === 'rootFolder' &&
-              (data.message === 'exist' || data.message === 'success') &&
+              data.message === 'success' &&
               status === 'authenticated'
             ) {
               update({ user: { dirName: rootDirectory } });
               setCreateRootFolderOpen(false);
               setRootDirectory('');
               router.refresh();
+            }
+
+            if (data.message === 'exist') {
+              setInputError(
+                '동일 경로에 같은 이름의 폴더/파일을 생성할 수 없습니다.',
+              );
+            }
+            if (data.message === 'valid false') {
+              setInputError('올바른 이름을 입력해주세요.');
             }
           });
       } catch (error) {

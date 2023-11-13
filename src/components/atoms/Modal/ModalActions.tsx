@@ -10,6 +10,7 @@ export interface ModalActionsProps {
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
+  setInputError: Dispatch<SetStateAction<string>>;
   handle: () => void;
 }
 
@@ -19,6 +20,7 @@ export const ModalActions = ({
   rightButtonText,
   setOpen,
   setInput,
+  setInputError,
   handle,
 }: ModalActionsProps) => {
   return (
@@ -31,7 +33,7 @@ export const ModalActions = ({
         <Box
           flex={type === 'left' || type === 'right' ? 'none' : 'auto'}
           onClick={() => {
-            setOpen(false), setInput('');
+            setOpen(false), setInput(''), setInputError('');
           }}
         >
           <Button

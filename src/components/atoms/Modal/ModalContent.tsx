@@ -14,6 +14,7 @@ export interface ModalContentProps {
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
+  setInputError: Dispatch<SetStateAction<string>>;
   handle: () => void;
 }
 
@@ -25,6 +26,7 @@ export const ModalContent = ({
   rightButtonText,
   setOpen,
   setInput,
+  setInputError,
   handle,
   children,
 }: PropsWithChildren<ModalContentProps>) => {
@@ -55,6 +57,7 @@ export const ModalContent = ({
             <ModalActions
               setOpen={setOpen}
               setInput={setInput}
+              setInputError={setInputError}
               handle={handle}
               type={type}
               leftButtonText={leftButtonText}

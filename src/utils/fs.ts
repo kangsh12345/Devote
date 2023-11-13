@@ -11,9 +11,10 @@ export const createDirectory = ({
   type: string;
 }) => {
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
+  const inputDirName = dirName.substring(dirName.lastIndexOf('/') + 1);
 
-  if (regex.test(dirName) || dirName.length > 24) {
-    return 'name incorrect';
+  if (regex.test(inputDirName) || inputDirName.length > 24) {
+    return 'valid false';
   }
 
   const isExists = fs.existsSync(`${rootDirectory}/${dirName}`);
