@@ -46,9 +46,10 @@ export const FileListItem = ({
   const comparePath = path.replace(session?.user.dirName + '/', '').split('/');
   const compareCurrentPath = querySlug.split('/');
 
-  const isOpen = comparePath.every(
-    (value, idx) => value === compareCurrentPath[idx],
-  );
+  const isOpen =
+    query.id && queryId === session?.user.dirName && query.slug
+      ? comparePath.every((value, idx) => value === compareCurrentPath[idx])
+      : false;
 
   const [subIsOpen, setSubIsOpen] = useState(isOpen ?? false);
 
@@ -87,9 +88,6 @@ export const FileListItem = ({
               onClick={() => {
                 setSubIsOpen(!subIsOpen);
                 router.push(`/posts/${path}`);
-                console.log(
-                  `compareCurrentPath: ${compareCurrentPath}, comparePath: ${comparePath.length}`,
-                );
               }}
             />
           ) : (
