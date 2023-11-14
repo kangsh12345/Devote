@@ -1,7 +1,8 @@
 'use client';
 
 import { PropsWithChildren, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { TreeProps } from '@/src/utils/fs';
 import { CaretDown, CaretRight, File, Folder } from '@phosphor-icons/react';
 
@@ -13,7 +14,6 @@ export interface FileListProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
   path?: string;
   variant?: 'folder' | 'file';
-  currentPath: string;
   subdirectory?: TreeProps[];
 }
 
@@ -28,12 +28,29 @@ export const FileListItem = ({
   path = '',
   variant = 'folder',
   subdirectory,
-  currentPath,
   children,
 }: PropsWithChildren<FileListProps>) => {
-  const [subIsOpen, setSubIsOpen] = useState(false);
-
   const router = useRouter();
+
+  const query = useParams();
+  const { data: session } = useSession();
+
+  const queryId = decodeURIComponent(decodeURIComponent(query.id));
+  const querySlug = decodeURIComponent(decodeURIComponent(query.slug));
+
+  const currentPath =
+    query.id && queryId === session?.user.dirName && query.slug
+      ? `${queryId}/${querySlug}`
+      : '';
+
+  const comparePath = path.replace(session?.user.dirName + '/', '').split('/');
+  const compareCurrentPath = querySlug.split('/');
+
+  const isOpen = comparePath.every(
+    (value, idx) => value === compareCurrentPath[idx],
+  );
+
+  const [subIsOpen, setSubIsOpen] = useState(isOpen ?? false);
 
   const sizes: Space =
     size === 'sm'
@@ -58,51 +75,55 @@ export const FileListItem = ({
           alignItems="center"
           gap={sizes.space}
           color="textTertiary"
-          onClick={() =>
-            console.log(`currentPath=${currentPath}, path=${path}`)
-          }
         >
-          {currentPath === path && (
+          {currentPath === path ? (
             <Box
               position="absolute"
-              backgroundColor="opacityBlack50"
+              zIndex="10"
+              backgroundColor="opacityBlack100"
               left="0"
               width="57"
               height="6"
+              onClick={() => {
+                setSubIsOpen(!subIsOpen);
+                router.push(`/posts/${path}`);
+                console.log(
+                  `compareCurrentPath: ${compareCurrentPath}, comparePath: ${comparePath.length}`,
+                );
+              }}
+            />
+          ) : (
+            <Box
+              position="absolute"
+              zIndex="10"
+              left="0"
+              width="57"
+              height="6"
+              onClick={() => {
+                setSubIsOpen(!subIsOpen);
+                router.push(`/posts/${path}`);
+              }}
             />
           )}
           {variant === 'folder' ? (
             subIsOpen ? (
-              <Box height={sizes.box} zIndex="100">
-                <CaretDown
-                  weight="bold"
-                  size={sizes.icon}
-                  onClick={() => setSubIsOpen(false)}
-                />
+              <Box height={sizes.box}>
+                <CaretDown weight="bold" size={sizes.icon} />
               </Box>
             ) : (
-              <Box height={sizes.box} zIndex="100">
-                <CaretRight
-                  weight="bold"
-                  size={sizes.icon}
-                  onClick={() => setSubIsOpen(true)}
-                />
+              <Box height={sizes.box}>
+                <CaretRight weight="bold" size={sizes.icon} />
               </Box>
             )
           ) : (
             <Box width={sizes.box} display="flex" flexShrink={0} />
           )}
-          <Box
-            display="flex"
-            width="full"
-            onClick={() => router.push(`/posts/${path}`)}
-          >
+          <Box display="flex" width="full">
             <Stack direction="horizontal" align="center" space="1">
               <Box
                 color={variant === 'folder' ? 'brandTertiary' : 'gray300'}
                 display="flex"
                 alignItems="center"
-                onClick={() => router.push(`/posts/${path}`)}
               >
                 {variant === 'folder' ? (
                   <Folder size={sizes.icon} weight="fill" />
@@ -123,7 +144,6 @@ export const FileListItem = ({
               <FileListItem
                 size="lg"
                 path={item.path}
-                currentPath={currentPath}
                 variant={item.type}
                 subdirectory={item.children}
               >

@@ -44,11 +44,6 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       ? `/${querySlug}/...`
       : '/';
 
-  const currentPath =
-    query.id && queryId === session?.user.dirName && query.slug
-      ? `${queryId}/${querySlug}`
-      : '';
-
   useEffect(() => {
     if (session?.user.dirName) {
       fetch('/api/post/getAllDirectory')
@@ -223,7 +218,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               )}
             </Box>
             {tree && tree.children.length != 0 ? (
-              <FileList tree={tree} currentPath={currentPath} />
+              <FileList tree={tree} />
             ) : (
               <Box className={styles.emptyBox({})}>비어있음</Box>
             )}
