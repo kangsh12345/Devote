@@ -44,6 +44,11 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       ? `/${querySlug}/...`
       : '/';
 
+  const currentPath =
+    query.id && queryId === session?.user.dirName && query.slug
+      ? `${queryId}/${querySlug}`
+      : '';
+
   useEffect(() => {
     if (session?.user.dirName) {
       fetch('/api/post/getAllDirectory')
@@ -89,8 +94,6 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
           }),
         }).then(res => res.json());
 
-        console.log(res);
-
         if (!res.success) {
           setInputError(res.message);
           return;
@@ -129,6 +132,11 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               setCreateRootFolderOpen(false);
               setRootDirectory('');
               router.refresh();
+            }
+
+            if (data.message === 'success') {
+              // react-query로 생성되는거 prefetch나중에 적용
+              router.push(dirName);
             }
 
             if (data.message === 'exist') {
@@ -215,7 +223,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               )}
             </Box>
             {tree && tree.children.length != 0 ? (
-              <FileList tree={tree} />
+              <FileList tree={tree} currentPath={currentPath} />
             ) : (
               <Box className={styles.emptyBox({})}>비어있음</Box>
             )}

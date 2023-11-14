@@ -13,7 +13,7 @@ export interface FileListProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
   path?: string;
   variant?: 'folder' | 'file';
-  isActive?: boolean;
+  currentPath: string;
   subdirectory?: TreeProps[];
 }
 
@@ -27,8 +27,8 @@ export const FileListItem = ({
   size = 'md',
   path = '',
   variant = 'folder',
-  isActive = false,
   subdirectory,
+  currentPath,
   children,
 }: PropsWithChildren<FileListProps>) => {
   const [subIsOpen, setSubIsOpen] = useState(false);
@@ -48,7 +48,6 @@ export const FileListItem = ({
     <Box
       as="li"
       width="full"
-      backgroundColor={isActive ? 'opacityBlack50' : 'backgroundBase'}
       borderRadius="lg"
       cursor="pointer"
       className={styles.li}
@@ -59,7 +58,19 @@ export const FileListItem = ({
           alignItems="center"
           gap={sizes.space}
           color="textTertiary"
+          onClick={() =>
+            console.log(`currentPath=${currentPath}, path=${path}`)
+          }
         >
+          {currentPath === path && (
+            <Box
+              position="absolute"
+              backgroundColor="opacityBlack50"
+              left="0"
+              width="57"
+              height="6"
+            />
+          )}
           {variant === 'folder' ? (
             subIsOpen ? (
               <Box height={sizes.box} zIndex="100">
@@ -108,12 +119,12 @@ export const FileListItem = ({
         {subIsOpen &&
           subdirectory &&
           subdirectory.map((item, idx) => (
-            <Box as="ul" key={idx}>
+            <Box as="ul" key={idx} paddingLeft="3">
               <FileListItem
                 size="lg"
                 path={item.path}
+                currentPath={currentPath}
                 variant={item.type}
-                isActive={false}
                 subdirectory={item.children}
               >
                 {item.name}

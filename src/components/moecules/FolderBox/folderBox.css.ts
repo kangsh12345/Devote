@@ -12,6 +12,7 @@ export const root = recipe({
       borderRadius: 'xl',
       borderTopWidth: 'px',
       borderBottomWidth: 'px',
+      position: 'relative',
     }),
   ],
 });
