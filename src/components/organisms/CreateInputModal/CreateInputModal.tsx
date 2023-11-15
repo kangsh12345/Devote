@@ -13,7 +13,7 @@ export interface CreateInputModalProps {
   rightButtonText?: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
-  handle: (type: 'rootFolder' | 'folder' | 'file') => void;
+  handle: () => void;
   inputLabel: string;
   placeholder: string;
   maxLength?: number;
@@ -43,7 +43,7 @@ export const CreateInputModal = ({
 
   return (
     <Modal
-      handle={() => handle('folder')}
+      handle={handle}
       setInput={setInput}
       setInputError={setInputError}
       setOpen={setOpen}
