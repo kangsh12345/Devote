@@ -155,11 +155,14 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
         mainOpen ? (
           <>
             <Box className={styles.header({})}>
-              <Box onClick={() => setMainOpen(false)}>
-                <FolderListItem size="lg" isOpened={true}>
-                  {session.user.dirName}
-                </FolderListItem>
-              </Box>
+              <FolderListItem
+                size="lg"
+                isOpened={true}
+                setOpen={setMainOpen}
+                dirName={session.user.dirName}
+              >
+                {session.user.dirName}
+              </FolderListItem>
               {own === 'my' ? (
                 <Box className={styles.addBox({})}>
                   <Box
@@ -224,11 +227,14 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
             )}
           </>
         ) : (
-          <Box onClick={() => setMainOpen(true)}>
-            <FolderListItem size="lg" isOpened={false}>
-              {session.user.dirName}
-            </FolderListItem>
-          </Box>
+          <FolderListItem
+            size="lg"
+            isOpened={false}
+            setOpen={setMainOpen}
+            dirName={session.user.dirName}
+          >
+            {session.user.dirName}
+          </FolderListItem>
         )
       ) : (
         <Box paddingY="1">

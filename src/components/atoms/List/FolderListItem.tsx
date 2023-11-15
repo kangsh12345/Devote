@@ -1,4 +1,7 @@
-import { PropsWithChildren } from 'react';
+'use client';
+
+import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
+import { useRouter } from 'next/navigation';
 import { CaretDown, CaretRight } from '@phosphor-icons/react';
 
 import { Box } from '../Box';
@@ -8,13 +11,19 @@ import * as styles from './folderListItem.css';
 export interface FolderListItemProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
   isOpened?: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  dirName: string;
 }
 
 export const FolderListItem = ({
   size = 'md',
   isOpened = false,
+  setOpen,
+  dirName,
   children,
 }: PropsWithChildren<FolderListItemProps>) => {
+  const router = useRouter();
+
   return (
     <Box width="full" className={styles.root({ size })}>
       <Stack
@@ -30,7 +39,12 @@ export const FolderListItem = ({
         direction="horizontal"
         align="center"
       >
-        <Box color="textSecondary" display="flex" alignItems="center">
+        <Box
+          color="textSecondary"
+          display="flex"
+          alignItems="center"
+          onClick={() => setOpen(!isOpened)}
+        >
           {isOpened ? (
             <CaretDown
               weight="duotone"
@@ -59,7 +73,12 @@ export const FolderListItem = ({
             />
           )}
         </Box>
-        <Box>{children}</Box>
+        <Box
+          className={styles.textHover}
+          onClick={() => router.push(`/posts/${dirName}`)}
+        >
+          {children}
+        </Box>
       </Stack>
     </Box>
   );

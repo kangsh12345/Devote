@@ -35,6 +35,7 @@ export const letterSpacing = {
 
 export const textDecoration = {
   none: 'none',
+  underline: 'underline',
 } as const;
 
 export const typographies = {

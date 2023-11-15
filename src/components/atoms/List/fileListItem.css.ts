@@ -4,10 +4,6 @@ import { recipe } from '@vanilla-extract/recipes';
 
 export const li = style({});
 
-// globalStyle(`${li} > div > ul`, {
-//   marginLeft: 12,
-// });
-
 export const fileListHover = recipe({
   base: [
     atoms({

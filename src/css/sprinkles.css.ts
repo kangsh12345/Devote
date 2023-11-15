@@ -80,7 +80,6 @@ const responsiveProperties = defineProperties({
     left: margins,
     letterSpacing: vars.letterSpacing,
     lineHeight: vars.lineHeights,
-    textDecoration: vars.textDecoration,
     marginBottom: margins,
     marginLeft: margins,
     marginRight: margins,
@@ -209,6 +208,7 @@ const selectorProperties = defineProperties({
     boxShadow: vars.shadows,
     color: vars.colors,
     outlineColor: vars.colors,
+    textDecoration: vars.textDecoration,
   },
 });
 

@@ -18,3 +18,7 @@ export const root = recipe({
     },
   },
 });
+
+export const textHover = atoms({
+  textDecoration: { hover: 'underline' },
+});
