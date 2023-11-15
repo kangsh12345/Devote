@@ -69,9 +69,9 @@ export const top = recipe({
     atoms({
       display: 'flex',
       flexDirection: 'column',
-      gap: '10',
-      height: 'full',
-      overflow: 'scroll',
+      paddingBottom: '10',
+      height: 'fit',
+      overflow: 'hidden',
     }),
   ],
 });
@@ -89,4 +89,12 @@ export const bottom = recipe({
       borderColor: 'borderSecondary',
     }),
   ],
+});
+
+export const folderBoxWrapper = atoms({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8',
+  height: 'full',
+  overflow: 'scroll',
 });

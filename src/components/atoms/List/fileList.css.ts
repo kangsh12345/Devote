@@ -10,6 +10,7 @@ export const root = atoms({
   paddingBottom: '5',
   flexShrink: 0,
   width: 'full',
+  overflow: 'scroll',
 });
 
 export const ul = style({});

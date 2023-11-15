@@ -37,6 +37,7 @@ export const addBox = recipe({
       gap: '2',
       paddingX: '1',
       paddingY: '2',
+      overflow: 'scroll',
     }),
   ],
 });

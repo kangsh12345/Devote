@@ -68,9 +68,15 @@ export const Sidebar = ({
                 </SidebarNav>
               </Link>
             </Stack>
-            <FolderBox />
           </Box>
-          {/* <FolderBox own="other" /> */}
+          <Box className={styles.folderBoxWrapper}>
+            <Box height="fit">
+              <FolderBox />
+            </Box>
+            {/* <Box height="fit">
+              <FolderBox own="other" />
+            </Box> */}
+          </Box>
           <Box className={styles.bottom({})}>
             <Stack space="1">
               <Link href="/favorites">
