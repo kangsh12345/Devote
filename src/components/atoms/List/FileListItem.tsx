@@ -79,27 +79,22 @@ export const FileListItem = ({
         >
           {currentPath === path ? (
             <Box
-              position="absolute"
-              zIndex="10"
-              backgroundColor="opacityBlack100"
-              left="0"
-              width="57"
-              height="6"
+              className={styles.fileListHover({ active: true })}
               onClick={() => {
                 setSubIsOpen(!subIsOpen);
-                router.push(`/posts/${path}`);
+                router.push(
+                  `/posts/${path}` + (variant === 'file' ? '?type=file' : ''),
+                );
               }}
             />
           ) : (
             <Box
-              position="absolute"
-              zIndex="10"
-              left="0"
-              width="57"
-              height="6"
+              className={styles.fileListHover({ active: false })}
               onClick={() => {
                 setSubIsOpen(!subIsOpen);
-                router.push(`/posts/${path}`);
+                router.push(
+                  `/posts/${path}` + (variant === 'file' ? '?type=file' : ''),
+                );
               }}
             />
           )}
