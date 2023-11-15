@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { TreeProps } from '@/src/utils/fs';
 import filePlus from '@phosphor-icons/core/duotone/file-plus-duotone.svg';
@@ -22,6 +22,10 @@ export interface FolderBoxProps {
 export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   const router = useRouter();
   const query = useParams();
+  const searchParams = useSearchParams();
+
+  const queryType = searchParams.get('type');
+
   const { data: session, status, update } = useSession();
 
   const [mainOpen, setMainOpen] = useState(true);
@@ -37,11 +41,20 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   const queryId = decodeURIComponent(decodeURIComponent(query.id));
   const querySlug = decodeURIComponent(decodeURIComponent(query.slug));
 
+  const querySlugFile =
+    queryType === 'file'
+      ? querySlug.indexOf('/') === -1
+        ? ''
+        : querySlug.substring(0, querySlug.lastIndexOf('/'))
+      : querySlug;
+
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
 
   const currentDirectory =
     query.id && queryId === session?.user.dirName && query.slug
-      ? `/${querySlug}/...`
+      ? querySlugFile === ''
+        ? '/'
+        : `/${querySlugFile}/...`
       : '/';
 
   useEffect(() => {
@@ -104,7 +117,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
             (type === 'folder' ? directory.trim() : file.trim())
           : queryId +
             '/' +
-            (query.slug ? querySlug + '/' : '') +
+            (query.slug ? (querySlugFile ? `${querySlugFile}/` : '') : '') +
             (type === 'folder' ? directory.trim() : file.trim());
 
       try {
