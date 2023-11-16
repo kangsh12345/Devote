@@ -144,7 +144,11 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
 
             if (data.message === 'success') {
               // react-query로 생성되는거 prefetch나중에 적용
-              router.push(dirName);
+              if (type === 'file') {
+                router.push(`/posts/${dirName}?type=file`);
+              } else {
+                router.push(`/posts/${dirName}`);
+              }
             }
 
             if (data.message === 'exist') {
