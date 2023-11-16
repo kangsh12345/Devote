@@ -142,15 +142,6 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               router.refresh();
             }
 
-            if (data.message === 'success') {
-              // react-query로 생성되는거 prefetch나중에 적용
-              if (type === 'file') {
-                router.push(`/posts/${dirName}?type=file`);
-              } else {
-                router.push(`/posts/${dirName}`);
-              }
-            }
-
             if (data.message === 'exist') {
               setInputError(
                 '동일 경로에 같은 이름의 폴더/파일을 생성할 수 없습니다.',

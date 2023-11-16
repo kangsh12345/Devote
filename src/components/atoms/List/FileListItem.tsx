@@ -80,31 +80,37 @@ export const FileListItem = ({
           {currentPath === path ? (
             <Box
               className={styles.fileListHover({ active: true })}
-              onClick={() => {
-                setSubIsOpen(!subIsOpen);
+              onClick={() =>
                 router.push(
                   `/posts/${path}` + (variant === 'file' ? '?type=file' : ''),
-                );
-              }}
+                )
+              }
             />
           ) : (
             <Box
               className={styles.fileListHover({ active: false })}
-              onClick={() => {
-                setSubIsOpen(!subIsOpen);
+              onClick={() =>
                 router.push(
                   `/posts/${path}` + (variant === 'file' ? '?type=file' : ''),
-                );
-              }}
+                )
+              }
             />
           )}
           {variant === 'folder' ? (
             subIsOpen ? (
-              <Box height={sizes.box}>
+              <Box
+                height={sizes.box}
+                zIndex="20"
+                onClick={() => setSubIsOpen(false)}
+              >
                 <CaretDown weight="bold" size={sizes.icon} />
               </Box>
             ) : (
-              <Box height={sizes.box}>
+              <Box
+                height={sizes.box}
+                zIndex="20"
+                onClick={() => setSubIsOpen(true)}
+              >
                 <CaretRight weight="bold" size={sizes.icon} />
               </Box>
             )
