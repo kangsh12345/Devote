@@ -1,4 +1,5 @@
 import { atoms } from '@/src/css';
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = recipe({
@@ -9,7 +10,6 @@ export const root = recipe({
       width: 'fit',
       height: 'viewHeight',
       backgroundColor: 'backgroundBase',
-      flexShrink: 0,
       borderRightWidth: 'px',
       borderColor: 'borderPrimary',
     }),
@@ -20,8 +20,11 @@ export const root = recipe({
       false: {},
     },
     type: {
-      sidebar: atoms({ display: { wide: 'none', tablet: 'flex' } }),
-      drawer: atoms({ display: 'flex' }),
+      sidebar: atoms({
+        display: { wide: 'none', tablet: 'flex' },
+        flexShrink: 0,
+      }),
+      drawer: atoms({ display: 'flex', flexShrink: 0 }),
     },
   },
   compoundVariants: [
@@ -40,10 +43,13 @@ export const contentBox = recipe({
   base: [
     atoms({
       display: 'flex',
+      flexShrink: 0,
       flexDirection: 'column',
       justifyContent: 'space-between',
       width: 'full',
-      height: 'full',
+    }),
+    style({
+      height: 'calc(100% - 64px)',
     }),
   ],
   variants: {
@@ -68,10 +74,11 @@ export const top = recipe({
   base: [
     atoms({
       display: 'flex',
+      flexShrink: 0,
       flexDirection: 'column',
-      paddingBottom: '10',
       height: 'fit',
       overflow: 'hidden',
+      paddingBottom: '8',
     }),
   ],
 });
@@ -80,11 +87,13 @@ export const bottom = recipe({
   base: [
     atoms({
       display: 'flex',
+      flexShrink: 0,
       flexDirection: 'column',
       height: 'fit',
       paddingTop: '6',
       gap: '12',
       paddingBottom: '1',
+      marginTop: '8',
       borderTopWidth: 'px',
       borderColor: 'borderSecondary',
     }),
