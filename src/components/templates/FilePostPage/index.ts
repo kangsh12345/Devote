@@ -1,0 +1,1 @@
+export { FilePostPage } from './FilePostPage';
