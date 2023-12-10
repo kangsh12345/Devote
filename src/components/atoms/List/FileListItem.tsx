@@ -53,7 +53,7 @@ export const FileListItem = ({
       : '';
 
   const currentPath =
-    param.id && queryId === session?.user.dirName && param.slug
+    param.id && queryId === session?.user.dirName && param.slug && !title
       ? `${queryId}${querySlug ? `/${querySlug}` : ''}`
       : '';
 
