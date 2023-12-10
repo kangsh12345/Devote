@@ -1,7 +1,7 @@
 'use client';
 
 import { PropsWithChildren, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { TreeProps } from '@/src/utils/fs';
 import { CaretDown, CaretRight, File, Folder } from '@phosphor-icons/react';
@@ -32,22 +32,36 @@ export const FileListItem = ({
 }: PropsWithChildren<FileListProps>) => {
   const router = useRouter();
 
-  const query = useParams();
+  const query = useSearchParams();
+  const title = query.get('title');
+  const param = useParams();
   const { data: session } = useSession();
 
-  const queryId = decodeURIComponent(decodeURIComponent(query.id));
-  const querySlug = decodeURIComponent(decodeURIComponent(query.slug));
+  const queryId = decodeURIComponent(decodeURIComponent(param.id));
+  const querySlug = param.slug
+    ? decodeURIComponent(decodeURIComponent(param.slug))
+    : '';
+
+  const filePath = `/posts/${path}`.replace(/\/([^\/]*)$/, '?title=$1');
+  const folderPath = `/posts/${path}`;
+
+  const currentFilePath =
+    param.id && queryId === session?.user.dirName
+      ? `${queryId}${querySlug ? `/${querySlug}` : ''}${
+          title ? `/${title}` : ''
+        }`
+      : '';
 
   const currentPath =
-    query.id && queryId === session?.user.dirName && query.slug
-      ? `${queryId}/${querySlug}`
+    param.id && queryId === session?.user.dirName && param.slug
+      ? `${queryId}${querySlug ? `/${querySlug}` : ''}`
       : '';
 
   const comparePath = path.replace(session?.user.dirName + '/', '').split('/');
   const compareCurrentPath = querySlug.split('/');
 
   const isOpen =
-    query.id && queryId === session?.user.dirName && query.slug
+    param.id && queryId === session?.user.dirName && param.slug
       ? comparePath.every((value, idx) => value === compareCurrentPath[idx])
       : false;
 
@@ -69,6 +83,7 @@ export const FileListItem = ({
       borderRadius="lg"
       cursor="pointer"
       className={styles.li}
+      onClick={() => console.log(currentFilePath)}
     >
       <Stack space="0.75">
         <Box
@@ -77,27 +92,18 @@ export const FileListItem = ({
           gap={sizes.space}
           color="textTertiary"
         >
-          {currentPath === path ? (
-            <Box
-              className={styles.fileListHover({ active: true })}
-              onClick={() => {
-                setSubIsOpen(!subIsOpen);
-                router.push(
-                  `/posts/${path}` + (variant === 'file' ? '?type=file' : ''),
-                );
-              }}
-            />
-          ) : (
-            <Box
-              className={styles.fileListHover({ active: false })}
-              onClick={() => {
-                setSubIsOpen(!subIsOpen);
-                router.push(
-                  `/posts/${path}` + (variant === 'file' ? '?type=file' : ''),
-                );
-              }}
-            />
-          )}
+          <Box
+            className={styles.fileListHover({
+              active:
+                variant === 'file'
+                  ? currentFilePath === path
+                  : currentPath === path,
+            })}
+            onClick={() => {
+              setSubIsOpen(!subIsOpen);
+              router.push(variant === 'file' ? filePath : folderPath);
+            }}
+          />
           {variant === 'folder' ? (
             subIsOpen ? (
               <Box
