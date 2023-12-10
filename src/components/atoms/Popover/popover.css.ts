@@ -2,6 +2,12 @@ import { atoms, vars } from '@/src/css';
 import { keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+export const root = atoms({
+  position: 'absolute',
+  zIndex: '10',
+  right: '9',
+});
+
 export const button = recipe({
   base: [
     atoms({

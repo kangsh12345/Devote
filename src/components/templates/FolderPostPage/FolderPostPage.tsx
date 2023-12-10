@@ -14,12 +14,19 @@ export interface FolderPostPageProps {
 
 export const FolderPostPage = (params: FolderPostPageProps) => {
   return (
-    <Box onClick={() => console.log(params)}>
+    <Box
+      height="full"
+      minHeight="viewHeight"
+      backgroundColor="backgroundElevatedPrimary"
+      onClick={() => console.log(params)}
+    >
       <Header type="folder" />
       <Box
         display="flex"
         height="full"
-        paddingY="10"
+        // 여기 paiddng fimga랑 달라서 일단 나둠
+        // paddingY="10"
+        paddingY="6"
         paddingX="2"
         justifyContent="center"
       ></Box>
