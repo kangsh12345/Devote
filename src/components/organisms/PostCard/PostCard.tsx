@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { FolderNotch } from '@phosphor-icons/react';
 
@@ -14,10 +15,14 @@ export type PostCardProps =
   | {
       direction?: 'column' | 'row';
       variant: 'card' | 'folder' | 'cardInFolder';
+      path: string;
+      name: string;
     }
   | { skeleton: true };
 
 export const PostCard = (props: PostCardProps) => {
+  const router = useRouter();
+
   if ('skeleton' in props) {
     return (
       <Box className={styles.rootRow({})}>
@@ -40,11 +45,20 @@ export const PostCard = (props: PostCardProps) => {
       </Box>
     );
   }
+
   const direction = props.direction === undefined ? 'row' : props.direction;
   const variant = props.variant;
+  const mvPath =
+    variant === 'folder'
+      ? `/posts/${props.path}`
+      : `/posts/${props.path.replace(/\/([^\/]*)$/, '?title=$1')}`;
 
   return (
-    <>
+    <Box
+      onClick={() => {
+        router.push(mvPath);
+      }}
+    >
       {direction === 'row' ? (
         <Box className={styles.rootRow({})}>
           <Box className={styles.wrapperRow({})}>
@@ -70,7 +84,7 @@ export const PostCard = (props: PostCardProps) => {
                 lineHeight={1}
                 className={styles.overflowRow({ type: 'title' })}
               >
-                초기세팅
+                {props.name}
               </Box>
               {variant !== 'folder' ? (
                 <Box
@@ -151,6 +165,6 @@ export const PostCard = (props: PostCardProps) => {
           )}
         </Box>
       )}
-    </>
+    </Box>
   );
 };

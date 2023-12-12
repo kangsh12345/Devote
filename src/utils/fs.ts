@@ -70,6 +70,26 @@ export const findAllDirectory = (path: string) => {
   return stack;
 };
 
+export const findDirectory = (path: string) => {
+  const stack: TreeProps[] = [];
+
+  fs.readdirSync(path, { withFileTypes: true }).forEach(file => {
+    const destPath = `${path}/${file.name}`;
+
+    stack.push({
+      path: destPath.replace(`${rootDirectory}/`, ''),
+      name: file.name,
+      type: file.isDirectory() ? 'folder' : 'file',
+      children: [],
+    });
+    stack.sort((a, b) => {
+      return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
+    });
+  });
+
+  return stack;
+};
+
 export const rootDirectoryCheck = (dirName: string) => {
   const isExists = fs.existsSync(`${rootDirectory}/${dirName}`);
 

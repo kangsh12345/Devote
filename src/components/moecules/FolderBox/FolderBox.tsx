@@ -57,6 +57,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
         : `/${querySlugFile}/...`
       : '/';
 
+  // TODO: 이거 참고해서 폴더 내 경로 tree 얻어오는 api 이어서 제작
   useEffect(() => {
     if (session?.user.dirName) {
       fetch('/api/post/getAllDirectory')

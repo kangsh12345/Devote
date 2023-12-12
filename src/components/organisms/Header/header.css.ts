@@ -4,8 +4,8 @@ import { recipe } from '@vanilla-extract/recipes';
 export const root = recipe({
   base: [
     atoms({
-      color: 'textPrimary',
       position: 'relative',
+      color: 'textPrimary',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

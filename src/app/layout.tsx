@@ -34,7 +34,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                   >
                     <Sidebar />
                   </Box>
-                  <Box width="full" overflow="hidden">
+                  <Box position="relative" width="full" overflow="hidden">
                     {children}
                   </Box>
                 </Box>

@@ -4,17 +4,11 @@ import { Box } from '../../atoms/Box';
 import { ListItem, Popover } from '../../atoms/Popover';
 import { Header } from '../../organisms/Header';
 
-interface PageParams {
-  id: string;
-  slug: string[];
-}
-
 export interface FilePostPageProps {
-  params: PageParams;
   title: string;
 }
 
-export const FilePostPage = ({ params, title }: FilePostPageProps) => {
+export const FilePostPage = ({ title }: FilePostPageProps) => {
   const popoverList: ListItem[] = [
     { value: '대제목1', heading: 1 },
     { value: '대제목2', heading: 1 },
@@ -29,7 +23,7 @@ export const FilePostPage = ({ params, title }: FilePostPageProps) => {
       height="full"
       minHeight="viewHeight"
       backgroundColor="backgroundBase"
-      onClick={() => console.log(params, title)}
+      onClick={() => console.log(title)}
     >
       <Header type="post" />
       <Box
