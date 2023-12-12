@@ -1,7 +1,12 @@
 'use client';
 
-import { PropsWithChildren, useState } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { TreeProps } from '@/src/utils/fs';
 import { CaretDown, CaretRight, File, Folder } from '@phosphor-icons/react';
@@ -31,6 +36,7 @@ export const FileListItem = ({
   children,
 }: PropsWithChildren<FileListProps>) => {
   const router = useRouter();
+  const pathName = usePathname();
 
   const query = useSearchParams();
   const title = query.get('title');
@@ -65,7 +71,11 @@ export const FileListItem = ({
       ? comparePath.every((value, idx) => value === compareCurrentPath[idx])
       : false;
 
-  const [subIsOpen, setSubIsOpen] = useState(isOpen ?? false);
+  const [subIsOpen, setSubIsOpen] = useState(false);
+
+  useEffect(() => {
+    setSubIsOpen(isOpen);
+  }, [pathName, isOpen]);
 
   const sizes: Space =
     size === 'sm'
