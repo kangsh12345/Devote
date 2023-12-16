@@ -9,7 +9,6 @@ async function getRootDirectoryCheck(info: RequestBody) {
   try {
     const response = rootDirectoryCheck(info.dirName);
 
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);

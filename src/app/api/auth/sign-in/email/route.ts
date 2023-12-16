@@ -24,7 +24,6 @@ async function signIn(info: RequestBody) {
     ) {
       const { password, ...userWithoutPass } = response;
 
-      console.log(userWithoutPass);
       return userWithoutPass;
     } else {
       return null;

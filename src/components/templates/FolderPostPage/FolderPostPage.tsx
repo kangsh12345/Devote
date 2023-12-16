@@ -20,7 +20,6 @@ export const FolderPostPage = () => {
   const pathBack = pathArray.slice(2, -1).join('/');
 
   useEffect(() => {
-    console.log(path.replace('/posts/', ''));
     if (path.startsWith('/posts/')) {
       const fetchData = async () => {
         const res = await fetch(`/api/post/getDirectory`, {
@@ -37,8 +36,6 @@ export const FolderPostPage = () => {
           console.error('Failed to Get Directory');
           return;
         }
-
-        console.log(res);
 
         setTree(res.tree);
       };

@@ -24,7 +24,6 @@ async function signUp(info: RequestBody) {
 
     const { password, ...result } = response;
 
-    console.log(result);
     return result;
   } catch (error) {
     console.error(error);

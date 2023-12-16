@@ -24,7 +24,6 @@ async function signUp(credential: string) {
       },
     });
 
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
@@ -33,8 +32,6 @@ async function signUp(credential: string) {
 
 export async function GET(req: NextRequest) {
   const credential = req.nextUrl.searchParams.get('credential');
-
-  console.log(req.nextUrl.searchParams);
 
   try {
     const products = await signUp(String(credential));
