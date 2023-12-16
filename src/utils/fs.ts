@@ -1,5 +1,24 @@
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import fs from 'fs';
 import path from 'path';
+
+export interface PostData {
+  id: string;
+  contentHtml?: string;
+  title: string;
+  date: string;
+  mdxSource?: MDXRemoteSerializeResult<
+    Record<string, unknown>,
+    Record<string, unknown>
+  >;
+}
+
+export interface TreeProps {
+  path: string;
+  name: string;
+  type: 'file' | 'folder';
+  children: TreeProps[];
+}
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
@@ -31,13 +50,6 @@ export const createDirectory = ({
 
   return 'exist';
 };
-
-export interface TreeProps {
-  path: string;
-  name: string;
-  type: 'file' | 'folder';
-  children: TreeProps[];
-}
 
 export const findAllDirectory = (path: string) => {
   const stack: TreeProps[] = [];
@@ -98,3 +110,16 @@ export const rootDirectoryCheck = (dirName: string) => {
   }
   return true;
 };
+
+export async function createPost({ id, contentHtml, title, date }: PostData) {
+  const fullPath = path.join(rootDirectory, `${id}.md`);
+
+  const data = `---
+  title: '${title}'
+  date: '${date}'
+  ---
+  ${contentHtml}
+  `;
+
+  fs.writeFileSync(fullPath, data);
+}

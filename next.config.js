@@ -18,6 +18,7 @@ const nextConfig = {
       'lh3.googleusercontent.com',
     ],
   },
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 };
 
 module.exports = withVanillaExtract(withMDX(nextConfig));

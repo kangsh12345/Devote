@@ -51,7 +51,7 @@ export const PostCard = (props: PostCardProps) => {
   const mvPath =
     variant === 'folder'
       ? `/posts/${props.path}`
-      : `/posts/${props.path.replace(/\/([^\/]*)$/, '?title=$1')}`;
+      : `/posts/${props.path?.replace(/\/([^\/]*)$/, '?title=$1')}`;
 
   return (
     <Box

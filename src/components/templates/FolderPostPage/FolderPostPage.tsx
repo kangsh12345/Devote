@@ -14,12 +14,13 @@ export const FolderPostPage = () => {
   const { data: session } = useSession();
   const [tree, setTree] = useState<TreeProps[]>();
 
-  const path = usePathname();
+  const pathName = usePathname();
+  const path = decodeURIComponent(decodeURIComponent(pathName));
   const pathArray = path.split('/');
   const pathBack = pathArray.slice(2, -1).join('/');
 
   useEffect(() => {
-    // TODO: 추후 패치 loading을 이용해서 skeleton 삽입
+    console.log(path.replace('/posts/', ''));
     if (path.startsWith('/posts/')) {
       const fetchData = async () => {
         const res = await fetch(`/api/post/getDirectory`, {
@@ -89,8 +90,8 @@ export const FolderPostPage = () => {
                 )}
               </Box>
             ))}
-
           {/* 추후 로딩시 스켈레톤 추가 */}
+          {/* TODO: 추후 패치 loading을 이용해서 skeleton 삽입 */}
           {/* <PostCard skeleton />
           <PostCard skeleton />
           <PostCard skeleton /> */}
