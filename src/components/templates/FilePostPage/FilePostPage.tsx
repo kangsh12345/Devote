@@ -23,14 +23,11 @@ export const FilePostPage = ({ title }: FilePostPageProps) => {
       height="full"
       minHeight="viewHeight"
       backgroundColor="backgroundBase"
-      onClick={() => console.log(title)}
     >
       <Header type="post" />
       <Box
         display="flex"
         height="full"
-        // 여기 paiddng fimga랑 달라서 일단 나둠
-        // paddingY="10"
         paddingY="6"
         paddingX="2"
         justifyContent="center"
