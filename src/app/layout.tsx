@@ -18,7 +18,7 @@ export const siteTitle = 'Devote';
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="ko">
+    <html lang="ko" data-color-mode="light">
       <body>
         <main>
           <ReactQueryProvider>

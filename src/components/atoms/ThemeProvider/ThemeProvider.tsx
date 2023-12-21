@@ -20,7 +20,7 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-export const themeModeAttribute = 'data-theme';
+export const themeModeAttribute = 'data-color-mode';
 
 export type ThemeProviderProps = {
   defaultMode?: Mode;

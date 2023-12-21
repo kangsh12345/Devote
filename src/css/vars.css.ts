@@ -112,8 +112,12 @@ const makeColorScheme = (mode: Mode = 'light') => {
 
 const modeTokens = makeColorScheme('light');
 const modeVars = createGlobalThemeContract(modeTokens, getVarName);
-createGlobalTheme('[data-theme="light"]', modeVars, modeTokens);
-createGlobalTheme('[data-theme="dark"]', modeVars, makeColorScheme('dark'));
+createGlobalTheme('[data-color-mode="light"]', modeVars, modeTokens);
+createGlobalTheme(
+  '[data-color-mode="dark"]',
+  modeVars,
+  makeColorScheme('dark'),
+);
 
 type ColorVars = typeof modeVars;
 const colorVars = modeVars as ColorVars;
