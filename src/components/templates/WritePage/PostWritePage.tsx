@@ -1,129 +1,43 @@
 'use client';
 
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-import { TextB, TextHFour, TextHOne, TextHTwo } from '@phosphor-icons/react';
+import {
+  CodeSimple,
+  Link,
+  TextB,
+  TextHFour,
+  TextHOne,
+  TextHThree,
+  TextHTwo,
+  TextStrikethrough,
+  Tray,
+} from '@phosphor-icons/react';
 import {
   commands,
-  ContextStore,
-  ExecuteState,
   ICommand,
-  ICommandBase,
-  MDEditorProps,
   RefMDEditor,
   TextAreaCommandOrchestrator,
 } from '@uiw/react-md-editor';
 
 import { Box } from '../../atoms/Box';
+import { MarkdownDivide } from '../../atoms/Divide';
 import * as styles from './postWritePage.css';
 
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 
-interface MyCustomToolbarProps {
-  editorRef: RefObject<RefMDEditor>;
-}
-
-interface CustomToolbarButtomProps {
+type CustomToolbarButtonProps = {
+  icon: ReactNode;
   command: ICommand;
-  executeCommand: () => void;
-}
-
-const h1: ICommand = {
-  name: 'h1',
-  keyCommand: 'h1',
-  buttonProps: { 'aria-label': 'h1' },
-  icon: (
-    <Box className={styles.iconBox}>
-      <TextHOne size="full" weight="duotone" />
-    </Box>
-  ),
-  execute: (state, api) => {
-    let modifyText = `# ${state.selectedText}\n`;
-    if (!state.selectedText) {
-      modifyText = `# 텍스트`;
-    }
-    api.replaceSelection(modifyText);
-  },
-};
-const h2: ICommand = {
-  name: 'h2',
-  keyCommand: 'h2',
-  buttonProps: { 'aria-label': 'h2' },
-  icon: (
-    <Box className={styles.iconBox}>
-      <TextHTwo size="full" weight="duotone" />
-    </Box>
-  ),
-  execute: (state, api) => {
-    let modifyText = `## ${state.selectedText}\n`;
-    if (!state.selectedText) {
-      modifyText = `## 텍스트`;
-    }
-    api.replaceSelection(modifyText);
-  },
-};
-const h3: ICommand = {
-  name: 'h3',
-  keyCommand: 'h3',
-  buttonProps: { 'aria-label': 'h3' },
-  icon: (
-    <Box className={styles.iconBox}>
-      <TextHFour size="full" weight="duotone" />
-    </Box>
-  ),
-  execute: (state, api) => {
-    let modifyText = `### ${state.selectedText}\n`;
-    if (!state.selectedText) {
-      modifyText = `### 텍스트`;
-    }
-    api.replaceSelection(modifyText);
-  },
-};
-const h4: ICommand = {
-  name: 'h4',
-  keyCommand: 'h4',
-  buttonProps: { 'aria-label': 'h4' },
-  icon: (
-    <Box className={styles.iconBox}>
-      <TextHOne size="full" weight="duotone" />
-    </Box>
-  ),
-  execute: (state, api) => {
-    let modifyText = `#### ${state.selectedText}\n`;
-    if (!state.selectedText) {
-      modifyText = `#### 텍스트`;
-    }
-    api.replaceSelection(modifyText);
-  },
-};
-const bold: ICommand = {
-  name: 'bold',
-  keyCommand: 'bold',
-  buttonProps: { 'aria-label': 'bold' },
-  icon: (
-    <Box className={styles.iconBox}>
-      <TextB size="full" weight="duotone" />
-    </Box>
-  ),
-  execute: (state, api) => {
-    let modifyText = `**${state.selectedText}**\n`;
-    if (!state.selectedText) {
-      modifyText = `**텍스트** `;
-    }
-    // else if (state.selectedText === `**${state.selectedText}**`) {
-    //   modifyText = state.selectedText;
-    // }
-    api.replaceSelection(modifyText);
-  },
 };
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
   ssr: false,
 });
 
-const CustomToolbarButton: React.FC<{ command: ICommand }> = ({ command }) => {
+const CustomToolbarButton = ({ icon, command }: CustomToolbarButtonProps) => {
   const executeCommand = () => {
     const textArea = document.querySelector('textarea') as HTMLTextAreaElement;
     if (textArea) {
@@ -132,26 +46,101 @@ const CustomToolbarButton: React.FC<{ command: ICommand }> = ({ command }) => {
     }
   };
 
-  return <button onClick={executeCommand}>{command.name}</button>;
+  return <Box onClick={executeCommand}>{icon}</Box>;
 };
 
 const MyCustomToolbar = () => {
   return (
     // css 넣어주자
-    <div>
-      <CustomToolbarButton command={h1} />
-    </div>
+    <Box className={styles.markdownContainer}>
+      <Box className={styles.markdown}>
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <TextHOne size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.title1}
+        />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <TextHTwo size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.title2}
+        />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <TextHThree size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.title3}
+        />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <TextHFour size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.title4}
+        />
+        <MarkdownDivide />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <TextB size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.bold}
+        />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <TextStrikethrough size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.strikethrough}
+        />
+        <MarkdownDivide />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <Tray size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.image}
+        />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <Link size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.link}
+        />
+        <CustomToolbarButton
+          icon={
+            <Box className={styles.iconBox}>
+              <CodeSimple size="full" weight="duotone" />
+            </Box>
+          }
+          command={commands.codeBlock}
+        />
+      </Box>
+    </Box>
   );
 };
 
 export const PostWritePage = () => {
-  // const query = useSearchParams();
-  // const title = query.get('title') ?? '';
+  const query = useSearchParams();
+  const title = query.get('title') ?? '';
   const [md, setMd] = useState<string | undefined>('');
   const editorRef = useRef<RefMDEditor>(null);
 
   return (
-    <Box>
+    <Box onClick={() => console.log(title)}>
       <Box width="full" height="full">
         <Box className={styles.root}>
           <MyCustomToolbar />
@@ -162,6 +151,7 @@ export const PostWritePage = () => {
             onChange={setMd}
             visibleDragbar={false}
             hideToolbar={true}
+            textareaProps={{ placeholder: '내용을 작성해보세요.' }}
           />
         </Box>
       </Box>
