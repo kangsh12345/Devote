@@ -17,6 +17,14 @@ const nextConfig = {
     ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  async rewrites() {
+    return [
+      {
+        source: '/v0/:path*',
+        destination: 'https://firebasestorage.googleapis.com/v0/:path*',
+      },
+    ];
+  },
 };
 
 module.exports = withVanillaExtract(removeImports({ ...nextConfig }));

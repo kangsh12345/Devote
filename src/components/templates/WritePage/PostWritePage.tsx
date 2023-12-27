@@ -3,6 +3,7 @@
 import { ReactNode, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
+import onImagePasted from '@/src/utils/onImagePasted';
 import {
   CodeSimple,
   Link,
@@ -50,6 +51,27 @@ const CustomToolbarButton = ({ icon, command }: CustomToolbarButtonProps) => {
 };
 
 const MyCustomToolbar = () => {
+  // TODO: 이미지 클릭 삽입
+  const [imageFile, setImageFile] = useState<string>('');
+
+  const handleFileUpload = (e: any) => {
+    const {
+      target: { files },
+    } = e;
+
+    const file = files?.[0];
+    const fileReader = new FileReader();
+
+    fileReader?.readAsDataURL(file);
+
+    fileReader.onloadend = (e: any) => {
+      const { result } = e?.currentTarget;
+      setImageFile(result);
+    };
+  };
+
+  console.log(imageFile);
+
   return (
     // css 넣어주자
     <Box className={styles.markdownContainer}>
@@ -104,14 +126,19 @@ const MyCustomToolbar = () => {
           command={commands.strikethrough}
         />
         <MarkdownDivide />
-        <CustomToolbarButton
-          icon={
-            <Box className={styles.iconBox}>
-              <Tray size="full" weight="duotone" />
-            </Box>
-          }
-          command={commands.image}
-        />
+        {/* Image */}
+        <Box>
+          <Box className={styles.iconBox}>
+            <Tray size="full" weight="duotone" />
+          </Box>
+          <input
+            type="file"
+            name="file-input"
+            accept="image/*"
+            onChange={handleFileUpload}
+          />
+        </Box>
+        {/*  */}
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
@@ -136,7 +163,7 @@ const MyCustomToolbar = () => {
 export const PostWritePage = () => {
   const query = useSearchParams();
   const title = query.get('title') ?? '';
-  const [md, setMd] = useState<string | undefined>('');
+  const [md, setMd] = useState<string | undefined>();
   const editorRef = useRef<RefMDEditor>(null);
 
   return (
@@ -152,6 +179,12 @@ export const PostWritePage = () => {
             visibleDragbar={false}
             hideToolbar={true}
             textareaProps={{ placeholder: '내용을 작성해보세요.' }}
+            onPaste={async event => {
+              await onImagePasted(event.clipboardData, setMd);
+            }}
+            onDrop={async event => {
+              await onImagePasted(event.dataTransfer, setMd);
+            }}
           />
         </Box>
       </Box>
