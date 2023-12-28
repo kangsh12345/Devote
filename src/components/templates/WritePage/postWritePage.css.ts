@@ -6,6 +6,14 @@ export const root = style({
   zIndex: '10',
 });
 
+export const defaultStyle = style({
+  opacity: 1,
+});
+
+export const dragEnterStyle = style({
+  opacity: 0.1,
+});
+
 export const markdownContainer = atoms({
   display: 'flex',
   alignItems: 'center',
@@ -39,6 +47,7 @@ export const iconBox = atoms({
 globalStyle('body .w-md-editor-text-pre > code, body .w-md-editor-text-input', {
   fontSize: '18px !important',
   lineHeight: '24px !important',
+  minHeight: 'calc(100vh - 112px)',
 });
 
 globalStyle('body .w-md-editor-text', {

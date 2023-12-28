@@ -3,7 +3,6 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../firebaseApp';
 
 const fileUpload = async (file: File): Promise<string> => {
-  console.log(file);
   const storageRef = ref(storage, `images/${file.name}`);
   await uploadBytes(storageRef, file);
   return getDownloadURL(storageRef);

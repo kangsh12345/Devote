@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useRef, useState } from 'react';
+import { DragEvent, ReactNode, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import onImagePasted from '@/src/utils/onImagePasted';
@@ -69,8 +69,6 @@ const MyCustomToolbar = () => {
       setImageFile(result);
     };
   };
-
-  console.log(imageFile);
 
   return (
     // css 넣어주자
@@ -164,12 +162,36 @@ export const PostWritePage = () => {
   const query = useSearchParams();
   const title = query.get('title') ?? '';
   const [md, setMd] = useState<string | undefined>();
+  const [isDragEnter, setIsDragEnter] = useState<boolean>(false);
   const editorRef = useRef<RefMDEditor>(null);
+
+  const handleDragEnter = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragEnter(true);
+  };
+
+  const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragEnter(false);
+  };
+
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragEnter(false);
+  };
 
   return (
     <Box onClick={() => console.log(title)}>
       <Box width="full" height="full">
-        <Box className={styles.root}>
+        <Box
+          className={[
+            styles.root,
+            isDragEnter ? styles.dragEnterStyle : styles.defaultStyle,
+          ]}
+          onDragOver={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
           <MyCustomToolbar />
           <MDEditor
             ref={editorRef}
@@ -183,6 +205,7 @@ export const PostWritePage = () => {
               await onImagePasted(event.clipboardData, setMd);
             }}
             onDrop={async event => {
+              event.preventDefault();
               await onImagePasted(event.dataTransfer, setMd);
             }}
           />
