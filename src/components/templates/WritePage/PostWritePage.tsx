@@ -207,25 +207,40 @@ export const PostWritePage = () => {
           onDrop={handleDrop}
         >
           <MyCustomToolbar setMd={setMd} />
-          <MDEditor
-            height="100%"
-            value={md}
-            onChange={setMd}
-            visibleDragbar={false}
-            previewOptions={{
-              rehypePlugins: [[rehypeSanitize]],
-              remarkPlugins: [[remarkBreaks]],
-            }}
-            hideToolbar={true}
-            textareaProps={{ placeholder: '내용을 작성해보세요.' }}
-            onPaste={async event => {
-              await onImagePasted(event.clipboardData, setMd);
-            }}
-            onDrop={async event => {
-              event.preventDefault();
-              await onImagePasted(event.dataTransfer, setMd);
-            }}
-          />
+          <Box display="flex" flexDirection="row" width="full" height="full">
+            <Box width="full">
+              <MDEditor
+                preview="edit"
+                height="100%"
+                value={md}
+                onChange={setMd}
+                visibleDragbar={false}
+                hideToolbar={true}
+                textareaProps={{ placeholder: '내용을 작성해보세요.' }}
+                onPaste={async event => {
+                  await onImagePasted(event.clipboardData, setMd);
+                }}
+                onDrop={async event => {
+                  event.preventDefault();
+                  await onImagePasted(event.dataTransfer, setMd);
+                }}
+              />
+            </Box>
+            <Box className={styles.markdownBox}>
+              <MDEditor
+                preview="preview"
+                height="100%"
+                value={md}
+                onChange={setMd}
+                visibleDragbar={false}
+                previewOptions={{
+                  rehypePlugins: [[rehypeSanitize]],
+                  remarkPlugins: [[remarkBreaks]],
+                }}
+                hideToolbar={true}
+              />
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>

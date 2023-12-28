@@ -25,6 +25,11 @@ export const markdownContainer = atoms({
   borderColor: 'borderPrimary',
 });
 
+export const markdownBox = atoms({
+  display: { wide: 'none', tablet: 'flex' },
+  width: 'full',
+});
+
 export const markdown = atoms({
   display: 'flex',
   justifyContent: 'space-between',
@@ -53,4 +58,7 @@ globalStyle('body .w-md-editor-text-pre > code, body .w-md-editor-text-input', {
 
 globalStyle('body .w-md-editor-text', {
   paddingBottom: '48px',
+});
+globalStyle('body .w-md-editor', {
+  width: '100%',
 });
