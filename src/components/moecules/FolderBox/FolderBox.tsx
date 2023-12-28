@@ -78,8 +78,8 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       type === 'rootFolder'
         ? rootDirectory === ''
         : type === 'file'
-        ? file === ''
-        : directory === ''
+          ? file === ''
+          : directory === ''
     ) {
       setInputError('이름을 입력해주세요');
       return;
@@ -88,8 +88,8 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       type === 'rootFolder'
         ? regex.test(rootDirectory) || rootDirectory.length > 24
         : type === 'file'
-        ? regex.test(file) || file.length > 24
-        : regex.test(directory) || directory.length > 24
+          ? regex.test(file) || file.length > 24
+          : regex.test(directory) || directory.length > 24
     ) {
       setInputError('올바른 이름을 입력해주세요.');
       return;
@@ -113,13 +113,13 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
         type === 'rootFolder'
           ? rootDirectory.trim()
           : !query.id || queryId !== session.user.dirName
-          ? session.user.dirName +
-            '/' +
-            (type === 'folder' ? directory.trim() : file.trim())
-          : queryId +
-            '/' +
-            (query.slug ? (querySlugFile ? `${querySlugFile}/` : '') : '') +
-            (type === 'folder' ? directory.trim() : file.trim());
+            ? session.user.dirName +
+              '/' +
+              (type === 'folder' ? directory.trim() : file.trim())
+            : queryId +
+              '/' +
+              (query.slug ? (querySlugFile ? `${querySlugFile}/` : '') : '') +
+              (type === 'folder' ? directory.trim() : file.trim());
 
       try {
         await fetch(`/api/post/createDirectory`, {
@@ -182,7 +182,14 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
                     <IconButton
                       size="md"
                       variant="outline"
-                      icon={<Image src={filePlus} alt="File Add Icon" fill />}
+                      icon={
+                        <Image
+                          src={filePlus}
+                          alt="File Add Icon"
+                          fill
+                          sizes="100%"
+                        />
+                      }
                     />
                   </Box>
                   <Box
@@ -194,7 +201,12 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
                       size="md"
                       variant="outline"
                       icon={
-                        <Image src={folderPlus} alt="Folder Add Icon" fill />
+                        <Image
+                          src={folderPlus}
+                          alt="Folder Add Icon"
+                          fill
+                          sizes="100%"
+                        />
                       }
                     />
                   </Box>

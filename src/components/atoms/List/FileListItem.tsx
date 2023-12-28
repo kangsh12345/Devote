@@ -81,10 +81,10 @@ export const FileListItem = ({
     size === 'sm'
       ? { space: '1', icon: 16, box: '4' }
       : size === 'md'
-      ? { space: '1.5', icon: 20, box: '5' }
-      : size === 'lg'
-      ? { space: '2', icon: 24, box: '6' }
-      : { space: '2.5', icon: 28, box: '7' };
+        ? { space: '1.5', icon: 20, box: '5' }
+        : size === 'lg'
+          ? { space: '2', icon: 24, box: '6' }
+          : { space: '2.5', icon: 28, box: '7' };
 
   return (
     <Box

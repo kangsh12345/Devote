@@ -24,7 +24,7 @@ export const CardHover = () => {
               <IconText
                 type="cardhover"
                 size="md"
-                leftIcon={<Image src={star} alt="icon" fill />}
+                leftIcon={<Image src={star} alt="icon" fill sizes="100%" />}
               >
                 20
               </IconText>

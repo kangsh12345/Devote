@@ -203,7 +203,7 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                   <IconText
                     type="cardhover"
                     size="lg"
-                    leftIcon={<Image src={star} alt="icon" fill />}
+                    leftIcon={<Image src={star} alt="icon" fill sizes="100%" />}
                   >
                     <Box color="textSecondary">20</Box>
                   </IconText>

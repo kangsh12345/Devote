@@ -92,13 +92,17 @@ export function Test() {
             size="md"
             isActive={false}
             color="primary"
-            icon={<Image src={squaresFourDutone} alt="icon" fill />}
+            icon={
+              <Image src={squaresFourDutone} alt="icon" fill sizes="100%" />
+            }
           />
           <ListToggle
             size="md"
             isActive={true}
             color="primary"
-            icon={<Image src={squaresFourDutone} alt="icon" fill />}
+            icon={
+              <Image src={squaresFourDutone} alt="icon" fill sizes="100%" />
+            }
           />
         </Stack>
         <CloseButton size="md" />
@@ -106,12 +110,12 @@ export function Test() {
           <IconButton
             size="md"
             variant="normal"
-            icon={<Image src={magnifyingGlass} alt="icon" fill />}
+            icon={<Image src={magnifyingGlass} alt="icon" fill sizes="100%" />}
           />
           <IconButton
             size="md"
             variant="outline"
-            icon={<Image src={magnifyingGlass} alt="icon" fill />}
+            icon={<Image src={magnifyingGlass} alt="icon" fill sizes="100%" />}
           />
         </Stack>
         <Button
@@ -138,8 +142,12 @@ export function Test() {
         {/* <FileList /> */}
         <IconText
           size="lg"
-          rightIcon={<Image src={squaresFourDutone} alt="icon" fill />}
-          leftIcon={<Image src={squaresFourDutone} alt="icon" fill />}
+          rightIcon={
+            <Image src={squaresFourDutone} alt="icon" fill sizes="100%" />
+          }
+          leftIcon={
+            <Image src={squaresFourDutone} alt="icon" fill sizes="100%" />
+          }
         >
           Icon Text
         </IconText>
@@ -148,7 +156,7 @@ export function Test() {
           type="main"
           size="lg"
           isActive={true}
-          icon={<Image src={squaresFourDutone} alt="icon" fill />}
+          icon={<Image src={squaresFourDutone} alt="icon" fill sizes="100%" />}
         >
           Sidebar Nav
         </SidebarNav>
@@ -170,22 +178,6 @@ export function Test() {
         <Header type="post" />
         <Header type="write" />
         <Header type="auth" />
-
-        <Stack space="0">
-          <PostCard variant="card" direction="column" />
-          <PostCard variant="cardInFolder" direction="column" />
-          <PostCard variant="cardInFolder" direction="column" />
-          <PostCard variant="folder" direction="column" />
-        </Stack>
-
-        <Box className={styles.cardContainer}>
-          <PostCard variant="card" direction="row" />
-          <PostCard variant="folder" direction="row" />
-          <PostCard variant="folder" direction="row" />
-          <PostCard variant="folder" direction="row" />
-          <PostCard variant="folder" direction="row" />
-          <PostCard variant="folder" direction="row" />
-        </Box>
 
         <Box className={styles.cardContainer}>
           <PostCard skeleton />

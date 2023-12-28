@@ -27,7 +27,6 @@ import {
 import {
   commands,
   ICommand,
-  RefMDEditor,
   TextAreaCommandOrchestrator,
 } from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
@@ -88,13 +87,12 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
   };
 
   return (
-    // css 넣어주자
     <Box className={styles.markdownContainer}>
       <Box className={styles.markdown}>
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <TextHOne size="full" weight="duotone" />
+              <TextHOne size="100%" weight="duotone" />
             </Box>
           }
           command={commands.title1}
@@ -102,7 +100,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <TextHTwo size="full" weight="duotone" />
+              <TextHTwo size="100%" weight="duotone" />
             </Box>
           }
           command={commands.title2}
@@ -110,7 +108,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <TextHThree size="full" weight="duotone" />
+              <TextHThree size="100%" weight="duotone" />
             </Box>
           }
           command={commands.title3}
@@ -118,7 +116,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <TextHFour size="full" weight="duotone" />
+              <TextHFour size="100%" weight="duotone" />
             </Box>
           }
           command={commands.title4}
@@ -127,7 +125,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <TextB size="full" weight="duotone" />
+              <TextB size="100%" weight="duotone" />
             </Box>
           }
           command={commands.bold}
@@ -135,7 +133,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <TextStrikethrough size="full" weight="duotone" />
+              <TextStrikethrough size="100%" weight="duotone" />
             </Box>
           }
           command={commands.strikethrough}
@@ -143,7 +141,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <MarkdownDivide />
         <Box>
           <Box className={styles.iconBox} onClick={handleTrayClick}>
-            <Tray size="full" weight="duotone" />
+            <Tray size="100%" weight="duotone" />
           </Box>
           <Box
             as="input"
@@ -157,7 +155,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <Link size="full" weight="duotone" />
+              <Link size="100%" weight="duotone" />
             </Box>
           }
           command={commands.link}
@@ -165,7 +163,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
-              <CodeSimple size="full" weight="duotone" />
+              <CodeSimple size="100%" weight="duotone" />
             </Box>
           }
           command={commands.codeBlock}
@@ -180,7 +178,6 @@ export const PostWritePage = () => {
   const title = query.get('title') ?? '';
   const [md, setMd] = useState<string | undefined>();
   const [isDragEnter, setIsDragEnter] = useState<boolean>(false);
-  const editorRef = useRef<RefMDEditor>(null);
 
   const handleDragEnter = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -211,7 +208,6 @@ export const PostWritePage = () => {
         >
           <MyCustomToolbar setMd={setMd} />
           <MDEditor
-            ref={editorRef}
             height="100%"
             value={md}
             onChange={setMd}

@@ -54,7 +54,7 @@ export const Sidebar = ({
               <Link href="/">
                 <SidebarNav
                   isActive={pathname === '/' ? true : false}
-                  icon={<Image src={fire} alt="icon" fill />}
+                  icon={<Image src={fire} alt="icon" fill sizes="100%" />}
                 >
                   인기항목
                 </SidebarNav>
@@ -62,7 +62,7 @@ export const Sidebar = ({
               <Link href="/recent">
                 <SidebarNav
                   isActive={pathname === '/recent' ? true : false}
-                  icon={<Image src={clock} alt="icon" fill />}
+                  icon={<Image src={clock} alt="icon" fill sizes="100%" />}
                 >
                   최신항목
                 </SidebarNav>
@@ -83,7 +83,7 @@ export const Sidebar = ({
                 <SidebarNav
                   type="sub"
                   isActive={pathname === '/favorites' ? true : false}
-                  icon={<Image src={star} alt="icon" fill />}
+                  icon={<Image src={star} alt="icon" fill sizes="100%" />}
                 >
                   즐겨찾기
                 </SidebarNav>
@@ -92,7 +92,7 @@ export const Sidebar = ({
                 <SidebarNav
                   type="sub"
                   isActive={pathname === '/settings' ? true : false}
-                  icon={<Image src={gear} alt="icon" fill />}
+                  icon={<Image src={gear} alt="icon" fill sizes="100%" />}
                 >
                   설정
                 </SidebarNav>
@@ -102,7 +102,7 @@ export const Sidebar = ({
                   <SidebarNav
                     type="sub"
                     isActive={false}
-                    icon={<Image src={signout} alt="icon" fill />}
+                    icon={<Image src={signout} alt="icon" fill sizes="100%" />}
                   >
                     로그아웃
                   </SidebarNav>

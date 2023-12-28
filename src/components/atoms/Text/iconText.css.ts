@@ -42,7 +42,7 @@ export const root = recipe({
 });
 
 export const iconWrapper = recipe({
-  base: [],
+  base: [atoms({ position: 'relative' })],
   variants: {
     size: {
       xl: atoms({ height: '7', width: '7' }),

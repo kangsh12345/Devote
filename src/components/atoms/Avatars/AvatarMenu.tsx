@@ -44,7 +44,7 @@ export const AvatarMenu = ({
         position="relative"
         onClick={handleOpen}
       >
-        <Image src={image} alt="avatar" fill />
+        <Image src={image} alt="avatar" fill sizes="100%" />
       </Box>
       {isOpen ? (
         <Box className={styles.ulContainer}>
