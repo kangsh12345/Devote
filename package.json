@@ -41,6 +41,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reading-time": "^1.5.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-breaks": "^4.0.0",
     "typescript": "5.1.6",
     "validator": "^13.11.0"
   },

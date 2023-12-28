@@ -48,6 +48,7 @@ globalStyle('body .w-md-editor-text-pre > code, body .w-md-editor-text-input', {
   fontSize: '18px !important',
   lineHeight: '24px !important',
   minHeight: 'calc(100vh - 112px)',
+  whiteSpace: 'pre-wrap',
 });
 
 globalStyle('body .w-md-editor-text', {

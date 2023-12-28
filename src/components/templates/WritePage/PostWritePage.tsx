@@ -21,6 +21,8 @@ import {
   RefMDEditor,
   TextAreaCommandOrchestrator,
 } from '@uiw/react-md-editor';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkBreaks from 'remark-breaks';
 
 import { Box } from '../../atoms/Box';
 import { MarkdownDivide } from '../../atoms/Divide';
@@ -199,6 +201,10 @@ export const PostWritePage = () => {
             value={md}
             onChange={setMd}
             visibleDragbar={false}
+            previewOptions={{
+              rehypePlugins: [[rehypeSanitize]],
+              remarkPlugins: [[remarkBreaks]],
+            }}
             hideToolbar={true}
             textareaProps={{ placeholder: '내용을 작성해보세요.' }}
             onPaste={async event => {
