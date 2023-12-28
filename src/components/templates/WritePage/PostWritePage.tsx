@@ -1,8 +1,17 @@
 'use client';
 
-import { DragEvent, ReactNode, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  DragEvent,
+  ReactNode,
+  SetStateAction,
+  useRef,
+  useState,
+} from 'react';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
+import fileUpload from '@/src/utils/fileUpload';
+import insertToTextArea from '@/src/utils/insertToTextArea';
 import onImagePasted from '@/src/utils/onImagePasted';
 import {
   CodeSimple,
@@ -36,6 +45,10 @@ type CustomToolbarButtonProps = {
   command: ICommand;
 };
 
+type MyCustomToolbarProps = {
+  setMd: (value: SetStateAction<string | undefined>) => void;
+};
+
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
   ssr: false,
 });
@@ -52,24 +65,26 @@ const CustomToolbarButton = ({ icon, command }: CustomToolbarButtonProps) => {
   return <Box onClick={executeCommand}>{icon}</Box>;
 };
 
-const MyCustomToolbar = () => {
-  // TODO: 이미지 클릭 삽입
-  const [imageFile, setImageFile] = useState<string>('');
+const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileUpload = (e: any) => {
-    const {
-      target: { files },
-    } = e;
+  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    console.log(file);
 
-    const file = files?.[0];
-    const fileReader = new FileReader();
+    if (file && file.type.startsWith('image/')) {
+      const url = await fileUpload(file);
 
-    fileReader?.readAsDataURL(file);
+      const insertedMarkdown = insertToTextArea(`![](${url})`);
+      if (!insertedMarkdown) {
+        return;
+      }
+      setMd(insertedMarkdown);
+    }
+  };
 
-    fileReader.onloadend = (e: any) => {
-      const { result } = e?.currentTarget;
-      setImageFile(result);
-    };
+  const handleTrayClick = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -126,19 +141,19 @@ const MyCustomToolbar = () => {
           command={commands.strikethrough}
         />
         <MarkdownDivide />
-        {/* Image */}
         <Box>
-          <Box className={styles.iconBox}>
+          <Box className={styles.iconBox} onClick={handleTrayClick}>
             <Tray size="full" weight="duotone" />
           </Box>
-          <input
+          <Box
+            as="input"
+            ref={fileInputRef}
             type="file"
-            name="file-input"
             accept="image/*"
+            display="none"
             onChange={handleFileUpload}
           />
         </Box>
-        {/*  */}
         <CustomToolbarButton
           icon={
             <Box className={styles.iconBox}>
@@ -194,7 +209,7 @@ export const PostWritePage = () => {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          <MyCustomToolbar />
+          <MyCustomToolbar setMd={setMd} />
           <MDEditor
             ref={editorRef}
             height="100%"
