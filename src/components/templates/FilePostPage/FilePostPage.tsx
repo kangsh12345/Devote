@@ -3,6 +3,7 @@
 import { Box } from '../../atoms/Box';
 import { ListItem, Popover } from '../../atoms/Popover';
 import { Header } from '../../organisms/Header';
+import { SubHeader } from '../../organisms/SubHeader';
 
 export interface FilePostPageProps {
   title: string;
@@ -25,6 +26,7 @@ export const FilePostPage = ({ title }: FilePostPageProps) => {
       backgroundColor="backgroundBase"
     >
       <Header type="post" />
+      <SubHeader />
       <Box
         display="flex"
         height="full"

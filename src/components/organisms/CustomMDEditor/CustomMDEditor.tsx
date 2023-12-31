@@ -34,7 +34,7 @@ import remarkBreaks from 'remark-breaks';
 
 import { Box } from '../../atoms/Box';
 import { MarkdownDivide } from '../../atoms/Divide';
-import * as styles from './postWritePage.css';
+import * as styles from './customMDEditor.css';
 
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
@@ -173,7 +173,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
   );
 };
 
-export const PostWritePage = () => {
+export const CustomMDEditor = () => {
   const query = useSearchParams();
   const title = query.get('title') ?? '';
   const [md, setMd] = useState<string | undefined>();

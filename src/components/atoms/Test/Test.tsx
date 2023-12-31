@@ -176,7 +176,6 @@ export function Test() {
         <Header type="folder" />
         <Header type="myFolder" />
         <Header type="post" />
-        <Header type="write" />
         <Header type="auth" />
 
         <Box className={styles.cardContainer}>
