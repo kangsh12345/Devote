@@ -2,7 +2,11 @@ import { Box } from '../../atoms/Box';
 import { Button } from '../../atoms/Button';
 import * as styles from './postSubHeader.css';
 
-export const PostSubHeader = () => {
+export interface PostSubHeaderProps {
+  path: string;
+}
+
+export const PostSubHeader = ({ path }: PostSubHeaderProps) => {
   return (
     <Box className={styles.root({})}>
       <Box width="fit">

@@ -2,14 +2,16 @@
 
 import { Box } from '../../atoms/Box';
 import { ListItem, Popover } from '../../atoms/Popover';
-import { Header } from '../../organisms/Header';
+import { PostHeader } from '../../organisms/Header';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
 
 export interface FilePostPageProps {
   title: string;
+  own: boolean;
+  path: string;
 }
 
-export const FilePostPage = ({ title }: FilePostPageProps) => {
+export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
   const popoverList: ListItem[] = [
     { value: '대제목1', heading: 1 },
     { value: '대제목2', heading: 1 },
@@ -25,8 +27,8 @@ export const FilePostPage = ({ title }: FilePostPageProps) => {
       minHeight="viewHeight"
       backgroundColor="backgroundBase"
     >
-      <Header type="post" />
-      <PostSubHeader />
+      <PostHeader />
+      {own && <PostSubHeader path={path} />}
       <Box
         display="flex"
         height="full"

@@ -1,11 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import star from '@phosphor-icons/core/fill/star-fill.svg';
 import {
   ArrowLeft,
   FilePlus,
@@ -20,7 +18,6 @@ import { Box } from '../../atoms/Box';
 import { Button, IconButton } from '../../atoms/Button';
 import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
-import { IconText } from '../../atoms/Text';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';
 import { Drawer } from '../../moecules/Drawer';
@@ -28,7 +25,7 @@ import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './header.css';
 
 export interface HeaderProps {
-  type?: 'popular' | 'folder' | 'myFolder' | 'post' | 'auth';
+  type?: 'popular' | 'folder' | 'myFolder' | 'auth';
 }
 
 export const Header = ({ type = 'popular' }: HeaderProps) => {
@@ -59,24 +56,20 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
           <>
             <Box display="flex" flexShrink={0}>
               <Stack space="6" direction="horizontal">
-                {type === 'post' ? (
-                  ''
-                ) : (
-                  <Box className={styles.breakpoint({ type: 'header' })}>
-                    <Stack space="2" direction="horizontal" align="center">
-                      <ListToggle
-                        isActive={true}
-                        color="secondary"
-                        icon={<SquaresFour size={24} weight="duotone" />}
-                      />
-                      <ListToggle
-                        isActive={false}
-                        color="secondary"
-                        icon={<ListBullets size={24} weight="duotone" />}
-                      />
-                    </Stack>
-                  </Box>
-                )}
+                <Box className={styles.breakpoint({ type: 'header' })}>
+                  <Stack space="2" direction="horizontal" align="center">
+                    <ListToggle
+                      isActive={true}
+                      color="secondary"
+                      icon={<SquaresFour size={24} weight="duotone" />}
+                    />
+                    <ListToggle
+                      isActive={false}
+                      color="secondary"
+                      icon={<ListBullets size={24} weight="duotone" />}
+                    />
+                  </Stack>
+                </Box>
 
                 {type === 'popular' && (
                   <Box
@@ -108,14 +101,10 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
             <Stack space="3" direction="horizontal" align="center">
               {/* TODO: Select Portal로 이동 b/c root overflow hidden */}
               {type === 'popular' && <Select size="sm" list={selectList} />}
-              {type === 'post' ? (
-                ''
-              ) : (
-                <IconButton
-                  size="md"
-                  icon={<MagnifyingGlass size={20} weight="duotone" />}
-                />
-              )}
+              <IconButton
+                size="md"
+                icon={<MagnifyingGlass size={20} weight="duotone" />}
+              />
               {type === 'myFolder' && (
                 <>
                   <IconButton
@@ -148,27 +137,6 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                   type === 'myFolder') && (
                   <AvatarMenu image={session.user.image} />
                 )
-              )}
-              {type === 'post' && (
-                <Stack direction="horizontal" space="6">
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    color="textTertiary"
-                    paddingLeft="6"
-                    fontSize="1"
-                  >
-                    2023년 7월 9일
-                  </Box>
-                  <IconText
-                    type="cardhover"
-                    size="lg"
-                    leftIcon={<Image src={star} alt="icon" fill sizes="100%" />}
-                  >
-                    <Box color="textSecondary">20</Box>
-                  </IconText>
-                </Stack>
               )}
             </Stack>
           </>
