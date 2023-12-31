@@ -18,7 +18,6 @@ import {
 import { AvatarMenu, Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Button, IconButton } from '../../atoms/Button';
-import { Input } from '../../atoms/Input';
 import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
 import { IconText } from '../../atoms/Text';
@@ -29,12 +28,11 @@ import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './header.css';
 
 export interface HeaderProps {
-  type?: 'popular' | 'folder' | 'myFolder' | 'post' | 'write' | 'auth';
+  type?: 'popular' | 'folder' | 'myFolder' | 'post' | 'auth';
 }
 
 export const Header = ({ type = 'popular' }: HeaderProps) => {
   const router = useRouter();
-  const [state, setState] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: session } = useSession();
@@ -61,25 +59,24 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
           <>
             <Box display="flex" flexShrink={0}>
               <Stack space="6" direction="horizontal">
-                {type === 'post' ||
-                  (type === 'write' ? (
-                    ''
-                  ) : (
-                    <Box className={styles.breakpoint({ type: 'header' })}>
-                      <Stack space="2" direction="horizontal" align="center">
-                        <ListToggle
-                          isActive={true}
-                          color="secondary"
-                          icon={<SquaresFour size={24} weight="duotone" />}
-                        />
-                        <ListToggle
-                          isActive={false}
-                          color="secondary"
-                          icon={<ListBullets size={24} weight="duotone" />}
-                        />
-                      </Stack>
-                    </Box>
-                  ))}
+                {type === 'post' ? (
+                  ''
+                ) : (
+                  <Box className={styles.breakpoint({ type: 'header' })}>
+                    <Stack space="2" direction="horizontal" align="center">
+                      <ListToggle
+                        isActive={true}
+                        color="secondary"
+                        icon={<SquaresFour size={24} weight="duotone" />}
+                      />
+                      <ListToggle
+                        isActive={false}
+                        color="secondary"
+                        icon={<ListBullets size={24} weight="duotone" />}
+                      />
+                    </Stack>
+                  </Box>
+                )}
 
                 {type === 'popular' && (
                   <Box
@@ -103,35 +100,22 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                     <Box fontSize="1" fontWeight={700} color="textSecondary">
                       / 프론트
                     </Box>
-                    {type === 'write' && (
-                      <Box paddingLeft="1" width="56">
-                        <Input
-                          label="input label"
-                          hideLabel
-                          placeholder="제목을 입력해주세요"
-                          variant="outline"
-                          size="sm"
-                          value={state}
-                          onChange={event => setState(event.target.value)}
-                        />
-                      </Box>
-                    )}
                   </Stack>
                 )}
+                {/* write헤더 따로 컴포넌트로 분리 */}
               </Stack>
             </Box>
             <Stack space="3" direction="horizontal" align="center">
               {/* TODO: Select Portal로 이동 b/c root overflow hidden */}
               {type === 'popular' && <Select size="sm" list={selectList} />}
-              {type === 'post' ||
-                (type === 'write' ? (
-                  ''
-                ) : (
-                  <IconButton
-                    size="md"
-                    icon={<MagnifyingGlass size={20} weight="duotone" />}
-                  />
-                ))}
+              {type === 'post' ? (
+                ''
+              ) : (
+                <IconButton
+                  size="md"
+                  icon={<MagnifyingGlass size={20} weight="duotone" />}
+                />
+              )}
               {type === 'myFolder' && (
                 <>
                   <IconButton
@@ -164,29 +148,6 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
                   type === 'myFolder') && (
                   <AvatarMenu image={session.user.image} />
                 )
-              )}
-              {type === 'write' && (
-                // TODO: 추후 fixed button이나 footer 버튼으로 변경
-                <>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    radius="full"
-                    color="brand"
-                    width="fit"
-                  >
-                    취소
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="solid"
-                    radius="full"
-                    color="brand"
-                    width="fit"
-                  >
-                    저장
-                  </Button>
-                </>
               )}
               {type === 'post' && (
                 <Stack direction="horizontal" space="6">
