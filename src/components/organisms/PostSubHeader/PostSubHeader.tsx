@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 import { Box } from '../../atoms/Box';
 import { Button } from '../../atoms/Button';
@@ -13,9 +14,31 @@ export interface PostSubHeaderProps {
 }
 
 export const PostSubHeader = ({ path }: PostSubHeaderProps) => {
+  const router = useRouter();
+  const { data: session } = useSession();
   const [open, setOpen] = useState(false);
 
-  const router = useRouter();
+  const handleRemoveFile = async () => {
+    if (session?.user.dirName === path.split('/', 1)[0]) {
+      try {
+        const res = await fetch(`/api/post/remove`, {
+          method: 'POST',
+          body: JSON.stringify({
+            path: path,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(res => res.json());
+
+        if (!res.success) {
+          // toast error 메세지
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <Box className={styles.root({})}>
@@ -45,7 +68,7 @@ export const PostSubHeader = ({ path }: PostSubHeaderProps) => {
             type="right"
             title="파일 삭제"
             setOpen={setOpen}
-            handle={() => console.log('hi')}
+            handle={handleRemoveFile}
             leftButtonText="취소"
             rightButtonText="삭제"
             withCloseButton={false}

@@ -123,3 +123,21 @@ export async function createPost({ id, contentHtml, title, date }: PostData) {
 
   fs.writeFileSync(fullPath, data);
 }
+
+export async function removeFile(fullPath: string) {
+  const isExists = fs.existsSync(`${fullPath}`);
+
+  if (!isExists) {
+    return false;
+  }
+
+  fs.unlink(fullPath, error => {
+    if (error) {
+      console.error('파일 삭제 중 오류 발생:', error);
+      return;
+    }
+    console.log(`${fullPath} 파일이 삭제되었습니다.`);
+  });
+
+  return true;
+}
