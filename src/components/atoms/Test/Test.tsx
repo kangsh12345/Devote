@@ -17,7 +17,6 @@ import { SidebarNav } from '../../moecules/SidebarNav';
 import { Header } from '../../organisms/Header';
 import { MarkdownHeader } from '../../organisms/MarkdownHeader';
 import { PostCard } from '../../organisms/PostCard';
-import { PostSubHeader } from '../../organisms/PostSubHeader';
 import { Sidebar } from '../../organisms/Sidebar';
 import { Avatars } from '../Avatars';
 import { Box } from '../Box';
@@ -169,12 +168,10 @@ export function Test() {
         {/* <FolderBox /> */}
         <Box>----organisms----</Box>
         <Sidebar />
-        <PostSubHeader />
         <MarkdownHeader />
         <Header type="popular" />
         <Header type="folder" />
         <Header type="myFolder" />
-        <Header type="post" />
         <Header type="auth" />
 
         <Box className={styles.cardContainer}>

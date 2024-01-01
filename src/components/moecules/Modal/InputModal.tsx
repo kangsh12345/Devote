@@ -1,29 +1,33 @@
 import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 
 import { Box } from '../../atoms/Box';
-import { ModalContent, ModalOverlay } from '../../atoms/Modal';
+import { InputModalContent, InputModalOverlay } from '../../atoms/Modal';
 import { Portal } from '../../atoms/Portal';
 
-export interface ModalProps {
+export interface InputModalProps {
   type?: 'left' | 'right' | 'column' | 'row';
   withCloseButton?: boolean;
   title?: string;
   leftButtonText: string;
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  setInput: Dispatch<SetStateAction<string>>;
+  setInputError: Dispatch<SetStateAction<string>>;
   handle: () => void;
 }
 
-export const Modal = ({
+export const InputModal = ({
   type = 'right',
   withCloseButton = false,
   title,
   leftButtonText,
   rightButtonText,
   setOpen,
+  setInput,
+  setInputError,
   handle,
   children,
-}: PropsWithChildren<ModalProps>) => {
+}: PropsWithChildren<InputModalProps>) => {
   return (
     <Portal selector="#portal">
       <Box
@@ -40,9 +44,16 @@ export const Modal = ({
         paddingBottom="48"
         zIndex="100"
       >
-        <ModalOverlay visible setOpen={setOpen} />
-        <ModalContent
+        <InputModalOverlay
+          visible
           setOpen={setOpen}
+          setInput={setInput}
+          setInputError={setInputError}
+        />
+        <InputModalContent
+          setOpen={setOpen}
+          setInput={setInput}
+          setInputError={setInputError}
           handle={handle}
           type={type}
           withCloseButton={withCloseButton}
@@ -51,7 +62,7 @@ export const Modal = ({
           rightButtonText={rightButtonText}
         >
           {children}
-        </ModalContent>
+        </InputModalContent>
       </Box>
     </Portal>
   );

@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { Input } from '../../atoms/Input';
-import { Modal } from '../../moecules/Modal';
+import { InputModal } from '../../moecules/Modal';
 
 export interface CreateInputModalProps {
   modalType?: 'left' | 'right' | 'column' | 'row';
@@ -42,7 +42,7 @@ export const CreateInputModal = ({
   const doublespaceRegex = /\s\s+/g;
 
   return (
-    <Modal
+    <InputModal
       handle={handle}
       setInput={setInput}
       setInputError={setInputError}
@@ -73,6 +73,6 @@ export const CreateInputModal = ({
           }
         }}
       />
-    </Modal>
+    </InputModal>
   );
 };

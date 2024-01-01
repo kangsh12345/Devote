@@ -14,7 +14,9 @@ export default function PostPage() {
 
   const param = useParams();
   const id = decodeURIComponent(decodeURIComponent(param.id));
-  const slug = decodeURIComponent(decodeURIComponent(param.slug));
+  const slug = param.slug
+    ? decodeURIComponent(decodeURIComponent(param.slug))
+    : '';
 
   const currentFilePath =
     param.id && id === session?.user.dirName
@@ -24,7 +26,7 @@ export default function PostPage() {
   const own = param.id && id === session?.user.dirName ? true : false;
 
   return (
-    <Box onClick={() => console.log(currentFilePath)}>
+    <Box>
       {title ? (
         <FilePostPage title={title} own={own} path={currentFilePath} />
       ) : (

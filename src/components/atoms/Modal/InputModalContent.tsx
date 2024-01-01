@@ -3,29 +3,33 @@ import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 import { Box } from '../Box';
 import { CloseButton } from '../Button';
 import { Card } from '../Card';
-import { ModalActions } from './ModalActions';
+import { InputModalActions } from './InputModalActions';
 import * as styles from './modalContent.css';
 
-export interface ModalContentProps {
+export interface InputModalContentProps {
   type?: 'left' | 'right' | 'column' | 'row';
   withCloseButton?: boolean;
   title?: string;
   leftButtonText: string;
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  setInput: Dispatch<SetStateAction<string>>;
+  setInputError: Dispatch<SetStateAction<string>>;
   handle: () => void;
 }
 
-export const ModalContent = ({
+export const InputModalContent = ({
   type = 'right',
   withCloseButton = false,
   title,
   leftButtonText,
   rightButtonText,
   setOpen,
+  setInput,
+  setInputError,
   handle,
   children,
-}: PropsWithChildren<ModalContentProps>) => {
+}: PropsWithChildren<InputModalContentProps>) => {
   return (
     <Box width="106" position="fixed" className={styles.root}>
       <Card variant="elevated" type="modal">
@@ -50,8 +54,10 @@ export const ModalContent = ({
           )}
           <Box className={styles.content}>{children}</Box>
           <Box className={styles.footer({ type })}>
-            <ModalActions
+            <InputModalActions
               setOpen={setOpen}
+              setInput={setInput}
+              setInputError={setInputError}
               handle={handle}
               type={type}
               leftButtonText={leftButtonText}

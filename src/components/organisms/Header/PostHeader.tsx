@@ -13,7 +13,12 @@ import { Drawer } from '../../moecules/Drawer';
 import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './postHeader.css';
 
-export const PostHeader = () => {
+export interface PostHeaderProps {
+  path: string;
+  title: string;
+}
+
+export const PostHeader = ({ path, title }: PostHeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,8 +32,16 @@ export const PostHeader = () => {
           <Stack space="6" direction="horizontal">
             <Stack direction="horizontal" space="2" align="center">
               <Avatars size="md" text="김아무개" />
-              <Box fontSize="1" fontWeight={700} color="textSecondary">
-                / 프론트
+              <Box fontSize="1" fontWeight={400} color="textPrimary">
+                / {path.replace('/', ' / ')} /
+              </Box>
+              <Box
+                fontSize="1"
+                fontWeight={400}
+                color="textPrimary"
+                marginLeft="-1"
+              >
+                {title}
               </Box>
             </Stack>
           </Stack>

@@ -15,6 +15,7 @@ export interface ButtonProps {
   disabled?: boolean;
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const Button = ({
@@ -27,6 +28,7 @@ export const Button = ({
   leftIcon,
   rightIcon,
   children,
+  onClick,
 }: PropsWithChildren<ButtonProps>) => {
   // const iconSize =
   //   size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3.5' : '3';
@@ -35,6 +37,7 @@ export const Button = ({
     <Box
       className={styles.root({ size, variant, radius, color, disabled })}
       width={width}
+      onClick={onClick}
     >
       <Hover radius={radius} color="white" />
       <Stack

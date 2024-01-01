@@ -3,20 +3,26 @@ import { Dispatch, SetStateAction } from 'react';
 import { Box } from '../Box';
 import * as styles from './modalOverlay.css';
 
-export interface ModalOverlayProps {
+export interface InputModalOverlayProps {
   visible?: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  setInput: Dispatch<SetStateAction<string>>;
+  setInputError: Dispatch<SetStateAction<string>>;
 }
 
-export const ModalOverlay = ({
+export const InputModalOverlay = ({
   visible = false,
   setOpen,
-}: ModalOverlayProps) => {
+  setInput,
+  setInputError,
+}: InputModalOverlayProps) => {
   return (
     <Box
       className={styles.root({ visible })}
       onClick={() => {
         setOpen(false);
+        setInput('');
+        setInputError('');
       }}
     />
   );

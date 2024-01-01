@@ -20,6 +20,8 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
     { value: '대제목3', heading: 1 },
   ];
 
+  const fullPath = `${path}/${title}`;
+
   return (
     <Box
       position="relative"
@@ -27,8 +29,8 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
       minHeight="viewHeight"
       backgroundColor="backgroundBase"
     >
-      <PostHeader />
-      {own && <PostSubHeader path={path} />}
+      <PostHeader path={path} title={title} />
+      {own && <PostSubHeader path={fullPath} />}
       <Box
         display="flex"
         height="full"
