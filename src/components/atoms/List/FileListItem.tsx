@@ -93,7 +93,6 @@ export const FileListItem = ({
       borderRadius="lg"
       cursor="pointer"
       className={styles.li}
-      onClick={() => console.log(currentFilePath)}
     >
       <Stack space="0.75">
         <Box

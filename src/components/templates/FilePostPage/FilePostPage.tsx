@@ -39,7 +39,7 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
         .then(data => {
           data.exist ? setIsExist(data.exist) : router.push('/');
         });
-  }, [fullPath, title, path]);
+  }, [fullPath, title, path, router]);
 
   return (
     <>

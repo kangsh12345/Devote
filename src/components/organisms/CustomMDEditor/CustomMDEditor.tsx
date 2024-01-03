@@ -9,7 +9,6 @@ import {
   useState,
 } from 'react';
 import dynamic from 'next/dynamic';
-import { useSearchParams } from 'next/navigation';
 import fileUpload from '@/src/utils/fileUpload';
 import insertToTextArea from '@/src/utils/insertToTextArea';
 import onImagePasted from '@/src/utils/onImagePasted';
@@ -69,7 +68,6 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
 
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log(file);
 
     if (file && file.type.startsWith('image/')) {
       const url = await fileUpload(file);
@@ -174,8 +172,6 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
 };
 
 export const CustomMDEditor = () => {
-  const query = useSearchParams();
-  const title = query.get('title') ?? '';
   const [md, setMd] = useState<string | undefined>();
   const [isDragEnter, setIsDragEnter] = useState<boolean>(false);
 
@@ -195,7 +191,7 @@ export const CustomMDEditor = () => {
   };
 
   return (
-    <Box onClick={() => console.log(title)}>
+    <Box>
       <Box width="full" height="full">
         <Box
           className={[

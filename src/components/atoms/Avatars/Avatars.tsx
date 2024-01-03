@@ -26,10 +26,10 @@ export const Avatars = ({
     size === 'sm'
       ? { space: '2.5', avatar: 24 }
       : size === 'md'
-      ? { space: '3', avatar: 36 }
-      : size === 'lg'
-      ? { space: '4', avatar: 48 }
-      : { space: '5', avatar: 64 };
+        ? { space: '3', avatar: 36 }
+        : size === 'lg'
+          ? { space: '4', avatar: 48 }
+          : { space: '5', avatar: 64 };
 
   return (
     <Box width="fit">

@@ -12,8 +12,15 @@ import { Drawer } from '../../moecules/Drawer';
 import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './writeHeader.css';
 
-export const WriteHeader = () => {
-  const [state, setState] = useState('');
+export interface WriteHeaderProps {
+  name: string;
+  image: string;
+  path: string;
+  title: string;
+}
+
+export const WriteHeader = ({ name, path, title }: WriteHeaderProps) => {
+  const [state, setState] = useState(title);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,11 +34,11 @@ export const WriteHeader = () => {
         <Box display="flex" flexShrink={0}>
           <Stack space="6" direction="horizontal">
             <Stack direction="horizontal" space="2" align="center">
-              <Avatars size="md" text="김아무개" />
+              <Avatars size="md" text={name} />
               <Box fontSize="1" fontWeight={700} color="textSecondary">
-                / 프론트
+                /{path}
               </Box>
-              <Box paddingLeft="1" width="56">
+              <Box width="56">
                 <Input
                   label="input label"
                   hideLabel

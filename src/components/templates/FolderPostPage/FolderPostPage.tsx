@@ -49,7 +49,6 @@ export const FolderPostPage = () => {
       height="full"
       minHeight="viewHeight"
       backgroundColor="backgroundElevatedPrimary"
-      onClick={() => console.log(pathBack)}
     >
       <Header type="folder" />
       <Box
