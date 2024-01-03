@@ -7,8 +7,6 @@ const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 async function removePost(path: string) {
   const fullPath = `${rootDirectory}/${path}`;
 
-  console.log(fullPath);
-
   try {
     const response = removeFile(fullPath);
 

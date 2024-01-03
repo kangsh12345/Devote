@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { Box } from '../../atoms/Box';
 import { ListItem, Popover } from '../../atoms/Popover';
 import { PostHeader } from '../../organisms/Header';
@@ -21,6 +23,15 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
   ];
 
   const fullPath = `${path}/${title}`;
+
+  // TODO: 여기 사이트 들어가서 마운트될때 있는 파일 URL인지 확인
+  useEffect(() => {
+    if (title !== '' && path !== '')
+      fetch('/api/post/existCheck', {
+        method: 'POST',
+        body: JSON.stringify({ path: fullPath }),
+      });
+  }, [fullPath, title, path]);
 
   return (
     <Box

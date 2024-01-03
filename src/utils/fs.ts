@@ -125,7 +125,7 @@ export async function createPost({ id, contentHtml, title, date }: PostData) {
 }
 
 export async function removeFile(fullPath: string) {
-  const isExists = fs.existsSync(`${fullPath}`);
+  const isExists = fs.existsSync(fullPath);
 
   if (!isExists) {
     return false;
@@ -140,4 +140,16 @@ export async function removeFile(fullPath: string) {
   });
 
   return true;
+}
+
+export async function existPost(fullPath: string) {
+  const isExists = fs.existsSync(fullPath);
+
+  console.log(fullPath);
+
+  if (!isExists) {
+    return 'not exist';
+  } else {
+    return 'exist';
+  }
 }
