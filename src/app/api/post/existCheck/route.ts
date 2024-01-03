@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       // TODO: 추후 내 사이트로 연결
       return NextResponse.redirect(url);
     }
-    return NextResponse.json({ success: true, exist: true }, { status: 200 });
+    // return NextResponse.json({ success: true, exist: true }, { status: 200 });
   } catch (error) {
     console.error(error);
   }

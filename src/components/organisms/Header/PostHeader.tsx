@@ -33,7 +33,7 @@ export const PostHeader = ({ path, title }: PostHeaderProps) => {
             <Stack direction="horizontal" space="2" align="center">
               <Avatars size="md" text="김아무개" />
               <Box fontSize="1" fontWeight={400} color="textPrimary">
-                / {path.replace('/', ' / ')} /
+                / {path.replaceAll('/', ' / ')} /
               </Box>
               <Box
                 fontSize="1"
