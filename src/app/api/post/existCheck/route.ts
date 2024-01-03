@@ -21,8 +21,6 @@ async function existCheckPost(path: string) {
 export async function POST(req: NextRequest) {
   const { path } = await req.json();
 
-  const url = new URL('/', req.url);
-
   try {
     const response = await existCheckPost(path);
 
@@ -30,9 +28,12 @@ export async function POST(req: NextRequest) {
 
     if (response === 'not exist') {
       // TODO: 추후 내 사이트로 연결
-      return NextResponse.redirect(url);
+      return NextResponse.json(
+        { success: true, exist: false },
+        { status: 200 },
+      );
     }
-    // return NextResponse.json({ success: true, exist: true }, { status: 200 });
+    return NextResponse.json({ success: true, exist: true }, { status: 200 });
   } catch (error) {
     console.error(error);
   }
