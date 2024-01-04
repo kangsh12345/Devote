@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { WriteHeader } from '@/src/components/organisms/Header/WriteHeader';
@@ -11,8 +11,6 @@ import { CustomMDEditor } from '../../organisms/CustomMDEditor';
 export const PostWritePage = () => {
   const router = useRouter();
   const { data: session } = useSession();
-
-  const [isExist, setIsExist] = useState(false);
 
   const query = useSearchParams();
   const path = query.get('path') ?? '';
@@ -25,7 +23,14 @@ export const PostWritePage = () => {
   const userImage = session?.user.image;
   const userDirname = session?.user.dirName;
 
+  const [isExist, setIsExist] = useState(false);
+  const [title, setTitle] = useState(fileTitle);
+
   const own = userDirname === filePath.split('/')[0];
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
 
   useEffect(() => {
     if (path !== '')
@@ -50,7 +55,8 @@ export const PostWritePage = () => {
             // image 추후 변경
             image={userImage}
             path={filePath}
-            title={fileTitle}
+            title={title}
+            handleInput={handleInput}
           />
           <CustomMDEditor />
         </Box>

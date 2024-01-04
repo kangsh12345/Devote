@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, EventHandler, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
@@ -17,10 +18,16 @@ export interface WriteHeaderProps {
   image: string;
   path: string;
   title: string;
+  handleInput: EventHandler<ChangeEvent<HTMLInputElement>>;
 }
 
-export const WriteHeader = ({ name, path, title }: WriteHeaderProps) => {
-  const [state, setState] = useState(title);
+export const WriteHeader = ({
+  name,
+  path,
+  title,
+  handleInput,
+}: WriteHeaderProps) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -45,8 +52,8 @@ export const WriteHeader = ({ name, path, title }: WriteHeaderProps) => {
                   placeholder="제목을 입력해주세요"
                   variant="outline"
                   size="sm"
-                  value={state}
-                  onChange={event => setState(event.target.value)}
+                  value={title}
+                  onChange={handleInput}
                 />
               </Box>
             </Stack>
@@ -59,6 +66,7 @@ export const WriteHeader = ({ name, path, title }: WriteHeaderProps) => {
             radius="full"
             color="brand"
             width="fit"
+            onClick={() => router.back()}
           >
             취소
           </Button>
