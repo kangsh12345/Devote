@@ -19,6 +19,7 @@ export interface WriteHeaderProps {
   path: string;
   title: string;
   handleInput: EventHandler<ChangeEvent<HTMLInputElement>>;
+  error: string;
 }
 
 export const WriteHeader = ({
@@ -26,8 +27,10 @@ export const WriteHeader = ({
   path,
   title,
   handleInput,
+  error,
 }: WriteHeaderProps) => {
   const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -54,6 +57,8 @@ export const WriteHeader = ({
                   size="sm"
                   value={title}
                   onChange={handleInput}
+                  maxLength={24}
+                  error={error}
                 />
               </Box>
             </Stack>

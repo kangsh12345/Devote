@@ -1,9 +1,10 @@
 'use client';
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { WriteHeader } from '@/src/components/organisms/Header/WriteHeader';
+import markdownToTxt from 'markdown-to-txt';
 
 import { Box } from '../../atoms/Box';
 import { CustomMDEditor } from '../../organisms/CustomMDEditor';
@@ -15,6 +16,11 @@ export const PostWritePage = () => {
   const query = useSearchParams();
   const path = query.get('path') ?? '';
 
+  const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
+
+  const specialRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+  const doublespaceRegex = /\s\s+/g;
+
   const lastSlashIndex = path.lastIndexOf('/');
   const filePath = path.substring(0, lastSlashIndex + 1);
   const fileTitle = path.substring(lastSlashIndex + 1);
@@ -25,11 +31,46 @@ export const PostWritePage = () => {
 
   const [isExist, setIsExist] = useState(false);
   const [title, setTitle] = useState(fileTitle);
+  const [titleError, setTitleError] = useState('');
+  const [md, setMd] = useState<string | undefined>();
 
   const own = userDirname === filePath.split('/')[0];
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    const subTitle = markdownToTxt(md as string).substring(0, 150) + '...';
+
+    if (titleError) {
+      return;
+    }
+
+    if (!title) {
+      setTitleError('이름을 입력해주세요');
+      return;
+    }
+
+    if (regex.test(title) || title.length > 24) {
+      setTitleError('올바른 이름을 입력해주세요.');
+      return;
+    }
+
+    // 여기부터 같은 동선상 exist 체크
+    // if(){}
+
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    setTitle(
+      e.target.value.replace(doublespaceRegex, ' ').replace(specialRegex, ''),
+    );
+    if (titleError !== '') {
+      setTitleError('');
+    }
   };
 
   useEffect(() => {
@@ -49,16 +90,17 @@ export const PostWritePage = () => {
   return (
     <>
       {isExist && (
-        <Box>
+        <Box as="form" onSubmit={handleSubmit}>
           <WriteHeader
             name={userName}
-            // image 추후 변경
+            // TODO: image 추후 변경
             image={userImage}
             path={filePath}
             title={title}
             handleInput={handleInput}
+            error={titleError}
           />
-          <CustomMDEditor />
+          <CustomMDEditor md={md} setMd={setMd} />
         </Box>
       )}
     </>

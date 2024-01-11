@@ -47,6 +47,11 @@ type MyCustomToolbarProps = {
   setMd: (value: SetStateAction<string | undefined>) => void;
 };
 
+type CustomMDEditorProps = {
+  md: string | undefined;
+  setMd: (value: SetStateAction<string | undefined>) => void;
+};
+
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
   ssr: false,
 });
@@ -171,8 +176,7 @@ const MyCustomToolbar = ({ setMd }: MyCustomToolbarProps) => {
   );
 };
 
-export const CustomMDEditor = () => {
-  const [md, setMd] = useState<string | undefined>();
+export const CustomMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
   const [isDragEnter, setIsDragEnter] = useState<boolean>(false);
 
   const handleDragEnter = (event: DragEvent<HTMLDivElement>) => {
