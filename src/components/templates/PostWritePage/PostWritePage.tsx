@@ -36,10 +36,14 @@ export const PostWritePage = () => {
 
   const own = userDirname === filePath.split('/')[0];
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const subTitle = markdownToTxt(md as string).substring(0, 150) + '...';
+    console.log('hi');
+
+    const subTitle = md
+      ? markdownToTxt(md as string).substring(0, 150) + '...'
+      : '';
 
     if (titleError) {
       return;
@@ -56,7 +60,22 @@ export const PostWritePage = () => {
     }
 
     // 여기부터 같은 동선상 exist 체크
-    // if(){}
+    if (session) {
+      fetch(`/api/post/existCheck`, {
+        method: 'POST',
+        body: JSON.stringify({ path: filePath + title }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.exist) {
+            setTitleError('동일 경로 같은 파일 존재');
+            return;
+          }
+        });
+    }
 
     try {
     } catch (error) {
@@ -90,7 +109,7 @@ export const PostWritePage = () => {
   return (
     <>
       {isExist && (
-        <Box as="form" onSubmit={handleSubmit}>
+        <Box>
           <WriteHeader
             name={userName}
             // TODO: image 추후 변경
@@ -98,6 +117,7 @@ export const PostWritePage = () => {
             path={filePath}
             title={title}
             handleInput={handleInput}
+            handleSubmit={handleSubmit}
             error={titleError}
           />
           <CustomMDEditor md={md} setMd={setMd} />

@@ -30,6 +30,8 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
 
   // TODO: 여기 사이트 들어가서 마운트될때 있는 파일 URL인지 확인
   useEffect(() => {
+    console.log(fullPath);
+
     if (title !== '' && path !== '')
       fetch('/api/post/existCheck', {
         method: 'POST',

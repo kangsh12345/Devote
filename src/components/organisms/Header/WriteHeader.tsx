@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, EventHandler, useState } from 'react';
+import { ChangeEvent, EventHandler, FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Avatars } from '../../atoms/Avatars';
@@ -19,6 +19,7 @@ export interface WriteHeaderProps {
   path: string;
   title: string;
   handleInput: EventHandler<ChangeEvent<HTMLInputElement>>;
+  handleSubmit: (e: FormEvent) => Promise<void>;
   error: string;
 }
 
@@ -27,6 +28,7 @@ export const WriteHeader = ({
   path,
   title,
   handleInput,
+  handleSubmit,
   error,
 }: WriteHeaderProps) => {
   const router = useRouter();
@@ -81,6 +83,7 @@ export const WriteHeader = ({
             radius="full"
             color="brand"
             width="fit"
+            onClick={handleSubmit}
           >
             저장
           </Button>
