@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { WriteHeader } from '@/src/components/organisms/Header/WriteHeader';
-import markdownToTxt from 'markdown-to-txt';
+import { markdownToTxt } from 'markdown-to-txt';
 
 import { Box } from '../../atoms/Box';
 import { CustomMDEditor } from '../../organisms/CustomMDEditor';
@@ -17,6 +17,7 @@ export const PostWritePage = () => {
   const path = query.get('path') ?? '';
 
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
+  const urlRegex = /!\[\]\((.*?)\)/;
 
   const specialRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
   const doublespaceRegex = /\s\s+/g;
@@ -39,7 +40,9 @@ export const PostWritePage = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    console.log('hi');
+    // console.log(path);
+    const match: RegExpExecArray | null = urlRegex.exec(md ?? '');
+    const thumbnail = match ? match[1] : '';
 
     const subTitle = md
       ? markdownToTxt(md as string).substring(0, 150) + '...'
@@ -60,10 +63,10 @@ export const PostWritePage = () => {
     }
 
     // 여기부터 같은 동선상 exist 체크
-    if (session) {
+    if (session && title !== fileTitle) {
       fetch(`/api/post/existCheck`, {
         method: 'POST',
-        body: JSON.stringify({ path: filePath + title }),
+        body: JSON.stringify({ path }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -77,9 +80,32 @@ export const PostWritePage = () => {
         });
     }
 
-    try {
-    } catch (error) {
-      console.error(error);
+    if (!titleError && title) {
+      try {
+        fetch('/api/post/write', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            path,
+            thumbnail,
+            title,
+            subTitle,
+            md,
+          }),
+        })
+          .then(res => {
+            if (res.ok) {
+              return res.json();
+            } else {
+              throw new Error(`Fetch Error`);
+            }
+          })
+          .then(data => {
+            alert(data.message);
+          });
+      } catch (error) {
+        alert(`request error: ${error}`);
+      }
     }
   };
 
@@ -93,17 +119,18 @@ export const PostWritePage = () => {
   };
 
   useEffect(() => {
-    if (path !== '')
-      own
-        ? fetch('/api/post/existCheck', {
-            method: 'POST',
-            body: JSON.stringify({ path: path }),
-          })
-            .then(res => res.json())
-            .then(data => {
-              data.exist ? setIsExist(data.exist) : router.push('/');
-            })
-        : router.push('/');
+    // TODO: 여기도 파일 불러오는 걸로 변경
+    // if (path !== '')
+    //   own
+    //     ? fetch('/api/post/existCheck', {
+    //         method: 'POST',
+    //         body: JSON.stringify({ path: path }),
+    //       })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //           data.exist ? setIsExist(data.exist) : router.push('/');
+    //         })
+    //     : router.push('/');
   }, [path, own, router]);
 
   return (

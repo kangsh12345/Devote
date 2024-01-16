@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createDirectory } from '@/src/utils/fs';
 import { PrismaClient } from '@prisma/client';
+import { format } from 'date-fns';
 
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   const { id, dirName, type } = await req.json();
+
+  const lastSlashIndex = dirName.lastIndexOf('/');
+
+  const fileTitle = dirName.substring(lastSlashIndex + 1);
 
   try {
     const mkdirResponse = createDirectory({ dirName, type });
@@ -16,6 +21,19 @@ export async function POST(req: NextRequest) {
           where: { id: id },
           data: {
             dirName: dirName,
+          },
+        });
+
+        console.log(response);
+      } else if (type === 'file') {
+        const response = await prisma.post.create({
+          data: {
+            userId: id,
+            path: dirName,
+            thumbnail: '',
+            title: fileTitle,
+            subTitle: '',
+            date: format(new Date(), 'yyyy-MM-dd'),
           },
         });
 

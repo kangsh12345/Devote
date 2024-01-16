@@ -39,6 +39,16 @@ model Session {
   @@index([userId])
 }
 
+model Post {
+  id Int @id @default(autoincrement())
+  userId String
+  path String @unique
+  thumbnail String
+  title String
+  subTitle String
+  date String
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?

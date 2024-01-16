@@ -28,18 +28,19 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
 
   const fullPath = `${path}/${title}`;
 
-  // TODO: 여기 사이트 들어가서 마운트될때 있는 파일 URL인지 확인
   useEffect(() => {
     console.log(fullPath);
 
+    // TODO: 파일을 불러와야함
     if (title !== '' && path !== '')
-      fetch('/api/post/existCheck', {
+      fetch('/api/post/getFile', {
         method: 'POST',
         body: JSON.stringify({ path: fullPath }),
       })
         .then(res => res.json())
         .then(data => {
-          data.exist ? setIsExist(data.exist) : router.push('/');
+          // data.exist ? setIsExist(data.exist) : router.push('/');
+          console.log(data);
         });
   }, [fullPath, title, path, router]);
 

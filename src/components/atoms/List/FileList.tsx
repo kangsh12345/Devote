@@ -20,7 +20,7 @@ export const FileList = ({ tree }: FileListProps) => {
             subdirectory={item.children}
             key={idx}
           >
-            {item.name}
+            {item.name.replaceAll('.md', '')}
           </FileListItem>
         ))}
       </Box>

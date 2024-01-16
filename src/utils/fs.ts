@@ -1,16 +1,15 @@
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { format } from 'date-fns';
 import fs from 'fs';
+import matter from 'gray-matter';
 import path from 'path';
+import { remark } from 'remark';
+import html from 'remark-html';
 
 export interface PostData {
-  id: string;
-  contentHtml?: string;
+  fullPath: string;
   title: string;
   date: string;
-  mdxSource?: MDXRemoteSerializeResult<
-    Record<string, unknown>,
-    Record<string, unknown>
-  >;
+  md: string;
 }
 
 export interface TreeProps {
@@ -40,7 +39,12 @@ export const createDirectory = ({
 
   if (!isExists) {
     if (type === 'file') {
-      fs.writeFileSync(`${rootDirectory}/${dirName}`, '');
+      createPost({
+        fullPath: dirName,
+        title: inputDirName,
+        md: '',
+        date: format(new Date(), 'yyyy-MM-dd'),
+      });
     } else {
       fs.mkdirSync(`${rootDirectory}/${dirName}`, { recursive: true });
     }
@@ -102,6 +106,24 @@ export const findDirectory = (path: string) => {
   return stack;
 };
 
+export const findFile = async (path: string) => {
+  const fileContents = fs.readFileSync(path, 'utf8');
+
+  const matterResult = matter(fileContents);
+
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+
+  const contentHtml = processedContent.toString();
+
+  return {
+    path,
+    contentHtml,
+    ...(matterResult.data as { date: string; title: string }),
+  };
+};
+
 export const rootDirectoryCheck = (dirName: string) => {
   const isExists = fs.existsSync(`${rootDirectory}/${dirName}`);
 
@@ -111,17 +133,30 @@ export const rootDirectoryCheck = (dirName: string) => {
   return true;
 };
 
-export async function createPost({ id, contentHtml, title, date }: PostData) {
-  const fullPath = path.join(rootDirectory, `${id}.md`);
+export async function createPost({ fullPath, title, md, date }: PostData) {
+  // const fullPath = path.join(rootDirectory, `${title}.md`);
+  // TODO: 여기 생성이 안됨
+  const lastSlashIndex = fullPath.lastIndexOf('/');
+  const filePath = fullPath.substring(0, lastSlashIndex + 1);
+  const fileName = fullPath.substring(lastSlashIndex);
 
   const data = `---
-  title: '${title}'
-  date: '${date}'
-  ---
-  ${contentHtml}
-  `;
+    title: '${title}'
+    date: '${date}'
+    ---
+    ${md}
+    `;
 
-  fs.writeFileSync(fullPath, data);
+  if (fileName.replace('/', '') === title) {
+    fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
+    console.log(`${fileName} Post Create`);
+  } else {
+    fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
+    fs.rename(fullPath, filePath + title, function (err) {
+      if (err) throw err;
+      console.log(`${fileName} => ${title} Post Renamed`);
+    });
+  }
 }
 
 export async function removeFile(fullPath: string) {

@@ -31,6 +31,7 @@
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "firebase": "^10.7.1",
+    "gray-matter": "^4.0.3",
     "jwt-decode": "^3.1.2",
     "markdown-to-txt": "^2.0.1",
     "next": "13.4.9",
@@ -43,7 +44,9 @@
     "react-dom": "18.2.0",
     "reading-time": "^1.5.0",
     "rehype-sanitize": "^6.0.0",
+    "remark": "^15.0.1",
     "remark-breaks": "^4.0.0",
+    "remark-html": "^16.0.1",
     "typescript": "5.1.6",
     "validator": "^13.11.0"
   },

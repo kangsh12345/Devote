@@ -110,7 +110,11 @@ export const FileListItem = ({
             })}
             onClick={() => {
               setSubIsOpen(!subIsOpen);
-              router.push(variant === 'file' ? filePath : folderPath);
+              router.push(
+                variant === 'file'
+                  ? filePath.replaceAll('.md', '')
+                  : folderPath,
+              );
             }}
           />
           {variant === 'folder' ? (
