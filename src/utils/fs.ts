@@ -140,12 +140,7 @@ export async function createPost({ fullPath, title, md, date }: PostData) {
   const filePath = fullPath.substring(0, lastSlashIndex + 1);
   const fileName = fullPath.substring(lastSlashIndex);
 
-  const data = `---
-    title: '${title}'
-    date: '${date}'
-    ---
-    ${md}
-    `;
+  const data = `---\ntitle: '${title}'\ndate: '${date}'\n---\n${md}`;
 
   if (fileName.replace('/', '') === title) {
     fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
