@@ -19,6 +19,8 @@ async function getAllDirectory(dirName: string) {
   try {
     const response = findAllDirectory(path);
 
+    console.log(response);
+
     tree.children = response;
     return tree;
   } catch (error) {

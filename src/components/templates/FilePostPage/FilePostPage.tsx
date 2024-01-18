@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import MDEditor from '@uiw/react-md-editor';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkBreaks from 'remark-breaks';
 
 import { Box } from '../../atoms/Box';
 import { ListItem, Popover } from '../../atoms/Popover';
@@ -17,6 +20,9 @@ export interface FilePostPageProps {
 export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
   const router = useRouter();
   const [isExist, setIsExist] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [md, setMd] = useState<string | undefined>();
+  const [name, setName] = useState('');
 
   const popoverList: ListItem[] = [
     { value: '대제목1', heading: 1 },
@@ -31,7 +37,6 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
   useEffect(() => {
     console.log(fullPath);
 
-    // TODO: 파일을 불러와야함
     if (title !== '' && path !== '')
       fetch('/api/post/getFile', {
         method: 'POST',
@@ -39,8 +44,10 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
       })
         .then(res => res.json())
         .then(data => {
-          // data.exist ? setIsExist(data.exist) : router.push('/');
-          console.log(data);
+          data.exist ? setIsExist(data.exist) : router.push('/');
+          setName(data.data.name);
+          setDate(data.data.date);
+          setMd(data.data.contentHtml);
         });
   }, [fullPath, title, path, router]);
 
@@ -53,15 +60,23 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
           minHeight="viewHeight"
           backgroundColor="backgroundBase"
         >
-          <PostHeader path={path} title={title} />
+          <PostHeader path={path} title={title} date={date} />
           {own && <PostSubHeader path={fullPath} />}
-          <Box
-            display="flex"
-            height="full"
-            paddingY="6"
-            paddingX="2"
-            justifyContent="center"
-          >
+          <Box display="flex" height="full" justifyContent="center">
+            <Box width="full" height="full">
+              {/* TODO: 맞게 디자인 좀 해야됨 */}
+              <MDEditor
+                value={md}
+                height="100%"
+                preview="preview"
+                visibleDragbar={false}
+                previewOptions={{
+                  rehypePlugins: [[rehypeSanitize]],
+                  remarkPlugins: [[remarkBreaks]],
+                }}
+                hideToolbar={true}
+              />
+            </Box>
             <Popover size="md" list={popoverList} />
           </Box>
         </Box>

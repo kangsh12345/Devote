@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
-import star from '@phosphor-icons/core/fill/star-fill.svg';
+// import Image from 'next/image';
+// import star from '@phosphor-icons/core/fill/star-fill.svg';
+import { format } from 'date-fns';
 
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Stack } from '../../atoms/Stack';
-import { IconText } from '../../atoms/Text';
+// import { IconText } from '../../atoms/Text';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { Drawer } from '../../moecules/Drawer';
 import { HeaderLogo } from '../../moecules/HeaderLogo';
@@ -16,9 +17,10 @@ import * as styles from './postHeader.css';
 export interface PostHeaderProps {
   path: string;
   title: string;
+  date: Date;
 }
 
-export const PostHeader = ({ path, title }: PostHeaderProps) => {
+export const PostHeader = ({ path, title, date }: PostHeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -56,15 +58,15 @@ export const PostHeader = ({ path, title }: PostHeaderProps) => {
               paddingLeft="6"
               fontSize="1"
             >
-              2023년 7월 9일
+              {format(new Date(date), 'yyyy년 M월 d일')}
             </Box>
-            <IconText
+            {/* <IconText
               type="cardhover"
               size="lg"
               leftIcon={<Image src={star} alt="icon" fill sizes="100%" />}
             >
               <Box color="textSecondary">20</Box>
-            </IconText>
+            </IconText> */}
           </Stack>
         </Stack>
       </Box>

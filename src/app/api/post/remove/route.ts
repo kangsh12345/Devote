@@ -5,7 +5,7 @@ import path from 'path';
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
 async function removePost(path: string) {
-  const fullPath = `${rootDirectory}/${path}`;
+  const fullPath = `${rootDirectory}/${path}.md`;
 
   try {
     const response = removeFile(fullPath);

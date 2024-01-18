@@ -81,7 +81,7 @@ export const FolderPostPage = () => {
                         : 'card'
                     }
                     path={item.path}
-                    name={item.name}
+                    name={item.name.replaceAll('.md', '')}
                   />
                 )}
               </Box>

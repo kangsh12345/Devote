@@ -41,6 +41,7 @@ model Session {
 
 model Post {
   id Int @id @default(autoincrement())
+  name String
   userId String
   path String @unique
   thumbnail String
@@ -51,7 +52,7 @@ model Post {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
+  name          String? 
   dirName       String?   @unique
   email         String?   @unique
   emailVerified DateTime?

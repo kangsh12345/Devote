@@ -126,6 +126,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
           method: 'POST',
           body: JSON.stringify({
             id: session.user.id,
+            name: session.user.name,
             dirName: dirName,
             type: type,
           }),

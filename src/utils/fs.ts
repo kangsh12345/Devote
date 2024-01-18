@@ -8,6 +8,7 @@ import html from 'remark-html';
 export interface PostData {
   fullPath: string;
   title: string;
+  name: string;
   date: string;
   md: string;
 }
@@ -23,9 +24,11 @@ const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
 export const createDirectory = ({
   dirName,
+  name,
   type,
 }: {
   dirName: string;
+  name: string;
   type: string;
 }) => {
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
@@ -41,6 +44,7 @@ export const createDirectory = ({
     if (type === 'file') {
       createPost({
         fullPath: dirName,
+        name,
         title: inputDirName,
         md: '',
         date: format(new Date(), 'yyyy-MM-dd'),
@@ -72,8 +76,8 @@ export const findAllDirectory = (path: string) => {
       };
     } else {
       tempStack = {
-        path: destPath.replace(`${rootDirectory}/`, ''),
-        name: file.name,
+        path: destPath.replace(new RegExp(`${rootDirectory}/|\\.md`, 'g'), ''),
+        name: file.name.replace('.md', ''),
         type: 'file',
         children: [],
       };
@@ -118,7 +122,6 @@ export const findFile = async (path: string) => {
   const contentHtml = processedContent.toString();
 
   return {
-    path,
     contentHtml,
     ...(matterResult.data as { date: string; title: string }),
   };
@@ -133,19 +136,24 @@ export const rootDirectoryCheck = (dirName: string) => {
   return true;
 };
 
-export async function createPost({ fullPath, title, md, date }: PostData) {
-  // const fullPath = path.join(rootDirectory, `${title}.md`);
-  // TODO: 여기 생성이 안됨
+export async function createPost({
+  fullPath,
+  name,
+  title,
+  md,
+  date,
+}: PostData) {
   const lastSlashIndex = fullPath.lastIndexOf('/');
   const filePath = fullPath.substring(0, lastSlashIndex + 1);
   const fileName = fullPath.substring(lastSlashIndex);
 
-  const data = `---\ntitle: '${title}'\ndate: '${date}'\n---\n${md}`;
+  const data = `---\nname: '${name}'\ntitle: '${title}'\ndate: '${date}'\n---\n${md}`;
 
   if (fileName.replace('/', '') === title) {
     fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
     console.log(`${fileName} Post Create`);
   } else {
+    // TODO: 수정 확인해야함
     fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
     fs.rename(fullPath, filePath + title, function (err) {
       if (err) throw err;

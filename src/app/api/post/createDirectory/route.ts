@@ -6,14 +6,14 @@ import { format } from 'date-fns';
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
-  const { id, dirName, type } = await req.json();
+  const { id, name, dirName, type } = await req.json();
 
   const lastSlashIndex = dirName.lastIndexOf('/');
 
   const fileTitle = dirName.substring(lastSlashIndex + 1);
 
   try {
-    const mkdirResponse = createDirectory({ dirName, type });
+    const mkdirResponse = createDirectory({ dirName, name, type });
 
     if (mkdirResponse === 'create success') {
       if (type === 'rootDirectory') {
@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
         const response = await prisma.post.create({
           data: {
             userId: id,
+            name,
             path: dirName,
             thumbnail: '',
             title: fileTitle,

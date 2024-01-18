@@ -22,9 +22,12 @@ export async function POST(req: NextRequest) {
   try {
     const response = await findPostFile(path);
 
-    console.log(response);
+    console.log(`hi ${response}`);
 
-    return NextResponse.json({ success: true, exist: true }, { status: 200 });
+    return NextResponse.json(
+      { success: true, exist: true, data: response },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(error);
   }
