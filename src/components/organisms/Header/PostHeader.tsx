@@ -15,12 +15,13 @@ import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './postHeader.css';
 
 export interface PostHeaderProps {
+  name: string;
   path: string;
   title: string;
   date: Date;
 }
 
-export const PostHeader = ({ path, title, date }: PostHeaderProps) => {
+export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -33,7 +34,7 @@ export const PostHeader = ({ path, title, date }: PostHeaderProps) => {
         <Box display="flex" flexShrink={0}>
           <Stack space="6" direction="horizontal">
             <Stack direction="horizontal" space="2" align="center">
-              <Avatars size="md" text="김아무개" />
+              <Avatars size="md" text={name} />
               <Box fontSize="1" fontWeight={400} color="textPrimary">
                 / {path.replaceAll('/', ' / ')} /
               </Box>
