@@ -10,6 +10,7 @@ import { Box } from '../../atoms/Box';
 import { ListItem, Popover } from '../../atoms/Popover';
 import { PostHeader } from '../../organisms/Header';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
+import * as styles from './filePostPage.css';
 
 export interface FilePostPageProps {
   title: string;
@@ -64,18 +65,19 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
           {own && <PostSubHeader path={fullPath} />}
           <Box display="flex" height="full" justifyContent="center">
             <Box width="full" height="full">
-              {/* TODO: 맞게 디자인 좀 해야됨 */}
-              <MDEditor
-                value={md}
-                height="100%"
-                preview="preview"
-                visibleDragbar={false}
-                previewOptions={{
-                  rehypePlugins: [[rehypeSanitize]],
-                  remarkPlugins: [[remarkBreaks]],
-                }}
-                hideToolbar={true}
-              />
+              <Box className={styles.markdownBox({ own })}>
+                <MDEditor
+                  preview="preview"
+                  height="100%"
+                  value={md}
+                  visibleDragbar={false}
+                  hideToolbar={true}
+                  previewOptions={{
+                    rehypePlugins: [[rehypeSanitize]],
+                    remarkPlugins: [[remarkBreaks]],
+                  }}
+                />
+              </Box>
             </Box>
             <Popover size="md" list={popoverList} />
           </Box>
