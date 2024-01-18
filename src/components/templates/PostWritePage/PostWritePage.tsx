@@ -33,6 +33,7 @@ export const PostWritePage = () => {
   const [isExist, setIsExist] = useState(false);
   const [title, setTitle] = useState(fileTitle);
   const [titleError, setTitleError] = useState('');
+
   const [md, setMd] = useState<string | undefined>();
 
   const own = userDirname === filePath.split('/')[0];
@@ -40,7 +41,6 @@ export const PostWritePage = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // console.log(path);
     const match: RegExpExecArray | null = urlRegex.exec(md ?? '');
     const thumbnail = match ? match[1] : '';
 
@@ -119,19 +119,19 @@ export const PostWritePage = () => {
   };
 
   useEffect(() => {
-    // TODO: 여기도 파일 불러오는 걸로 변경
-    // if (path !== '')
-    //   own
-    //     ? fetch('/api/post/existCheck', {
-    //         method: 'POST',
-    //         body: JSON.stringify({ path: path }),
-    //       })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //           data.exist ? setIsExist(data.exist) : router.push('/');
-    //         })
-    //     : router.push('/');
-  }, [path, own, router]);
+    if (title !== '' && path !== '')
+      own
+        ? fetch('/api/post/getFile', {
+            method: 'POST',
+            body: JSON.stringify({ path: path }),
+          })
+            .then(res => res.json())
+            .then(data => {
+              data.exist ? setIsExist(data.exist) : router.push('/');
+              setMd(data.data.contentHtml);
+            })
+        : router.push('/');
+  }, [path, title, own, router]);
 
   return (
     <>
