@@ -116,15 +116,19 @@ export const findFile = async (path: string) => {
 
   const matterResult = matter(fileContents);
 
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
+  // const processedContent = await remark()
+  //   .use(html)
+  //   .process(matterResult.content);
 
-  const contentHtml = processedContent.toString();
+  // const contentHtml = processedContent.toString();
 
   return {
-    contentHtml,
-    ...(matterResult.data as { date: string; title: string }),
+    // contentHtml,
+    ...(matterResult.data as {
+      content: string;
+      date: string;
+      title: string;
+    }),
   };
 };
 

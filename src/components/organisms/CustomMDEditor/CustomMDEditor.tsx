@@ -224,6 +224,10 @@ export const CustomMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
                   event.preventDefault();
                   await onImagePasted(event.dataTransfer, setMd);
                 }}
+                previewOptions={{
+                  rehypePlugins: [[rehypeSanitize]],
+                  remarkPlugins: [[remarkBreaks]],
+                }}
               />
             </Box>
             <Box className={styles.markdownBox}>

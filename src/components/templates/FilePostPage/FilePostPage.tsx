@@ -47,8 +47,6 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
           setName(data.data.name);
           setDate(data.data.date);
           setMd(data.data.contentHtml);
-
-          console.log(data);
         });
   }, [fullPath, title, path, router]);
 

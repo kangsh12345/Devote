@@ -56,7 +56,7 @@ export const PostCard = (props: PostCardProps) => {
   return (
     <Box
       onClick={() => {
-        router.push(mvPath);
+        router.push(mvPath.replaceAll('.md', ''));
       }}
     >
       {direction === 'row' ? (

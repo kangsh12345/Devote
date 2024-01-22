@@ -23,9 +23,9 @@ async function findPostFile(path: string) {
   try {
     const response = await findFile(fullPath);
 
-    //TODO:  여기 해결해야함 FildPostPage, PostWritePage에서 PostId 제대로 전할하도록
     return {
-      contentHtml: response.contentHtml,
+      // contentHtml: response.contentHtml,
+      contentHtml: response.content,
       date: response.date,
       title: response.title,
       postId: postInfo ? postInfo.id : null,
