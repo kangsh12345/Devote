@@ -154,12 +154,15 @@ export async function createPost({
     fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
     console.log(`${fileName} Post Create`);
   } else {
-    // TODO: 수정 확인해야함
     fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
-    fs.rename(fullPath, filePath + title, function (err) {
-      if (err) throw err;
-      console.log(`${fileName} => ${title} Post Renamed`);
-    });
+    fs.rename(
+      `${rootDirectory}/${fullPath}.md`,
+      `${rootDirectory}/${filePath + title}.md`,
+      function (err) {
+        if (err) throw err;
+        console.log(`${fileName} => ${title} Post Renamed`);
+      },
+    );
   }
 }
 

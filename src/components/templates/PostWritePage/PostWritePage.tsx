@@ -34,6 +34,7 @@ export const PostWritePage = () => {
   const [title, setTitle] = useState(fileTitle);
   const [titleError, setTitleError] = useState('');
 
+  const [date, setDate] = useState(new Date());
   const [md, setMd] = useState<string | undefined>();
   const [postId, setPostId] = useState<Number>(-1);
 
@@ -87,11 +88,14 @@ export const PostWritePage = () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            id: postId,
             path,
+            newPath: filePath + title,
             thumbnail,
             title,
             subTitle,
             md,
+            date,
           }),
         })
           .then(res => {
@@ -131,8 +135,9 @@ export const PostWritePage = () => {
             .then(res => res.json())
             .then(data => {
               data.exist ? setIsExist(data.exist) : router.push('/');
-              setMd(data.data.contentHtml);
               setPostId(data.data.postId);
+              setDate(data.data.date);
+              setMd(data.data.contentHtml);
             })
         : router.push('/');
   }, [path, title, own, router]);

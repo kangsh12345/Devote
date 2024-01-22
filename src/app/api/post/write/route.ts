@@ -2,30 +2,35 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/src/utils/auth';
-// import { createPost } from '@/src/utils/fs';
+import { createPost } from '@/src/utils/fs';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 interface RequestBody {
+  id: number;
   path: string;
+  newPath: string;
   thumbnail: string;
   title: string;
   subTitle: string;
   md: string | undefined;
+  date: string;
 }
 
 interface UpdatePostProps {
+  id: number;
   userId: string;
-  path: string;
+  newPath: string;
   thumbnail: string;
   title: string;
   subTitle: string;
 }
 
 async function updatePost({
+  id,
   userId,
-  path,
+  newPath,
   thumbnail,
   title,
   subTitle,
@@ -33,13 +38,11 @@ async function updatePost({
   try {
     const response = await prisma.post.update({
       where: {
+        id,
         userId,
-        // 여기를 path 대신에 uniqe id로 바꿔야할듯
-        path,
       },
       data: {
-        // 여기 path가 안바뀌는데
-        path,
+        path: newPath,
         thumbnail,
         title,
         subTitle,
@@ -68,14 +71,24 @@ export async function POST(req: NextRequest, res: NextResponse) {
   );
 
   const userId = session?.user.id;
+  const name = session?.user.name;
 
-  const { path, thumbnail, title, subTitle, md }: RequestBody =
-    await req.json();
+  const {
+    id,
+    path,
+    newPath,
+    thumbnail,
+    title,
+    subTitle,
+    md,
+    date,
+  }: RequestBody = await req.json();
 
   try {
     const response = await updatePost({
+      id,
       userId,
-      path,
+      newPath,
       thumbnail,
       title,
       subTitle,
@@ -83,14 +96,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     console.log(response);
 
-    // await createPost({
-    //   fullPath: path,
-    //   // thumbnail,
-    //   title,
-    //   // subTitle,
-    //   md: md ?? '',
-    //   date,
-    // });
+    await createPost({
+      fullPath: path,
+      name,
+      title,
+      md: md ?? '',
+      date,
+    });
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
