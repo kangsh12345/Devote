@@ -43,6 +43,7 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
       })
         .then(res => res.json())
         .then(data => {
+          console.log(data.data.contentHtml);
           data.exist ? setIsExist(data.exist) : router.push('/');
           setName(data.data.name);
           setDate(data.data.date);
