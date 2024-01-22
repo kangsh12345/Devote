@@ -1,18 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { findFile } from '@/src/utils/fs';
+import { PrismaClient } from '@prisma/client';
 import path from 'path';
+
+const prisma = new PrismaClient();
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
 async function findPostFile(path: string) {
   const fullPath = `${rootDirectory}/${path}.md`;
 
-  try {
-    const response = findFile(fullPath);
+  const postInfo = await prisma.post.findFirst({
+    where: {
+      path,
+    },
+    select: {
+      id: true,
+      name: true,
+    },
+  });
 
-    return response;
+  try {
+    const response = await findFile(fullPath);
+
+    //TODO:  여기 해결해야함 FildPostPage, PostWritePage에서 PostId 제대로 전할하도록
+    return {
+      contentHtml: response.contentHtml,
+      date: response.date,
+      title: response.title,
+      postId: postInfo ? postInfo.id : null,
+      name: postInfo ? postInfo.name : null,
+    };
   } catch (error) {
     console.error(error);
+
+    // TODO: 추후 에러작업
+    // return {
+    //   error: true,
+    //   message: 'An error occurred while finding the post file.',
+    // };
   }
 }
 
@@ -21,8 +47,6 @@ export async function POST(req: NextRequest) {
 
   try {
     const response = await findPostFile(path);
-
-    console.log(`hi ${response}`);
 
     return NextResponse.json(
       { success: true, exist: true, data: response },

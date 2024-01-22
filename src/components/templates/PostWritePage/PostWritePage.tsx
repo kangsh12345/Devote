@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { WriteHeader } from '@/src/components/organisms/Header/WriteHeader';
@@ -35,10 +35,11 @@ export const PostWritePage = () => {
   const [titleError, setTitleError] = useState('');
 
   const [md, setMd] = useState<string | undefined>();
+  const [postId, setPostId] = useState<Number>(-1);
 
   const own = userDirname === filePath.split('/')[0];
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const match: RegExpExecArray | null = urlRegex.exec(md ?? '');
@@ -94,14 +95,16 @@ export const PostWritePage = () => {
           }),
         })
           .then(res => {
-            if (res.ok) {
-              return res.json();
-            } else {
-              throw new Error(`Fetch Error`);
-            }
+            // if (res.ok) {
+            //   return res.json();
+            // } else {
+            //   throw new Error(`Fetch Error`);
+            // }
+            res.json();
           })
           .then(data => {
-            alert(data.message);
+            // alert(data.message);
+            console.log(data);
           });
       } catch (error) {
         alert(`request error: ${error}`);
@@ -129,6 +132,7 @@ export const PostWritePage = () => {
             .then(data => {
               data.exist ? setIsExist(data.exist) : router.push('/');
               setMd(data.data.contentHtml);
+              setPostId(data.data.postId);
             })
         : router.push('/');
   }, [path, title, own, router]);
@@ -136,7 +140,7 @@ export const PostWritePage = () => {
   return (
     <>
       {isExist && (
-        <Box>
+        <Box onClick={() => console.log(path)}>
           <WriteHeader
             name={userName}
             // TODO: image 추후 변경
@@ -144,7 +148,7 @@ export const PostWritePage = () => {
             path={filePath}
             title={title}
             handleInput={handleInput}
-            handleSubmit={handleSubmit}
+            handleClick={handleClick}
             error={titleError}
           />
           <CustomMDEditor md={md} setMd={setMd} />

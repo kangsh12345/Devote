@@ -2,9 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/src/utils/auth';
-import { createPost } from '@/src/utils/fs';
+// import { createPost } from '@/src/utils/fs';
 import { PrismaClient } from '@prisma/client';
-import { format } from 'date-fns';
 
 const prisma = new PrismaClient();
 
@@ -14,6 +13,43 @@ interface RequestBody {
   title: string;
   subTitle: string;
   md: string | undefined;
+}
+
+interface UpdatePostProps {
+  userId: string;
+  path: string;
+  thumbnail: string;
+  title: string;
+  subTitle: string;
+}
+
+async function updatePost({
+  userId,
+  path,
+  thumbnail,
+  title,
+  subTitle,
+}: UpdatePostProps) {
+  try {
+    const response = await prisma.post.update({
+      where: {
+        userId,
+        // 여기를 path 대신에 uniqe id로 바꿔야할듯
+        path,
+      },
+      data: {
+        // 여기 path가 안바뀌는데
+        path,
+        thumbnail,
+        title,
+        subTitle,
+      },
+    });
+
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -36,38 +72,25 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { path, thumbnail, title, subTitle, md }: RequestBody =
     await req.json();
 
-  const date = format(new Date(), 'yyyy-MM-dd');
-
   try {
-    const response = await prisma.post.upsert({
-      // postID로 where 설정해야함
-      where: {
-        userId,
-      },
-      update: {
-        path,
-        thumbnail,
-        title,
-        subTitle,
-      },
-      create: {
-        userId,
-        path,
-        thumbnail,
-        title,
-        subTitle,
-        date,
-      },
+    const response = await updatePost({
+      userId,
+      path,
+      thumbnail,
+      title,
+      subTitle,
     });
 
-    await createPost({
-      fullPath: path,
-      // thumbnail,
-      title,
-      // subTitle,
-      md: md ?? '',
-      date,
-    });
+    console.log(response);
+
+    // await createPost({
+    //   fullPath: path,
+    //   // thumbnail,
+    //   title,
+    //   // subTitle,
+    //   md: md ?? '',
+    //   date,
+    // });
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {

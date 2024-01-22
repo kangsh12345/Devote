@@ -87,6 +87,7 @@ export const findAllDirectory = (path: string) => {
       return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
     });
   });
+
   return stack;
 };
 

@@ -36,8 +36,6 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
   const fullPath = `${path}/${title}`;
 
   useEffect(() => {
-    console.log(fullPath);
-
     if (title !== '' && path !== '')
       fetch('/api/post/getFile', {
         method: 'POST',
@@ -49,6 +47,8 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
           setName(data.data.name);
           setDate(data.data.date);
           setMd(data.data.contentHtml);
+
+          console.log(data);
         });
   }, [fullPath, title, path, router]);
 
