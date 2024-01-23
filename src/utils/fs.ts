@@ -20,6 +20,34 @@ export interface TreeProps {
   children: TreeProps[];
 }
 
+export interface DirectoryTreeProps {
+  path: string;
+  name: string;
+  type: 'file' | 'folder';
+  thumbnail: string;
+  userName: string;
+  subTitle: string;
+  date: string;
+}
+
+interface ExtractedInfo {
+  name: string;
+  thumbnail: string;
+  subTitle: string;
+  date: string;
+}
+
+export interface FileInfoProps {
+  id: number;
+  name: string;
+  userId: string;
+  path: string;
+  thumbnail: string;
+  title: string;
+  subTitle: string;
+  date: string;
+}
+
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
 export const createDirectory = ({
@@ -64,44 +92,82 @@ export const findAllDirectory = (path: string) => {
 
   let tempStack: TreeProps;
 
-  fs.readdirSync(path, { withFileTypes: true }).forEach(file => {
-    const destPath = `${path}/${file.name}`;
+  try {
+    fs.readdirSync(path, { withFileTypes: true }).forEach(file => {
+      const destPath = `${path}/${file.name}`;
 
-    if (file.isDirectory()) {
-      tempStack = {
-        path: destPath.replace(`${rootDirectory}/`, ''),
-        name: file.name,
-        type: 'folder',
-        children: findAllDirectory(destPath),
-      };
-    } else {
-      tempStack = {
-        path: destPath.replace(new RegExp(`${rootDirectory}/|\\.md`, 'g'), ''),
-        name: file.name.replace('.md', ''),
-        type: 'file',
-        children: [],
-      };
-    }
-    stack.push(tempStack);
-    stack.sort((a, b) => {
-      return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
+      if (file.isDirectory()) {
+        tempStack = {
+          path: destPath.replace(`${rootDirectory}/`, ''),
+          name: file.name,
+          type: 'folder',
+          children: findAllDirectory(destPath),
+        };
+      } else {
+        tempStack = {
+          path: destPath.replace(
+            new RegExp(`${rootDirectory}/|\\.md`, 'g'),
+            '',
+          ),
+          name: file.name.replace('.md', ''),
+          type: 'file',
+          children: [],
+        };
+      }
+      stack.push(tempStack);
+      stack.sort((a, b) => {
+        return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
+      });
     });
-  });
+  } catch (error) {
+    console.error(error);
+  }
 
   return stack;
 };
 
-export const findDirectory = (path: string) => {
-  const stack: TreeProps[] = [];
+function extractInfoByPath(
+  array: FileInfoProps[],
+  pathToMatch: string,
+): ExtractedInfo {
+  const item = array.find(item => item.path === pathToMatch);
+  return item
+    ? {
+        name: item.name ?? '',
+        thumbnail: item.thumbnail ?? '',
+        subTitle: item.subTitle ?? '',
+        date: item.date ?? '',
+      }
+    : { name: '', thumbnail: '', subTitle: '', date: '' };
+}
 
-  fs.readdirSync(path, { withFileTypes: true }).forEach(file => {
-    const destPath = `${path}/${file.name}`;
+export const findDirectory = (
+  fullPath: string,
+  path: string,
+  fileInfo: FileInfoProps[],
+) => {
+  const stack: DirectoryTreeProps[] = [];
+
+  fs.readdirSync(fullPath, { withFileTypes: true }).forEach(file => {
+    const destPath = `${fullPath}/${file.name}`;
+
+    const info = extractInfoByPath(
+      fileInfo,
+      `${path}/${file.name}`.replaceAll('.md', ''),
+    );
+
+    const { thumbnail, subTitle, name, date } = info || {};
+
+    console.log(`findDirectory: ${JSON.stringify(info)}`);
 
     stack.push({
       path: destPath.replace(`${rootDirectory}/`, ''),
       name: file.name,
       type: file.isDirectory() ? 'folder' : 'file',
-      children: [],
+      thumbnail,
+      subTitle,
+      userName: name,
+      date,
     });
     stack.sort((a, b) => {
       return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 
 import { Box } from '../../atoms/Box';
@@ -10,10 +9,6 @@ import { PostHeader } from '../../organisms/Header';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
 import { PreivewMDEditor } from '../../organisms/PreviewMDEditor';
 import * as styles from './filePostPage.css';
-
-const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
-  ssr: false,
-});
 
 export interface FilePostPageProps {
   title: string;

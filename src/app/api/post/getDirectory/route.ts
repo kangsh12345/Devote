@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { findDirectory } from '@/src/utils/fs';
+import { PrismaClient } from '@prisma/client';
 import path from 'path';
+
+const prisma = new PrismaClient();
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
@@ -8,8 +11,17 @@ async function getDirectory(path: string) {
   const fullPath = `${rootDirectory}/${path}`;
 
   try {
-    const response = findDirectory(fullPath);
+    const fileInfo = await prisma.post.findMany({
+      where: {
+        path: {
+          startsWith: `${path}/`,
+        },
+      },
+    });
 
+    const response = findDirectory(fullPath, path, fileInfo);
+
+    console.log(`getDirectory: ${JSON.stringify(response)}`);
     return response;
   } catch (error) {
     console.error(error);
