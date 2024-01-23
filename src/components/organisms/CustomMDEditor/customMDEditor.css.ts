@@ -59,6 +59,10 @@ globalStyle('body .w-md-editor-text-pre > code, body .w-md-editor-text-input', {
 globalStyle('body .w-md-editor-text', {
   paddingBottom: '48px',
 });
+globalStyle('body .w-md-editor-preview', {
+  paddingBottom: '48px',
+});
+
 globalStyle('body .w-md-editor', {
   width: '100%',
 });

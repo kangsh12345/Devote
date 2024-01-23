@@ -24,7 +24,8 @@ async function findPostFile(path: string) {
     const response = await findFile(fullPath);
 
     return {
-      contentHtml: response.content,
+      contentHtml: response.contentHtml,
+      content: response.content,
       date: response.date,
       title: response.title,
       postId: postInfo ? postInfo.id : null,

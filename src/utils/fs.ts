@@ -2,6 +2,8 @@ import { format } from 'date-fns';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import { remark } from 'remark';
+import html from 'remark-html';
 
 export interface PostData {
   fullPath: string;
@@ -117,21 +119,14 @@ export const findFile = async (path: string) => {
   const { data, content } = matterResult;
 
   // TODO: 추후 SSG로 변경할때 아래 remark 이용
-  // const processedContent = await remark()
-  //   .use(html)
-  //   .process(matterResult.content);
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
 
-  // const contentHtml = processedContent.toString();
-
-  // return {
-  //   contentHtml,
-  //   ...(matterResult.data as {
-  //     date: string;
-  //     title: string;
-  //   }),
-  // };
+  const contentHtml = processedContent.toString();
 
   return {
+    contentHtml,
     content,
     ...(data as {
       date: string;

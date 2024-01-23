@@ -231,18 +231,20 @@ export const CustomMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
               />
             </Box>
             <Box className={styles.markdownBox}>
-              <MDEditor
-                preview="preview"
-                height="100%"
-                value={md}
-                onChange={setMd}
-                visibleDragbar={false}
-                previewOptions={{
-                  rehypePlugins: [[rehypeSanitize]],
-                  remarkPlugins: [[remarkBreaks]],
-                }}
-                hideToolbar={true}
-              />
+              <Box height="full" width="full">
+                <MDEditor
+                  preview="preview"
+                  height="100%"
+                  value={md}
+                  onChange={setMd}
+                  visibleDragbar={false}
+                  previewOptions={{
+                    rehypePlugins: [[rehypeSanitize]],
+                    remarkPlugins: [[remarkBreaks]],
+                  }}
+                  hideToolbar={true}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>

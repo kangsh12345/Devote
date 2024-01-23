@@ -1,16 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import MDEditor from '@uiw/react-md-editor';
-import rehypeSanitize from 'rehype-sanitize';
-import remarkBreaks from 'remark-breaks';
 
 import { Box } from '../../atoms/Box';
 import { ListItem, Popover } from '../../atoms/Popover';
 import { PostHeader } from '../../organisms/Header';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
+import { PreivewMDEditor } from '../../organisms/PreviewMDEditor';
 import * as styles from './filePostPage.css';
+
+const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
+  ssr: false,
+});
 
 export interface FilePostPageProps {
   title: string;
@@ -43,11 +46,10 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data.data.contentHtml);
           data.exist ? setIsExist(data.exist) : router.push('/');
           setName(data.data.name);
           setDate(data.data.date);
-          setMd(data.data.contentHtml);
+          setMd(data.data.content);
         });
   }, [fullPath, title, path, router]);
 
@@ -65,17 +67,7 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
           <Box display="flex" height="full" justifyContent="center">
             <Box width="full" height="full">
               <Box className={styles.markdownBox({ own })}>
-                <MDEditor
-                  preview="preview"
-                  height="100%"
-                  value={md}
-                  visibleDragbar={false}
-                  hideToolbar={true}
-                  previewOptions={{
-                    rehypePlugins: [[rehypeSanitize]],
-                    remarkPlugins: [[remarkBreaks]],
-                  }}
-                />
+                <PreivewMDEditor md={md} setMd={setMd} />
               </Box>
             </Box>
             <Popover size="md" list={popoverList} />

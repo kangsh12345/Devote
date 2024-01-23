@@ -137,7 +137,7 @@ export const PostWritePage = () => {
               data.exist ? setIsExist(data.exist) : router.push('/');
               setPostId(data.data.postId);
               setDate(data.data.date);
-              setMd(data.data.contentHtml);
+              setMd(data.data.content);
             })
         : router.push('/');
   }, [path, title, own, router]);
@@ -145,7 +145,7 @@ export const PostWritePage = () => {
   return (
     <>
       {isExist && (
-        <Box onClick={() => console.log(path)}>
+        <Box>
           <WriteHeader
             name={userName}
             // TODO: image 추후 변경
