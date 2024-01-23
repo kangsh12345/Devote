@@ -1,15 +1,21 @@
-import Image from 'next/image';
-import star from '@phosphor-icons/core/fill/star-fill.svg';
+// import Image from 'next/image';
+// import star from '@phosphor-icons/core/fill/star-fill.svg';
+import { format } from 'date-fns';
 
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Card } from '../../atoms/Card';
 import { Hover } from '../../atoms/Hover';
 import { Stack } from '../../atoms/Stack';
-import { IconText } from '../../atoms/Text';
-import * as styles from './cardHover.css';
+// import { IconText } from '../../atoms/Text';
+// import * as styles from './cardHover.css';
 
-export const CardHover = () => {
+export interface CardHoverProps {
+  userName: string;
+  date: Date;
+}
+
+export const CardHover = ({ userName, date }: CardHoverProps) => {
   return (
     <Box position="relative" width="full" backgroundColor="backgroundBase">
       <Card variant="outline">
@@ -20,7 +26,7 @@ export const CardHover = () => {
             justifyContent="center"
             height="full"
           >
-            <Box className={styles.iconTextWrapper}>
+            {/* <Box className={styles.iconTextWrapper}>
               <IconText
                 type="cardhover"
                 size="md"
@@ -28,10 +34,10 @@ export const CardHover = () => {
               >
                 20
               </IconText>
-            </Box>
+            </Box> */}
             <Stack align="center" justify="center" space="2.5">
               <Box paddingRight="4" color="textHoverWhite">
-                <Avatars size="lg" text="NickName" />
+                <Avatars size="lg" text={userName} />
               </Box>
               <Box
                 display="flex"
@@ -40,7 +46,7 @@ export const CardHover = () => {
                 color="textTertiary"
                 paddingLeft="2"
               >
-                2023년 7월 9일
+                {format(new Date(date), 'yyyy년 M월 d일')}
               </Box>
             </Stack>
           </Box>

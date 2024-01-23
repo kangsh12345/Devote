@@ -21,7 +21,6 @@ async function getDirectory(path: string) {
 
     const response = findDirectory(fullPath, path, fileInfo);
 
-    console.log(`getDirectory: ${JSON.stringify(response)}`);
     return response;
   } catch (error) {
     console.error(error);

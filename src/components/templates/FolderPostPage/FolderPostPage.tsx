@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { TreeProps } from '@/src/utils/fs';
+import { DirectoryTreeProps } from '@/src/utils/fs';
 
 import { Box } from '../../atoms/Box';
 import { Header } from '../../organisms/Header';
@@ -12,7 +12,7 @@ import * as styles from './folderPostPage.css';
 
 export const FolderPostPage = () => {
   const { data: session } = useSession();
-  const [tree, setTree] = useState<TreeProps[]>();
+  const [tree, setTree] = useState<DirectoryTreeProps[]>();
 
   const pathName = usePathname();
   const path = decodeURIComponent(decodeURIComponent(pathName));
@@ -82,6 +82,10 @@ export const FolderPostPage = () => {
                     }
                     path={item.path}
                     name={item.name.replaceAll('.md', '')}
+                    userName={item.userName}
+                    thumbnail={item.thumbnail}
+                    subTitle={item.subTitle}
+                    date={item.date}
                   />
                 )}
               </Box>

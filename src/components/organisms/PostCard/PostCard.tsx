@@ -17,6 +17,10 @@ export type PostCardProps =
       variant: 'card' | 'folder' | 'cardInFolder';
       path: string;
       name: string;
+      thumbnail?: string;
+      userName?: string;
+      subTitle?: string;
+      date?: string;
     }
   | { skeleton: true };
 
@@ -64,7 +68,10 @@ export const PostCard = (props: PostCardProps) => {
           <Box className={styles.wrapperRow({})}>
             <Box className={styles.cardWrapperRow({})}>
               {variant !== 'folder' ? (
-                <CardHover />
+                <CardHover
+                  userName={props.userName ?? ''}
+                  date={props.date ?? ''}
+                />
               ) : (
                 <Box className={styles.folderIconWrapper}>
                   <FolderNotch
@@ -93,11 +100,7 @@ export const PostCard = (props: PostCardProps) => {
                   height="16"
                   className={styles.overflowRow({ type: 'subtitle' })}
                 >
-                  vscode 우측 하단 체크 표시로 prettier, eslint가 안떠있으면
-                  출력 세션에서 어떤 문제가 있는지 확인하고 오류있는 부분을
-                  고쳐야함 vscode 우측 하단 체크 표시로 prettier, eslint가
-                  안떠있으면 출력 세션에서 어떤 문제가 있는지 확인하고 오류있는
-                  부분을 고쳐야함
+                  {props.subTitle}
                 </Box>
               ) : (
                 ''
