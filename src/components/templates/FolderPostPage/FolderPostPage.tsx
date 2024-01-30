@@ -36,6 +36,8 @@ export const FolderPostPage = () => {
           console.error('Failed to Get Directory');
           return;
         }
+        //
+        console.log(res.tree);
 
         setTree(res.tree);
       };

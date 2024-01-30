@@ -47,7 +47,7 @@ export const PostWritePage = () => {
     const thumbnail = match ? match[1] : '';
 
     const subTitle = md
-      ? markdownToTxt(md as string).substring(0, 150) + '...'
+      ? markdownToTxt(md as string).substring(0, 120) + '...'
       : '';
 
     if (titleError) {

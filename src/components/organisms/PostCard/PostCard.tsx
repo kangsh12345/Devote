@@ -71,6 +71,7 @@ export const PostCard = (props: PostCardProps) => {
                 <CardHover
                   userName={props.userName ?? ''}
                   date={props.date ?? ''}
+                  thumbnail={props.thumbnail ?? ''}
                 />
               ) : (
                 <Box className={styles.folderIconWrapper}>

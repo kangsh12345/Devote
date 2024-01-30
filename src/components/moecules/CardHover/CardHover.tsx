@@ -1,7 +1,7 @@
-// import Image from 'next/image';
 // import star from '@phosphor-icons/core/fill/star-fill.svg';
-import { format } from 'date-fns';
+import Image from 'next/image';
 
+// import { format } from 'date-fns';
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Card } from '../../atoms/Card';
@@ -12,13 +12,16 @@ import { Stack } from '../../atoms/Stack';
 
 export interface CardHoverProps {
   userName: string;
-  date: Date;
+  date: string;
+  thumbnail: string;
 }
 
-export const CardHover = ({ userName, date }: CardHoverProps) => {
+export const CardHover = ({ userName, date, thumbnail }: CardHoverProps) => {
   return (
     <Box position="relative" width="full" backgroundColor="backgroundBase">
       <Card variant="outline">
+        {/* <>여기에 썸네일 이미지 넣기</> */}
+        <Image src={thumbnail} alt="thumbnail" fill sizes="100%" />
         <Hover radius="lg">
           <Box
             display="flex"
@@ -46,7 +49,8 @@ export const CardHover = ({ userName, date }: CardHoverProps) => {
                 color="textTertiary"
                 paddingLeft="2"
               >
-                {format(new Date(date), 'yyyy년 M월 d일')}
+                {/* {format(new Date(date), 'yyyy년 M월 d일')} */}
+                {date}
               </Box>
             </Stack>
           </Box>

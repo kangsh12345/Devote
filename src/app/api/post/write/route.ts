@@ -85,7 +85,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }: RequestBody = await req.json();
 
   try {
-    const response = await updatePost({
+    await updatePost({
       id,
       userId,
       newPath,
@@ -93,8 +93,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       title,
       subTitle,
     });
-
-    console.log(response);
 
     await createPost({
       fullPath: path,

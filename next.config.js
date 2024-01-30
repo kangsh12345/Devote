@@ -14,6 +14,7 @@ const nextConfig = {
       'avatars.githubusercontent.com',
       'source.boringavatars.com',
       'lh3.googleusercontent.com',
+      'firebasestorage.googleapis.com',
     ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],

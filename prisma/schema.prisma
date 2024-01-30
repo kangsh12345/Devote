@@ -44,7 +44,7 @@ model Post {
   name String
   userId String
   path String @unique
-  thumbnail String
+  thumbnail String @db.Text
   title String
   subTitle String
   date String
