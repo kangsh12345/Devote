@@ -126,7 +126,7 @@ export const PostWritePage = () => {
   };
 
   useEffect(() => {
-    if (title !== '' && path !== '')
+    if (fileTitle !== '' && path !== '')
       own
         ? fetch('/api/post/getFile', {
             method: 'POST',
@@ -140,7 +140,7 @@ export const PostWritePage = () => {
               setMd(data.data.content);
             })
         : router.push('/');
-  }, [path, title, own, router]);
+  }, [path, fileTitle, own, router]);
 
   return (
     <>
