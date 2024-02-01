@@ -69,13 +69,13 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
   }, [session]);
 
   const handleCreateRootDirectory = async (
-    type: 'rootFolder' | 'folder' | 'file',
+    type: 'rootDirectory' | 'folder' | 'file',
   ) => {
     if (inputError) {
       return;
     }
     if (
-      type === 'rootFolder'
+      type === 'rootDirectory'
         ? rootDirectory === ''
         : type === 'file'
           ? file === ''
@@ -85,7 +85,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       return;
     }
     if (
-      type === 'rootFolder'
+      type === 'rootDirectory'
         ? regex.test(rootDirectory) || rootDirectory.length > 24
         : type === 'file'
           ? regex.test(file) || file.length > 24
@@ -95,7 +95,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       return;
     }
     if (session) {
-      if (type === 'rootFolder') {
+      if (type === 'rootDirectory') {
         const res = await fetch(`/api/post/rootDirectoryCheck`, {
           method: 'POST',
           body: JSON.stringify({
@@ -110,7 +110,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
       }
 
       const dirName =
-        type === 'rootFolder'
+        type === 'rootDirectory'
           ? rootDirectory.trim()
           : !query.id || queryId !== session.user.dirName
             ? session.user.dirName +
@@ -134,7 +134,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
           .then(res => res.json())
           .then(data => {
             if (
-              type === 'rootFolder' &&
+              type === 'rootDirectory' &&
               data.message === 'success' &&
               status === 'authenticated'
             ) {
@@ -282,7 +282,7 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               title="개인 폴더 생성"
               setOpen={setCreateRootFolderOpen}
               setInput={setRootDirectory}
-              handle={() => handleCreateRootDirectory('rootFolder')}
+              handle={() => handleCreateRootDirectory('rootDirectory')}
               inputLabel="create root folder"
               placeholder="폴더 이름을 입력해주세요."
               value={rootDirectory}
