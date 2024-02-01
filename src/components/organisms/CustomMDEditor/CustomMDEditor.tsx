@@ -207,7 +207,7 @@ export const CustomMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
           onDrop={handleDrop}
         >
           <MyCustomToolbar setMd={setMd} />
-          <Box display="flex" flexDirection="row" width="full" height="full">
+          <Box className={styles.mdEditorContainer}>
             <Box width="full">
               <MDEditor
                 preview="edit"

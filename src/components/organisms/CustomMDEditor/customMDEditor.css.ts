@@ -2,8 +2,14 @@ import { atoms } from '@/src/css';
 import { globalStyle, style } from '@vanilla-extract/css';
 
 export const root = style({
-  height: 'calc(100vh - 64px)',
   zIndex: '10',
+});
+
+export const mdEditorContainer = style({
+  height: 'calc(100vh - 112px)',
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
 });
 
 export const defaultStyle = style({
