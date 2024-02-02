@@ -20,8 +20,13 @@ export const CardHover = ({ userName, date, thumbnail }: CardHoverProps) => {
   return (
     <Box position="relative" width="full" backgroundColor="backgroundBase">
       <Card variant="outline">
-        {/* <>여기에 썸네일 이미지 넣기</> */}
-        <Image src={thumbnail} alt="thumbnail" fill sizes="100%" />
+        <Image
+          src={thumbnail}
+          alt="thumbnail"
+          fill
+          sizes="100%"
+          objectFit="cover"
+        />
         <Hover radius="lg">
           <Box
             display="flex"

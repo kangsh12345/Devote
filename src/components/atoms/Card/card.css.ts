@@ -31,7 +31,10 @@ export const root = recipe({
         width: 'full',
         height: 'full',
       }),
-      card: {},
+      card: atoms({
+        overflow: 'hidden',
+        position: 'relative',
+      }),
     },
     direction: {
       row: {},
