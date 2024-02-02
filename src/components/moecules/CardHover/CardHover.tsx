@@ -17,11 +17,13 @@ export interface CardHoverProps {
 }
 
 export const CardHover = ({ userName, date, thumbnail }: CardHoverProps) => {
+  const imageUrl = thumbnail === '' ? '/image/NoPhoto.png' : thumbnail;
+
   return (
     <Box position="relative" width="full" backgroundColor="backgroundBase">
       <Card variant="outline">
         <Image
-          src={thumbnail}
+          src={imageUrl}
           alt="thumbnail"
           fill
           sizes="100%"

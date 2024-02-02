@@ -25,8 +25,8 @@ export const ThemeSwitcher = ({ size = 'md' }: ThemeSwitcherProps) => {
     size === 'lg'
       ? { width: 10, height: 45, src: '/image/DarkSwitcher1.svg' }
       : size === 'md'
-      ? { width: 8, height: 49, src: '/image/DarkSwitcher2.svg' }
-      : { width: 6, height: 37, src: '/image/DarkSwitcher3.svg' };
+        ? { width: 8, height: 49, src: '/image/DarkSwitcher2.svg' }
+        : { width: 6, height: 37, src: '/image/DarkSwitcher3.svg' };
 
   return (
     <Box
