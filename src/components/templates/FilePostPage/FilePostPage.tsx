@@ -76,7 +76,7 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
           <Box display="flex" height="full" justifyContent="center">
             <Box width="full" height="full">
               <Box className={styles.markdownBox({ own })}>
-                <PreivewMDEditor md={md} setMd={setMd} />
+                <PreivewMDEditor md={md} setMd={setMd} own={own} />
               </Box>
             </Box>
             <Popover size="md" list={popoverList} />

@@ -14,15 +14,16 @@ import '@uiw/react-markdown-preview/markdown.css';
 type CustomMDEditorProps = {
   md: string | undefined;
   setMd: (value: SetStateAction<string | undefined>) => void;
+  own: boolean;
 };
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
   ssr: false,
 });
 
-export const PreivewMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
+export const PreivewMDEditor = ({ md, setMd, own }: CustomMDEditorProps) => {
   return (
-    <Box className={[styles.root]}>
+    <Box className={styles.root({ own })}>
       <MDEditor
         preview="preview"
         height="100%"

@@ -18,10 +18,7 @@ export default function PostPage() {
     ? decodeURIComponent(decodeURIComponent(param.slug))
     : '';
 
-  const currentFilePath =
-    param.id && id === session?.user.dirName
-      ? `${id}${slug ? `/${slug}` : ''}`
-      : '';
+  const currentFilePath = param.id && `${id}${slug ? `/${slug}` : ''}`;
 
   const own = param.id && id === session?.user.dirName ? true : false;
 
