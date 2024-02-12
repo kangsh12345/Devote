@@ -37,7 +37,6 @@ export const FolderPostPage = () => {
           return;
         }
         //
-        console.log(res.tree);
 
         setTree(res.tree);
       };

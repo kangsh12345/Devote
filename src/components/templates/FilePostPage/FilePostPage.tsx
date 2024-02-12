@@ -31,6 +31,20 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
     { value: '대제목3', heading: 1 },
   ];
 
+  const titles = md?.split('\n').filter(item => item.includes('# '));
+
+  // const result =
+  titles
+    ?.filter(item => item[0] === '#')
+    .map(item => {
+      const count = item.match(/#/g)?.length;
+
+      return {
+        value: item.split('# ')[1].replace(/`/g, '').trim(),
+        heading: count,
+      };
+    });
+
   const fullPath = `${path}/${title}`;
 
   useEffect(() => {

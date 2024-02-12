@@ -97,19 +97,18 @@ export const PostWritePage = () => {
             md,
             date,
           }),
-        })
-          .then(res => {
-            // if (res.ok) {
-            //   return res.json();
-            // } else {
-            //   throw new Error(`Fetch Error`);
-            // }
-            res.json();
-          })
-          .then(data => {
-            // alert(data.message);
-            console.log(data);
-          });
+        }).then(res => {
+          // if (res.ok) {
+          //   return res.json();
+          // } else {
+          //   throw new Error(`Fetch Error`);
+          // }
+          res.json();
+        });
+        // .then(data => {
+        // 추후 toast로 추가
+        // alert(data.message);
+        // });
       } catch (error) {
         alert(`request error: ${error}`);
       }

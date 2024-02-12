@@ -10,7 +10,7 @@ import magnifyingGlass from '@phosphor-icons/core/duotone/magnifying-glass-duoto
 import squaresFourDutone from '@phosphor-icons/core/duotone/squares-four-duotone.svg';
 import { SquaresFour } from '@phosphor-icons/react';
 
-import { CardHover } from '../../moecules/CardHover';
+// import { CardHover } from '../../moecules/CardHover';
 // import { FolderBox } from '../../moecules/FolderBox';
 // import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
@@ -161,9 +161,7 @@ export function Test() {
         {/* <SidebarLogo /> */}
         {/* <Card variant="outline" /> */}
         <Box width="106">
-          <Box className={styles.cardContainer}>
-            <CardHover />
-          </Box>
+          <Box className={styles.cardContainer}>{/* <CardHover /> */}</Box>
         </Box>
         {/* <FolderBox /> */}
         <Box>----organisms----</Box>
