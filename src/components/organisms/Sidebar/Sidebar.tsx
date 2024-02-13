@@ -9,8 +9,8 @@ import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
 import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
 import gear from '@phosphor-icons/core/duotone/gear-duotone.svg';
 import signout from '@phosphor-icons/core/duotone/sign-out-duotone.svg';
-import star from '@phosphor-icons/core/duotone/star-duotone.svg';
 
+// import star from '@phosphor-icons/core/duotone/star-duotone.svg';
 import { Box } from '../../atoms/Box';
 import { CopyRight } from '../../atoms/CopyRight';
 import { Stack } from '../../atoms/Stack';
@@ -79,7 +79,7 @@ export const Sidebar = ({
           </Box>
           <Box className={styles.bottom({})}>
             <Stack space="1">
-              <Link href="/favorites">
+              {/* <Link href="/favorites">
                 <SidebarNav
                   type="sub"
                   isActive={pathname === '/favorites' ? true : false}
@@ -87,7 +87,7 @@ export const Sidebar = ({
                 >
                   즐겨찾기
                 </SidebarNav>
-              </Link>
+              </Link> */}
               <Link href="/settings">
                 <SidebarNav
                   type="sub"

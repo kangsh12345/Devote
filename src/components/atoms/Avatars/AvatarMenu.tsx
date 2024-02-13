@@ -50,14 +50,14 @@ export const AvatarMenu = ({
         <Box className={styles.ulContainer}>
           <Box className={styles.ulBox({ size: size })}>
             <Box as="ul">
-              <Box
+              {/* <Box
                 className={styles.liValue({})}
                 as="li"
                 fontSize="inherit"
                 onClick={() => router.push('/favorites')}
               >
                 <Box>즐겨찾기</Box>
-              </Box>
+              </Box> */}
               <Box
                 className={styles.liValue({})}
                 as="li"
