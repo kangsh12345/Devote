@@ -13,6 +13,7 @@ import * as styles from './folderPostPage.css';
 export const FolderPostPage = () => {
   const { data: session } = useSession();
   const [tree, setTree] = useState<DirectoryTreeProps[]>();
+  const [isActive, setIsActive] = useState<'row' | 'column'>('row');
 
   const pathName = usePathname();
   const path = decodeURIComponent(decodeURIComponent(pathName));
@@ -36,8 +37,6 @@ export const FolderPostPage = () => {
           console.error('Failed to Get Directory');
           return;
         }
-        //
-
         setTree(res.tree);
       };
 
@@ -51,7 +50,7 @@ export const FolderPostPage = () => {
       minHeight="viewHeight"
       backgroundColor="backgroundElevatedPrimary"
     >
-      <Header type="folder" />
+      <Header type="folder" isActive={isActive} setIsActive={setIsActive} />
       <Box
         display="flex"
         height="full"
@@ -61,9 +60,14 @@ export const FolderPostPage = () => {
         paddingX="2"
         justifyContent="center"
       >
-        <Box className={styles.cardContainer}>
+        <Box className={styles.cardContainer({ direction: isActive })}>
           {pathArray.length > 3 && (
-            <PostCard variant="folder" path={pathBack} name="../" />
+            <PostCard
+              variant="folder"
+              path={pathBack}
+              name="../"
+              direction={isActive}
+            />
           )}
           {tree &&
             tree.map((item, idx) => (
@@ -73,6 +77,7 @@ export const FolderPostPage = () => {
                     variant="folder"
                     path={item.path}
                     name={item.name}
+                    direction={isActive}
                   />
                 ) : (
                   <PostCard
@@ -84,9 +89,10 @@ export const FolderPostPage = () => {
                     path={item.path}
                     name={item.name.replaceAll('.md', '')}
                     userName={item.userName}
-                    thumbnail={item.thumbnail}
+                    thumbnail={item.thumbnail ?? ''}
                     subTitle={item.subTitle}
                     date={item.date}
+                    direction={isActive}
                   />
                 )}
               </Box>
@@ -95,7 +101,11 @@ export const FolderPostPage = () => {
           {/* TODO: 추후 패치 loading을 이용해서 skeleton 삽입 */}
           {/* <PostCard skeleton />
           <PostCard skeleton />
+          <PostCard skeleton />
+          <PostCard skeleton />
+          <PostCard skeleton />
           <PostCard skeleton /> */}
+          {/* <PostCard skeleton /> */}
         </Box>
       </Box>
     </Box>

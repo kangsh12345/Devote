@@ -104,11 +104,17 @@ export const subtitleColumn = recipe({
   base: [
     atoms({
       display: 'flex',
-      width: 'full',
       height: '6',
       alignItems: 'center',
       color: 'textSecondary',
       fontSize: '3',
+    }),
+    style({
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      WebkitBoxOrient: 'vertical',
+      WebkitLineClamp: 1,
     }),
   ],
   variants: {
@@ -126,6 +132,7 @@ export const subContentColumn = atoms({
   width: 'fit',
   height: 'full',
   gap: '2',
+  flexShrink: 0,
 });
 
 export const dateColumn = atoms({
@@ -142,7 +149,7 @@ export const folderTitleColumn = atoms({
   display: 'flex',
   alignItems: 'center',
   width: 'full',
-  height: 'full',
+  height: '24',
   color: 'textPrimary',
   paddingTop: '1',
   paddingLeft: '1',

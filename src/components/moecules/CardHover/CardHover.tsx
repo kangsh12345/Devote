@@ -14,14 +14,20 @@ export interface CardHoverProps {
   userName: string;
   date: string;
   thumbnail: string;
+  direction?: 'column' | 'row';
 }
 
-export const CardHover = ({ userName, date, thumbnail }: CardHoverProps) => {
+export const CardHover = ({
+  userName,
+  date,
+  thumbnail,
+  direction,
+}: CardHoverProps) => {
   const imageUrl = thumbnail === '' ? '/image/NoPhoto.png' : thumbnail;
 
   return (
     <Box position="relative" width="full" backgroundColor="backgroundBase">
-      <Card variant="outline">
+      <Card variant="outline" direction={direction}>
         <Image
           src={imageUrl}
           alt="thumbnail"

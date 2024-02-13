@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -26,9 +26,15 @@ import * as styles from './header.css';
 
 export interface HeaderProps {
   type?: 'popular' | 'folder' | 'myFolder' | 'auth';
+  isActive: 'column' | 'row';
+  setIsActive: Dispatch<SetStateAction<'column' | 'row'>>;
 }
 
-export const Header = ({ type = 'popular' }: HeaderProps) => {
+export const Header = ({
+  type = 'popular',
+  isActive,
+  setIsActive,
+}: HeaderProps) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -58,16 +64,20 @@ export const Header = ({ type = 'popular' }: HeaderProps) => {
               <Stack space="6" direction="horizontal">
                 <Box className={styles.breakpoint({ type: 'header' })}>
                   <Stack space="2" direction="horizontal" align="center">
-                    <ListToggle
-                      isActive={true}
-                      color="secondary"
-                      icon={<SquaresFour size={24} weight="duotone" />}
-                    />
-                    <ListToggle
-                      isActive={false}
-                      color="secondary"
-                      icon={<ListBullets size={24} weight="duotone" />}
-                    />
+                    <Box onClick={() => setIsActive('row')}>
+                      <ListToggle
+                        isActive={isActive === 'row'}
+                        color="secondary"
+                        icon={<SquaresFour size={24} weight="duotone" />}
+                      />
+                    </Box>
+                    <Box onClick={() => setIsActive('column')}>
+                      <ListToggle
+                        isActive={isActive === 'column'}
+                        color="secondary"
+                        icon={<ListBullets size={24} weight="duotone" />}
+                      />
+                    </Box>
                   </Stack>
                 </Box>
 

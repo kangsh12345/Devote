@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import star from '@phosphor-icons/core/fill/star-fill.svg';
+// import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { FolderNotch } from '@phosphor-icons/react';
 
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Card } from '../../atoms/Card';
 import { Stack } from '../../atoms/Stack';
-import { IconText } from '../../atoms/Text';
+// import { IconText } from '../../atoms/Text';
 import { CardHover } from '../../moecules/CardHover';
 import * as styles from './postCard.css';
 
@@ -23,6 +23,7 @@ export type PostCardProps =
       date?: string;
     }
   | { skeleton: true };
+// 추후 skeleton driection 도 추가
 
 export const PostCard = (props: PostCardProps) => {
   const router = useRouter();
@@ -57,6 +58,10 @@ export const PostCard = (props: PostCardProps) => {
       ? `/posts/${props.path}`
       : `/posts/${props.path?.replace(/\/([^\/]*)$/, '?title=$1')}`;
 
+  const thumnail = props.thumbnail ?? '';
+
+  const imageUrl = thumnail === '' ? '/image/NoPhoto.png' : thumnail;
+
   return (
     <Box
       onClick={() => {
@@ -72,6 +77,7 @@ export const PostCard = (props: PostCardProps) => {
                   userName={props.userName ?? ''}
                   date={props.date ?? ''}
                   thumbnail={props.thumbnail ?? ''}
+                  direction={direction}
                 />
               ) : (
                 <Box className={styles.folderIconWrapper}>
@@ -121,14 +127,22 @@ export const PostCard = (props: PostCardProps) => {
                 height="24"
               >
                 <Box width="23">
-                  <Card variant="outline" direction={direction} />
+                  <Card variant="outline" direction={direction}>
+                    <Image
+                      src={imageUrl}
+                      alt="thumbnail"
+                      fill
+                      sizes="100%"
+                      objectFit="cover"
+                    />
+                  </Card>
                 </Box>
               </Box>
               <Box className={styles.contentWrapperColmn}>
                 <Box className={styles.mainContentColumn}>
                   <Stack space="3" direction="horizontal" align="center">
                     {variant === 'card' ? (
-                      <Avatars size="lg" text="NickName" />
+                      <Avatars size="lg" text={props.userName} />
                     ) : (
                       ''
                     )}
@@ -140,22 +154,24 @@ export const PostCard = (props: PostCardProps) => {
                       height="12"
                     >
                       {/* 추후 before content /를 파일 위치 마다 추가 */}
-                      주제목에 대한 아무말
+                      {props.name}
                     </Box>
                   </Stack>
                   <Box className={styles.subtitleColumn({ variant })}>
-                    부제목을 아무말이나 채워넣기
+                    {props.subTitle}
                   </Box>
                 </Box>
                 <Box className={styles.subContentColumn}>
-                  <Box className={styles.dateColumn}>2023년 6월 29일</Box>
-                  <IconText
+                  <Box className={styles.dateColumn}>
+                    {props.date?.replace('-', '년 ').replace('-', '월 ') + '일'}
+                  </Box>
+                  {/* <IconText
                     type="cardhover"
                     size="lg"
                     leftIcon={<Image src={star} alt="icon" fill sizes="100%" />}
                   >
                     <Box color="textSecondary">20</Box>
-                  </IconText>
+                  </IconText> */}
                 </Box>
               </Box>
             </>
@@ -164,7 +180,7 @@ export const PostCard = (props: PostCardProps) => {
               <Box flexShrink={0}>
                 <FolderNotch size={92} weight="duotone" />
               </Box>
-              <Box className={styles.folderTitleColumn}>폴더 제목</Box>
+              <Box className={styles.folderTitleColumn}>{props.name}</Box>
             </>
           )}
         </Box>
