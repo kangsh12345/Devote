@@ -28,12 +28,16 @@ export interface HeaderProps {
   type?: 'popular' | 'folder' | 'myFolder' | 'auth';
   isActive: 'column' | 'row';
   setIsActive: Dispatch<SetStateAction<'column' | 'row'>>;
+  userName?: string;
+  path?: string;
 }
 
 export const Header = ({
   type = 'popular',
   isActive,
   setIsActive,
+  userName,
+  path,
 }: HeaderProps) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -98,10 +102,31 @@ export const Header = ({
                         나의 폴더
                       </Box>
                     ) : (
-                      <Avatars size="md" text="김아무개" />
+                      <Avatars size="md" text={userName} />
                     )}
-                    <Box fontSize="1" fontWeight={700} color="textSecondary">
-                      / 프론트
+                    <Box
+                      fontSize="1"
+                      fontWeight={700}
+                      color="textSecondary"
+                      display="flex"
+                      flexDirection="row"
+                      gap="1"
+                    >
+                      {path?.split('/').map((item, idx) => (
+                        <Box
+                          onClick={() =>
+                            router.push(
+                              `/posts/${path
+                                .split('/')
+                                .slice(0, idx + 1)
+                                .join('/')}`,
+                            )
+                          }
+                          key={idx}
+                        >
+                          / {item}
+                        </Box>
+                      ))}
                     </Box>
                   </Stack>
                 )}

@@ -13,6 +13,8 @@ import * as styles from './folderPostPage.css';
 export const FolderPostPage = () => {
   const { data: session } = useSession();
   const [tree, setTree] = useState<DirectoryTreeProps[]>();
+  const [userName, setUserName] = useState<string>('');
+  // TODO: isActive는 페이지가 바뀌어도 그대로여야하기때문에 밖으로 빼줘야함
   const [isActive, setIsActive] = useState<'row' | 'column'>('row');
 
   const pathName = usePathname();
@@ -38,6 +40,7 @@ export const FolderPostPage = () => {
           return;
         }
         setTree(res.tree);
+        setUserName(res.userName);
       };
 
       fetchData();
@@ -50,7 +53,13 @@ export const FolderPostPage = () => {
       minHeight="viewHeight"
       backgroundColor="backgroundElevatedPrimary"
     >
-      <Header type="folder" isActive={isActive} setIsActive={setIsActive} />
+      <Header
+        type="folder"
+        isActive={isActive}
+        setIsActive={setIsActive}
+        path={path.replace('/posts/', '')}
+        userName={userName}
+      />
       <Box
         display="flex"
         height="full"
@@ -61,12 +70,14 @@ export const FolderPostPage = () => {
       >
         <Box className={styles.cardContainer({ direction: isActive })}>
           {pathArray.length > 3 && (
-            <PostCard
-              variant="folder"
-              path={pathBack}
-              name="../"
-              direction={isActive}
-            />
+            <Box width={tree?.length === 0 ? '96' : 'full'}>
+              <PostCard
+                variant="folder"
+                path={pathBack}
+                name="../"
+                direction={isActive}
+              />
+            </Box>
           )}
           {tree &&
             tree.map((item, idx) => (

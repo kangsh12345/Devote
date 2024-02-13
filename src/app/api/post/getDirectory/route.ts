@@ -33,8 +33,14 @@ export async function POST(req: NextRequest) {
   try {
     const response = await getDirectory(path);
 
+    const userName = await prisma.user.findFirst({
+      where: {
+        dirName: path.split('/')[0],
+      },
+    });
+
     return NextResponse.json(
-      { tree: response, success: true },
+      { tree: response, success: true, userName: userName?.name },
       { status: 200 },
     );
   } catch (error) {
