@@ -239,7 +239,6 @@ export const CustomMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
                   onChange={setMd}
                   visibleDragbar={false}
                   previewOptions={{
-                    rehypePlugins: [[rehypeSanitize]],
                     remarkPlugins: [[remarkBreaks]],
                   }}
                   hideToolbar={true}

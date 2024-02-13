@@ -104,7 +104,7 @@ export const PostWritePage = () => {
           res.json();
         });
         // .then(data => {
-        // 추후 toast로 추가
+        // TODO: 추후 toast로 추가
         // alert(data.message);
         // });
       } catch (error) {

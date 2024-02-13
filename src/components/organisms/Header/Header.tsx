@@ -85,7 +85,7 @@ export const Header = ({
                   </Stack>
                 </Box>
 
-                {type === 'popular' && (
+                {/* {type === 'popular' && (
                   <Box
                     fontSize="3"
                     fontWeight={700}
@@ -94,7 +94,7 @@ export const Header = ({
                   >
                     인기항목
                   </Box>
-                )}
+                )} */}
                 {type !== 'popular' && (
                   <Stack direction="horizontal" space="2" align="center">
                     {type === 'myFolder' ? (

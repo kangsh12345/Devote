@@ -2,7 +2,6 @@
 
 import { SetStateAction } from 'react';
 import dynamic from 'next/dynamic';
-import rehypeSanitize from 'rehype-sanitize';
 import remarkBreaks from 'remark-breaks';
 
 import { Box } from '../../atoms/Box';
@@ -31,7 +30,6 @@ export const PreivewMDEditor = ({ md, setMd, own }: CustomMDEditorProps) => {
         onChange={setMd}
         visibleDragbar={false}
         previewOptions={{
-          rehypePlugins: [[rehypeSanitize]],
           remarkPlugins: [[remarkBreaks]],
         }}
         hideToolbar={true}

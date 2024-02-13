@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
-import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
+// import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
 import gear from '@phosphor-icons/core/duotone/gear-duotone.svg';
 import signout from '@phosphor-icons/core/duotone/sign-out-duotone.svg';
 
@@ -51,17 +51,17 @@ export const Sidebar = ({
         <Box className={styles.contentBox({ isOpen, type })}>
           <Box className={styles.top({})}>
             <Stack space="1">
-              <Link href="/">
+              {/* <Link href="/">
                 <SidebarNav
                   isActive={pathname === '/' ? true : false}
                   icon={<Image src={fire} alt="icon" fill sizes="100%" />}
                 >
                   인기항목
                 </SidebarNav>
-              </Link>
-              <Link href="/recent">
+              </Link> */}
+              <Link href="/">
                 <SidebarNav
-                  isActive={pathname === '/recent' ? true : false}
+                  isActive={pathname === '/' ? true : false}
                   icon={<Image src={clock} alt="icon" fill sizes="100%" />}
                 >
                   최신항목
