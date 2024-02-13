@@ -140,9 +140,9 @@ export const PostCard = (props: PostCardProps) => {
               </Box>
               <Box className={styles.contentWrapperColmn}>
                 <Box className={styles.mainContentColumn}>
-                  <Stack space="3" direction="horizontal" align="center">
+                  <Stack space="6" direction="horizontal" align="center">
                     {variant === 'card' ? (
-                      <Avatars size="lg" text={props.userName} />
+                      <Avatars size="md" text={props.userName} />
                     ) : (
                       ''
                     )}
@@ -150,10 +150,9 @@ export const PostCard = (props: PostCardProps) => {
                       display="flex"
                       alignItems="center"
                       fontWeight={700}
-                      fontSize="5"
+                      fontSize="3"
                       height="12"
                     >
-                      {/* 추후 before content /를 파일 위치 마다 추가 */}
                       {props.name}
                     </Box>
                   </Stack>

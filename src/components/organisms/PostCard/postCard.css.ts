@@ -76,8 +76,8 @@ export const rootColumn = recipe({
     atoms({
       position: 'relative',
       display: 'flex',
-      paddingTop: '3',
-      paddingBottom: '3',
+      paddingTop: '5',
+      paddingBottom: '5',
       gap: '6',
     }),
   ],

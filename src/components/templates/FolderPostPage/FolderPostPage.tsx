@@ -54,10 +54,9 @@ export const FolderPostPage = () => {
       <Box
         display="flex"
         height="full"
-        // 여기 paiddng fimga랑 달라서 일단 나둠
-        // paddingY="10"
-        paddingY="6"
-        paddingX="2"
+        paddingTop={isActive === 'row' ? '6' : '1'}
+        paddingBottom="6"
+        paddingX={isActive === 'row' ? '2' : '6'}
         justifyContent="center"
       >
         <Box className={styles.cardContainer({ direction: isActive })}>

@@ -46,9 +46,7 @@ export const PostWritePage = () => {
     const match: RegExpExecArray | null = urlRegex.exec(md ?? '');
     const thumbnail = match ? match[1] : '';
 
-    const subTitle = md
-      ? markdownToTxt(md as string).substring(0, 120) + '...'
-      : '';
+    const subTitle = md ? markdownToTxt(md as string).substring(0, 120) : '';
 
     if (titleError) {
       return;
