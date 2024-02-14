@@ -1,4 +1,4 @@
-import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
+import { Dispatch, MouseEvent, PropsWithChildren, SetStateAction } from 'react';
 
 import { Box } from '../../atoms/Box';
 import { InputModalContent, InputModalOverlay } from '../../atoms/Modal';
@@ -13,7 +13,8 @@ export interface InputModalProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
   setInputError: Dispatch<SetStateAction<string>>;
-  handle: () => void;
+  handle: (event: MouseEvent<HTMLButtonElement>) => void;
+  clearInput: boolean;
 }
 
 export const InputModal = ({
@@ -27,6 +28,7 @@ export const InputModal = ({
   setInputError,
   handle,
   children,
+  clearInput,
 }: PropsWithChildren<InputModalProps>) => {
   return (
     <Portal selector="#portal">
@@ -60,6 +62,7 @@ export const InputModal = ({
           title={title}
           leftButtonText={leftButtonText}
           rightButtonText={rightButtonText}
+          clearInput={clearInput}
         >
           {children}
         </InputModalContent>

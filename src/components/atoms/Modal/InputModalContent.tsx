@@ -1,4 +1,4 @@
-import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
+import { Dispatch, MouseEvent, PropsWithChildren, SetStateAction } from 'react';
 
 import { Box } from '../Box';
 import { CloseButton } from '../Button';
@@ -15,7 +15,8 @@ export interface InputModalContentProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
   setInputError: Dispatch<SetStateAction<string>>;
-  handle: () => void;
+  handle: (event: MouseEvent<HTMLButtonElement>) => void;
+  clearInput: boolean;
 }
 
 export const InputModalContent = ({
@@ -29,6 +30,7 @@ export const InputModalContent = ({
   setInputError,
   handle,
   children,
+  clearInput,
 }: PropsWithChildren<InputModalContentProps>) => {
   return (
     <Box width="106" position="fixed" className={styles.root}>
@@ -62,6 +64,7 @@ export const InputModalContent = ({
               type={type}
               leftButtonText={leftButtonText}
               rightButtonText={rightButtonText}
+              clearInput={clearInput}
             />
           </Box>
         </Box>

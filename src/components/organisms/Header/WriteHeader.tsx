@@ -1,6 +1,12 @@
 'use client';
 
-import { ChangeEvent, EventHandler, MouseEvent, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  EventHandler,
+  SetStateAction,
+  useState,
+} from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Avatars } from '../../atoms/Avatars';
@@ -19,7 +25,7 @@ export interface WriteHeaderProps {
   path: string;
   title: string;
   handleInput: EventHandler<ChangeEvent<HTMLInputElement>>;
-  handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  setCreateFolderOpen: Dispatch<SetStateAction<boolean>>;
   error: string;
 }
 
@@ -28,7 +34,7 @@ export const WriteHeader = ({
   path,
   title,
   handleInput,
-  handleClick,
+  setCreateFolderOpen,
   error,
 }: WriteHeaderProps) => {
   const router = useRouter();
@@ -83,7 +89,7 @@ export const WriteHeader = ({
             radius="full"
             color="brand"
             width="fit"
-            onClick={handleClick}
+            onClick={() => setCreateFolderOpen(true)}
           >
             저장
           </Button>

@@ -7,6 +7,7 @@ import { WriteHeader } from '@/src/components/organisms/Header/WriteHeader';
 import { markdownToTxt } from 'markdown-to-txt';
 
 import { Box } from '../../atoms/Box';
+import { CreateInputModal } from '../../organisms/CreateInputModal';
 import { CustomMDEditor } from '../../organisms/CustomMDEditor';
 
 export const PostWritePage = () => {
@@ -30,8 +31,12 @@ export const PostWritePage = () => {
   const userImage = session?.user.image;
   const userDirname = session?.user.dirName;
 
+  const [createFolderOpen, setCreateFolderOpen] = useState(false);
+  const [inputError, setInputError] = useState('');
+
   const [isExist, setIsExist] = useState(false);
   const [title, setTitle] = useState(fileTitle);
+  const [subtitle, setSubtitle] = useState('');
   const [titleError, setTitleError] = useState('');
 
   const [date, setDate] = useState(new Date());
@@ -46,7 +51,12 @@ export const PostWritePage = () => {
     const match: RegExpExecArray | null = urlRegex.exec(md ?? '');
     const thumbnail = match ? match[1] : '';
 
-    const subTitle = md ? markdownToTxt(md as string).substring(0, 120) : '';
+    const subTitle =
+      subtitle === ''
+        ? md
+          ? markdownToTxt(md as string).substring(0, 120)
+          : ''
+        : subtitle;
 
     if (titleError) {
       return;
@@ -135,6 +145,7 @@ export const PostWritePage = () => {
               setPostId(data.data.postId);
               setDate(data.data.date);
               setMd(data.data.content);
+              setSubtitle(data.data.subTitle);
             })
         : router.push('/');
   }, [path, fileTitle, own, router]);
@@ -146,13 +157,29 @@ export const PostWritePage = () => {
           <WriteHeader
             name={userName}
             // TODO: image 추후 변경
+            setCreateFolderOpen={setCreateFolderOpen}
             image={userImage}
             path={filePath}
             title={title}
             handleInput={handleInput}
-            handleClick={handleClick}
             error={titleError}
           />
+          {createFolderOpen && (
+            <CreateInputModal
+              title="부제목 작성"
+              setOpen={setCreateFolderOpen}
+              setInput={setSubtitle}
+              handle={handleClick}
+              inputLabel="create subtitle"
+              placeholder="부제목을 입력해주세요."
+              value={subtitle}
+              maxLength={120}
+              inputError={inputError}
+              setInputError={setInputError}
+              rightButtonText="저장"
+              clearInput={false}
+            />
+          )}
           <CustomMDEditor md={md} setMd={setMd} />
         </Box>
       )}

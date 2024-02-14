@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 
 import { Box } from '../Box';
 import { Button } from '../Button';
@@ -11,7 +11,8 @@ export interface InputModalActionsProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
   setInputError: Dispatch<SetStateAction<string>>;
-  handle: () => void;
+  handle: (event: MouseEvent<HTMLButtonElement>) => void;
+  clearInput: boolean;
 }
 
 export const InputModalActions = ({
@@ -22,6 +23,7 @@ export const InputModalActions = ({
   setInput,
   setInputError,
   handle,
+  clearInput,
 }: InputModalActionsProps) => {
   return (
     <Box width="full">
@@ -33,7 +35,9 @@ export const InputModalActions = ({
         <Box
           flex={type === 'left' || type === 'right' ? 'none' : 'auto'}
           onClick={() => {
-            setOpen(false), setInput(''), setInputError('');
+            setOpen(false);
+            clearInput && setInput('');
+            setInputError('');
           }}
         >
           <Button

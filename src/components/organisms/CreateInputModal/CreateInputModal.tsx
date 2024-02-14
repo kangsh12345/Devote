@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 
 import { Input } from '../../atoms/Input';
 import { InputModal } from '../../moecules/Modal';
@@ -13,13 +13,14 @@ export interface CreateInputModalProps {
   rightButtonText?: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setInput: Dispatch<SetStateAction<string>>;
-  handle: () => void;
+  handle: (event: MouseEvent<HTMLButtonElement>) => void;
   inputLabel: string;
   placeholder: string;
   maxLength?: number;
   value: string;
   inputError: string;
   setInputError: Dispatch<SetStateAction<string>>;
+  clearInput?: boolean;
 }
 
 export const CreateInputModal = ({
@@ -37,6 +38,7 @@ export const CreateInputModal = ({
   value,
   inputError,
   setInputError,
+  clearInput = true,
 }: CreateInputModalProps) => {
   const specialRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
   const doublespaceRegex = /\s\s+/g;
@@ -52,6 +54,7 @@ export const CreateInputModal = ({
       withCloseButton={withCloseButton}
       leftButtonText={leftButtonText}
       rightButtonText={rightButtonText}
+      clearInput={clearInput}
     >
       <Input
         label={inputLabel}

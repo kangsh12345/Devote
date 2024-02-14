@@ -17,6 +17,7 @@ async function findPostFile(path: string) {
     select: {
       id: true,
       name: true,
+      subTitle: true,
     },
   });
 
@@ -28,6 +29,7 @@ async function findPostFile(path: string) {
       content: response.content,
       date: response.date,
       title: response.title,
+      subTitle: postInfo ? postInfo.subTitle : null,
       postId: postInfo ? postInfo.id : null,
       name: postInfo ? postInfo.name : null,
     };
