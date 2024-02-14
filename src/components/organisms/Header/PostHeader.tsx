@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 // import Image from 'next/image';
 // import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { format } from 'date-fns';
@@ -22,6 +23,7 @@ export interface PostHeaderProps {
 }
 
 export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -36,7 +38,21 @@ export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
             <Stack direction="horizontal" space="2" align="center">
               <Avatars size="md" text={name} />
               <Box fontSize="1" fontWeight={400} color="textPrimary">
-                / {path.replaceAll('/', ' / ')} /
+                {path?.split('/').map((item, idx) => (
+                  <Box
+                    onClick={() =>
+                      router.push(
+                        `/posts/${path
+                          .split('/')
+                          .slice(0, idx + 1)
+                          .join('/')}`,
+                      )
+                    }
+                    key={idx}
+                  >
+                    / {item}
+                  </Box>
+                ))}
               </Box>
               <Box
                 fontSize="1"
@@ -44,7 +60,7 @@ export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
                 color="textPrimary"
                 marginLeft="-1"
               >
-                {title}
+                / {title}
               </Box>
             </Stack>
           </Stack>
