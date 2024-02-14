@@ -8,6 +8,7 @@ import { signOut, useSession } from 'next-auth/react';
 import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
 // import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
 import gear from '@phosphor-icons/core/duotone/gear-duotone.svg';
+import signin from '@phosphor-icons/core/duotone/sign-in-duotone.svg';
 import signout from '@phosphor-icons/core/duotone/sign-out-duotone.svg';
 
 // import star from '@phosphor-icons/core/duotone/star-duotone.svg';
@@ -88,25 +89,38 @@ export const Sidebar = ({
                   즐겨찾기
                 </SidebarNav>
               </Link> */}
-              <Link href="/settings">
-                <SidebarNav
-                  type="sub"
-                  isActive={pathname === '/settings' ? true : false}
-                  icon={<Image src={gear} alt="icon" fill sizes="100%" />}
-                >
-                  설정
-                </SidebarNav>
-              </Link>
-              {session && (
-                <Box onClick={() => signOut({ callbackUrl: '/' })}>
+              {session ? (
+                <>
+                  <Link href="/settings">
+                    <SidebarNav
+                      type="sub"
+                      isActive={pathname === '/settings' ? true : false}
+                      icon={<Image src={gear} alt="icon" fill sizes="100%" />}
+                    >
+                      설정
+                    </SidebarNav>
+                  </Link>
+                  <Box onClick={() => signOut({ callbackUrl: '/' })}>
+                    <SidebarNav
+                      type="sub"
+                      isActive={false}
+                      icon={
+                        <Image src={signout} alt="icon" fill sizes="100%" />
+                      }
+                    >
+                      로그아웃
+                    </SidebarNav>
+                  </Box>
+                </>
+              ) : (
+                <Link href="/auth/signin">
                   <SidebarNav
                     type="sub"
-                    isActive={false}
-                    icon={<Image src={signout} alt="icon" fill sizes="100%" />}
+                    icon={<Image src={signin} alt="icon" fill sizes="100%" />}
                   >
-                    로그아웃
+                    로그인
                   </SidebarNav>
-                </Box>
+                </Link>
               )}
             </Stack>
             <CopyRight />

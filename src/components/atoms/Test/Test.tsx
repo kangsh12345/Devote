@@ -170,7 +170,6 @@ export function Test() {
         <Header type="popular" />
         <Header type="folder" />
         <Header type="myFolder" />
-        <Header type="auth" />
 
         <Box className={styles.cardContainer}>
           <PostCard skeleton />

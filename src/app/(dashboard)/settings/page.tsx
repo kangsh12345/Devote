@@ -1,10 +1,11 @@
 import { Box } from '@/src/components/atoms/Box';
-import { Header } from '@/src/components/organisms/Header';
+import { SubHeader } from '@/src/components/organisms/Header';
 
 export default function SettingsPage() {
   return (
     <Box>
-      <Header />
+      <SubHeader />
+      {/* 설정 text도 추가해주기 */}
       settings
     </Box>
   );
