@@ -11,7 +11,11 @@ import { Drawer } from '../../moecules/Drawer';
 import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './subHeader.css';
 
-export const SubHeader = () => {
+export interface SubHeaderProps {
+  text?: string;
+}
+
+export const SubHeader = ({ text = '' }: SubHeaderProps) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,8 +26,16 @@ export const SubHeader = () => {
         <Box className={styles.breakpoint({ type: 'side' })}>
           <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
-        <Box onClick={() => router.back()}>
-          <IconButton size="lg" icon={<ArrowLeft size={24} weight="bold" />} />
+        <Box display="flex" gap="3" alignItems="center">
+          <Box onClick={() => router.back()}>
+            <IconButton
+              size="lg"
+              icon={<ArrowLeft size={24} weight="bold" />}
+            />
+          </Box>
+          <Box fontSize="3" fontWeight={700}>
+            {text}
+          </Box>
         </Box>
       </Box>
       <Box marginTop="-2" className={styles.switcher()}>

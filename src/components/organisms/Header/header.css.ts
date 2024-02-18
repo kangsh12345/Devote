@@ -37,10 +37,6 @@ export const root = recipe({
         paddingLeft: { wide: '4', tablet: '19.5' },
         paddingRight: { wide: '12', tablet: '19.5' },
       }),
-      auth: atoms({
-        paddingLeft: { wide: '4', tablet: '19.5' },
-        paddingRight: { wide: '12', tablet: '19.5' },
-      }),
     },
   },
 });
