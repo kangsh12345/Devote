@@ -1,24 +1,41 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import fileUpload from '@/src/utils/fileUpload';
 
 import { Box } from '../../atoms/Box';
 import { Button } from '../../atoms/Button';
 import { Divide } from '../../atoms/Divide';
+import { Hover } from '../../atoms/Hover';
 import { Input } from '../../atoms/Input';
 
 export const SettingsChangePage = () => {
-  const [name, setName] = useState('');
+  const { data: session } = useSession();
+
+  const [profile, setProfile] = useState(session?.user.image);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [name, setName] = useState(session?.user.name);
   const [nameError, setNameError] = useState('');
+
+  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file && file.type.startsWith('image/')) {
+      const url = await fileUpload(file);
+
+      // fileUpload 성공시 api 연결하여 prisma User에 profile 변경, session도 미리 바뀌게 변경?
+      setProfile(url);
+    }
+  };
+
+  const handleTrayClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
     <Box display="flex" paddingX="28" paddingY="20" flex="auto">
-      {/* 
-    박스 안에 만들 것들
-    1. 프로필 이미지 변경
-    2. 이름 변경
-    3. 회원 탈퇴
-    */}
       <Box
         display="flex"
         justifyContent="center"
@@ -50,10 +67,30 @@ export const SettingsChangePage = () => {
               borderRadius="full"
               position="relative"
               backgroundColor="gray100"
-              // onClick={handleOpen}
+              onClick={handleTrayClick}
             >
-              {/* <Image src={image} alt="avatar" fill sizes="100%" /> */}
+              <Image src={profile} alt="avatar" fill sizes="100%" />
+              <Hover radius="full">
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  height="full"
+                  color="textWhite"
+                  fontSize="1"
+                >
+                  프로필 변경하기
+                </Box>
+              </Hover>
             </Box>
+            <Box
+              as="input"
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              display="none"
+              onChange={handleFileUpload}
+            />
             <Box
               display="flex"
               flexDirection="column"
