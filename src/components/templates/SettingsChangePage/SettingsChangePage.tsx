@@ -27,7 +27,7 @@ export const SettingsChangePage = () => {
         backgroundColor="backgroundBase"
         paddingX="10"
         paddingTop="10"
-        paddingBottom="25"
+        paddingBottom="30"
       >
         <Box
           display="flex"
@@ -87,10 +87,18 @@ export const SettingsChangePage = () => {
               </Box>
             </Box>
           </Box>
-          <Divide />
-          <Button size="md" radius="md" color="red">
-            회원탈퇴
-          </Button>
+          <Box
+            display="flex"
+            width="full"
+            flexDirection="column"
+            alignItems="center"
+            gap="4"
+          >
+            <Divide />
+            <Button size="md" radius="md" color="red">
+              회원탈퇴
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>
