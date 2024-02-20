@@ -2,6 +2,7 @@
 
 import { ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import fileUpload from '@/src/utils/fileUpload';
 
@@ -12,7 +13,8 @@ import { Hover } from '../../atoms/Hover';
 import { Input } from '../../atoms/Input';
 
 export const SettingsChangePage = () => {
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: session, status, update } = useSession();
 
   const [profile, setProfile] = useState(session?.user.image);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -25,8 +27,21 @@ export const SettingsChangePage = () => {
     if (file && file.type.startsWith('image/')) {
       const url = await fileUpload(file);
 
-      // fileUpload 성공시 api 연결하여 prisma User에 profile 변경, session도 미리 바뀌게 변경?
-      setProfile(url);
+      if (url && status === 'authenticated') {
+        // update가 안바뀌는 문제
+        update({ user: { image: url } });
+        setProfile(url);
+        const res = await fetch(`/api/post/updateProfile`, {
+          method: 'POST',
+          body: JSON.stringify({
+            url: url,
+          }),
+        }).then(res => res.json());
+
+        console.log(res);
+
+        router.refresh();
+      }
     }
   };
 
@@ -35,7 +50,13 @@ export const SettingsChangePage = () => {
   };
 
   return (
-    <Box display="flex" paddingX="28" paddingY="20" flex="auto">
+    <Box
+      display="flex"
+      paddingX="28"
+      paddingY="20"
+      flex="auto"
+      onClick={() => console.log(session)}
+    >
       <Box
         display="flex"
         justifyContent="center"
