@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -28,7 +28,6 @@ export const SettingsChangePage = () => {
       const url = await fileUpload(file);
 
       if (url && status === 'authenticated') {
-        // update가 안바뀌는 문제
         update({ user: { image: url } });
         setProfile(url);
         const res = await fetch(`/api/post/updateProfile`, {
@@ -48,6 +47,13 @@ export const SettingsChangePage = () => {
   const handleTrayClick = () => {
     fileInputRef.current?.click();
   };
+
+  useEffect(() => {
+    if (session) {
+      setProfile(session.user.image);
+      setName(session.user.name);
+    }
+  }, [session]);
 
   return (
     <Box

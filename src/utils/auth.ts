@@ -128,8 +128,11 @@ export const authOptions: NextAuthOptions = {
         token.image = user.image;
       }
 
-      if (trigger === 'update' && session) {
+      if (trigger === 'update' && session.user.dirName) {
         token.dirName = session.user.dirName;
+      }
+      if (trigger === 'update' && session.user.image) {
+        token.image = session.user.image;
       }
 
       return token;
