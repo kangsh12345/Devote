@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log(response);
 
     return NextResponse.json(
-      { message: '프로필이 변경되었습니다.' },
+      { message: '프로필이 변경되었습니다.', success: true },
       { status: 200 },
     );
   } catch (error) {

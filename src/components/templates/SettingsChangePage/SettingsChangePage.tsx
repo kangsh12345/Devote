@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -30,7 +30,7 @@ export const SettingsChangePage = () => {
       if (url && status === 'authenticated') {
         update({ user: { image: url } });
         setProfile(url);
-        const res = await fetch(`/api/post/updateProfile`, {
+        const res = await fetch(`/api/auth/updateProfile`, {
           method: 'POST',
           body: JSON.stringify({
             url: url,
@@ -46,6 +46,33 @@ export const SettingsChangePage = () => {
 
   const handleTrayClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleNameChange = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (name === session?.user.name) return;
+    if (name === '') {
+      setNameError('닉네임을 입력해주세요.');
+      return;
+    }
+
+    if (nameError) return;
+
+    const res = await fetch(`/api/auth/updateName`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+      }),
+    }).then(res => res.json());
+
+    console.log(res);
+
+    if (res.success) {
+      update({ user: { name: name } });
+    }
+
+    router.refresh();
   };
 
   useEffect(() => {
@@ -133,7 +160,7 @@ export const SettingsChangePage = () => {
                   error={nameError}
                   label="name"
                   hideLabel
-                  placeholder="이름을 입력해주세요."
+                  placeholder="닉네임을 입력해주세요."
                   maxLength={24}
                   variant="outline"
                   size="md"
@@ -145,7 +172,13 @@ export const SettingsChangePage = () => {
                     }
                   }}
                 />
-                <Button size="lg" radius="md" color="brand" width="fit">
+                <Button
+                  size="lg"
+                  radius="md"
+                  color="brand"
+                  width="fit"
+                  onClick={handleNameChange}
+                >
                   변경
                 </Button>
               </Box>

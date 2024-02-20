@@ -134,6 +134,9 @@ export const authOptions: NextAuthOptions = {
       if (trigger === 'update' && session.user.image) {
         token.image = session.user.image;
       }
+      if (trigger === 'update' && session.user.name) {
+        token.name = session.user.name;
+      }
 
       return token;
     },
