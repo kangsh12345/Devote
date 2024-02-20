@@ -3,7 +3,7 @@
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import fileUpload from '@/src/utils/fileUpload';
 
 import { Box } from '../../atoms/Box';
@@ -11,6 +11,7 @@ import { Button } from '../../atoms/Button';
 import { Divide } from '../../atoms/Divide';
 import { Hover } from '../../atoms/Hover';
 import { Input } from '../../atoms/Input';
+import { Modal } from '../../moecules/Modal';
 
 export const SettingsChangePage = () => {
   const router = useRouter();
@@ -20,6 +21,9 @@ export const SettingsChangePage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState(session?.user.name);
   const [nameError, setNameError] = useState('');
+
+  const [openName, setNameOpen] = useState(false);
+  const [openAuth, setAuthOpen] = useState(false);
 
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -48,9 +52,21 @@ export const SettingsChangePage = () => {
     fileInputRef.current?.click();
   };
 
-  const handleNameChange = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handleNameModalOpen = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    if (name === session?.user.name) return;
+    if (name === '') {
+      setNameError('닉네임을 입력해주세요.');
+      return;
+    }
+
+    if (nameError) return;
+
+    setNameOpen(true);
+  };
+
+  const handleNameChange = async () => {
     if (name === session?.user.name) return;
     if (name === '') {
       setNameError('닉네임을 입력해주세요.');
@@ -73,6 +89,16 @@ export const SettingsChangePage = () => {
     }
 
     router.refresh();
+  };
+
+  const handleWithdraw = async () => {
+    const res = await fetch(`/api/auth/withdraw`).then(res => res.json());
+
+    console.log(res);
+
+    if (res.ok) {
+      signOut({ callbackUrl: '/' });
+    }
   };
 
   useEffect(() => {
@@ -177,10 +203,27 @@ export const SettingsChangePage = () => {
                   radius="md"
                   color="brand"
                   width="fit"
-                  onClick={handleNameChange}
+                  onClick={handleNameModalOpen}
                 >
                   변경
                 </Button>
+                {openName && (
+                  <Modal
+                    type="right"
+                    title="닉네임 변경"
+                    setOpen={setNameOpen}
+                    handle={handleNameChange}
+                    leftButtonText="취소"
+                    rightButtonText="확인"
+                    withCloseButton={false}
+                  >
+                    "
+                    <Box as="span" fontWeight={700}>
+                      {name}
+                    </Box>
+                    " 으로 닉네임을 변경하시겠습니까?
+                  </Modal>
+                )}
               </Box>
             </Box>
           </Box>
@@ -192,9 +235,29 @@ export const SettingsChangePage = () => {
             gap="4"
           >
             <Divide />
-            <Button size="md" radius="md" color="red">
+            <Button
+              size="md"
+              radius="md"
+              color="red"
+              onClick={() => setAuthOpen(true)}
+            >
               회원탈퇴
             </Button>
+            {openAuth && (
+              <Modal
+                type="right"
+                title="회원 탈퇴"
+                setOpen={setAuthOpen}
+                handle={handleWithdraw}
+                leftButtonText="취소"
+                rightButtonText="확인"
+                withCloseButton={false}
+              >
+                <Box as="span" fontWeight={500} color="redPrimary">
+                  탈퇴 시 회원에 대한 정보들은 다시 복구 할 수 없습니다.
+                </Box>
+              </Modal>
+            )}
           </Box>
         </Box>
       </Box>
