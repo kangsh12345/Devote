@@ -138,7 +138,8 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               data.message === 'success' &&
               status === 'authenticated'
             ) {
-              update({ user: { dirName: rootDirectory } });
+              const updateValue = rootDirectory.trim();
+              update({ user: { dirName: updateValue } });
               setCreateRootFolderOpen(false);
               setRootDirectory('');
               router.refresh();
