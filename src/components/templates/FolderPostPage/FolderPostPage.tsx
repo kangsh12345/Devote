@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { DirectoryTreeProps } from '@/src/utils/fs';
+import { DotsThreeOutline } from '@phosphor-icons/react';
 
 import { Box } from '../../atoms/Box';
 import { Header } from '../../organisms/Header';
@@ -14,6 +15,7 @@ export const FolderPostPage = () => {
   const { data: session } = useSession();
   const [tree, setTree] = useState<DirectoryTreeProps[]>();
   const [userName, setUserName] = useState<string>('');
+  const [hover, setHover] = useState<number>(-1);
   // TODO: isActive는 페이지가 바뀌어도 그대로여야하기때문에 밖으로 빼줘야함
   const [isActive, setIsActive] = useState<'row' | 'column'>('row');
 
@@ -81,7 +83,24 @@ export const FolderPostPage = () => {
           )}
           {tree &&
             tree.map((item, idx) => (
-              <Box key={idx}>
+              <Box
+                key={idx}
+                position="relative"
+                onMouseMove={() => setHover(idx)}
+                onMouseLeave={() => setHover(-1)}
+              >
+                {/* 여기에 focus시 three dots icon 삽입 */}
+                {isActive === 'row' && hover === idx && (
+                  <Box
+                    display={hover === idx ? 'flex' : 'none'}
+                    position="absolute"
+                    right="5"
+                    top="-1.5"
+                    zIndex="10"
+                  >
+                    <DotsThreeOutline size="24" weight="fill" />
+                  </Box>
+                )}
                 {item.type === 'folder' ? (
                   <PostCard
                     variant="folder"

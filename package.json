@@ -49,12 +49,14 @@
     "remark-gfm": "^4.0.0",
     "remark-html": "^16.0.1",
     "typescript": "5.1.6",
+    "uuid": "^9.0.1",
     "validator": "^13.11.0"
   },
   "devDependencies": {
     "@mdx-js/loader": "^2.3.0",
     "@tanstack/react-query-devtools": "^4.35.3",
     "@types/bcrypt": "^5.0.0",
+    "@types/uuid": "^9.0.8",
     "@types/validator": "^13.11.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",

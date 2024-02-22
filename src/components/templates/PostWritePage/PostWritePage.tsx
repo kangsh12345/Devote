@@ -18,7 +18,7 @@ export const PostWritePage = () => {
   const path = query.get('path') ?? '';
 
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
-  const urlRegex = /!\[\]\((.*?)\)/;
+  const urlRegex = /!\[.*?\]\((.*?)\)/;
 
   const specialRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
   const doublespaceRegex = /\s\s+/g;
@@ -50,6 +50,8 @@ export const PostWritePage = () => {
 
     const match: RegExpExecArray | null = urlRegex.exec(md ?? '');
     const thumbnail = match ? match[1] : '';
+
+    console.log(thumbnail);
 
     const subTitle =
       subtitle === ''

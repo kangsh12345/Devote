@@ -19,7 +19,7 @@ const onImagePasted = async (
   await Promise.all(
     files.map(async file => {
       const url = await fileUpload(file);
-      const insertedMarkdown = insertToTextArea(`![](${url})`);
+      const insertedMarkdown = insertToTextArea(`![${file.name}](${url})`);
       if (!insertedMarkdown) {
         return;
       }
