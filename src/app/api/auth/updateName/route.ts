@@ -31,6 +31,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
     });
 
+    await prisma.post.updateMany({
+      where: { userId: session?.user.id },
+      data: {
+        name: name,
+      },
+    });
+
     console.log(response);
 
     return NextResponse.json(
