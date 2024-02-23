@@ -4,11 +4,11 @@ import path from 'path';
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
-async function removePost(path: string) {
-  const fullPath = `${rootDirectory}/${path}.md`;
+async function removePost(path: string, type: string) {
+  const fullPath = `${rootDirectory}/${path}`;
 
   try {
-    const response = removeFile(fullPath);
+    const response = removeFile(fullPath, type);
 
     return response;
   } catch (error) {
@@ -17,10 +17,10 @@ async function removePost(path: string) {
 }
 
 export async function POST(req: NextRequest) {
-  const { path } = await req.json();
+  const { path, type } = await req.json();
 
   try {
-    const response = await removePost(path);
+    const response = await removePost(path, type);
 
     if (response) {
       return NextResponse.json({ success: true }, { status: 200 });

@@ -239,20 +239,32 @@ export async function createPost({
   }
 }
 
-export async function removeFile(fullPath: string) {
+export async function removeFile(fullPath: string, type: string) {
   const isExists = fs.existsSync(fullPath);
 
   if (!isExists) {
     return false;
   }
 
-  fs.unlink(fullPath, error => {
-    if (error) {
-      console.error('파일 삭제 중 오류 발생:', error);
-      return;
-    }
-    console.log(`${fullPath} 파일이 삭제되었습니다.`);
-  });
+  if (type === 'file') {
+    fs.unlink(fullPath, error => {
+      if (error) {
+        console.error('파일 삭제 중 오류 발생:', error);
+        return;
+      }
+      console.log(`${fullPath} 파일이 삭제되었습니다.`);
+    });
+  }
+
+  if (type === 'folder') {
+    fs.rm(fullPath, { recursive: true, force: true }, error => {
+      if (error) {
+        console.error('폴더 삭제 중 오류 발생:', error);
+        return;
+      }
+      console.log(`${fullPath} 파일이 삭제되었습니다.`);
+    });
+  }
 
   return true;
 }

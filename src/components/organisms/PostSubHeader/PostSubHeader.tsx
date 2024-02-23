@@ -24,7 +24,8 @@ export const PostSubHeader = ({ path }: PostSubHeaderProps) => {
         const res = await fetch(`/api/post/remove`, {
           method: 'POST',
           body: JSON.stringify({
-            path: path,
+            path: `${path}.md`,
+            type: 'file',
           }),
           headers: {
             'Content-Type': 'application/json',

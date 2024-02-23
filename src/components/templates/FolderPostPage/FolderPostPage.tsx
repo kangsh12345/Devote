@@ -1,12 +1,13 @@
 'use client';
-
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { DirectoryTreeProps } from '@/src/utils/fs';
 import { DotsThreeOutline } from '@phosphor-icons/react';
 
 import { Box } from '../../atoms/Box';
+import { Modal } from '../../moecules/Modal';
+import { CreateInputModal } from '../../organisms/CreateInputModal';
 import { Header } from '../../organisms/Header';
 import { PostCard } from '../../organisms/PostCard';
 import * as styles from './folderPostPage.css';
@@ -18,11 +19,21 @@ export const FolderPostPage = () => {
   const [hover, setHover] = useState<number>(-1);
   // TODO: isActive는 페이지가 바뀌어도 그대로여야하기때문에 밖으로 빼줘야함
   const [isActive, setIsActive] = useState<'row' | 'column'>('row');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [modfiyOpen, setModifyOpen] = useState<boolean>(false);
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+  const [folderName, setFolderName] = useState<string>('');
+  const [inputError, setInputError] = useState<string>('');
 
   const pathName = usePathname();
   const path = decodeURIComponent(decodeURIComponent(pathName));
   const pathArray = path.split('/');
   const pathBack = pathArray.slice(2, -1).join('/');
+
+  const param = useParams();
+  const id = decodeURIComponent(decodeURIComponent(param.id));
+
+  const own = param.id && id === session?.user.dirName ? true : false;
 
   useEffect(() => {
     if (path.startsWith('/posts/')) {
@@ -48,6 +59,31 @@ export const FolderPostPage = () => {
       fetchData();
     }
   }, [path]);
+
+  const handleDeleteFolder = async (name: string) => {
+    if (own) {
+      try {
+        const res = await fetch(`/api/post/remove`, {
+          method: 'POST',
+          body: JSON.stringify({
+            path: `${path.replace('/posts/', '')}/${name}`,
+            type: 'folder',
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(res => res.json());
+
+        if (!res.success) {
+          // toast error 메세지
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const handleModifyFolder = () => {};
 
   return (
     <Box
@@ -86,20 +122,79 @@ export const FolderPostPage = () => {
               <Box
                 key={idx}
                 position="relative"
-                onMouseMove={() => setHover(idx)}
-                onMouseLeave={() => setHover(-1)}
+                onMouseEnter={() => {
+                  !isOpen && setHover(idx);
+                }}
+                onMouseLeave={() => {
+                  !isOpen && setHover(-1);
+                }}
               >
-                {/* 여기에 focus시 three dots icon 삽입 */}
-                {isActive === 'row' && hover === idx && (
-                  <Box
-                    display={hover === idx ? 'flex' : 'none'}
-                    position="absolute"
-                    right="5"
-                    top="-1.5"
-                    zIndex="10"
-                  >
-                    <DotsThreeOutline size="24" weight="fill" />
-                  </Box>
+                {own && isActive === 'row' && hover === idx && (
+                  <>
+                    {isOpen && (
+                      <Box className={styles.ulContainer}>
+                        <Box className={styles.ulBox({ size: 'sm' })}>
+                          <Box as="ul">
+                            <Box
+                              className={styles.liValue({})}
+                              as="li"
+                              fontSize="inherit"
+                              onClick={() => setModifyOpen(true)}
+                            >
+                              <Box>수정</Box>
+                            </Box>
+                            {modfiyOpen && (
+                              <CreateInputModal
+                                title="폴더명 변경"
+                                setOpen={setModifyOpen}
+                                setInput={setFolderName}
+                                handle={() => handleModifyFolder}
+                                inputLabel="modify folder"
+                                placeholder="폴더명"
+                                value={folderName}
+                                inputError={inputError}
+                                setInputError={setInputError}
+                              />
+                            )}
+                            <Box
+                              className={styles.liValue({})}
+                              as="li"
+                              fontSize="inherit"
+                              onClick={() => setDeleteOpen(true)}
+                            >
+                              <Box>삭제</Box>
+                            </Box>
+                            {deleteOpen && (
+                              <Modal
+                                type="right"
+                                title="폴더 삭제"
+                                setOpen={setDeleteOpen}
+                                handle={() => handleDeleteFolder(item.name)}
+                                leftButtonText="취소"
+                                rightButtonText="삭제"
+                                withCloseButton={false}
+                              >
+                                <Box as="span" textDecoration="underline">
+                                  {item.name}
+                                </Box>
+                                을 삭제하시겠습니까?
+                              </Modal>
+                            )}
+                          </Box>
+                        </Box>
+                      </Box>
+                    )}
+                    <Box
+                      display={hover === idx ? 'flex' : 'none'}
+                      position="absolute"
+                      right="5"
+                      top="-1.5"
+                      zIndex="10"
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      <DotsThreeOutline size="24" weight="fill" />
+                    </Box>
+                  </>
                 )}
                 {item.type === 'folder' ? (
                   <PostCard
