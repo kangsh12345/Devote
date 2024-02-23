@@ -103,13 +103,14 @@ export const FolderPostPage = () => {
       return;
     }
 
+    const reqPath =
+      `${path.replace('/posts/', '')}/${folderName}` +
+      (type === 'file' ? '.md' : '');
     if (own && folderName !== name) {
-      const reqPath = `${path.replace('/posts/', '')}/${folderName}`;
-
       fetch(`/api/post/existCheck`, {
         method: 'POST',
         body: JSON.stringify({
-          path: type === 'file' ? reqPath + '.md' : reqPath,
+          path: reqPath,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -122,6 +123,34 @@ export const FolderPostPage = () => {
             return;
           }
         });
+    }
+
+    const currentPath = path.replace('/posts/', '') + '/' + name;
+
+    if (own && !inputError && folderName) {
+      try {
+        fetch('/api/post/rename', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            path: currentPath,
+            newPath: reqPath,
+          }),
+        }).then(res => {
+          // if (res.ok) {
+          //   return res.json();
+          // } else {
+          //   throw new Error(`Fetch Error`);
+          // }
+          res.json();
+        });
+        // .then(data => {
+        // TODO: 추후 toast로 추가
+        // alert(data.message);
+        // });
+      } catch (error) {
+        alert(`request error: ${error}`);
+      }
     }
   };
 

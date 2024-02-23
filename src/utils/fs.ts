@@ -269,6 +269,24 @@ export async function removeFile(fullPath: string, type: string) {
   return true;
 }
 
+export async function renameFile(fullPath: string, fullNewPath: string) {
+  const isExists = fs.existsSync(fullNewPath);
+
+  if (isExists) {
+    return false;
+  }
+
+  fs.rename(fullPath, fullNewPath, error => {
+    if (error) {
+      console.error('이름 변경 중 오류 발생:', error);
+      return;
+    }
+    console.log(`${fullPath} => ${fullNewPath} 이름으로 변경되었습니다`);
+  });
+
+  return true;
+}
+
 export async function existPost(fullPath: string) {
   const isExists = fs.existsSync(fullPath);
 
