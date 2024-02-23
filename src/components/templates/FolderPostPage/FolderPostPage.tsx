@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { DirectoryTreeProps } from '@/src/utils/fs';
 import { DotsThreeOutline } from '@phosphor-icons/react';
@@ -26,6 +26,7 @@ export const FolderPostPage = () => {
   const [inputError, setInputError] = useState<string>('');
 
   const pathName = usePathname();
+  const router = useRouter();
   const path = decodeURIComponent(decodeURIComponent(pathName));
   const pathArray = path.split('/');
   const pathBack = pathArray.slice(2, -1).join('/');
@@ -34,6 +35,8 @@ export const FolderPostPage = () => {
   const id = decodeURIComponent(decodeURIComponent(param.id));
 
   const own = param.id && id === session?.user.dirName ? true : false;
+
+  const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
 
   useEffect(() => {
     if (path.startsWith('/posts/')) {
@@ -60,19 +63,22 @@ export const FolderPostPage = () => {
     }
   }, [path]);
 
-  const handleDeleteFolder = async (name: string) => {
+  const handleDeleteFolder = async (name: string, type: string) => {
     if (own) {
       try {
         const res = await fetch(`/api/post/remove`, {
           method: 'POST',
           body: JSON.stringify({
             path: `${path.replace('/posts/', '')}/${name}`,
-            type: 'folder',
+            type,
           }),
           headers: {
             'Content-Type': 'application/json',
           },
         }).then(res => res.json());
+
+        router.refresh();
+        // TODO: tree 변경
 
         if (!res.success) {
           // toast error 메세지
@@ -83,7 +89,41 @@ export const FolderPostPage = () => {
     }
   };
 
-  const handleModifyFolder = () => {};
+  const handleModifyFolder = (name: string, type: string) => {
+    if (inputError) {
+      return;
+    }
+    if (!folderName) {
+      setInputError('이름을 입력해주세요');
+      return;
+    }
+
+    if (regex.test(folderName) || folderName.length > 24) {
+      setInputError('올바른 이름을 입력해주세요.');
+      return;
+    }
+
+    if (own && folderName !== name) {
+      const reqPath = `${path.replace('/posts/', '')}/${folderName}`;
+
+      fetch(`/api/post/existCheck`, {
+        method: 'POST',
+        body: JSON.stringify({
+          path: type === 'file' ? reqPath + '.md' : reqPath,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.exist) {
+            setInputError('동일 경로 같은 파일 존재');
+            return;
+          }
+        });
+    }
+  };
 
   return (
     <Box
@@ -139,7 +179,14 @@ export const FolderPostPage = () => {
                               className={styles.liValue({})}
                               as="li"
                               fontSize="inherit"
-                              onClick={() => setModifyOpen(true)}
+                              onClick={() => {
+                                setModifyOpen(true);
+                                setFolderName(
+                                  item.type === 'file'
+                                    ? item.name.replace('.md', '')
+                                    : item.name,
+                                );
+                              }}
                             >
                               <Box>수정</Box>
                             </Box>
@@ -148,7 +195,9 @@ export const FolderPostPage = () => {
                                 title="폴더명 변경"
                                 setOpen={setModifyOpen}
                                 setInput={setFolderName}
-                                handle={() => handleModifyFolder}
+                                handle={() =>
+                                  handleModifyFolder(item.name, item.type)
+                                }
                                 inputLabel="modify folder"
                                 placeholder="폴더명"
                                 value={folderName}
@@ -169,7 +218,9 @@ export const FolderPostPage = () => {
                                 type="right"
                                 title="폴더 삭제"
                                 setOpen={setDeleteOpen}
-                                handle={() => handleDeleteFolder(item.name)}
+                                handle={() =>
+                                  handleDeleteFolder(item.name, item.type)
+                                }
                                 leftButtonText="취소"
                                 rightButtonText="삭제"
                                 withCloseButton={false}

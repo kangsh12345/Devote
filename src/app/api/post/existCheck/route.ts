@@ -21,6 +21,8 @@ async function existCheckPost(path: string) {
 export async function POST(req: NextRequest) {
   const { path } = await req.json();
 
+  console.log(`existCHeckPost: ${path}`);
+
   try {
     const response = await existCheckPost(path);
 

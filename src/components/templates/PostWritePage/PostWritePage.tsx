@@ -51,8 +51,6 @@ export const PostWritePage = () => {
     const match: RegExpExecArray | null = urlRegex.exec(md ?? '');
     const thumbnail = match ? match[1] : '';
 
-    console.log(thumbnail);
-
     const subTitle =
       subtitle === ''
         ? md
@@ -78,7 +76,7 @@ export const PostWritePage = () => {
     if (session && title !== fileTitle) {
       fetch(`/api/post/existCheck`, {
         method: 'POST',
-        body: JSON.stringify({ path }),
+        body: JSON.stringify({ path: filePath + title + '.md' }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -87,6 +85,7 @@ export const PostWritePage = () => {
         .then(data => {
           if (data.exist) {
             setTitleError('동일 경로 같은 파일 존재');
+            setCreateFolderOpen(false);
             return;
           }
         });
