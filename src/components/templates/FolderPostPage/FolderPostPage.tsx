@@ -1,15 +1,15 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { DirectoryTreeProps } from '@/src/utils/fs';
-import { DotsThreeOutline } from '@phosphor-icons/react';
 
+// import { DotsThreeOutline } from '@phosphor-icons/react';
 import { Box } from '../../atoms/Box';
-import { Modal } from '../../moecules/Modal';
-import { CreateInputModal } from '../../organisms/CreateInputModal';
+// import { Modal } from '../../moecules/Modal';
+// import { CreateInputModal } from '../../organisms/CreateInputModal';
 import { Header } from '../../organisms/Header';
-import { PostCard } from '../../organisms/PostCard';
+import { PostCard, PostCardBack } from '../../organisms/PostCard';
 import * as styles from './folderPostPage.css';
 
 export const FolderPostPage = () => {
@@ -20,13 +20,12 @@ export const FolderPostPage = () => {
   // TODO: isActive는 페이지가 바뀌어도 그대로여야하기때문에 밖으로 빼줘야함
   const [isActive, setIsActive] = useState<'row' | 'column'>('row');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [modfiyOpen, setModifyOpen] = useState<boolean>(false);
-  const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
-  const [folderName, setFolderName] = useState<string>('');
-  const [inputError, setInputError] = useState<string>('');
+  // const [modfiyOpen, setModifyOpen] = useState<boolean>(false);
+  // const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+  // const [folderName, setFolderName] = useState<string>('');
+  // const [inputError, setInputError] = useState<string>('');
 
   const pathName = usePathname();
-  const router = useRouter();
   const path = decodeURIComponent(decodeURIComponent(pathName));
   const pathArray = path.split('/');
   const pathBack = pathArray.slice(2, -1).join('/');
@@ -35,8 +34,6 @@ export const FolderPostPage = () => {
   const id = decodeURIComponent(decodeURIComponent(param.id));
 
   const own = param.id && id === session?.user.dirName ? true : false;
-
-  const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
 
   useEffect(() => {
     if (path.startsWith('/posts/')) {
@@ -63,97 +60,6 @@ export const FolderPostPage = () => {
     }
   }, [path]);
 
-  const handleDeleteFolder = async (name: string, type: string) => {
-    if (own) {
-      try {
-        const res = await fetch(`/api/post/remove`, {
-          method: 'POST',
-          body: JSON.stringify({
-            path: `${path.replace('/posts/', '')}/${name}`,
-            type,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }).then(res => res.json());
-
-        router.refresh();
-        // TODO: tree 변경
-
-        if (!res.success) {
-          // toast error 메세지
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  const handleModifyFolder = (name: string, type: string) => {
-    if (inputError) {
-      return;
-    }
-    if (!folderName) {
-      setInputError('이름을 입력해주세요');
-      return;
-    }
-
-    if (regex.test(folderName) || folderName.length > 24) {
-      setInputError('올바른 이름을 입력해주세요.');
-      return;
-    }
-
-    const reqPath =
-      `${path.replace('/posts/', '')}/${folderName}` +
-      (type === 'file' ? '.md' : '');
-    if (own && folderName !== name) {
-      fetch(`/api/post/existCheck`, {
-        method: 'POST',
-        body: JSON.stringify({
-          path: reqPath,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.exist) {
-            setInputError('동일 경로 같은 파일 존재');
-            return;
-          }
-        });
-    }
-
-    const currentPath = path.replace('/posts/', '') + '/' + name;
-
-    if (own && !inputError && folderName) {
-      try {
-        fetch('/api/post/rename', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            path: currentPath,
-            newPath: reqPath,
-          }),
-        }).then(res => {
-          // if (res.ok) {
-          //   return res.json();
-          // } else {
-          //   throw new Error(`Fetch Error`);
-          // }
-          res.json();
-        });
-        // .then(data => {
-        // TODO: 추후 toast로 추가
-        // alert(data.message);
-        // });
-      } catch (error) {
-        alert(`request error: ${error}`);
-      }
-    }
-  };
-
   return (
     <Box
       height="full"
@@ -178,7 +84,7 @@ export const FolderPostPage = () => {
         <Box className={styles.cardContainer({ direction: isActive })}>
           {pathArray.length > 3 && (
             <Box width={tree?.length === 0 ? '96' : 'full'}>
-              <PostCard
+              <PostCardBack
                 variant="folder"
                 path={pathBack}
                 name="../"
@@ -198,7 +104,7 @@ export const FolderPostPage = () => {
                   !isOpen && setHover(-1);
                 }}
               >
-                {own && isActive === 'row' && hover === idx && (
+                {/* {own && isActive === 'row' && hover === idx && (
                   <>
                     {isOpen && (
                       <Box className={styles.ulContainer}>
@@ -275,13 +181,18 @@ export const FolderPostPage = () => {
                       <DotsThreeOutline size="24" weight="fill" />
                     </Box>
                   </>
-                )}
+                )} */}
                 {item.type === 'folder' ? (
                   <PostCard
                     variant="folder"
                     path={item.path}
                     name={item.name}
                     direction={isActive}
+                    own={own}
+                    hover={hover}
+                    idx={idx}
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
                   />
                 ) : (
                   <PostCard
@@ -297,19 +208,24 @@ export const FolderPostPage = () => {
                     subTitle={item.subTitle}
                     date={item.date}
                     direction={isActive}
+                    own={own}
+                    hover={hover}
+                    idx={idx}
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
                   />
                 )}
               </Box>
             ))}
           {/* 추후 로딩시 스켈레톤 추가 */}
           {/* TODO: 추후 패치 loading을 이용해서 skeleton 삽입 */}
-          {/* <PostCard skeleton />
-          <PostCard skeleton />
-          <PostCard skeleton />
-          <PostCard skeleton />
-          <PostCard skeleton />
-          <PostCard skeleton /> */}
-          {/* <PostCard skeleton /> */}
+          {/* <PostCardSkeleton />
+          <PostCardSkeleton />
+          <PostCardSkeleton />
+          <PostCardSkeleton />
+          <PostCardSkeleton />
+          <PostCardSkeleton /> */}
+          {/* <PostCardSkeleton /> */}
         </Box>
       </Box>
     </Box>
