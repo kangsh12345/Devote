@@ -16,24 +16,21 @@ import { Modal } from '../../moecules/Modal';
 import { CreateInputModal } from '../../organisms/CreateInputModal';
 import * as styles from './postCard.css';
 
-export type PostCardProps =
-  | {
-      direction?: 'column' | 'row';
-      variant: 'card' | 'folder' | 'cardInFolder';
-      path: string;
-      name: string;
-      thumbnail?: string;
-      userName?: string;
-      subTitle?: string;
-      date?: string;
-      own: boolean;
-      hover: number;
-      idx: number;
-      isOpen: boolean;
-      setIsOpen: Dispatch<SetStateAction<boolean>>;
-    }
-  | { skeleton: true };
-// 추후 skeleton driection 도 추가
+export type PostCardProps = {
+  direction?: 'column' | 'row';
+  variant: 'card' | 'folder' | 'cardInFolder';
+  path: string;
+  name: string;
+  thumbnail?: string;
+  userName?: string;
+  subTitle?: string;
+  date?: string;
+  own: boolean;
+  hover: number;
+  idx: number;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
 
 export const PostCard = (props: PostCardProps) => {
   const [modfiyOpen, setModifyOpen] = useState<boolean>(false);
@@ -44,13 +41,13 @@ export const PostCard = (props: PostCardProps) => {
 
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
 
-  const handleDeleteFolder = async (name: string, type: string) => {
-    if (!('skeleton' in props) && props.own) {
+  const handleDeleteFolder = async (type: string) => {
+    if (props.own) {
       try {
         const res = await fetch(`/api/post/remove`, {
           method: 'POST',
           body: JSON.stringify({
-            path: `${props.path.replace('/posts/', '')}/${name}`,
+            path: props.path,
             type,
           }),
           headers: {
@@ -71,8 +68,6 @@ export const PostCard = (props: PostCardProps) => {
   };
 
   const handleModifyFolder = (name: string, type: string) => {
-    if ('skeleton' in props) return;
-
     if (inputError) {
       return;
     }
@@ -87,7 +82,7 @@ export const PostCard = (props: PostCardProps) => {
     }
 
     const reqPath =
-      `${props.path.replace('/posts/', '')}/${folderName}` +
+      `${props.path.replace(/[^\/]*$/, '') + folderName}` +
       (type === 'file' ? '.md' : '');
     if (props.own && folderName !== name) {
       fetch(`/api/post/existCheck`, {
@@ -108,15 +103,14 @@ export const PostCard = (props: PostCardProps) => {
         });
     }
 
-    const currentPath = props.path.replace('/posts/', '') + '/' + name;
-
     if (props.own && !inputError && folderName) {
       try {
+        // TODO: 파일의 이름을 변경할 경우 .md파일 내부의 파일 이름과, prisma에서의 post에 대한 업데이트도 같이 해줘야함
         fetch('/api/post/rename', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            path: currentPath,
+            path: props.path,
             newPath: reqPath,
           }),
         }).then(res => {
@@ -136,29 +130,6 @@ export const PostCard = (props: PostCardProps) => {
       }
     }
   };
-
-  if ('skeleton' in props) {
-    return (
-      <Box className={styles.rootRow({})}>
-        <Box className={styles.wrapperRow({})}>
-          <Box className={styles.cardWrapperRow({})}>
-            <Card skeleton />
-          </Box>
-          <Box className={styles.contentWrapperRow({})}>
-            <Box
-              display="flex"
-              justifyContent="flex-start"
-              height="6"
-              width="36"
-              borderRadius="md"
-              className={styles.skeleton}
-            />
-            <Box height="16" borderRadius="md" className={styles.skeleton} />
-          </Box>
-        </Box>
-      </Box>
-    );
-  }
 
   const direction = props.direction === undefined ? 'row' : props.direction;
   const variant = props.variant;
@@ -227,7 +198,6 @@ export const PostCard = (props: PostCardProps) => {
                       setOpen={setDeleteOpen}
                       handle={() =>
                         handleDeleteFolder(
-                          props.name,
                           variant !== 'folder' ? 'file' : 'folder',
                         )
                       }
