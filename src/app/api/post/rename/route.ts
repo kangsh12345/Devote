@@ -14,7 +14,7 @@ async function renamePost(path: string, newPath: string) {
   try {
     const response = await renameFile(fullPath, fullNewPath);
 
-    if (response) {
+    if (response && fullPath.indexOf('.md') !== -1) {
       const post = await prisma.post.findFirst({
         where: {
           path: path.replace('.md', ''),
