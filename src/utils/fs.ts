@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { promisify } from 'util';
 
 export interface PostData {
   fullPath: string;
@@ -269,19 +270,41 @@ export async function removeFile(fullPath: string, type: string) {
   return true;
 }
 
+const rename = promisify(fs.rename);
+
 export async function renameFile(fullPath: string, fullNewPath: string) {
   const isExists = fs.existsSync(fullNewPath);
+  const title = fullNewPath.split('/').at(-1);
 
   if (isExists) {
     return false;
   }
 
-  fs.rename(fullPath, fullNewPath, error => {
+  try {
+    await rename(fullPath, fullNewPath);
+  } catch (error) {
     if (error) {
       console.error('이름 변경 중 오류 발생:', error);
       return;
     }
     console.log(`${fullPath} => ${fullNewPath} 이름으로 변경되었습니다`);
+  }
+
+  fs.readFile(fullNewPath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error('파일을 읽는 도중 오류가 발생 했습니다: ', err);
+      return;
+    }
+
+    const updatedContent = data.replace(/(title: ')(.*?)(')/, `$1${title}$3`);
+
+    fs.writeFile(fullNewPath, updatedContent, 'utf-8', err => {
+      if (err) {
+        console.error('파일을 쓰는 도중 오류가 발생했습니다:', err);
+        return;
+      }
+      console.log('파일 제목이 성공적으로 업데이트 되었습니다.');
+    });
   });
 
   return true;
