@@ -125,14 +125,25 @@ export const subtitleColumn = recipe({
   },
 });
 
-export const subContentColumn = atoms({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  width: 'fit',
-  height: 'full',
-  gap: '2',
-  flexShrink: 0,
+export const subContentColumn = recipe({
+  base: atoms({
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    width: 'fit',
+    height: 'full',
+    gap: '2',
+    flexShrink: 0,
+  }),
+  variants: {
+    hover: {
+      true: atoms({
+        display: 'none',
+      }),
+      false: atoms({
+        display: 'flex',
+      }),
+    },
+  },
 });
 
 export const dateColumn = atoms({
@@ -175,14 +186,20 @@ export const skeleton = style({
   animation: `${skeletonAnimation} 1.8s infinite`,
 });
 
-export const ulContainer = [
-  atoms({
-    position: 'absolute',
-    right: '5',
-    top: '5',
-    zIndex: '20',
-  }),
-];
+export const ulContainer = recipe({
+  base: [
+    atoms({
+      position: 'absolute',
+      zIndex: '20',
+    }),
+  ],
+  variants: {
+    direction: {
+      row: atoms({ top: '5', right: '5' }),
+      column: atoms({ top: '15', right: '0' }),
+    },
+  },
+});
 
 const animations = keyframes({
   '0%': { transform: 'scale(0.8)', opacity: 0.8, transformOrigin: 'top' },

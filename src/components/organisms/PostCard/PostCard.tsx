@@ -144,10 +144,10 @@ export const PostCard = (props: PostCardProps) => {
 
   return (
     <>
-      {props.own && direction === 'row' && props.hover === props.idx && (
+      {props.own && props.hover === props.idx && (
         <>
           {props.isOpen && (
-            <Box className={styles.ulContainer}>
+            <Box className={styles.ulContainer({ direction })}>
               <Box className={styles.ulBox({ size: 'sm' })}>
                 <Box as="ul">
                   <Box
@@ -218,8 +218,10 @@ export const PostCard = (props: PostCardProps) => {
           <Box
             display={props.hover === props.idx ? 'flex' : 'none'}
             position="absolute"
-            right="5"
-            top="-1.5"
+            // right="5"
+            // top="-1.5"
+            right={direction === 'row' ? '5' : '1'}
+            top={direction === 'row' ? '-1.5' : '9'}
             zIndex="10"
             onClick={() => props.setIsOpen(!props.isOpen)}
           >
@@ -326,7 +328,11 @@ export const PostCard = (props: PostCardProps) => {
                       {props.subTitle}
                     </Box>
                   </Box>
-                  <Box className={styles.subContentColumn}>
+                  <Box
+                    className={styles.subContentColumn({
+                      hover: props.hover === props.idx,
+                    })}
+                  >
                     <Box className={styles.dateColumn}>
                       {props.date?.replace('-', '년 ').replace('-', '월 ') +
                         '일'}
