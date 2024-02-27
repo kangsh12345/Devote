@@ -15,7 +15,7 @@ import {
 import { AvatarMenu, Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Button, IconButton } from '../../atoms/Button';
-import { Select } from '../../atoms/Select';
+// import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';
@@ -43,7 +43,7 @@ export const Header = ({
 
   const { data: session } = useSession();
 
-  const selectList = ['오늘', '이번주', '이번달', '전체'];
+  // const selectList = ['오늘', '이번주', '이번달', '전체'];
 
   return (
     <Box className={styles.root({ type })}>
@@ -125,7 +125,7 @@ export const Header = ({
         </Box>
         <Stack space="3" direction="horizontal" align="center">
           {/* TODO: Select Portal로 이동 b/c root overflow hidden */}
-          {type === 'popular' && <Select size="sm" list={selectList} />}
+          {/* {type === 'popular' && <Select size="sm" list={selectList} />} */}
           <IconButton
             size="md"
             icon={<MagnifyingGlass size={20} weight="duotone" />}

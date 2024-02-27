@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { WriteHeader } from '@/src/components/organisms/Header/WriteHeader';
 import { markdownToTxt } from 'markdown-to-txt';
+import { toast } from 'react-hot-toast';
 
 import { Box } from '../../atoms/Box';
 import { CreateInputModal } from '../../organisms/CreateInputModal';
@@ -107,19 +108,12 @@ export const PostWritePage = () => {
             date,
           }),
         }).then(res => {
-          // if (res.ok) {
-          //   return res.json();
-          // } else {
-          //   throw new Error(`Fetch Error`);
-          // }
           res.json();
         });
-        // .then(data => {
-        // TODO: 추후 toast로 추가
-        // alert(data.message);
-        // });
+
+        toast.success('글 생성이 완료되었습니다.');
       } catch (error) {
-        alert(`request error: ${error}`);
+        toast.error('글 생성 중 오류가 발생했습니다.');
       }
     }
   };

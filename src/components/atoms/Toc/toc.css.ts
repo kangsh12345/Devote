@@ -95,6 +95,8 @@ export const ulBox = recipe({
       color: 'textTertiary',
       width: '52',
       wordWrap: 'break-word',
+      overflow: 'scroll',
+      maxHeight: '80',
     }),
     style({
       animation: `${animations} 0.2s`,

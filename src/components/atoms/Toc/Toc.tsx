@@ -15,7 +15,6 @@ export interface ListItem {
 
 export interface TocProps {
   size: 'lg' | 'md' | 'sm';
-  // list: ListItem[];
   content: string;
   disabled?: boolean;
 }
@@ -26,21 +25,16 @@ export const Toc = ({ size = 'md', content, disabled = false }: TocProps) => {
 
   useIntersectionObserver(setValue, content);
 
-  // 게시물 본문을 줄바꿈 기준으로 나누고, 제목 요소인 것만 저장
   const titles = content.split(`\n`).filter(t => t.includes('# '));
 
-  // 예외처리 - 제목은 문자열 시작부터 #을 써야함
   const result = titles
     .filter(str => str[0] === '#')
     .map(item => {
-      // #의 갯수에 따라 제목의 크기가 달라지므로 갯수를 센다.
       let count = item.match(/#/g)?.length;
       if (count) {
-        // 갯수에 따라 목차에 그릴때 들여쓰기 하기위해 *10을 함.
         count = count;
       }
 
-      // 제목의 내용물만 꺼내기 위해 '# '을 기준으로 나누고, 백틱과 공백을 없애주고 count와 묶어서 리턴
       return { title: item.split('# ')[1].replace(/`/g, '').trim(), count };
     });
 
@@ -80,7 +74,6 @@ export const Toc = ({ size = 'md', content, disabled = false }: TocProps) => {
         {result.length > 0 && isOpen ? (
           <Box className={styles.ulContainer}>
             <Box className={styles.ulBox({ size: size })}>
-              {/* TODO: css가 날라가벌임;; */}
               {result.map((li, idx) => {
                 if (li.count && li.count < 4) {
                   return (
@@ -96,6 +89,7 @@ export const Toc = ({ size = 'md', content, disabled = false }: TocProps) => {
                           textDecoration: 'none',
                           textDecorationLine: 'none',
                         }}
+                        // 같은 내용일 경우 이상하게 동작함
                         href={`#${li.title}`}
                         onClick={() => handleSelect(li.title)}
                         key={idx}

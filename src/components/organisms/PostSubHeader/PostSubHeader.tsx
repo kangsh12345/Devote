@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 import { Box } from '../../atoms/Box';
 import { Button } from '../../atoms/Button';
@@ -33,7 +34,9 @@ export const PostSubHeader = ({ path }: PostSubHeaderProps) => {
         }).then(res => res.json());
 
         if (!res.success) {
-          // toast error 메세지
+          toast.error('파일 삭제 중 오류가 말생하였습니다.');
+        } else {
+          toast.success('파일이 삭제되었습니다.');
         }
       } catch (error) {
         console.error(error);

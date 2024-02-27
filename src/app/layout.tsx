@@ -3,6 +3,7 @@
 import { PropsWithChildren } from 'react';
 import { ThemeProvider } from '@/src/components/atoms/ThemeProvider';
 import { getThemeMode } from '@/src/utils/cookies';
+import { Toaster } from 'react-hot-toast';
 
 import { Box } from '../components/atoms/Box';
 import { Sidebar } from '../components/organisms/Sidebar';
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <AuthSession>
               <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
                 <div id="portal" />
+                <Toaster />
                 <Box display="flex" gap="0" width="full" minWidth="145">
                   <Box
                     width="auto"

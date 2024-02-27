@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 // import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { DotsThreeOutline, FolderNotch } from '@phosphor-icons/react';
+import { toast } from 'react-hot-toast';
 
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
@@ -59,7 +60,9 @@ export const PostCard = (props: PostCardProps) => {
         // TODO: tree 변경
 
         if (!res.success) {
-          // toast error 메세지
+          toast.error('파일 삭제 중 오류가 말생하였습니다.');
+        } else {
+          toast.success('파일이 삭제되었습니다.');
         }
       } catch (error) {
         console.error(error);
@@ -105,7 +108,6 @@ export const PostCard = (props: PostCardProps) => {
 
     if (props.own && !inputError && folderName) {
       try {
-        // TODO: 파일의 이름을 변경할 경우 .md파일 내부의 파일 이름과, prisma에서의 post에 대한 업데이트도 같이 해줘야함
         fetch('/api/post/rename', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -114,19 +116,12 @@ export const PostCard = (props: PostCardProps) => {
             newPath: reqPath,
           }),
         }).then(res => {
-          // if (res.ok) {
-          //   return res.json();
-          // } else {
-          //   throw new Error(`Fetch Error`);
-          // }
           res.json();
         });
-        // .then(data => {
-        // TODO: 추후 toast로 추가
-        // alert(data.message);
-        // });
+
+        toast.success('이름 변경이 완료되었습니다.');
       } catch (error) {
-        alert(`request error: ${error}`);
+        toast.error('이름 변경 중 오류가 발생했습니다.');
       }
     }
   };
