@@ -121,7 +121,7 @@ export const liValue = recipe({
     }),
     style({
       selectors: {
-        'li+li&': { border: 'none' },
+        'a+a&': { border: 'none' },
         ':hover&': { backgroundColor: 'unset', color: vars.colors.textPrimary },
       },
     }),

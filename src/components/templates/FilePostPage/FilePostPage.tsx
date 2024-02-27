@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Box } from '../../atoms/Box';
-import { ListItem, Popover } from '../../atoms/Popover';
+import { Toc } from '../../atoms/Toc';
 import { PostHeader } from '../../organisms/Header';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
 import { PreivewMDEditor } from '../../organisms/PreviewMDEditor';
@@ -22,14 +22,6 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
   const [date, setDate] = useState(new Date());
   const [md, setMd] = useState<string | undefined>();
   const [name, setName] = useState('');
-
-  const popoverList: ListItem[] = [
-    { value: '대제목1', heading: 1 },
-    { value: '대제목2', heading: 1 },
-    { value: '중제목1', heading: 2 },
-    { value: '소제목1', heading: 3 },
-    { value: '대제목3', heading: 1 },
-  ];
 
   const titles = md?.split('\n').filter(item => item.includes('# '));
 
@@ -79,7 +71,7 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
                 <PreivewMDEditor md={md} setMd={setMd} own={own} />
               </Box>
             </Box>
-            <Popover size="md" list={popoverList} />
+            <Toc size="md" content={md ?? ''} />
           </Box>
         </Box>
       )}

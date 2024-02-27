@@ -14,9 +14,7 @@ import { SquaresFour } from '@phosphor-icons/react';
 // import { FolderBox } from '../../moecules/FolderBox';
 // import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
-import { Header } from '../../organisms/Header';
 import { MarkdownHeader } from '../../organisms/MarkdownHeader';
-import { PostCard } from '../../organisms/PostCard';
 import { Sidebar } from '../../organisms/Sidebar';
 import { Avatars } from '../Avatars';
 import { Box } from '../Box';
@@ -25,7 +23,6 @@ import { Card } from '../Card';
 import { Input } from '../Input';
 // import { FileList, FolderListItem } from '../List';
 // import { ModalOverlay } from '../Modal';
-import { ListItem, Popover } from '../Popover';
 import { Select } from '../Select';
 import { Stack } from '../Stack';
 import { IconText } from '../Text';
@@ -39,14 +36,6 @@ export function Test() {
   const [state, setState] = useState('');
   const selectList = ['오늘', '이번주', '이번달', '전체'];
 
-  const popoverList: ListItem[] = [
-    { value: '대제목1', heading: 1 },
-    { value: '대제목2', heading: 1 },
-    { value: '중제목1', heading: 2 },
-    { value: '소제목1', heading: 3 },
-    { value: '대제목3', heading: 1 },
-  ];
-
   const { data: session } = useSession();
 
   return (
@@ -54,19 +43,6 @@ export function Test() {
       <Stack space="4" flex="auto">
         <Box onClick={() => console.log(session)}>----atoms----</Box>
         <ThemeSwitcher size="lg" />
-        {/* <ModalOverlay visible={false} /> */}
-        {/* <ModalContent
-          type="right"
-          withCloseButton={true}
-          title="Delete User"
-          leftButtonText="취소"
-          rightButtonText="삭제"
-        >
-          Are you sure? You can't undo this action afterwards.
-        </ModalContent> */}
-        <Box marginLeft="64">
-          <Popover size="md" list={popoverList} />
-        </Box>
         <Input
           label="Label"
           hideLabel
@@ -167,13 +143,8 @@ export function Test() {
         <Box>----organisms----</Box>
         <Sidebar />
         <MarkdownHeader />
-        <Header type="popular" />
-        <Header type="folder" />
-        <Header type="myFolder" />
 
-        <Box className={styles.cardContainer}>
-          <PostCard skeleton />
-        </Box>
+        <Box className={styles.cardContainer}></Box>
       </Stack>
     </Box>
   );
