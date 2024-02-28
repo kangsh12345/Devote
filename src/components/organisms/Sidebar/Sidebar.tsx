@@ -74,9 +74,9 @@ export const Sidebar = ({
             <Box height="fit">
               <FolderBox />
             </Box>
-            {/* <Box height="fit">
+            <Box height="fit">
               <FolderBox own="other" />
-            </Box> */}
+            </Box>
           </Box>
           <Box className={styles.bottom({})}>
             <Stack space="1">

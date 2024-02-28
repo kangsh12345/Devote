@@ -8,7 +8,7 @@ import {
   FilePlus,
   FolderPlus,
   ListBullets,
-  MagnifyingGlass,
+  // MagnifyingGlass,
   SquaresFour,
 } from '@phosphor-icons/react';
 
@@ -126,10 +126,10 @@ export const Header = ({
         <Stack space="3" direction="horizontal" align="center">
           {/* TODO: Select Portal로 이동 b/c root overflow hidden */}
           {/* {type === 'popular' && <Select size="sm" list={selectList} />} */}
-          <IconButton
+          {/* <IconButton
             size="md"
             icon={<MagnifyingGlass size={20} weight="duotone" />}
-          />
+          /> */}
           {type === 'myFolder' && (
             <>
               <IconButton

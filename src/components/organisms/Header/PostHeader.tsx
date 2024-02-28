@@ -37,7 +37,14 @@ export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
           <Stack space="6" direction="horizontal">
             <Stack direction="horizontal" space="2" align="center">
               <Avatars size="md" text={name} />
-              <Box fontSize="1" fontWeight={400} color="textPrimary">
+              <Box
+                fontSize="1"
+                fontWeight={400}
+                color="textPrimary"
+                display="flex"
+                flexDirection="row"
+                gap="1"
+              >
                 {path?.split('/').map((item, idx) => (
                   <Box
                     onClick={() =>
