@@ -7,7 +7,6 @@ import {
   useRouter,
   useSearchParams,
 } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { TreeProps } from '@/src/utils/fs';
 import { CaretDown, CaretRight, File, Folder } from '@phosphor-icons/react';
 
@@ -19,6 +18,7 @@ export interface FileListProps {
   size?: 'xl' | 'lg' | 'md' | 'sm';
   path?: string;
   variant?: 'folder' | 'file';
+  dirName: string;
   subdirectory?: TreeProps[];
 }
 
@@ -32,6 +32,7 @@ export const FileListItem = ({
   size = 'md',
   path = '',
   variant = 'folder',
+  dirName,
   subdirectory,
   children,
 }: PropsWithChildren<FileListProps>) => {
@@ -41,7 +42,6 @@ export const FileListItem = ({
   const query = useSearchParams();
   const title = query.get('title');
   const param = useParams();
-  const { data: session } = useSession();
 
   const queryId = decodeURIComponent(decodeURIComponent(param.id));
   const querySlug = param.slug
@@ -52,22 +52,22 @@ export const FileListItem = ({
   const folderPath = `/posts/${path}`;
 
   const currentFilePath =
-    param.id && queryId === session?.user.dirName
+    param.id && queryId === dirName
       ? `${queryId}${querySlug ? `/${querySlug}` : ''}${
           title ? `/${title}` : ''
         }`
       : '';
 
   const currentPath =
-    param.id && queryId === session?.user.dirName && param.slug && !title
+    param.id && queryId === dirName && param.slug && !title
       ? `${queryId}${querySlug ? `/${querySlug}` : ''}`
       : '';
 
-  const comparePath = path.replace(session?.user.dirName + '/', '').split('/');
+  const comparePath = path.replace(dirName + '/', '').split('/');
   const compareCurrentPath = querySlug.split('/');
 
   const isOpen =
-    param.id && queryId === session?.user.dirName && param.slug
+    param.id && queryId === dirName && param.slug
       ? comparePath.every((value, idx) => value === compareCurrentPath[idx])
       : false;
 
@@ -165,6 +165,7 @@ export const FileListItem = ({
                 size="lg"
                 path={item.path}
                 variant={item.type}
+                dirName={dirName}
                 subdirectory={item.children}
               >
                 {item.name}

@@ -15,11 +15,7 @@ import { FileList, FolderListItem } from '../../atoms/List';
 import { CreateInputModal } from '../../organisms/CreateInputModal';
 import * as styles from './folderBox.css';
 
-export interface FolderBoxProps {
-  own?: 'my' | 'other';
-}
-
-export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
+export const FolderBox = () => {
   const router = useRouter();
   const query = useParams();
   const searchParams = useSearchParams();
@@ -174,77 +170,73 @@ export const FolderBox = ({ own = 'my' }: FolderBoxProps) => {
               >
                 {session.user.dirName}
               </FolderListItem>
-              {own === 'my' ? (
-                <Box className={styles.addBox({})}>
-                  <Box
-                    display="flex"
-                    width="full"
-                    onClick={() => setCreateFileOpen(true)}
-                  >
-                    <IconButton
-                      size="md"
-                      variant="outline"
-                      icon={
-                        <Image
-                          src={filePlus}
-                          alt="File Add Icon"
-                          fill
-                          sizes="100%"
-                        />
-                      }
-                    />
-                  </Box>
-                  <Box
-                    display="flex"
-                    width="full"
-                    onClick={() => setCreateFolderOpen(true)}
-                  >
-                    <IconButton
-                      size="md"
-                      variant="outline"
-                      icon={
-                        <Image
-                          src={folderPlus}
-                          alt="Folder Add Icon"
-                          fill
-                          sizes="100%"
-                        />
-                      }
-                    />
-                  </Box>
-                  {createFolderOpen && (
-                    <CreateInputModal
-                      title="폴더 생성"
-                      setOpen={setCreateFolderOpen}
-                      setInput={setDirectory}
-                      handle={() => handleCreateRootDirectory('folder')}
-                      inputLabel="create folder"
-                      placeholder={currentDirectory}
-                      value={directory}
-                      inputError={inputError}
-                      setInputError={setInputError}
-                    />
-                  )}
-                  {createFileOpen && (
-                    <CreateInputModal
-                      title="파일 생성"
-                      setOpen={setCreateFileOpen}
-                      setInput={setFile}
-                      handle={() => handleCreateRootDirectory('file')}
-                      inputLabel="create file"
-                      placeholder={currentDirectory}
-                      value={file}
-                      inputError={inputError}
-                      setInputError={setInputError}
-                    />
-                  )}
+              <Box className={styles.addBox({})}>
+                <Box
+                  display="flex"
+                  width="full"
+                  onClick={() => setCreateFileOpen(true)}
+                >
+                  <IconButton
+                    size="md"
+                    variant="outline"
+                    icon={
+                      <Image
+                        src={filePlus}
+                        alt="File Add Icon"
+                        fill
+                        sizes="100%"
+                      />
+                    }
+                  />
                 </Box>
-              ) : (
-                <Box />
-              )}
+                <Box
+                  display="flex"
+                  width="full"
+                  onClick={() => setCreateFolderOpen(true)}
+                >
+                  <IconButton
+                    size="md"
+                    variant="outline"
+                    icon={
+                      <Image
+                        src={folderPlus}
+                        alt="Folder Add Icon"
+                        fill
+                        sizes="100%"
+                      />
+                    }
+                  />
+                </Box>
+                {createFolderOpen && (
+                  <CreateInputModal
+                    title="폴더 생성"
+                    setOpen={setCreateFolderOpen}
+                    setInput={setDirectory}
+                    handle={() => handleCreateRootDirectory('folder')}
+                    inputLabel="create folder"
+                    placeholder={currentDirectory}
+                    value={directory}
+                    inputError={inputError}
+                    setInputError={setInputError}
+                  />
+                )}
+                {createFileOpen && (
+                  <CreateInputModal
+                    title="파일 생성"
+                    setOpen={setCreateFileOpen}
+                    setInput={setFile}
+                    handle={() => handleCreateRootDirectory('file')}
+                    inputLabel="create file"
+                    placeholder={currentDirectory}
+                    value={file}
+                    inputError={inputError}
+                    setInputError={setInputError}
+                  />
+                )}
+              </Box>
             </Box>
             {tree && tree.children.length != 0 ? (
-              <FileList tree={tree} />
+              <FileList tree={tree} dirName={session?.user.dirName} />
             ) : (
               <Box className={styles.emptyBox({})}>비어있음</Box>
             )}

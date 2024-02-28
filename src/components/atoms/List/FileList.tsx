@@ -6,9 +6,10 @@ import { FileListItem } from './FileListItem';
 
 export interface FileListProps {
   tree: TreeProps;
+  dirName: string;
 }
 
-export const FileList = ({ tree }: FileListProps) => {
+export const FileList = ({ tree, dirName }: FileListProps) => {
   return (
     <Box className={styles.root}>
       <Box as="ul" width="full" className={styles.ul}>
@@ -18,6 +19,7 @@ export const FileList = ({ tree }: FileListProps) => {
             path={item.path}
             variant={item.type}
             subdirectory={item.children}
+            dirName={dirName}
             key={idx}
           >
             {item.name}

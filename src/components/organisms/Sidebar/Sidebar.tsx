@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
 // import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
@@ -16,6 +16,7 @@ import { Box } from '../../atoms/Box';
 import { CopyRight } from '../../atoms/CopyRight';
 import { Stack } from '../../atoms/Stack';
 import { FolderBox } from '../../moecules/FolderBox';
+import { FolderBoxOther } from '../../moecules/FolderBox/FolderBoxOther';
 import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
 import * as styles from './sidbar.css';
@@ -32,10 +33,14 @@ export const Sidebar = ({
   setIsOpenDrawer,
 }: SidebarProps) => {
   const pathname = usePathname();
+  const param = useParams();
+  const id = decodeURIComponent(decodeURIComponent(param.id));
 
   const { data: session } = useSession();
 
   const [isOpen, setIsOpen] = useState(true);
+
+  const own = param.id && id === session?.user.dirName ? true : false;
 
   return (
     <Box className={styles.root({ isOpen, type })}>
@@ -74,9 +79,11 @@ export const Sidebar = ({
             <Box height="fit">
               <FolderBox />
             </Box>
-            <Box height="fit">
-              <FolderBox own="other" />
-            </Box>
+            {param.id && !own && (
+              <Box height="fit">
+                <FolderBoxOther />
+              </Box>
+            )}
           </Box>
           <Box className={styles.bottom({})}>
             <Stack space="1">
