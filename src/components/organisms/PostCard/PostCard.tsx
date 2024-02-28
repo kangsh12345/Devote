@@ -325,7 +325,7 @@ export const PostCard = (props: PostCardProps) => {
                   </Box>
                   <Box
                     className={styles.subContentColumn({
-                      hover: props.hover === props.idx,
+                      hover: props.own ? props.hover === props.idx : false,
                     })}
                   >
                     <Box className={styles.dateColumn}>
