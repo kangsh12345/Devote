@@ -1,14 +1,10 @@
-// import { Test } from '../components/atoms/Test'
 import { Box } from '@/src/components/atoms/Box';
-import { Test } from '@/src/components/atoms/Test';
-
-import { Header } from '../../components/organisms/Header';
+import { RecentPostPage } from '@/src/components/templates/RecentPage';
 
 export default function PopularPage() {
   return (
     <Box>
-      <Header />
-      <Test />
+      <RecentPostPage />
     </Box>
   );
 }

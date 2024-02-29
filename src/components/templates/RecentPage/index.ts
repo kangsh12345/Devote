@@ -1,0 +1,1 @@
+export { RecentPostPage } from './RecentPostPage';
