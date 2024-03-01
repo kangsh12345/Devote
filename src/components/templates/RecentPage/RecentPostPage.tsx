@@ -18,8 +18,6 @@ export const RecentPostPage = () => {
         res.json(),
       );
 
-      console.log(res.tree);
-
       if (!res.success) {
         console.error('Failed to Get Recent Post');
         return;
