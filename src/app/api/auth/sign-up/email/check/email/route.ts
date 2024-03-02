@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     return NextResponse.json(
-      { message: `이메일 회원가입 실패` },
+      { success: false, message: `이메일 회원가입 실패` },
       { status: 400 },
     );
   }
