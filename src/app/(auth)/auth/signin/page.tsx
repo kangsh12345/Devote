@@ -1,5 +1,5 @@
-import { Auth } from '@/src/components/organisms/Auth';
+import { AuthPage } from '@/src/components/templates/AuthPage';
 
 export default function Login() {
-  return <Auth type="signin" />;
+  return <AuthPage type="signin" />;
 }

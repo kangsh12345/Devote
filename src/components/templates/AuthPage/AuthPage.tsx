@@ -17,7 +17,7 @@ export interface AuthProps {
   type: 'signin' | 'signup';
 }
 
-export const Auth = ({ type }: AuthProps) => {
+export const AuthPage = ({ type }: AuthProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');

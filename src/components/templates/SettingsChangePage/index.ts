@@ -1,1 +1,0 @@
-export { SettingsChangePage } from './SettingsChangePage';

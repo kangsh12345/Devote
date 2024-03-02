@@ -1,5 +1,5 @@
-import { Auth } from '@/src/components/organisms/Auth';
+import { AuthPage } from '@/src/components/templates/AuthPage';
 
 export default function Email() {
-  return <Auth type="signup" />;
+  return <AuthPage type="signup" />;
 }
