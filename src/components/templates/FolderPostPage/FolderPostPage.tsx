@@ -1,64 +1,28 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { useParams, usePathname } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import { DirectoryTreeProps } from '@/src/utils/fs';
+import { usePost } from '@/src/stores/Post/usePost';
 
-// import { DotsThreeOutline } from '@phosphor-icons/react';
 import { Box } from '../../atoms/Box';
-// import { Modal } from '../../moecules/Modal';
-// import { CreateInputModal } from '../../organisms/CreateInputModal';
 import { Header } from '../../organisms/Header';
 import { PostCard, PostCardBack } from '../../organisms/PostCard';
 import * as styles from './folderPostPage.css';
+import { useFolderPost } from './useFolderPost';
 
 export const FolderPostPage = () => {
-  const { data: session } = useSession();
-  const [tree, setTree] = useState<DirectoryTreeProps[]>();
-  const [userName, setUserName] = useState<string>('');
-  const [hover, setHover] = useState<number>(-1);
-  // TODO: isActive는 페이지가 바뀌어도 그대로여야하기때문에 밖으로 빼줘야함
-  const [isActive, setIsActive] = useState<'row' | 'column'>('row');
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [modfiyOpen, setModifyOpen] = useState<boolean>(false);
-  // const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
-  // const [folderName, setFolderName] = useState<string>('');
-  // const [inputError, setInputError] = useState<string>('');
+  const {
+    tree,
+    userName,
+    hover,
+    setHover,
+    isOpen,
+    setIsOpen,
+    pathBack,
+    own,
+    path,
+    pathArray,
+    session,
+  } = useFolderPost();
 
-  const pathName = usePathname();
-  const path = decodeURIComponent(decodeURIComponent(pathName));
-  const pathArray = path.split('/');
-  const pathBack = pathArray.slice(2, -1).join('/');
-
-  const param = useParams();
-  const id = decodeURIComponent(decodeURIComponent(param.id));
-
-  const own = param.id && id === session?.user.dirName ? true : false;
-
-  useEffect(() => {
-    if (path.startsWith('/posts/')) {
-      const fetchData = async () => {
-        const res = await fetch(`/api/post/getDirectory`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            path: path.replace('/posts/', ''),
-          }),
-        }).then(res => res.json());
-
-        if (!res.success) {
-          console.error('Failed to Get Directory');
-          return;
-        }
-        setTree(res.tree);
-        setUserName(res.userName);
-      };
-
-      fetchData();
-    }
-  }, [path]);
+  const { isActive, setIsActive } = usePost();
 
   return (
     <Box
