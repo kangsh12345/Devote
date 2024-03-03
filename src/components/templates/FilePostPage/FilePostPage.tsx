@@ -1,14 +1,10 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-
 import { Box } from '../../atoms/Box';
 import { Toc } from '../../atoms/Toc';
 import { PostHeader } from '../../organisms/Header';
 import { PostSubHeader } from '../../organisms/PostSubHeader';
 import { PreivewMDEditor } from '../../organisms/PreviewMDEditor';
 import * as styles from './filePostPage.css';
+import { useFilePost } from './useFilePost';
 
 export interface FilePostPageProps {
   title: string;
@@ -17,42 +13,16 @@ export interface FilePostPageProps {
 }
 
 export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
-  const router = useRouter();
-  const [isExist, setIsExist] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [md, setMd] = useState<string | undefined>();
-  const [name, setName] = useState('');
-
-  const titles = md?.split('\n').filter(item => item.includes('# '));
-
-  // const result =
-  titles
-    ?.filter(item => item[0] === '#')
-    .map(item => {
-      const count = item.match(/#/g)?.length;
-
-      return {
-        value: item.split('# ')[1].replace(/`/g, '').trim(),
-        heading: count,
-      };
+  const { isExist, date, md, setMd, name, fullPath, getFileLoading } =
+    useFilePost({
+      title,
+      path,
     });
 
-  const fullPath = `${path}/${title}`;
-
-  useEffect(() => {
-    if (title !== '' && path !== '')
-      fetch('/api/post/getFile', {
-        method: 'POST',
-        body: JSON.stringify({ path: fullPath }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          data.exist ? setIsExist(data.exist) : router.push('/');
-          setName(data.data.name);
-          setDate(data.data.date);
-          setMd(data.data.content);
-        });
-  }, [fullPath, title, path, router]);
+  if (getFileLoading) {
+    // TODO: 로딩 나중에 쌈@뽕하게 다시 제작
+    return <>파일 불러오는 중</>;
+  }
 
   return (
     <>

@@ -7,6 +7,22 @@ const prisma = new PrismaClient();
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
+export interface GetFileResponse {
+  success: boolean;
+  exist: boolean;
+  data:
+    | {
+        contentHtml: string;
+        content: string;
+        date: string;
+        title: string;
+        subTitle: string | null;
+        postId: number | null;
+        name: string | null;
+      }
+    | undefined;
+}
+
 async function findPostFile(path: string) {
   const fullPath = `${rootDirectory}/${path}.md`;
 

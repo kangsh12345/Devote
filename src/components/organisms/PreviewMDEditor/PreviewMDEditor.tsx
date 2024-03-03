@@ -10,9 +10,12 @@ import * as styles from './previewMDEditor.css';
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 
+type SetAtom<Args extends any[], Result> = (...args: Args) => Result;
+
 type CustomMDEditorProps = {
   md: string | undefined;
-  setMd: (value: SetStateAction<string | undefined>) => void;
+  // setMd: (value: SetStateAction<string | undefined>) => void;
+  setMd: SetAtom<[SetStateAction<string | undefined>], void>;
   own: boolean;
 };
 
