@@ -59,7 +59,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     console.log(response);
 
     return NextResponse.json(
-      { message: `회원 탈퇴 성공`, ok: true },
+      { message: `회원 탈퇴 성공`, success: true },
       { status: 200 },
     );
   } catch (error) {
