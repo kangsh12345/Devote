@@ -99,7 +99,7 @@ export function useSettings() {
   };
 
   const handleWithdraw = async () => {
-    withdrawRefetch;
+    withdrawRefetch();
   };
 
   useEffect(() => {
