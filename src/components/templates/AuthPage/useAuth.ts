@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { httpPostClient } from '@/src/utils/client';
 import useInput from '@/src/utils/useInput';
 import isEmail from 'validator/lib/isEmail';
 
@@ -75,12 +76,12 @@ export function useAuth() {
       return;
     }
 
-    const res = await fetch(`/api/auth/sign-up/email/check/email`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email.value,
-      }),
-    }).then(res => res.json());
+    const res = await httpPostClient<EmailCheckMutationResponse>(
+      `/api/auth/sign-up/email/check/email`,
+      { email: email.value },
+    );
+
+    console.log(res);
 
     if (!res.success) {
       setEmailError(res.message);
