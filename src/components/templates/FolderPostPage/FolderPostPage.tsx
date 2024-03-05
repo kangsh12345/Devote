@@ -53,15 +53,15 @@ export const FolderPostPage = () => {
         <Box className={styles.cardContainer({ direction: isActive })}>
           {getDirectoryLoading ? (
             <>
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
             </>
           ) : (
             <>

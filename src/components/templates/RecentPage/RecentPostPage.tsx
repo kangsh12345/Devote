@@ -30,15 +30,15 @@ export const RecentPostPage = () => {
         <Box className={styles.cardContainer({ direction: isActive })}>
           {isLoading ? (
             <>
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
+              <PostCardSkeleton direction={isActive} />
             </>
           ) : (
             tree &&
