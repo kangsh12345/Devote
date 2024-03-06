@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  ChangeEvent,
-  DragEvent,
-  ReactNode,
-  SetStateAction,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, DragEvent, ReactNode, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import fileUpload from '@/src/utils/fileUpload';
 import insertToTextArea from '@/src/utils/insertToTextArea';
@@ -44,12 +37,12 @@ type CustomToolbarButtonProps = {
 };
 
 type MyCustomToolbarProps = {
-  setMd: (value: SetStateAction<string | undefined>) => void;
+  setMd: (value: string) => void;
 };
 
 type CustomMDEditorProps = {
   md: string | undefined;
-  setMd: (value: SetStateAction<string | undefined>) => void;
+  setMd: (value: string) => void;
 };
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {

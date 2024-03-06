@@ -1,11 +1,9 @@
-import type { SetStateAction } from 'react';
-
 import fileUpload from './fileUpload';
 import insertToTextArea from './insertToTextArea';
 
 const onImagePasted = async (
   dataTransfer: DataTransfer,
-  setMarkdown: (value: SetStateAction<string | undefined>) => void,
+  setMarkdown: (value: string) => void,
 ) => {
   const files: File[] = [];
   for (let index = 0; index < dataTransfer.items.length; index += 1) {

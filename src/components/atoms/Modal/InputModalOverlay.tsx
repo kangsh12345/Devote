@@ -6,7 +6,7 @@ import * as styles from './modalOverlay.css';
 export interface InputModalOverlayProps {
   visible?: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  setInput: Dispatch<SetStateAction<string>>;
+  setInput: (value: string) => void;
   setInputError: Dispatch<SetStateAction<string>>;
 }
 

@@ -29,7 +29,6 @@ export async function POST(req: NextRequest) {
     console.log(response);
 
     if (response === 'not exist') {
-      // TODO: 추후 내 사이트로 연결
       return NextResponse.json(
         { success: true, exist: false },
         { status: 200 },

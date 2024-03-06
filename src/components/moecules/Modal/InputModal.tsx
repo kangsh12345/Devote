@@ -11,7 +11,7 @@ export interface InputModalProps {
   leftButtonText: string;
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  setInput: Dispatch<SetStateAction<string>>;
+  setInput: (value: string) => void;
   setInputError: Dispatch<SetStateAction<string>>;
   handle: (event: MouseEvent<HTMLButtonElement>) => void;
   clearInput: boolean;

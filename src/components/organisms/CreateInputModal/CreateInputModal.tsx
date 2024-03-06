@@ -12,7 +12,7 @@ export interface CreateInputModalProps {
   leftButtonText?: string;
   rightButtonText?: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  setInput: Dispatch<SetStateAction<string>>;
+  setInput: (value: string) => void;
   handle: (event: MouseEvent<HTMLButtonElement>) => void;
   inputLabel: string;
   placeholder: string;

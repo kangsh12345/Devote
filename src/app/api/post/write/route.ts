@@ -104,6 +104,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 400 });
+    return NextResponse.json({ success: false }, { status: 400 });
   }
 }
