@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { TreeProps } from '@/src/utils/fs';
 
-import { Box } from '../../atoms/Box';
-import { FileList, FolderListItem } from '../../atoms/List';
-import * as styles from './folderBox.css';
+import { Box } from '../../../atoms/Box';
+import { FileList, FolderListItem } from '../../../atoms/List';
+import * as styles from './folderBoxOther.css';
 
 // export interface FolderBoxProps {
 //   own: boolean;

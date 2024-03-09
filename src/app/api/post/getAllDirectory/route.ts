@@ -47,9 +47,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const response = await getAllDirectory(session.user.dirName);
 
     return NextResponse.json(
-      { tree: response, message: 'success' },
+      { success: true, tree: response, message: 'success' },
       { status: 200 },
     );
   }
-  return NextResponse.json({ message: 'no authorization' }, { status: 400 });
+  return NextResponse.json(
+    { success: false, tree: [], message: 'no authorization' },
+    { status: 400 },
+  );
 }

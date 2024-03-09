@@ -41,10 +41,19 @@ export async function POST(req: NextRequest) {
         console.log(response);
       }
 
-      return NextResponse.json({ message: 'success' }, { status: 200 });
+      return NextResponse.json(
+        { success: true, exist: false, message: mkdirResponse },
+        { status: 200 },
+      );
     }
-    return NextResponse.json({ message: mkdirResponse }, { status: 200 });
+    return NextResponse.json(
+      { success: true, exist: true, message: mkdirResponse },
+      { status: 200 },
+    );
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 400 });
+    return NextResponse.json(
+      { success: false, exist: true, message: error },
+      { status: 400 },
+    );
   }
 }
