@@ -1,48 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { TreeProps } from '@/src/utils/fs';
-
 import { Box } from '../../../atoms/Box';
 import { FileList, FolderListItem } from '../../../atoms/List';
 import * as styles from './folderBoxOther.css';
-
-// export interface FolderBoxProps {
-//   own: boolean;
-// }
+import { useFolderBoxOther } from './useFolderBoxOther';
 
 export const FolderBoxOther = () => {
-  const pathName = usePathname();
-  const path = decodeURIComponent(decodeURIComponent(pathName));
-  const dirName = path.split('/')[2];
-
-  const [mainOpen, setMainOpen] = useState(true);
-  const [tree, setTree] = useState<TreeProps>();
-
-  // TODO: 이거 참고해서 폴더 내 경로 tree 얻어오는 api 이어서 제작
-  useEffect(() => {
-    if (path.startsWith('/posts/')) {
-      const fetchData = async () => {
-        await fetch(`/api/post/getAllOtherDirectory`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            path: path.split('/')[2],
-          }),
-        })
-          .then(res => res.json())
-          .then(data => {
-            if (data.message === 'success') {
-              setTree(data.tree);
-            }
-          });
-      };
-      fetchData();
-    }
-  }, [path]);
+  const { mainOpen, setMainOpen, tree, dirName } = useFolderBoxOther();
 
   return (
     <Box className={styles.root({})}>

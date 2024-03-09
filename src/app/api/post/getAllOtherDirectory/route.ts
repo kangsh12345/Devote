@@ -32,10 +32,22 @@ export async function POST(req: NextRequest) {
     const response = await getAllOtherDirectory(path);
 
     return NextResponse.json(
-      { tree: response, message: 'success' },
+      { success: true, tree: response, message: 'success' },
       { status: 200 },
     );
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 400 });
+    return NextResponse.json(
+      {
+        success: false,
+        tree: {
+          path: '',
+          name: '',
+          type: 'folder',
+          children: [],
+        },
+        message: error,
+      },
+      { status: 400 },
+    );
   }
 }
