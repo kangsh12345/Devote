@@ -1,11 +1,10 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-// import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { FolderNotch } from '@phosphor-icons/react';
 
 import { Box } from '../../../atoms/Box';
-import * as styles from '../PostCardSkeleton/postCard.css';
+import * as styles from './postCard.css';
+import { usePostCardBack } from './usePostCardBack';
 
 export type PostCardProps = {
   direction?: 'column' | 'row';
@@ -19,14 +18,7 @@ export type PostCardProps = {
 };
 
 export const PostCardBack = (props: PostCardProps) => {
-  const router = useRouter();
-
-  const direction = props.direction === undefined ? 'row' : props.direction;
-  const variant = props.variant;
-  const mvPath =
-    variant === 'folder'
-      ? `/posts/${props.path}`
-      : `/posts/${props.path?.replace(/\/([^\/]*)$/, '?title=$1')}`;
+  const { router, direction, variant, mvPath } = usePostCardBack(props);
 
   return (
     <>

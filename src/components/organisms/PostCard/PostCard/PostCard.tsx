@@ -15,7 +15,7 @@ import { Stack } from '../../../atoms/Stack';
 import { CardHover } from '../../../moecules/CardHover';
 import { Modal } from '../../../moecules/Modal';
 import { CreateInputModal } from '../../CreateInputModal';
-import * as styles from '../PostCardSkeleton/postCard.css';
+import * as styles from './postCard.css';
 
 export type PostCardProps = {
   direction?: 'column' | 'row';

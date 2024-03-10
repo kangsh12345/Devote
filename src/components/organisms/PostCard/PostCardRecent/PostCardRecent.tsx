@@ -9,7 +9,7 @@ import { Box } from '../../../atoms/Box';
 import { Card } from '../../../atoms/Card';
 import { Stack } from '../../../atoms/Stack';
 import { CardHover } from '../../../moecules/CardHover';
-import * as styles from '../PostCardSkeleton/postCard.css';
+import * as styles from './postCard.css';
 
 export type PostCardProps = {
   direction?: 'column' | 'row';
