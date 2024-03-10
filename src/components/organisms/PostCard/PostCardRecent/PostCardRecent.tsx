@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { FolderNotch } from '@phosphor-icons/react';
 
 import { Avatars } from '../../../atoms/Avatars';
@@ -10,6 +9,7 @@ import { Card } from '../../../atoms/Card';
 import { Stack } from '../../../atoms/Stack';
 import { CardHover } from '../../../moecules/CardHover';
 import * as styles from './postCard.css';
+import { usePostCardRecent } from './usePostCardRecent';
 
 export type PostCardProps = {
   direction?: 'column' | 'row';
@@ -23,18 +23,8 @@ export type PostCardProps = {
 };
 
 export const PostCardRecent = (props: PostCardProps) => {
-  const router = useRouter();
-
-  const direction = props.direction === undefined ? 'row' : props.direction;
-  const variant = props.variant;
-  const mvPath =
-    variant === 'folder'
-      ? `/posts/${props.path}`
-      : `/posts/${props.path?.replace(/\/([^\/]*)$/, '?title=$1')}`;
-
-  const thumnail = props.thumbnail ?? '';
-
-  const imageUrl = thumnail === '' ? '/image/NoPhoto.png' : thumnail;
+  const { router, direction, variant, mvPath, imageUrl } =
+    usePostCardRecent(props);
 
   return (
     <Box
