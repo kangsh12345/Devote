@@ -1,6 +1,4 @@
 'use client';
-
-import { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import { DotsThreeOutline, FolderNotch } from '@phosphor-icons/react';
 
@@ -11,24 +9,9 @@ import { Stack } from '../../../atoms/Stack';
 import { CardHover } from '../../../moecules/CardHover';
 import { Modal } from '../../../moecules/Modal';
 import { CreateInputModal } from '../../CreateInputModal';
+import { PostCardProps } from './PostCard';
 import * as styles from './postCard.css';
 import { usePostCard } from './usePostCard';
-
-export type PostCardProps = {
-  direction?: 'column' | 'row';
-  variant: 'card' | 'folder' | 'cardInFolder';
-  path: string;
-  name: string;
-  thumbnail?: string;
-  userName?: string;
-  subTitle?: string;
-  date?: string;
-  own: boolean;
-  hover: number;
-  idx: number;
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-};
 
 export const PostCard = (props: PostCardProps) => {
   const {
@@ -36,17 +19,25 @@ export const PostCard = (props: PostCardProps) => {
     setModifyOpen,
     deleteOpen,
     setDeleteOpen,
+    storeFolderName,
+    setFolderName,
     inputError,
     setInputError,
+    resetAtom,
     folderName,
     router,
+    regex,
     direction,
     variant,
     mvPath,
+    thumnail,
     imageUrl,
+    removeFileLoading,
+    existCheckLoading,
+    renameLoading,
     handleDeleteFolder,
     handleModifyFolder,
-  } = usePostCard(props);
+  } = usePostCard();
 
   return (
     <>
@@ -62,7 +53,7 @@ export const PostCard = (props: PostCardProps) => {
                     fontSize="inherit"
                     onClick={() => {
                       setModifyOpen(true);
-                      folderName.setValue(
+                      setFolderName(
                         variant === 'card'
                           ? props.name.replace('.md', '')
                           : props.name,
@@ -75,7 +66,7 @@ export const PostCard = (props: PostCardProps) => {
                     <CreateInputModal
                       title="폴더명 변경"
                       setOpen={setModifyOpen}
-                      setInput={folderName.setValue}
+                      setInput={setFolderName}
                       handle={() =>
                         handleModifyFolder(
                           props.name,
@@ -84,7 +75,7 @@ export const PostCard = (props: PostCardProps) => {
                       }
                       inputLabel="modify folder"
                       placeholder="폴더명"
-                      value={folderName.value}
+                      value={folderName}
                       inputError={inputError}
                       setInputError={setInputError}
                     />
@@ -244,12 +235,12 @@ export const PostCard = (props: PostCardProps) => {
                         '일'}
                     </Box>
                     {/* <IconText
-                    type="cardhover"
-                    size="lg"
-                    leftIcon={<Image src={star} alt="icon" fill sizes="100%" />}
-                  >
-                    <Box color="textSecondary">20</Box>
-                  </IconText> */}
+                            type="cardhover"
+                            size="lg"
+                            leftIcon={<Image src={star} alt="icon" fill sizes="100%" />}
+                          >
+                            <Box color="textSecondary">20</Box>
+                          </IconText> */}
                   </Box>
                 </Box>
               </>
