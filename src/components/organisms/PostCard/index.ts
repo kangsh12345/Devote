@@ -1,4 +1,4 @@
-export { PostCard } from './PostCard';
-export { PostCardBack } from './PostCardBack';
-export { PostCardRecent } from './PostCardRecent';
-export { PostCardSkeleton } from './PostCardSkeleton';
+export { PostCard } from './PostCard/PostCard';
+export { PostCardBack } from './PostCardBack/PostCardBack';
+export { PostCardRecent } from './PostCardRecent/PostCardRecent';
+export { PostCardSkeleton } from './PostCardSkeleton/PostCardSkeleton';

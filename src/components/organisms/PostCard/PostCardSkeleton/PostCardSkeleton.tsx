@@ -1,5 +1,5 @@
-import { Box } from '../../atoms/Box';
-import { Card } from '../../atoms/Card';
+import { Box } from '../../../atoms/Box';
+import { Card } from '../../../atoms/Card';
 import * as styles from './postCard.css';
 
 export interface PostCardSkeletonProps {

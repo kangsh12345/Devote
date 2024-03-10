@@ -7,15 +7,15 @@ import { useRouter } from 'next/navigation';
 import { DotsThreeOutline, FolderNotch } from '@phosphor-icons/react';
 import { toast } from 'react-hot-toast';
 
-import { Avatars } from '../../atoms/Avatars';
-import { Box } from '../../atoms/Box';
-import { Card } from '../../atoms/Card';
-import { Stack } from '../../atoms/Stack';
+import { Avatars } from '../../../atoms/Avatars';
+import { Box } from '../../../atoms/Box';
+import { Card } from '../../../atoms/Card';
+import { Stack } from '../../../atoms/Stack';
 // import { IconText } from '../../atoms/Text';
-import { CardHover } from '../../moecules/CardHover';
-import { Modal } from '../../moecules/Modal';
-import { CreateInputModal } from '../../organisms/CreateInputModal';
-import * as styles from './postCard.css';
+import { CardHover } from '../../../moecules/CardHover';
+import { Modal } from '../../../moecules/Modal';
+import { CreateInputModal } from '../../CreateInputModal';
+import * as styles from '../PostCardSkeleton/postCard.css';
 
 export type PostCardProps = {
   direction?: 'column' | 'row';

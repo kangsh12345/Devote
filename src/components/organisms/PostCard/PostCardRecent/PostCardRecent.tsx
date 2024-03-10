@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FolderNotch } from '@phosphor-icons/react';
 
-import { Avatars } from '../../atoms/Avatars';
-import { Box } from '../../atoms/Box';
-import { Card } from '../../atoms/Card';
-import { Stack } from '../../atoms/Stack';
-import { CardHover } from '../../moecules/CardHover';
-import * as styles from './postCard.css';
+import { Avatars } from '../../../atoms/Avatars';
+import { Box } from '../../../atoms/Box';
+import { Card } from '../../../atoms/Card';
+import { Stack } from '../../../atoms/Stack';
+import { CardHover } from '../../../moecules/CardHover';
+import * as styles from '../PostCardSkeleton/postCard.css';
 
 export type PostCardProps = {
   direction?: 'column' | 'row';

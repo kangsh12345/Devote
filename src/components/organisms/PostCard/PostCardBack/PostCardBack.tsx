@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 // import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { FolderNotch } from '@phosphor-icons/react';
 
-import { Box } from '../../atoms/Box';
-import * as styles from './postCard.css';
+import { Box } from '../../../atoms/Box';
+import * as styles from '../PostCardSkeleton/postCard.css';
 
 export type PostCardProps = {
   direction?: 'column' | 'row';
