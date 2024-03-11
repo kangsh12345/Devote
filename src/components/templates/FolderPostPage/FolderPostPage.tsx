@@ -124,15 +124,6 @@ export const FolderPostPage = () => {
                 ))}
             </>
           )}
-          {/* 추후 로딩시 스켈레톤 추가 */}
-          {/* TODO: 추후 패치 loading을 이용해서 skeleton 삽입 */}
-          {/* <PostCardSkeleton />
-          <PostCardSkeleton />
-          <PostCardSkeleton />
-          <PostCardSkeleton />
-          <PostCardSkeleton />
-          <PostCardSkeleton /> */}
-          {/* <PostCardSkeleton /> */}
         </Box>
       </Box>
     </Box>

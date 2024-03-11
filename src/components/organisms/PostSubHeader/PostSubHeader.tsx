@@ -16,7 +16,7 @@ export const PostSubHeader = ({ path }: PostSubHeaderProps) => {
   });
 
   return (
-    <Box className={styles.root({})}>
+    <Box className={styles.root({})} onClick={() => console.log(path)}>
       <Box width="fit">
         <Button
           size="sm"

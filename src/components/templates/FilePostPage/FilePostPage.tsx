@@ -20,7 +20,7 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
     });
 
   if (getFileLoading) {
-    // TODO: 로딩 나중에 쌈@뽕하게 다시 제작
+    // TODO: 로딩 나중에 스@근하게 다시 제작
     return <>파일 불러오는 중</>;
   }
 

@@ -31,6 +31,8 @@ export function usePostSubHeader({ path }: PostSubHeaderProps) {
 
   useEffect(() => {
     if (removeFileData && removeFileData.success) {
+      const to = `/posts/${path.replace(/\/[^\/]*$/, '')}`;
+      router.push(to);
       toast.success('파일이 삭제되었습니다');
     }
   }, [removeFileData]);
