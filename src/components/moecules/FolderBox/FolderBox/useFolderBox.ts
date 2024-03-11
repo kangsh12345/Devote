@@ -151,13 +151,6 @@ export function useFolderBox() {
         router.refresh();
       }
 
-      if (
-        createDirectoryData &&
-        createDirectoryData.message === 'create success'
-      ) {
-        toast.success('파일이 생성되었습니다');
-      }
-
       if (createDirectoryData && createDirectoryData.message === 'exist') {
         setInputError(
           '동일 경로에 같은 이름의 폴더/파일을 생성할 수 없습니다.',
@@ -198,6 +191,7 @@ export function useFolderBox() {
       createDirectoryData &&
       createDirectoryData.message === 'create success'
     ) {
+      toast.success('파일이 생성되었습니다');
       getAllDirectory();
     }
   }, [createDirectoryData, getAllDirectory]);
