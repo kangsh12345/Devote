@@ -54,7 +54,7 @@ export const WriteHeader = ({
             <Stack direction="horizontal" space="2" align="center">
               <Avatars size="md" text={name} />
               <Box fontSize="1" fontWeight={700} color="textSecondary">
-                / {path.replace('/', ' / ')}
+                / {path.replaceAll('/', ' / ')}
               </Box>
               <Box width="56">
                 <Input

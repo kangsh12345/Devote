@@ -35,6 +35,7 @@ export function usePostSubHeader({ path }: PostSubHeaderProps) {
       router.push(to);
       toast.success('파일이 삭제되었습니다');
     }
+    setOpen(false);
   }, [removeFileData]);
 
   useEffect(() => {

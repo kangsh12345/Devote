@@ -109,21 +109,26 @@ export function usePostWrite() {
 
     // 여기부터 같은 동선상 exist 체크
     if (session && title.value !== fileTitle) {
-      await existCheck({ path: filePath + title.value + '.md' });
+      const existCheckResult = await existCheck({
+        path: filePath + title.value + '.md',
+      });
 
-      if (existCheckData && !existCheckData.exist) {
-        if (!titleError && title.value) {
-          postWrite({
-            id: postId,
-            path,
-            newPath: filePath + title.value,
-            thumbnail,
-            title: title.value,
-            subTitle,
-            md: md.value,
-            date,
-          });
-        }
+      if (
+        existCheckResult &&
+        !existCheckData?.exist &&
+        !titleError &&
+        title.value
+      ) {
+        postWrite({
+          id: postId,
+          path,
+          newPath: filePath + title.value,
+          thumbnail,
+          title: title.value,
+          subTitle,
+          md: md.value,
+          date,
+        });
       }
     }
   };
