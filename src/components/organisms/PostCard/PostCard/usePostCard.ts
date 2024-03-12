@@ -111,12 +111,26 @@ export function usePostCard(props: PostCardProps) {
       setTree(tree.filter(item => item.path !== props.path));
     }
     props.setIsOpen(false);
+    resetAtom();
   }, [removeFileData]);
 
   useEffect(() => {
     if (renameData && renameData.success) {
       toast.success('파일 이름이 변경 되었습니다');
+      const changeTree = tree.map(item => {
+        if (item.path === props.path) {
+          item.path =
+            `${props.path.replace(/[^\/]*$/, '') + folderName.value}` +
+            (item.type === 'file' ? '.md' : '');
+          item.name = folderName.value;
+        }
+        return item;
+      });
+      console.log(changeTree);
+      setTree(changeTree);
     }
+    props.setIsOpen(false);
+    resetAtom();
   }, [renameData]);
 
   useEffect(() => {
