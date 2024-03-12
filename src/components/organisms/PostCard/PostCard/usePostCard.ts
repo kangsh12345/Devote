@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useExistCheckMutation } from '@/src/hooks/api/post/useExistCheckMutation';
 import { useRemoveFileMutation } from '@/src/hooks/api/post/useRemoveFileMutation';
 import { useRenameMutation } from '@/src/hooks/api/post/useRenameMutation';
+import { useTree } from '@/src/stores/Tree/useTree';
 import useInput from '@/src/utils/useInput';
 import { toast } from 'react-hot-toast';
 
@@ -21,6 +22,7 @@ export function usePostCard(props: PostCardProps) {
     setInputError,
     resetAtom,
   } = usePostCardAtoms();
+  const { folderPageTree: tree, setFolderPageTree: setTree } = useTree();
 
   const folderName = useInput({ initialValue: storeFolderName });
 
@@ -106,7 +108,9 @@ export function usePostCard(props: PostCardProps) {
   useEffect(() => {
     if (removeFileData && removeFileData.success) {
       toast.success('파일이 삭제 되었습니다');
+      setTree(tree.filter(item => item.path !== props.path));
     }
+    props.setIsOpen(false);
   }, [removeFileData]);
 
   useEffect(() => {

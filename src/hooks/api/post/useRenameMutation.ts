@@ -19,3 +19,5 @@ export function useRenameMutation() {
       await httpPostClient<RenameMutationResponse>(RenameMutationKey, path),
   );
 }
+
+// TODO: Rename시 데이터 프리패칭할 수 있도록 변경

@@ -4,14 +4,15 @@ import { useEffect } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useGetDirectoryMutation } from '@/src/hooks/api/post/useGetDirectoryMutation';
+import { useTree } from '@/src/stores/Tree/useTree';
 import { toast } from 'react-hot-toast';
 
 import { useFolderPostAtoms } from './atoms/useFolderPostAtoms';
 
 export function useFolderPost() {
   const {
-    tree,
-    setTree,
+    // tree,
+    // setTree,
     userName,
     setUserName,
     hover,
@@ -19,6 +20,8 @@ export function useFolderPost() {
     isOpen,
     setIsOpen,
   } = useFolderPostAtoms();
+
+  const { folderPageTree: tree, setFolderPageTree: setTree } = useTree();
 
   const { data: session } = useSession();
 
