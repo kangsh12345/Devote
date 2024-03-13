@@ -4,6 +4,8 @@ import { useSession } from 'next-auth/react';
 import { useCreateDirectoryMutation } from '@/src/hooks/api/post/useCreateDirectoryMutation';
 import { useGetAllDirectoryQuery } from '@/src/hooks/api/post/useGetAllDirectoryQuery';
 import { useRootDirectoryCheckMutation } from '@/src/hooks/api/post/useRootDirectoryCheckMutation';
+import { useTree } from '@/src/stores/Tree/useTree';
+import { DirectoryTreeProps } from '@/src/utils/fs';
 import useInput from '@/src/utils/useInput';
 import { toast } from 'react-hot-toast';
 
@@ -31,6 +33,7 @@ export function useFolderBox() {
     setInputError,
     resetAtom,
   } = useFolderBoxAtoms();
+  const { folderPageTree, setFolderPageTree } = useTree();
 
   const directory = useInput({ initialValue: storeDirectory });
   const file = useInput({ initialValue: storeFile });
@@ -131,38 +134,53 @@ export function useFolderBox() {
               (query.slug ? (querySlugFile ? `${querySlugFile}/` : '') : '') +
               (type === 'folder' ? directory.value.trim() : file.value.trim());
 
-      await createDirectory({
+      const createDirectoryResponse = await createDirectory({
         id: session.user.id,
         name: session.user.name,
         dirName: dirName,
         type: type,
       });
 
-      if (
-        type === 'rootDirectory' &&
-        createDirectoryData &&
-        createDirectoryData.message === 'create success' &&
-        status === 'authenticated'
-      ) {
-        const updateValue = rootDirectory.value.trim();
-        update({ user: { dirName: updateValue } });
-        setCreateRootFolderOpen(false);
-        rootDirectory.setValue('');
-        router.refresh();
-      }
+      const checkTreeUpdate =
+        queryId + '/' + querySlug === dirName.replace(/\/[^\/]*$/, '');
 
-      if (createDirectoryData && createDirectoryData.message === 'exist') {
-        setInputError(
-          '동일 경로에 같은 이름의 폴더/파일을 생성할 수 없습니다.',
-        );
-      }
       if (
-        createDirectoryData &&
-        createDirectoryData.message === 'valid false'
+        createDirectoryResponse &&
+        !createDirectoryResponse.exist &&
+        checkTreeUpdate
       ) {
-        setInputError('올바른 이름을 입력해주세요.');
+        console.log('일단 검사 통과');
+
+        const newFolderPageTreeItem: DirectoryTreeProps = {
+          path: dirName,
+          name: dirName.split('/').at(-1) ?? '',
+          type: type === 'file' ? 'file' : 'folder',
+          thumbnail: '',
+          userName: session.user.name,
+          subTitle: '',
+          date: String(new Date()),
+        };
+
+        const updatedFolderPageTree: DirectoryTreeProps[] = [
+          newFolderPageTreeItem,
+          ...folderPageTree,
+        ].sort(
+          (a, b) => (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1),
+        );
+
+        console.log(updatedFolderPageTree);
+
+        setFolderPageTree(updatedFolderPageTree);
+
+        if (type === 'rootDirectory' && status === 'authenticated') {
+          const updateValue = rootDirectory.value.trim();
+          update({ user: { dirName: updateValue } });
+        }
       }
     }
+    setCreateRootFolderOpen(false);
+    rootDirectory.setValue('');
+    resetAtom();
   };
 
   useEffect(() => {
@@ -193,6 +211,14 @@ export function useFolderBox() {
     ) {
       toast.success('파일이 생성되었습니다');
       getAllDirectory();
+    }
+
+    if (createDirectoryData && createDirectoryData.message === 'exist') {
+      setInputError('동일 경로에 같은 이름의 폴더/파일을 생성할 수 없습니다.');
+    }
+
+    if (createDirectoryData && createDirectoryData.message === 'valid false') {
+      setInputError('올바른 이름을 입력해주세요.');
     }
   }, [createDirectoryData, getAllDirectory]);
 
