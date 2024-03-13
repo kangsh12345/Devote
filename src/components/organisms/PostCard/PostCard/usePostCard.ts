@@ -86,9 +86,9 @@ export function usePostCard(props: PostCardProps) {
       (type === 'file' ? '.md' : '');
 
     if (props.own && folderName.value !== name) {
-      await existCheck({ path: reqPath });
+      const existCheckResponse = await existCheck({ path: reqPath });
 
-      if (existCheckData && existCheckData.exist) {
+      if (existCheckResponse && existCheckResponse.exist) {
         setInputError('동일 경로 같은 파일 존재');
         return;
       }
@@ -179,6 +179,7 @@ export function usePostCard(props: PostCardProps) {
     thumnail,
     imageUrl,
     removeFileLoading,
+    existCheckData,
     existCheckLoading,
     renameLoading,
     handleDeleteFolder,

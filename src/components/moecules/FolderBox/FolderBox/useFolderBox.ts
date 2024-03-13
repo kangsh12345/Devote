@@ -115,9 +115,11 @@ export function useFolderBox() {
     }
     if (session) {
       if (type === 'rootDirectory') {
-        await rootDirectoryCheck({ dirName: rootDirectory.value.trim() });
+        const rootDirectoryCheckResponse = await rootDirectoryCheck({
+          dirName: rootDirectory.value.trim(),
+        });
 
-        if (rootDirectoryCheckData && !rootDirectoryCheckData.success) {
+        if (rootDirectoryCheckResponse && !rootDirectoryCheckResponse.success) {
           return;
         }
       }

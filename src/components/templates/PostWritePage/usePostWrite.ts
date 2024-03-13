@@ -115,7 +115,7 @@ export function usePostWrite() {
 
       if (
         existCheckResult &&
-        !existCheckData?.exist &&
+        !existCheckResult.exist &&
         !titleError &&
         title.value
       ) {
