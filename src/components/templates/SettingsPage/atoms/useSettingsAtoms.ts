@@ -10,6 +10,14 @@ export function useSettingsAtoms() {
   const [openName, setNameOpen] = useAtom(openNameAtom);
   const [openAuth, setAuthOpen] = useAtom(openAuthAtom);
 
+  const resetAtoms = () => {
+    setProfile('');
+    setName('');
+    setNameError('');
+    setNameOpen(false);
+    setAuthOpen(false);
+  };
+
   return {
     profile,
     setProfile,
@@ -21,5 +29,6 @@ export function useSettingsAtoms() {
     setNameOpen,
     openAuth,
     setAuthOpen,
+    resetAtoms,
   };
 }

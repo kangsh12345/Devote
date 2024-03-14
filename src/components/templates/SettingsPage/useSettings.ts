@@ -24,6 +24,7 @@ export function useSettings() {
     setNameOpen,
     openAuth,
     setAuthOpen,
+    resetAtoms,
   } = useSettingsAtoms();
 
   const router = useRouter();
@@ -114,6 +115,7 @@ export function useSettings() {
     console.log(updateNameData);
 
     if (updateNameData && updateNameData.success) {
+      resetAtoms();
       update({ user: { name: name.value } });
       toast.success('이름이 변경되었습니다');
     }
@@ -129,12 +131,14 @@ export function useSettings() {
 
   useEffect(() => {
     if (updateProfileData && updateProfileData.success) {
+      resetAtoms();
       toast.success('프로필이 변경되었습니다');
     }
   }, [updateProfileData]);
 
   useEffect(() => {
     if (withdrawData && withdrawData.success) {
+      resetAtoms();
       signOut({ callbackUrl: '/' });
     }
   }, [withdrawData]);

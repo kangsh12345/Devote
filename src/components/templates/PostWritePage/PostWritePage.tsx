@@ -23,14 +23,7 @@ export const PostWritePage = () => {
     md,
     handleClick,
     handleInput,
-    // postWriteLoading,
-    getFileLoading,
   } = usePostWrite();
-
-  if (getFileLoading) {
-    // TODO: 로딩 나중에 쌈@뽕하게 다시 제작
-    return <>파일 불러오는 중</>;
-  }
 
   return (
     <>

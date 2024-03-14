@@ -13,16 +13,10 @@ export interface FilePostPageProps {
 }
 
 export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
-  const { isExist, date, md, setMd, name, fullPath, getFileLoading } =
-    useFilePost({
-      title,
-      path,
-    });
-
-  if (getFileLoading) {
-    // TODO: 로딩 나중에 스@근하게 다시 제작
-    return <>파일 불러오는 중</>;
-  }
+  const { isExist, date, md, setMd, name, fullPath } = useFilePost({
+    title,
+    path,
+  });
 
   return (
     <>
