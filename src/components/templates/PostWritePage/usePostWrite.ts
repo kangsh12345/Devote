@@ -130,6 +130,17 @@ export function usePostWrite() {
           date,
         });
       }
+    } else if (title.value && title.value === fileTitle && !titleError) {
+      postWrite({
+        id: postId,
+        path,
+        newPath: filePath + title.value,
+        thumbnail,
+        title: title.value,
+        subTitle,
+        md: md.value,
+        date,
+      });
     }
   };
 
