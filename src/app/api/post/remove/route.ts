@@ -1,14 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { removeFile } from '@/src/utils/fs';
+import { PrismaClient } from '@prisma/client';
 import path from 'path';
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
+const prisma = new PrismaClient();
 
 async function removePost(path: string, type: string) {
   const fullPath = `${rootDirectory}/${path}`;
 
   try {
     const response = removeFile(fullPath, type);
+
+    const removePrisma = await prisma.post.delete({
+      where: {
+        path: path.replace('.md', ''),
+      },
+    });
+
+    console.log(`remove Success: ${removePrisma}`);
 
     return response;
   } catch (error) {

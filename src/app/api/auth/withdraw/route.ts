@@ -14,6 +14,12 @@ async function withdrawAccount(id: string) {
       },
     });
 
+    const post = await prisma.post.deleteMany({
+      where: {
+        userId: id,
+      },
+    });
+
     const account = await prisma.account.findFirst({
       where: {
         userId: id,
@@ -28,7 +34,7 @@ async function withdrawAccount(id: string) {
       });
     }
 
-    console.log(response);
+    console.log(response, post);
 
     return response;
   } catch (error) {
