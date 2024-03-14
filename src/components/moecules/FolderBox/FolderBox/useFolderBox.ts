@@ -161,8 +161,6 @@ export function useFolderBox() {
         !createDirectoryResponse.exist &&
         checkTreeUpdate
       ) {
-        console.log('일단 검사 통과');
-
         const newFolderPageTreeItem: DirectoryTreeProps = {
           path: dirName,
           name: dirName.split('/').at(-1) ?? '',
@@ -179,8 +177,6 @@ export function useFolderBox() {
         ].sort(
           (a, b) => (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1),
         );
-
-        console.log(updatedFolderPageTree);
 
         setFolderPageTree(updatedFolderPageTree);
       }
@@ -217,6 +213,10 @@ export function useFolderBox() {
       createDirectoryData.message === 'create success'
     ) {
       toast.success('파일이 생성되었습니다');
+      resetAtom();
+      directory.setValue('');
+      file.setValue('');
+      rootDirectory.setValue('');
       getAllDirectory();
     }
 
