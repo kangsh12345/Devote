@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { httpPostClient } from '@/src/utils/client';
 import useInput from '@/src/utils/useInput';
+import { toast } from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
 
 import { useAuthAtoms } from './atoms/useAuthAtoms';
@@ -25,6 +26,16 @@ export function useAuth() {
     setPassword,
     passwordCheck: storePasswordCheck,
     setPasswordCheck,
+    emailError,
+    setEmailError,
+    nameError,
+    setNameError,
+    passwordCheckError,
+    setPasswordCheckError,
+    passwordError,
+    setPasswordError,
+    title,
+    setTitle,
   } = useAuthAtoms();
 
   const router = useRouter();
@@ -32,12 +43,6 @@ export function useAuth() {
   const callbackUrl = searchParams.get('callbackUrl');
 
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,24}$/;
-
-  const [emailError, setEmailError] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [passwordCheckError, setPasswordCheckError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [title, setTitle] = useState('로그인');
 
   const email = useInput({ initialValue: storeEamil });
   const name = useInput({ initialValue: storeName });
@@ -94,6 +99,10 @@ export function useAuth() {
         image: 'https://source.boringavatars.com/beam',
         redirect: true,
         callbackUrl: '/',
+      }).then(res => {
+        if (!res?.error) {
+          toast.success('회원가입 되었습니다.');
+        }
       });
     }
   };
@@ -113,8 +122,10 @@ export function useAuth() {
     }).then(res => {
       if (!res?.error) {
         resetAtom();
+        toast.success('로그인 되었습니다.');
         router.push(callbackUrl ?? '/');
       } else {
+        console.log(`signin error`);
         setPassword('');
         setPasswordError('이메일 또는 비밀번호가 유효하지 않습니다.');
       }
@@ -141,13 +152,13 @@ export function useAuth() {
     } else if (passwordError !== '' && passwordRegex.test(password.value)) {
       setPasswordError('');
     }
-  }, [password.value, passwordError]);
+  }, [password.value]);
 
   useEffect(() => {
     if (passwordCheckError !== '' && password.value === passwordCheck.value) {
       setPasswordCheckError('');
     }
-  }, [passwordCheck.value, password.value, passwordCheckError]);
+  }, [passwordCheck.value, password.value]);
 
   return {
     email,

@@ -6,6 +6,13 @@ import {
   passwordAtom,
   passwordCheckAtom,
 } from './inputAtoms';
+import {
+  emailErrorAtom,
+  nameErrorAtom,
+  passwordCheckErrorAtom,
+  passwordErrorAtom,
+  titleAtom,
+} from './statusAtoms';
 
 export function useAuthAtoms() {
   //input
@@ -14,11 +21,24 @@ export function useAuthAtoms() {
   const [password, setPassword] = useAtom(passwordAtom);
   const [passwordCheck, setPasswordCheck] = useAtom(passwordCheckAtom);
 
+  //ᅛstatus
+  const [emailError, setEmailError] = useAtom(emailErrorAtom);
+  const [nameError, setNameError] = useAtom(nameErrorAtom);
+  const [passwordCheckError, setPasswordCheckError] = useAtom(
+    passwordCheckErrorAtom,
+  );
+  const [passwordError, setPasswordError] = useAtom(passwordErrorAtom);
+  const [title, setTitle] = useAtom(titleAtom);
+
   const resetAtom = () => {
     setEmail('');
     setName('');
     setPassword('');
     setPasswordCheck('');
+    setEmailError('');
+    setNameError('');
+    setPasswordCheckError('');
+    setPasswordError('');
   };
 
   return {
@@ -31,5 +51,15 @@ export function useAuthAtoms() {
     setPassword,
     passwordCheck,
     setPasswordCheck,
+    emailError,
+    setEmailError,
+    nameError,
+    setNameError,
+    passwordCheckError,
+    setPasswordCheckError,
+    passwordError,
+    setPasswordError,
+    title,
+    setTitle,
   };
 }

@@ -149,6 +149,16 @@ export function useFolderBox() {
       if (
         createDirectoryResponse &&
         !createDirectoryResponse.exist &&
+        type === 'rootDirectory' &&
+        status === 'authenticated'
+      ) {
+        const updateValue = rootDirectory.value.trim();
+        update({ user: { dirName: updateValue } });
+      }
+
+      if (
+        createDirectoryResponse &&
+        !createDirectoryResponse.exist &&
         checkTreeUpdate
       ) {
         console.log('일단 검사 통과');
@@ -173,11 +183,6 @@ export function useFolderBox() {
         console.log(updatedFolderPageTree);
 
         setFolderPageTree(updatedFolderPageTree);
-
-        if (type === 'rootDirectory' && status === 'authenticated') {
-          const updateValue = rootDirectory.value.trim();
-          update({ user: { dirName: updateValue } });
-        }
       }
     }
     setCreateRootFolderOpen(false);
@@ -192,7 +197,7 @@ export function useFolderBox() {
   }, [session, getAllDirectory]);
 
   useEffect(() => {
-    if (rootDirectoryCheckData && rootDirectoryCheckData.success) {
+    if (rootDirectoryCheckData && !rootDirectoryCheckData.success) {
       setInputError(rootDirectoryCheckData.message);
     }
   }, [rootDirectoryCheckData, setInputError]);
