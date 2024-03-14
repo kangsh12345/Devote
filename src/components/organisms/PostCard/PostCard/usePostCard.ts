@@ -126,7 +126,6 @@ export function usePostCard(props: PostCardProps) {
         }
         return item;
       });
-      console.log(changeTree);
       setTree(changeTree);
     }
     props.setIsOpen(false);

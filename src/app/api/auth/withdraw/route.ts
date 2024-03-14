@@ -2,11 +2,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/src/utils/auth';
+import { removeFile } from '@/src/utils/fs';
 import { PrismaClient } from '@prisma/client';
+import path from 'path';
 
+const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 const prisma = new PrismaClient();
 
-async function withdrawAccount(id: string) {
+async function withdrawAccount(id: string, path: string) {
+  const fullPath = `${rootDirectory}/${path}`;
+
   try {
     const response = await prisma.user.delete({
       where: {
@@ -34,6 +39,8 @@ async function withdrawAccount(id: string) {
       });
     }
 
+    await removeFile(fullPath, 'folder');
+
     console.log(response, post);
 
     return response;
@@ -60,7 +67,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const id = session?.user.id;
 
   try {
-    const response = await withdrawAccount(id);
+    const response = await withdrawAccount(id, session?.user.dirName);
 
     console.log(response);
 

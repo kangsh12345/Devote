@@ -112,8 +112,6 @@ export function useSettings() {
   }, [updateProfileError]);
 
   useEffect(() => {
-    console.log(updateNameData);
-
     if (updateNameData && updateNameData.success) {
       resetAtoms();
       update({ user: { name: name.value } });

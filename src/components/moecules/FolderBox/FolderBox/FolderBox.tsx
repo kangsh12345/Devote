@@ -35,7 +35,7 @@ export const FolderBox = () => {
   } = useFolderBox();
 
   return (
-    <Box className={styles.root({})} onClick={() => console.log(session)}>
+    <Box className={styles.root({})}>
       {session && session.user.dirName ? (
         mainOpen ? (
           <>

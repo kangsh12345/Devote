@@ -86,8 +86,6 @@ export function useAuth() {
       { email: email.value },
     );
 
-    console.log(res);
-
     if (!res.success) {
       setEmailError(res.message);
       return;
@@ -125,7 +123,6 @@ export function useAuth() {
         toast.success('로그인 되었습니다.');
         router.push(callbackUrl ?? '/');
       } else {
-        console.log(`signin error`);
         setPassword('');
         setPasswordError('이메일 또는 비밀번호가 유효하지 않습니다.');
       }
