@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 // import Image from 'next/image';
 // import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { format } from 'date-fns';
@@ -17,13 +16,12 @@ import * as styles from './postHeader.css';
 
 export interface PostHeaderProps {
   name: string;
-  path: string;
   title: string;
   date: Date;
+  own: boolean;
 }
 
-export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
-  const router = useRouter();
+export const PostHeader = ({ name, title, date, own }: PostHeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -33,42 +31,31 @@ export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
         <Box className={styles.breakpoint({ type: 'side' })}>
           <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
-        <Box display="flex" flexShrink={0}>
+        <Box display="flex">
           <Stack space="6" direction="horizontal">
-            <Stack direction="horizontal" space="2" align="center">
-              <Avatars size="md" text={name} />
-              <Box
-                fontSize="1"
-                fontWeight={400}
-                color="textPrimary"
-                display="flex"
-                flexDirection="row"
-                gap="1"
-              >
-                {path?.split('/').map((item, idx) => (
-                  <Box
-                    onClick={() =>
-                      router.push(
-                        `/posts/${path
-                          .split('/')
-                          .slice(0, idx + 1)
-                          .join('/')}`,
-                      )
-                    }
-                    key={idx}
-                  >
-                    / {item}
+            <Stack direction="horizontal" space="1.5" align="center">
+              <Stack direction="horizontal" space="0" align="center">
+                {!own && (
+                  <Box className={styles.avatarBreakpoint}>
+                    <Avatars size="md" />
                   </Box>
-                ))}
-              </Box>
-              <Box
-                fontSize="1"
-                fontWeight={400}
-                color="textPrimary"
-                marginLeft="-1"
-              >
-                / {title}
-              </Box>
+                )}
+                <Box marginTop="0.5" fontWeight={500} className={styles.name}>
+                  {!own ? name : ''}
+                </Box>
+              </Stack>
+              {!own && (
+                <Box
+                  fontSize="4"
+                  fontWeight={500}
+                  marginTop="0.5"
+                  color="textTertiary"
+                  marginX="1"
+                >
+                  |
+                </Box>
+              )}
+              <Box className={styles.titleEllpsis}>{title}</Box>
             </Stack>
           </Stack>
         </Box>
@@ -81,6 +68,7 @@ export const PostHeader = ({ name, path, title, date }: PostHeaderProps) => {
               color="textTertiary"
               paddingLeft="6"
               fontSize="1"
+              flexShrink={0}
             >
               {format(new Date(date), 'yyyy년 M월 d일')}
             </Box>

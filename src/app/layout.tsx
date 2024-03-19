@@ -27,7 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
               <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
                 <div id="portal" />
                 <Toaster />
-                <Box display="flex" gap="0" width="full" minWidth="145">
+                <Box display="flex" gap="0" width="full" minWidth="80">
                   <Box
                     width="auto"
                     position="sticky"

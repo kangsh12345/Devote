@@ -131,6 +131,7 @@ export const Header = ({
             icon={<MagnifyingGlass size={20} weight="duotone" />}
           /> */}
           {type === 'myFolder' && (
+            // BreakPoint tablet 이상 시 icon menu 버튼으로 옮겨가도록
             <>
               <IconButton
                 size="md"

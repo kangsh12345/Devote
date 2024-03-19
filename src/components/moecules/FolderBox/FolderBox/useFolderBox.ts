@@ -1,5 +1,10 @@
 import { useEffect } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useCreateDirectoryMutation } from '@/src/hooks/api/post/useCreateDirectoryMutation';
 import { useGetAllDirectoryQuery } from '@/src/hooks/api/post/useGetAllDirectoryQuery';
@@ -39,8 +44,10 @@ export function useFolderBox() {
   const file = useInput({ initialValue: storeFile });
   const rootDirectory = useInput({ initialValue: storeRootDirectory });
 
-  const router = useRouter();
+  const pathName = usePathname();
+  const path = decodeURIComponent(decodeURIComponent(pathName));
   const query = useParams();
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const queryType = searchParams.get('type');
@@ -183,7 +190,6 @@ export function useFolderBox() {
     }
     setCreateRootFolderOpen(false);
     rootDirectory.setValue('');
-    resetAtom();
   };
 
   useEffect(() => {
@@ -263,6 +269,22 @@ export function useFolderBox() {
       );
     }
   }, [getAllDirectoryError]);
+
+  useEffect(() => {
+    if (
+      path.startsWith('/posts/') &&
+      session &&
+      session.user.dirName !== queryId
+    ) {
+      setMainOpen(false);
+    } else if (
+      path.startsWith('/posts/') &&
+      session &&
+      session.user.dirName === queryId
+    ) {
+      setMainOpen(true);
+    }
+  }, []);
 
   return {
     mainOpen,

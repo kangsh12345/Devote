@@ -36,7 +36,7 @@ export const FolderPostPage = () => {
       backgroundColor="backgroundElevatedPrimary"
     >
       <Header
-        type="folder"
+        type={own ? 'myFolder' : 'folder'}
         isActive={isActive}
         setIsActive={setIsActive}
         path={path.replace('/posts/', '')}

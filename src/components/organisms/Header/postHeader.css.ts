@@ -1,4 +1,5 @@
 import { atoms } from '@/src/css';
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = atoms({
@@ -29,11 +30,33 @@ export const switcher = atoms({
 });
 
 export const breakpoint = recipe({
-  base: [],
+  base: [atoms({ marginRight: '4' })],
   variants: {
     type: {
       header: atoms({ display: { wide: 'none', tablet: 'flex' } }),
       side: atoms({ display: { wide: 'flex', tablet: 'none' } }),
     },
   },
+});
+
+export const avatarBreakpoint = atoms({
+  display: { wide: 'none', tablet: 'flex' },
+});
+
+export const titleEllpsis = [
+  atoms({
+    fontSize: '2',
+    marginTop: '0.5',
+    fontWeight: 400,
+    color: 'textPrimary',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+  }),
+  style({
+    textOverflow: 'ellipsis',
+  }),
+];
+
+export const name = atoms({
+  overflow: 'unset',
 });

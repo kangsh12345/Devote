@@ -67,7 +67,11 @@ export const createDirectory = ({
     return 'valid false';
   }
 
-  const isExists = fs.existsSync(`${rootDirectory}/${dirName}`);
+  const isExists = fs.existsSync(
+    `${rootDirectory}/${dirName}${type === 'file' && '.md'}`,
+  );
+
+  console.log(`isExist: ${isExists}`);
 
   if (!isExists) {
     if (type === 'file') {
