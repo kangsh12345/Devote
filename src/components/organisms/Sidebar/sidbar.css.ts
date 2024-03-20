@@ -10,8 +10,10 @@ export const root = recipe({
       width: 'fit',
       height: 'viewHeight',
       backgroundColor: 'backgroundBase',
-      borderRightWidth: 'px',
       borderColor: 'borderPrimary',
+      transitionProperty: 'transform',
+      transitionTimingFunction: 'inOut',
+      transitionDuration: '75',
     }),
   ],
   variants: {
@@ -37,6 +39,17 @@ export const root = recipe({
       style: atoms({ width: 'fit' }),
     },
   ],
+});
+
+export const resizeBar = atoms({
+  borderRightWidth: 'px',
+  cursor: 'ew-resize',
+  height: 'viewHeight',
+  position: 'absolute',
+  right: '0',
+  paddingX: '1',
+  // width: 'px',
+  borderColor: { base: 'borderPrimary', hover: 'opacityBlack500' },
 });
 
 export const contentBox = recipe({

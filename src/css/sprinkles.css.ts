@@ -141,7 +141,7 @@ const unresponsiveProperties = defineProperties({
       '5/4': '5 / 4',
       '16/9': '16 / 9',
     },
-    cursor: ['default', 'pointer', 'not-allowed'],
+    cursor: ['default', 'pointer', 'not-allowed', 'ew-resize'],
     fontFamily: vars.fontFamilies,
     isolation: ['isolate'],
     objectFit: ['contain', 'cover'],

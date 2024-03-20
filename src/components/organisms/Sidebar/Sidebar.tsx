@@ -1,10 +1,11 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
+import { useResizeSidebar } from '@/src/utils/useResizeSidebar';
 import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
 // import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
 import gear from '@phosphor-icons/core/duotone/gear-duotone.svg';
@@ -38,11 +39,16 @@ export const Sidebar = ({
   const { data: session } = useSession();
 
   const [isOpen, setIsOpen] = useState(true);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const resizeHandleRef = useRef<HTMLDivElement>(null);
+
+  useResizeSidebar(sidebarRef, resizeHandleRef);
 
   const own = param.id && id === session?.user.dirName ? true : false;
 
   return (
-    <Box className={styles.root({ isOpen, type })}>
+    <Box className={styles.root({ isOpen, type })} ref={sidebarRef}>
+      <Box className={styles.resizeBar} ref={resizeHandleRef} />
       {type === 'drawer' ? (
         <SidebarLogo
           isOpen={isOpenDrawer}
