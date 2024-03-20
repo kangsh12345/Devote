@@ -1,11 +1,11 @@
 'use client';
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
-import { useResizeSidebar } from '@/src/utils/useResizeSidebar';
+import { useSidebarResizer } from '@/src/utils/useSidebarResizer';
 import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
 // import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
 import gear from '@phosphor-icons/core/duotone/gear-duotone.svg';
@@ -40,15 +40,26 @@ export const Sidebar = ({
 
   const [isOpen, setIsOpen] = useState(true);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const resizeHandleRef = useRef<HTMLDivElement>(null);
 
-  useResizeSidebar(sidebarRef, resizeHandleRef);
+  const startResizing = useSidebarResizer({
+    minSidebarWidth: 260,
+    maxSidebarWidth: 400,
+  });
 
   const own = param.id && id === session?.user.dirName ? true : false;
 
+  useEffect(() => {
+    if (sidebarRef.current) {
+      sidebarRef.current.style.width = isOpen ? '260px' : 'fit-content';
+    }
+  }, [isOpen]);
+
   return (
     <Box className={styles.root({ isOpen, type })} ref={sidebarRef}>
-      <Box className={styles.resizeBar} ref={resizeHandleRef} />
+      <Box
+        className={styles.resizeBar}
+        onMouseDown={e => startResizing(sidebarRef, e)}
+      />
       {type === 'drawer' ? (
         <SidebarLogo
           isOpen={isOpenDrawer}

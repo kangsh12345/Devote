@@ -7,7 +7,7 @@ export const root = recipe({
     atoms({
       position: 'relative',
       flexDirection: 'column',
-      width: 'fit',
+      // width: 'fit',
       height: 'viewHeight',
       backgroundColor: 'backgroundBase',
       borderColor: 'borderPrimary',
@@ -30,14 +30,14 @@ export const root = recipe({
     },
   },
   compoundVariants: [
-    {
-      variants: { isOpen: true, type: 'sidebar' },
-      style: atoms({ width: '65' }),
-    },
-    {
-      variants: { isOpen: false, type: 'sidebar' },
-      style: atoms({ width: 'fit' }),
-    },
+    // {
+    //   variants: { isOpen: true, type: 'sidebar' },
+    //   style: atoms({ width: '65' }),
+    // },
+    // {
+    //   variants: { isOpen: false, type: 'sidebar' },
+    //   style: atoms({ width: 'fit' }),
+    // },
   ],
 });
 
@@ -48,7 +48,6 @@ export const resizeBar = atoms({
   position: 'absolute',
   right: '0',
   paddingX: '1',
-  // width: 'px',
   borderColor: { base: 'borderPrimary', hover: 'opacityBlack500' },
 });
 
