@@ -1,21 +1,12 @@
 'use client';
 
 import { Dispatch, SetStateAction, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import {
-  // FilePlus,
-  // FolderPlus,
-  ListBullets,
-  // MagnifyingGlass,
-  SquaresFour,
-} from '@phosphor-icons/react';
+import { ListBullets, SquaresFour } from '@phosphor-icons/react';
 
-import { AvatarMenu, Avatars } from '../../atoms/Avatars';
+import { AvatarMenu } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
-import { Button } from '../../atoms/Button';
-// import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';
@@ -30,10 +21,9 @@ export interface HeaderProps {
   path?: string;
 }
 
-export const Header = ({
+export const MyFolderHeader = ({
   isActive,
   setIsActive,
-  userName,
   path,
 }: HeaderProps) => {
   const router = useRouter();
@@ -42,7 +32,7 @@ export const Header = ({
   const { data: session } = useSession();
 
   return (
-    <Box className={styles.root({ type: 'folder' })}>
+    <Box className={styles.root({ type: 'myFolder' })}>
       <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
       <Box className={styles.box({})}>
         <Box className={styles.breakpoint({ type: 'side' })}>
@@ -70,13 +60,8 @@ export const Header = ({
             </Box>
 
             <Stack direction="horizontal" space="2" align="center">
-              <Box display="flex" flexDirection="row" alignItems="center">
-                <Box className={styles.avatarBreakpoint}>
-                  <Avatars size="md" />
-                </Box>
-                <Box fontWeight={500} flexShrink={1}>
-                  {userName}
-                </Box>
+              <Box fontSize="2" fontWeight={500}>
+                나의 폴더
               </Box>
               <Box
                 fontSize="1"
@@ -106,21 +91,8 @@ export const Header = ({
           </Stack>
         </Box>
         <Stack space="3" direction="horizontal" align="center">
-          {!session ? (
-            <Link href="/auth/signin">
-              <Button
-                size="sm"
-                variant="solid"
-                radius="full"
-                color="black"
-                width="fit"
-              >
-                로그인
-              </Button>
-            </Link>
-          ) : (
-            session &&
-            session.user.image && <AvatarMenu image={session.user.image} />
+          {session && session.user.image && (
+            <AvatarMenu image={session.user.image} />
           )}
         </Stack>
       </Box>

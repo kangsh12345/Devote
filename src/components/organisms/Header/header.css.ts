@@ -71,3 +71,7 @@ export const breakpoint = recipe({
     },
   },
 });
+
+export const avatarBreakpoint = atoms({
+  display: { wide: 'none', tablet: 'flex' },
+});

@@ -2,7 +2,7 @@
 import { usePost } from '@/src/stores/Post/usePost';
 
 import { Box } from '../../atoms/Box';
-import { Header } from '../../organisms/Header';
+import { Header, MyFolderHeader } from '../../organisms/Header';
 import {
   PostCard,
   PostCardBack,
@@ -35,13 +35,21 @@ export const FolderPostPage = () => {
       minHeight="viewHeight"
       backgroundColor="backgroundElevatedPrimary"
     >
-      <Header
-        type={own ? 'myFolder' : 'folder'}
-        isActive={isActive}
-        setIsActive={setIsActive}
-        path={path.replace('/posts/', '')}
-        userName={userName}
-      />
+      {own ? (
+        <MyFolderHeader
+          isActive={isActive}
+          setIsActive={setIsActive}
+          path={path.replace('/posts/', '')}
+          userName={userName}
+        />
+      ) : (
+        <Header
+          isActive={isActive}
+          setIsActive={setIsActive}
+          path={path.replace('/posts/', '')}
+          userName={userName}
+        />
+      )}
       <Box
         display="flex"
         height="full"
