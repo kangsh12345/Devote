@@ -10,9 +10,10 @@ import { usePostSubHeader } from './usePostSubHeader';
 export interface PostSubHeaderProps {
   fullPath: string;
   path: string;
+  own: boolean;
 }
 
-export const PostSubHeader = ({ fullPath, path }: PostSubHeaderProps) => {
+export const PostSubHeader = ({ fullPath, path, own }: PostSubHeaderProps) => {
   const { open, setOpen, router, handleRemoveFile } = usePostSubHeader({
     path: fullPath,
   });
@@ -44,46 +45,48 @@ export const PostSubHeader = ({ fullPath, path }: PostSubHeaderProps) => {
           </Box>
         ))}
       </Box>
-      <Stack direction="horizontal" space="1.5" align="center">
-        <Box width="fit">
-          <Button
-            size="sm"
-            variant="outline"
-            radius="full"
-            color="gray"
-            onClick={() => router.push(`/write?path=${fullPath}`)}
-          >
-            수정
-          </Button>
-        </Box>
-        <Box width="fit">
-          <Button
-            size="sm"
-            variant="outline"
-            radius="full"
-            color="gray"
-            onClick={() => setOpen(true)}
-          >
-            삭제
-          </Button>
-          {open && (
-            <Modal
-              type="right"
-              title="파일 삭제"
-              setOpen={setOpen}
-              handle={handleRemoveFile}
-              leftButtonText="취소"
-              rightButtonText="삭제"
-              withCloseButton={false}
+      {own && (
+        <Stack direction="horizontal" space="1.5" align="center">
+          <Box width="fit">
+            <Button
+              size="sm"
+              variant="outline"
+              radius="full"
+              color="gray"
+              onClick={() => router.push(`/write?path=${fullPath}`)}
             >
-              <Box as="span" textDecoration="underline">
-                {fullPath}
-              </Box>
-              을 삭제하시겠습니까?
-            </Modal>
-          )}
-        </Box>
-      </Stack>
+              수정
+            </Button>
+          </Box>
+          <Box width="fit">
+            <Button
+              size="sm"
+              variant="outline"
+              radius="full"
+              color="gray"
+              onClick={() => setOpen(true)}
+            >
+              삭제
+            </Button>
+            {open && (
+              <Modal
+                type="right"
+                title="파일 삭제"
+                setOpen={setOpen}
+                handle={handleRemoveFile}
+                leftButtonText="취소"
+                rightButtonText="삭제"
+                withCloseButton={false}
+              >
+                <Box as="span" textDecoration="underline">
+                  {fullPath}
+                </Box>
+                을 삭제하시겠습니까?
+              </Modal>
+            )}
+          </Box>
+        </Stack>
+      )}
     </Box>
   );
 };

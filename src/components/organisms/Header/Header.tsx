@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import {
-  FilePlus,
-  FolderPlus,
+  // FilePlus,
+  // FolderPlus,
   ListBullets,
   // MagnifyingGlass,
   SquaresFour,
@@ -14,7 +14,7 @@ import {
 
 import { AvatarMenu, Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
-import { Button, IconButton } from '../../atoms/Button';
+import { Button } from '../../atoms/Button';
 // import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
@@ -130,7 +130,7 @@ export const Header = ({
             size="md"
             icon={<MagnifyingGlass size={20} weight="duotone" />}
           /> */}
-          {type === 'myFolder' && (
+          {/* {type === 'myFolder' && (
             // BreakPoint tablet 이상 시 icon menu 버튼으로 옮겨가도록
             <>
               <IconButton
@@ -142,7 +142,7 @@ export const Header = ({
                 icon={<FolderPlus size={20} weight="duotone" />}
               />
             </>
-          )}
+          )} */}
           {(type === 'popular' || type === 'folder') && !session ? (
             <Link href="/auth/signin">
               <Button

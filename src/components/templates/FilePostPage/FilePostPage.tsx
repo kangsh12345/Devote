@@ -28,7 +28,7 @@ export const FilePostPage = ({ title, own, path }: FilePostPageProps) => {
           backgroundColor="backgroundBase"
         >
           <PostHeader name={name} title={title} date={date} own={own} />
-          {own && <PostSubHeader fullPath={fullPath} path={path} />}
+          <PostSubHeader fullPath={fullPath} path={path} own={own} />
           <Box display="flex" height="full" justifyContent="center">
             <Box width="full" height="full">
               <Box className={styles.markdownBox({ own })}>

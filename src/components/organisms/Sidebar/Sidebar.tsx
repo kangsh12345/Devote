@@ -71,7 +71,6 @@ export const Sidebar = ({
       )}
       {(type === 'drawer' || (type === 'sidebar' && isOpen)) && (
         <Box className={styles.contentBox({ isOpen, type })}>
-          {/* TODO: width 늘어남에 따라 item들 변화도 추가해주기 */}
           <Box className={styles.top({})}>
             <Stack space="1">
               {/* <Link href="/">

@@ -45,18 +45,18 @@ export const avatarBreakpoint = atoms({
 
 export const titleEllpsis = [
   atoms({
+    // display: 'flex',
     fontSize: '2',
     marginTop: '0.5',
     fontWeight: 400,
     color: 'textPrimary',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
   }),
   style({
+    overflow: 'hidden',
     textOverflow: 'ellipsis',
+    minWidth: 0,
+    display: '-webkit-box',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 1,
   }),
 ];
-
-export const name = atoms({
-  overflow: 'unset',
-});

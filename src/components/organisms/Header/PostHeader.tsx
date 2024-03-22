@@ -31,7 +31,7 @@ export const PostHeader = ({ name, title, date, own }: PostHeaderProps) => {
         <Box className={styles.breakpoint({ type: 'side' })}>
           <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
-        <Box display="flex">
+        <Box display="flex" flexShrink={1}>
           <Stack space="6" direction="horizontal">
             <Stack direction="horizontal" space="1.5" align="center">
               <Stack direction="horizontal" space="0" align="center">
@@ -40,7 +40,12 @@ export const PostHeader = ({ name, title, date, own }: PostHeaderProps) => {
                     <Avatars size="md" />
                   </Box>
                 )}
-                <Box marginTop="0.5" fontWeight={500} className={styles.name}>
+                <Box
+                  marginTop="0.5"
+                  fontWeight={500}
+                  className={styles.titleEllpsis}
+                  flexShrink={1}
+                >
                   {!own ? name : ''}
                 </Box>
               </Stack>
@@ -55,7 +60,9 @@ export const PostHeader = ({ name, title, date, own }: PostHeaderProps) => {
                   |
                 </Box>
               )}
-              <Box className={styles.titleEllpsis}>{title}</Box>
+              <Box className={styles.titleEllpsis} flexShrink={1}>
+                {title}
+              </Box>
             </Stack>
           </Stack>
         </Box>
