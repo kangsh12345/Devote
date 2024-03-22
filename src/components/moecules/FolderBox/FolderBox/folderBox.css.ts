@@ -6,7 +6,8 @@ export const root = recipe({
     atoms({
       display: 'flex',
       flexDirection: 'column',
-      width: '57',
+      // width: '57',
+      width: 'full',
       padding: '2',
       borderColor: 'borderPrimary',
       borderRadius: 'xl',

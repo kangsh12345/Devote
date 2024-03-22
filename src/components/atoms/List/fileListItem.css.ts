@@ -10,7 +10,7 @@ export const fileListHover = recipe({
       position: 'absolute',
       zIndex: '10',
       left: '0',
-      width: '57',
+      width: 'full',
       height: '6',
     }),
   ],

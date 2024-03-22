@@ -31,10 +31,10 @@ export const FolderListItem = ({
           size === 'xl'
             ? '2.5'
             : size === 'lg'
-            ? '2'
-            : size === 'md'
-            ? '1.5'
-            : '1'
+              ? '2'
+              : size === 'md'
+                ? '1.5'
+                : '1'
         }
         direction="horizontal"
         align="center"
@@ -52,10 +52,10 @@ export const FolderListItem = ({
                 size === 'xl'
                   ? '28'
                   : size === 'lg'
-                  ? '24'
-                  : size === 'md'
-                  ? '20'
-                  : '16'
+                    ? '24'
+                    : size === 'md'
+                      ? '20'
+                      : '16'
               }
             />
           ) : (
@@ -65,10 +65,10 @@ export const FolderListItem = ({
                 size === 'xl'
                   ? '28'
                   : size === 'lg'
-                  ? '24'
-                  : size === 'md'
-                  ? '20'
-                  : '16'
+                    ? '24'
+                    : size === 'md'
+                      ? '20'
+                      : '16'
               }
             />
           )}
