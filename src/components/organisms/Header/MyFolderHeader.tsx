@@ -1,12 +1,13 @@
 'use client';
 
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { ListBullets, SquaresFour } from '@phosphor-icons/react';
 
 import { AvatarMenu } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
+import { BreadcrumbDynamicEllipsis } from '../../atoms/BreadcrumbDynamicEllipsis/BreadcrumbDynamicEllipsis';
 import { Stack } from '../../atoms/Stack';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';
@@ -26,7 +27,7 @@ export const MyFolderHeader = ({
   setIsActive,
   path,
 }: HeaderProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: session } = useSession();
@@ -38,8 +39,8 @@ export const MyFolderHeader = ({
         <Box className={styles.breakpoint({ type: 'side' })}>
           <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
-        <Box display="flex" flexShrink={0}>
-          <Stack space="6" direction="horizontal">
+        <Box display="flex" flex="auto">
+          <Stack space="6" direction="horizontal" flex="auto">
             <Box className={styles.breakpoint({ type: 'header' })}>
               <Stack space="2" direction="horizontal" align="center">
                 <Box onClick={() => setIsActive('row')}>
@@ -59,8 +60,14 @@ export const MyFolderHeader = ({
               </Stack>
             </Box>
 
-            <Stack direction="horizontal" space="2" align="center">
-              <Box fontSize="2" fontWeight={500}>
+            <Box
+              flexDirection="row"
+              gap="2"
+              display="flex"
+              flex="auto"
+              alignItems="center"
+            >
+              {/* <Box fontSize="2" fontWeight={500}>
                 나의 폴더
               </Box>
               <Box
@@ -86,8 +93,9 @@ export const MyFolderHeader = ({
                     / {item}
                   </Box>
                 ))}
-              </Box>
-            </Stack>
+              </Box> */}
+              <BreadcrumbDynamicEllipsis fullPath={`나의 폴더/${path}`} />
+            </Box>
           </Stack>
         </Box>
         <Stack space="3" direction="horizontal" align="center">
