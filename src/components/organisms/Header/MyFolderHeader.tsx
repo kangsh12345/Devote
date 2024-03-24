@@ -28,7 +28,7 @@ export const MyFolderHeader = ({
   path,
 }: HeaderProps) => {
   // const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { data: session } = useSession();
 
