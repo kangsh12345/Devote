@@ -1,97 +1,73 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Box } from '../Box';
+import * as styles from './breadcrumbDynamicEllipsis.css';
 
 interface BreadcrumbDynamicEllipsisProps {
   fullPath: string;
 }
 
+// 여기서 제작
 export const BreadcrumbDynamicEllipsis = ({
   fullPath,
 }: BreadcrumbDynamicEllipsisProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [displayPath, setDisplayPath] = useState<string>(fullPath);
-  const [pathSegments, setPathSegments] = useState<string[]>(
-    fullPath.split('/'),
-  );
-  const [measuredWidths, setMeasuredWidths] = useState<number[]>([]);
+  const [pathSegments] = useState<string[]>(fullPath.split('/'));
+  const [currentPathIndex, setCurrentPathIndex] = useState<number>(0);
 
   useEffect(() => {
-    if (containerRef.current) {
-      const measureTextWidth = (text: string): number => {
-        const segments = text.split('/');
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        if (context) {
-          // 폰트 설정은 실제 스타일에 맞게 조정해야 합니다.
-          context.font = '20px Pretendard';
-          const paddingX = 12;
-          const totalWidth = segments.reduce((acc, segment, idx) => {
-            const segmentWidth = context.measureText(segment).width;
-            // 마지막 세그먼트에는 '/'를 추가하지 않으므로 패딩을 더하지 않습니다.
-            const additionalSpace = idx < segments.length - 1 ? paddingX : 0;
-            return acc + segmentWidth + additionalSpace;
-          }, 0);
-          const slashWidth =
-            context.measureText('/').width * (segments.length - 1);
-          return totalWidth + slashWidth;
-        }
-        return 0;
-      };
-
-      const fullPathWidth = measureTextWidth(fullPath.replace(/\//g, ' / '));
-      const widths: number[] = pathSegments.map((segment, index) => {
-        return measureTextWidth(pathSegments.slice(index).join(' / '));
-      });
-
-      setMeasuredWidths([fullPathWidth, ...widths]);
-    }
-  }, [fullPath, pathSegments]);
-
-  useEffect(() => {
-    const observer = new ResizeObserver(entries => {
-      if (!entries[0]) return;
-
-      const { contentRect } = entries[0];
-      const availableWidth = contentRect.width;
-      const newPathSegments = [...pathSegments];
-
-      let adjustedPath = fullPath;
-      for (let i = 0; i < measuredWidths.length; i++) {
-        if (availableWidth >= measuredWidths[i]) {
-          adjustedPath =
-            i === 0
-              ? fullPath
-              : [
-                  '...',
-                  ...newPathSegments.slice(-(pathSegments.length - i + 1)),
-                ].join(' / ');
-          break;
-        }
+    const measureTextWidth = (text: string): number => {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      if (context) {
+        context.font = '20px Pretendard';
+        return context.measureText(text).width;
       }
+      return 0;
+    };
 
-      setDisplayPath(adjustedPath);
-    });
+    const updateDisplayPath = () => {
+      // 전체 경로를 기반으로 초기 displayPath 설정
+      let tempIndex = 0;
+      let tempDisplayPath = pathSegments.join(' / ');
+      while (
+        containerRef.current &&
+        measureTextWidth(tempDisplayPath) > containerRef.current.offsetWidth &&
+        tempIndex < pathSegments.length - 1
+      ) {
+        tempIndex++;
+        tempDisplayPath =
+          '...' + ' / ' + pathSegments.slice(tempIndex).join(' / ');
+      }
+      setCurrentPathIndex(tempIndex);
+    };
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
+    window.addEventListener('resize', updateDisplayPath);
+    updateDisplayPath();
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener('resize', updateDisplayPath);
     };
-  }, [measuredWidths, pathSegments, fullPath]);
+  }, [pathSegments]);
 
   return (
-    <Box ref={containerRef} width="full" overflow="hidden" textAlign="center">
-      {displayPath.split('/').map((item, idx) => (
+    <Box ref={containerRef} className={styles.root}>
+      {currentPathIndex > 0 && (
+        <Box as="span" marginRight="0.5">
+          ... /
+        </Box>
+      )}
+      {pathSegments.slice(currentPathIndex).map((segment, idx) => (
         <Box as="span" key={idx}>
-          {item}
-          {displayPath.split('/').length - 1 > idx && (
-            <Box as="span" paddingX="0.5">
-              /
-            </Box>
-          )}
+          {idx > 0 && <Box as="span"> / </Box>}
+          <Box
+            as="span"
+            className={styles.ellipsisStyle({
+              last: idx === pathSegments.length - currentPathIndex - 1,
+            })}
+          >
+            {segment}
+          </Box>
         </Box>
       ))}
     </Box>
