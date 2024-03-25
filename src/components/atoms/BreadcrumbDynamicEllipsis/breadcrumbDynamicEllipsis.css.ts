@@ -32,11 +32,10 @@ export const dots = atoms({
 });
 
 export const popoverFirstItem = atoms({
-  fontSize: '1',
-  paddingY: '3',
+  fontSize: '0',
+  paddingY: '2',
   paddingX: '4',
   color: 'textPrimary',
-  backgroundColor: 'gray50',
 });
 
 export const ellipsisStyle = recipe({

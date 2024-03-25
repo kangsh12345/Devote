@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Box } from '../Box';
 import { Divide } from '../Divide';
@@ -12,6 +13,8 @@ interface BreadcrumbDynamicEllipsisProps {
 export const BreadcrumbDynamicEllipsis = ({
   fullPath,
 }: BreadcrumbDynamicEllipsisProps) => {
+  const router = useRouter();
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const [pathSegments] = useState<string[]>(fullPath.split('/'));
@@ -21,7 +24,16 @@ export const BreadcrumbDynamicEllipsis = ({
 
   const handleEllipsisClick = () => setIsOpen(!isOpen);
 
-  // TODO: 다음으로 popover에 들어갈 css + router.push기능 추가해서 ... 기능 end 시키기
+  const handleItemClick = (index: number) => {
+    const pathToNavigate =
+      '/posts/' +
+      omittedSegments
+        .slice(1)
+        .slice(0, index + 1)
+        .join('/');
+    router.push(pathToNavigate);
+  };
+
   // TODO: onClickOutSide에 대해 더 공부해서 popver click outside 시 !open 시키기
   const updatePopoverPosition = () => {
     if (triggerRef.current) {
@@ -113,6 +125,7 @@ export const BreadcrumbDynamicEllipsis = ({
                         className={styles.liValue({})}
                         as="li"
                         fontSize="inherit"
+                        onClick={() => handleItemClick(idx)}
                       >
                         <Box className={styles.ellipsis}>{item}</Box>
                       </Box>
