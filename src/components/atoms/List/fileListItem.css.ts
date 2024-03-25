@@ -25,3 +25,11 @@ export const fileListHover = recipe({
     },
   },
 });
+
+export const ellipsis = style({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 1,
+});

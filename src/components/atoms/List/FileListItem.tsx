@@ -151,7 +151,11 @@ export const FileListItem = ({
                   <File size={sizes.icon} weight="fill" />
                 )}
               </Box>
-              <Box color="textPrimary" fontWeight={500}>
+              <Box
+                color="textPrimary"
+                fontWeight={500}
+                className={styles.ellipsis}
+              >
                 {children}
               </Box>
             </Stack>
