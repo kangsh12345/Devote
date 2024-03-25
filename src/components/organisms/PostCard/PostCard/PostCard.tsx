@@ -255,7 +255,7 @@ export const PostCard = (props: PostCardProps) => {
               </>
             ) : (
               <>
-                <Box flexShrink={0}>
+                <Box flexShrink={0} color="textPrimary">
                   <FolderNotch size={92} weight="duotone" />
                 </Box>
                 <Box className={styles.folderTitleColumn}>{props.name}</Box>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Box } from '../Box';
+import { Divide } from '../Divide';
 import { Portal } from '../Portal';
 import * as styles from './breadcrumbDynamicEllipsis.css';
 
@@ -16,16 +17,12 @@ export const BreadcrumbDynamicEllipsis = ({
   const [pathSegments] = useState<string[]>(fullPath.split('/'));
   const [currentPathIndex, setCurrentPathIndex] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [omittedSegments, setOmittedSegments] = useState<string[]>([]);
   const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({}); // 타입 지정
 
-  const handleEllipsisClick = () => {
-    setIsOpen(!isOpen);
-  };
+  const handleEllipsisClick = () => setIsOpen(!isOpen);
 
   // TODO: 다음으로 popover에 들어갈 css + router.push기능 추가해서 ... 기능 end 시키기
   // TODO: onClickOutSide에 대해 더 공부해서 popver click outside 시 !open 시키기
-  // TODO: 최적화
   const updatePopoverPosition = () => {
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
@@ -85,9 +82,7 @@ export const BreadcrumbDynamicEllipsis = ({
     };
   }, [pathSegments]);
 
-  useEffect(() => {
-    setOmittedSegments(pathSegments.slice(0, currentPathIndex));
-  }, [setOmittedSegments, pathSegments, currentPathIndex]);
+  const omittedSegments = pathSegments.slice(0, currentPathIndex);
 
   return (
     <Box ref={containerRef} className={styles.root}>
@@ -95,6 +90,7 @@ export const BreadcrumbDynamicEllipsis = ({
         <>
           <Box
             ref={triggerRef}
+            className={styles.dots}
             as="span"
             marginRight="1"
             onClick={handleEllipsisClick}
@@ -102,12 +98,14 @@ export const BreadcrumbDynamicEllipsis = ({
             ...
           </Box>
           <>/ </>
-          {/* TODO: parents로 빼서 hiddent 어떻게 해야할듯 */}
           {isOpen && (
             <Portal selector="#portal">
               <Box style={popoverStyle}>
                 <Box className={styles.ulBox({ size: 'sm' })}>
-                  <Box>{omittedSegments[0]}</Box>
+                  <Box className={styles.popoverFirstItem}>
+                    {omittedSegments[0]}
+                  </Box>
+                  <Divide />
                   <Box as="ul">
                     {omittedSegments.slice(1).map((item, idx) => (
                       <Box

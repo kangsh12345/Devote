@@ -22,6 +22,23 @@ export const root = [
   }),
 ];
 
+export const dots = atoms({
+  padding: '1.5',
+  borderRadius: 'base',
+  backgroundColor: {
+    hover: 'opacityBlack100',
+  },
+  cursor: 'pointer',
+});
+
+export const popoverFirstItem = atoms({
+  fontSize: '1',
+  paddingY: '3',
+  paddingX: '4',
+  color: 'textPrimary',
+  backgroundColor: 'gray50',
+});
+
 export const ellipsisStyle = recipe({
   base: [],
   variants: {

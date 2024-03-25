@@ -36,6 +36,7 @@ export const folderIconWrapper = atoms({
   aspectRatio: '16/9',
   display: 'flex',
   justifyContent: 'center',
+  color: 'textPrimary',
 });
 
 export const contentWrapperRow = recipe({
