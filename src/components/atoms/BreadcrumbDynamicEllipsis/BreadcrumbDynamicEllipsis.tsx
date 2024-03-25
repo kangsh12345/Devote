@@ -23,16 +23,31 @@ export const BreadcrumbDynamicEllipsis = ({
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
+  // TODO: 다음으로 popover에 들어갈 css + router.push기능 추가해서 ... 기능 end 시키기
+  // TODO: onClickOutSide에 대해 더 공부해서 popver click outside 시 !open 시키기
+  // TODO: 최적화
+  const updatePopoverPosition = () => {
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
       setPopoverStyle({
-        position: 'fixed', // Popover 위치 계산에 'fixed' 사용
-        zIndex: 1000, // Popover가 다른 요소들 위에 나타나도록 z-index 설정
-        top: rect.bottom + 7, // '...' 요소 아래에 7px 추가
-        left: rect.left, // '...' 요소 왼쪽에서 36px 오른쪽으로 이동
+        position: 'fixed',
+        zIndex: 1000,
+        top: `${rect.bottom + 7}px`,
+        left: `${rect.left}px`,
       });
     }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updatePopoverPosition);
+
+    if (triggerRef.current) {
+      updatePopoverPosition();
+    }
+
+    return () => {
+      window.removeEventListener('resize', updatePopoverPosition);
+    };
   }, [isOpen, triggerRef.current]);
 
   useEffect(() => {
@@ -85,33 +100,30 @@ export const BreadcrumbDynamicEllipsis = ({
             onClick={handleEllipsisClick}
           >
             ...
-            {/* TODO: parents로 빼서 hiddent 어떻게 해야할듯 */}
-            {isOpen && (
-              <Portal selector="#portal">
-                <Box style={popoverStyle}>
-                  <Box className={styles.ulBox({ size: 'sm' })}>
-                    <Box as="ul">
-                      <Box
-                        className={styles.liValue({})}
-                        as="li"
-                        fontSize="inherit"
-                      >
-                        <Box>수정</Box>
-                      </Box>
-                      <Box
-                        className={styles.liValue({})}
-                        as="li"
-                        fontSize="inherit"
-                      >
-                        <Box>삭제</Box>
-                      </Box>
-                    </Box>
-                  </Box>
-                </Box>
-              </Portal>
-            )}
           </Box>
           <>/ </>
+          {/* TODO: parents로 빼서 hiddent 어떻게 해야할듯 */}
+          {isOpen && (
+            <Portal selector="#portal">
+              <Box style={popoverStyle}>
+                <Box className={styles.ulBox({ size: 'sm' })}>
+                  <Box>{omittedSegments[0]}</Box>
+                  <Box as="ul">
+                    {omittedSegments.slice(1).map((item, idx) => (
+                      <Box
+                        key={idx}
+                        className={styles.liValue({})}
+                        as="li"
+                        fontSize="inherit"
+                      >
+                        <Box className={styles.ellipsis}>{item}</Box>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+            </Portal>
+          )}
         </>
       )}
       {pathSegments.slice(currentPathIndex).map((segment, idx) => (

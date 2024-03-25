@@ -37,12 +37,12 @@ export const ellipsisStyle = recipe({
   },
 });
 
-export const ulContainer = atoms({
-  position: 'absolute',
-  zIndex: '20',
-  left: '36',
-  top: '0',
-  overflow: 'visible',
+export const ellipsis = style({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 1,
 });
 
 export const liValue = recipe({
