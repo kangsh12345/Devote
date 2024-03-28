@@ -24,12 +24,22 @@ export const BreadcrumbDynamicEllipsis = ({
 
   const handleEllipsisClick = () => setIsOpen(!isOpen);
 
-  const handleItemClick = (index: number) => {
+  const handleHiddenItemClick = (index: number) => {
     const pathToNavigate =
       '/posts/' +
       omittedSegments
         .slice(1)
         .slice(0, index + 1)
+        .join('/');
+    router.push(pathToNavigate);
+  };
+
+  const handleItemClick = (index: number) => {
+    const pathToNavigate =
+      '/posts/' +
+      pathSegments
+        .slice(1)
+        .slice(0, index - 1)
         .join('/');
     router.push(pathToNavigate);
   };
@@ -125,7 +135,7 @@ export const BreadcrumbDynamicEllipsis = ({
                         className={styles.liValue({})}
                         as="li"
                         fontSize="inherit"
-                        onClick={() => handleItemClick(idx)}
+                        onClick={() => handleHiddenItemClick(idx)}
                       >
                         <Box className={styles.ellipsis}>{item}</Box>
                       </Box>
@@ -145,6 +155,7 @@ export const BreadcrumbDynamicEllipsis = ({
             className={styles.ellipsisStyle({
               last: idx === pathSegments.length - currentPathIndex - 1,
             })}
+            onClick={() => handleItemClick(idx + 1)}
           >
             {segment}
           </Box>
