@@ -1,4 +1,5 @@
 import { atoms } from '@/src/css';
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const root = atoms({
@@ -36,4 +37,12 @@ export const breakpoint = recipe({
       side: atoms({ display: { wide: 'flex', tablet: 'none' } }),
     },
   },
+});
+
+export const ellipsis = style({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 1,
 });

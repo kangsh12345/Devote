@@ -49,7 +49,6 @@ export function usePostWrite() {
   const filePath = path.substring(0, lastSlashIndex + 1);
   const fileTitle = path.substring(lastSlashIndex + 1);
 
-  const userName = session?.user.name;
   const userImage = session?.user.image;
   const userDirname = session?.user.dirName;
 
@@ -246,7 +245,6 @@ export function usePostWrite() {
     lastSlashIndex,
     filePath,
     fileTitle,
-    userName,
     userImage,
     userDirname,
     own,

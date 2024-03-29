@@ -16,7 +16,6 @@ export const PostWritePage = () => {
     isExist,
     titleError,
     filePath,
-    userName,
     userImage,
     title,
     subtitle,
@@ -30,7 +29,6 @@ export const PostWritePage = () => {
       {isExist && (
         <Box>
           <WriteHeader
-            name={userName}
             setCreateFolderOpen={setCreateFolderOpen}
             image={userImage}
             path={filePath}

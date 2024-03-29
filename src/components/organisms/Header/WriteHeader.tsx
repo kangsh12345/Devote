@@ -9,7 +9,6 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Button } from '../../atoms/Button';
 import { Input } from '../../atoms/Input';
@@ -20,7 +19,6 @@ import { HeaderLogo } from '../../moecules/HeaderLogo';
 import * as styles from './writeHeader.css';
 
 export interface WriteHeaderProps {
-  name: string;
   image: string;
   path: string;
   title: string;
@@ -30,7 +28,6 @@ export interface WriteHeaderProps {
 }
 
 export const WriteHeader = ({
-  name,
   path,
   title,
   handleInput,
@@ -49,28 +46,40 @@ export const WriteHeader = ({
           <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
 
-        <Box display="flex" flexShrink={0}>
-          <Stack space="6" direction="horizontal">
-            <Stack direction="horizontal" space="2" align="center">
-              <Avatars size="md" text={name} />
-              <Box fontSize="1" fontWeight={700} color="textSecondary">
-                / {path.replaceAll('/', ' / ')}
-              </Box>
-              <Box width="56">
-                <Input
-                  label="input label"
-                  hideLabel
-                  placeholder="제목을 입력해주세요"
-                  variant="outline"
-                  size="sm"
-                  value={title}
-                  onChange={handleInput}
-                  maxLength={24}
-                  error={error}
-                />
-              </Box>
-            </Stack>
-          </Stack>
+        <Box display="flex" paddingLeft="3" paddingRight="8" flex="auto">
+          <Box
+            gap="2"
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            flex="auto"
+          >
+            <Box
+              fontSize="1"
+              fontWeight={700}
+              color="textSecondary"
+              className={styles.ellipsis}
+              flexShrink={3}
+            >
+              {path.split('/').at(-2)}
+            </Box>
+            <Box fontSize="4" fontWeight={500} color="textTertiary">
+              |
+            </Box>
+            <Box display="flex" flex="auto">
+              <Input
+                label="input label"
+                hideLabel
+                placeholder="제목을 입력해주세요"
+                variant="outline"
+                size="sm"
+                value={title}
+                onChange={handleInput}
+                maxLength={24}
+                error={error}
+              />
+            </Box>
+          </Box>
         </Box>
         <Stack space="3" direction="horizontal" align="center">
           <Button
