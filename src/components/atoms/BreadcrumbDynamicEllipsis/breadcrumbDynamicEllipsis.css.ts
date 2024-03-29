@@ -12,7 +12,7 @@ export const root = [
     position: 'relative',
     width: 'full',
     overflow: 'hidden',
-    textAlign: 'center',
+    // textAlign: 'center',
     paddingX: '2',
   }),
   style({

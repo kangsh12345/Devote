@@ -2,7 +2,6 @@
 
 import { Dispatch, SetStateAction, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import {
   // FilePlus,
@@ -14,6 +13,7 @@ import {
 
 import { AvatarMenu, Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
+import { BreadcrumbDynamicEllipsis } from '../../atoms/BreadcrumbDynamicEllipsis';
 import { Button } from '../../atoms/Button';
 // import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
@@ -36,7 +36,6 @@ export const Header = ({
   userName,
   path,
 }: HeaderProps) => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: session } = useSession();
@@ -48,8 +47,8 @@ export const Header = ({
         <Box className={styles.breakpoint({ type: 'side' })}>
           <HeaderLogo isOpen={isOpen} setIsOpen={setIsOpen} />
         </Box>
-        <Box display="flex" flexShrink={0}>
-          <Stack space="6" direction="horizontal">
+        <Box display="flex" flex="auto">
+          <Stack space="6" direction="horizontal" flex="auto">
             <Box className={styles.breakpoint({ type: 'header' })}>
               <Stack space="2" direction="horizontal" align="center">
                 <Box onClick={() => setIsActive('row')}>
@@ -69,55 +68,36 @@ export const Header = ({
               </Stack>
             </Box>
 
-            <Stack direction="horizontal" space="2" align="center">
-              <Box display="flex" flexDirection="row" alignItems="center">
-                <Box className={styles.avatarBreakpoint}>
-                  <Avatars size="md" />
-                </Box>
-                <Box fontWeight={500} flexShrink={1}>
-                  {userName}
-                </Box>
+            <Box
+              flexDirection="row"
+              display="flex"
+              flex="auto"
+              alignItems="center"
+            >
+              <Box className={styles.avatarBreakpoint}>
+                <Avatars size="md" />
               </Box>
-              <Box
-                fontSize="1"
-                fontWeight={700}
-                color="textSecondary"
-                display="flex"
-                flexDirection="row"
-                gap="1"
-              >
-                {path?.split('/').map((item, idx) => (
-                  <Box
-                    onClick={() =>
-                      router.push(
-                        `/posts/${path
-                          .split('/')
-                          .slice(0, idx + 1)
-                          .join('/')}`,
-                      )
-                    }
-                    key={idx}
-                  >
-                    / {item}
-                  </Box>
-                ))}
-              </Box>
-            </Stack>
+              {userName && (
+                <BreadcrumbDynamicEllipsis fullPath={`${userName}/${path}`} />
+              )}
+            </Box>
           </Stack>
         </Box>
         <Stack space="3" direction="horizontal" align="center">
           {!session ? (
-            <Link href="/auth/signin">
-              <Button
-                size="sm"
-                variant="solid"
-                radius="full"
-                color="black"
-                width="fit"
-              >
-                로그인
-              </Button>
-            </Link>
+            <Box flexShrink={0}>
+              <Link href="/auth/signin">
+                <Button
+                  size="sm"
+                  variant="solid"
+                  radius="full"
+                  color="black"
+                  width="fit"
+                >
+                  로그인
+                </Button>
+              </Link>
+            </Box>
           ) : (
             session &&
             session.user.image && <AvatarMenu image={session.user.image} />

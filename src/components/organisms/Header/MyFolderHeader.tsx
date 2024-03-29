@@ -67,33 +67,6 @@ export const MyFolderHeader = ({
               flex="auto"
               alignItems="center"
             >
-              {/* <Box fontSize="2" fontWeight={500}>
-                나의 폴더
-              </Box>
-              <Box
-                fontSize="1"
-                fontWeight={700}
-                color="textSecondary"
-                display="flex"
-                flexDirection="row"
-                gap="1"
-              >
-                {path?.split('/').map((item, idx) => (
-                  <Box
-                    onClick={() =>
-                      router.push(
-                        `/posts/${path
-                          .split('/')
-                          .slice(0, idx + 1)
-                          .join('/')}`,
-                      )
-                    }
-                    key={idx}
-                  >
-                    / {item}
-                  </Box>
-                ))}
-              </Box> */}
               <BreadcrumbDynamicEllipsis fullPath={`나의 폴더/${path}`} />
             </Box>
           </Stack>
