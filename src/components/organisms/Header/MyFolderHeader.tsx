@@ -7,7 +7,7 @@ import { ListBullets, SquaresFour } from '@phosphor-icons/react';
 
 import { AvatarMenu } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
-import { BreadcrumbDynamicEllipsis } from '../../atoms/BreadcrumbDynamicEllipsis/BreadcrumbDynamicEllipsis';
+import { BreadcrumbDynamicEllipsis } from '../../atoms/BreadcrumbDynamicEllipsis';
 import { Stack } from '../../atoms/Stack';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';

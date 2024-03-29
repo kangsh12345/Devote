@@ -1,6 +1,7 @@
 'use client';
 
 import { Box } from '../../atoms/Box';
+import { BreadcrumbFileDynamicEllipsis } from '../../atoms/BreadcrumbDynamicEllipsis';
 import { Button } from '../../atoms/Button';
 import { Stack } from '../../atoms/Stack';
 import { Modal } from '../../moecules/Modal';
@@ -20,34 +21,10 @@ export const PostSubHeader = ({ fullPath, path, own }: PostSubHeaderProps) => {
 
   return (
     <Box className={styles.root({})}>
-      <Box
-        fontSize="1"
-        fontWeight={400}
-        color="textTertiary"
-        display="flex"
-        flexDirection="row"
-        gap="1"
-        marginLeft="1"
-      >
-        {path?.split('/').map((item, idx) => (
-          <Box
-            onClick={() =>
-              router.push(
-                `/posts/${path
-                  .split('/')
-                  .slice(0, idx + 1)
-                  .join('/')}`,
-              )
-            }
-            key={idx}
-          >
-            {idx !== 0 ? '/' : ''} {item}
-          </Box>
-        ))}
-      </Box>
+      <BreadcrumbFileDynamicEllipsis fullPath={path} />
       {own && (
         <Stack direction="horizontal" space="1.5" align="center">
-          <Box width="fit">
+          <Box width="fit" flexShrink={0}>
             <Button
               size="sm"
               variant="outline"
@@ -58,7 +35,7 @@ export const PostSubHeader = ({ fullPath, path, own }: PostSubHeaderProps) => {
               수정
             </Button>
           </Box>
-          <Box width="fit">
+          <Box width="fit" flexShrink={0}>
             <Button
               size="sm"
               variant="outline"
