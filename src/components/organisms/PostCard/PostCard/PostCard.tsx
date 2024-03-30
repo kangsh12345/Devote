@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import Image from 'next/image';
 import { DotsThreeOutline, FolderNotch } from '@phosphor-icons/react';
 
@@ -28,6 +28,7 @@ export type PostCardProps = {
   idx: number;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  domNodeRef: RefObject<HTMLDivElement>;
 };
 
 export const PostCard = (props: PostCardProps) => {
@@ -46,6 +47,7 @@ export const PostCard = (props: PostCardProps) => {
     imageUrl,
     handleDeleteFolder,
     handleModifyFolder,
+    domNodeRef,
   } = usePostCard(props);
 
   return (
@@ -53,7 +55,7 @@ export const PostCard = (props: PostCardProps) => {
       {props.own && props.hover === props.idx && (
         <>
           {props.isOpen && (
-            <Box className={styles.ulContainer({ direction })}>
+            <Box className={styles.ulContainer({ direction })} ref={domNodeRef}>
               <Box className={styles.ulBox({ size: 'sm' })}>
                 <Box as="ul">
                   <Box

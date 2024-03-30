@@ -4,6 +4,7 @@ import { useExistCheckMutation } from '@/src/hooks/api/post/useExistCheckMutatio
 import { useRemoveFileMutation } from '@/src/hooks/api/post/useRemoveFileMutation';
 import { useRenameMutation } from '@/src/hooks/api/post/useRenameMutation';
 import { useTree } from '@/src/stores/Tree/useTree';
+import { useClickOutside } from '@/src/utils/useClickOutside';
 import useInput from '@/src/utils/useInput';
 import { toast } from 'react-hot-toast';
 
@@ -23,6 +24,11 @@ export function usePostCard(props: PostCardProps) {
     resetAtom,
   } = usePostCardAtoms();
   const { folderPageTree: tree, setFolderPageTree: setTree } = useTree();
+  const handleClose = () => {
+    if (!modfiyOpen) props.setIsOpen(false);
+  };
+
+  const domNodeRef = useClickOutside<HTMLDivElement>(handleClose);
 
   const folderName = useInput({ initialValue: storeFolderName });
 
@@ -183,5 +189,6 @@ export function usePostCard(props: PostCardProps) {
     renameLoading,
     handleDeleteFolder,
     handleModifyFolder,
+    domNodeRef,
   };
 }
