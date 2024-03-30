@@ -22,6 +22,8 @@ export const PostWritePage = () => {
     md,
     handleClick,
     handleInput,
+    postWriteLoading,
+    submitLoading,
   } = usePostWrite();
 
   return (
@@ -50,6 +52,7 @@ export const PostWritePage = () => {
               setInputError={setInputError}
               rightButtonText="저장"
               clearInput={false}
+              loading={postWriteLoading || submitLoading}
             />
           )}
           <CustomMDEditor md={md.value} setMd={md.setValue} />

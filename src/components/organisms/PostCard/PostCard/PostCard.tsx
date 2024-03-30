@@ -46,6 +46,10 @@ export const PostCard = (props: PostCardProps) => {
     imageUrl,
     handleDeleteFolder,
     handleModifyFolder,
+    domNodeRef,
+    renameLoading,
+    removeFileLoading,
+    submitLoading,
   } = usePostCard(props);
 
   return (
@@ -53,7 +57,7 @@ export const PostCard = (props: PostCardProps) => {
       {props.own && props.hover === props.idx && (
         <>
           {props.isOpen && (
-            <Box className={styles.ulContainer({ direction })}>
+            <Box className={styles.ulContainer({ direction })} ref={domNodeRef}>
               <Box className={styles.ulBox({ size: 'sm' })}>
                 <Box as="ul">
                   <Box
@@ -86,7 +90,10 @@ export const PostCard = (props: PostCardProps) => {
                       placeholder="폴더명"
                       value={folderName.value}
                       inputError={inputError}
+                      leftButtonText="취소"
+                      rightButtonText="변경"
                       setInputError={setInputError}
+                      loading={renameLoading && submitLoading}
                     />
                   )}
                   <Box
@@ -110,6 +117,7 @@ export const PostCard = (props: PostCardProps) => {
                       leftButtonText="취소"
                       rightButtonText="삭제"
                       withCloseButton={false}
+                      loading={removeFileLoading}
                     >
                       <Box as="span" textDecoration="underline">
                         {props.name}
@@ -135,11 +143,7 @@ export const PostCard = (props: PostCardProps) => {
           </Box>
         </>
       )}
-      <Box
-        onClick={() => {
-          router.push(mvPath.replaceAll('.md', ''));
-        }}
-      >
+      <Box onClick={() => router.push(mvPath.replaceAll('.md', ''))}>
         {direction === 'row' ? (
           <Box className={styles.rootRow({})}>
             <Box className={styles.wrapperRow({})}>

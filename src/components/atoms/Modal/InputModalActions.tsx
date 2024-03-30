@@ -13,6 +13,7 @@ export interface InputModalActionsProps {
   setInputError: Dispatch<SetStateAction<string>>;
   handle: (event: MouseEvent<HTMLButtonElement>) => void;
   clearInput: boolean;
+  loading?: boolean;
 }
 
 export const InputModalActions = ({
@@ -24,6 +25,7 @@ export const InputModalActions = ({
   setInputError,
   handle,
   clearInput,
+  loading = false,
 }: InputModalActionsProps) => {
   return (
     <Box width="full">
@@ -53,12 +55,14 @@ export const InputModalActions = ({
         <Box
           flex={type === 'left' || type === 'right' ? 'none' : 'auto'}
           onClick={handle}
+          disabled={loading}
         >
           <Button
             size="lg"
             variant="solid"
             radius="md"
             color="black"
+            disabled={loading}
             width={type === 'left' || type === 'right' ? 'fit' : 'full'}
           >
             {rightButtonText}

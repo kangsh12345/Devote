@@ -17,6 +17,7 @@ export interface InputModalContentProps {
   setInputError: Dispatch<SetStateAction<string>>;
   handle: (event: MouseEvent<HTMLButtonElement>) => void;
   clearInput: boolean;
+  loading?: boolean;
 }
 
 export const InputModalContent = ({
@@ -31,6 +32,7 @@ export const InputModalContent = ({
   handle,
   children,
   clearInput,
+  loading = false,
 }: PropsWithChildren<InputModalContentProps>) => {
   return (
     <Box width="106" position="fixed" className={styles.root}>
@@ -65,6 +67,7 @@ export const InputModalContent = ({
               leftButtonText={leftButtonText}
               rightButtonText={rightButtonText}
               clearInput={clearInput}
+              loading={loading}
             />
           </Box>
         </Box>

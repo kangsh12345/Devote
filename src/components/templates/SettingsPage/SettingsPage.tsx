@@ -26,6 +26,8 @@ export const SettingsPage = () => {
     handleNameModalOpen,
     handleNameChange,
     handleWithdraw,
+    updateNameLoading,
+    submitLoading,
   } = useSettings();
 
   return (
@@ -134,6 +136,7 @@ export const SettingsPage = () => {
                       leftButtonText="취소"
                       rightButtonText="확인"
                       withCloseButton={false}
+                      loading={updateNameLoading || submitLoading}
                     >
                       "
                       <Box as="span" fontWeight={700}>

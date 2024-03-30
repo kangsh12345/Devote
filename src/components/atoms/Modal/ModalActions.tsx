@@ -10,6 +10,7 @@ export interface ModalActionsProps {
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   handle: () => void;
+  loading?: boolean;
 }
 
 export const ModalActions = ({
@@ -18,6 +19,7 @@ export const ModalActions = ({
   rightButtonText,
   setOpen,
   handle,
+  loading,
 }: ModalActionsProps) => {
   return (
     <Box width="full">
@@ -43,12 +45,14 @@ export const ModalActions = ({
         <Box
           flex={type === 'left' || type === 'right' ? 'none' : 'auto'}
           onClick={handle}
+          disabled={loading}
         >
           <Button
             size="lg"
             variant="solid"
             radius="md"
             color="black"
+            disabled={loading}
             width={type === 'left' || type === 'right' ? 'fit' : 'full'}
           >
             {rightButtonText}

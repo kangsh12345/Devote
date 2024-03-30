@@ -14,6 +14,7 @@ export interface ModalContentProps {
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   handle: () => void;
+  loading?: boolean;
 }
 
 export const ModalContent = ({
@@ -25,6 +26,7 @@ export const ModalContent = ({
   setOpen,
   handle,
   children,
+  loading,
 }: PropsWithChildren<ModalContentProps>) => {
   return (
     <Box width="106" position="fixed" className={styles.root}>
@@ -56,6 +58,7 @@ export const ModalContent = ({
               type={type}
               leftButtonText={leftButtonText}
               rightButtonText={rightButtonText}
+              loading={loading}
             />
           </Box>
         </Box>

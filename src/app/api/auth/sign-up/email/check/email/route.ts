@@ -1,3 +1,5 @@
+// TODO: BLOCK
+
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
@@ -25,18 +27,22 @@ export async function POST(req: NextRequest) {
   const request: RequestBody = await req.json();
 
   try {
-    const response = await emailCheck(request);
+    // const response = await emailCheck(request);
 
-    if (response) {
-      return NextResponse.json(
-        { success: false, message: `중복된 이메일입니다.` },
-        { status: 200 },
-      );
-    }
+    // if (response) {
+    //   return NextResponse.json(
+    //     { success: false, message: `중복된 이메일입니다.` },
+    //     { status: 200 },
+    //   );
+    // }
 
+    // return NextResponse.json(
+    //   { success: true, message: `사용 가능한 이메일` },
+    //   { status: 200 },
+    // );
     return NextResponse.json(
-      { success: true, message: `사용 가능한 이메일` },
-      { status: 200 },
+      { message: `더이상 지나갈 수 없다네요네` },
+      { status: 400 },
     );
   } catch (error) {
     return NextResponse.json(

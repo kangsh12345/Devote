@@ -1,4 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/src/utils/auth';
 import { renameFile } from '@/src/utils/fs';
 import { PrismaClient } from '@prisma/client';
 import path from 'path';
@@ -39,16 +42,37 @@ async function renamePost(path: string, newPath: string) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest, res: NextResponse) {
   const { path, newPath } = await req.json();
 
-  try {
-    const response = await renamePost(path, newPath);
+  const session = await getServerSession(
+    req as unknown as NextApiRequest,
+    {
+      ...res,
+      getHeader: (name: string) => {
+        res.headers?.get(name);
+      },
+      setHeader: (name: string, value: string) => {
+        res.headers?.set(name, value);
+      },
+    } as unknown as NextApiResponse,
+    authOptions,
+  );
 
-    if (response) {
-      return NextResponse.json({ success: true }, { status: 200 });
+  try {
+    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
+      const response = await renamePost(path, newPath);
+
+      if (response) {
+        return NextResponse.json({ success: true }, { status: 200 });
+      }
+      return NextResponse.json({ success: false }, { status: 200 });
+    } else {
+      return NextResponse.json(
+        { message: `더이상 지나갈 수 없다만,,?` },
+        { status: 400 },
+      );
     }
-    return NextResponse.json({ success: false }, { status: 200 });
   } catch (error) {
     console.error(error);
   }

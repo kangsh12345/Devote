@@ -57,6 +57,7 @@ export function usePostWrite() {
   const title = useInput({ initialValue: fileTitle });
   const subtitle = useInput({ initialValue: storeSubtitle });
   const md = useInput({ initialValue: storeMd });
+  let submitLoading = false;
 
   const {
     mutateAsync: existCheck,
@@ -82,6 +83,8 @@ export function usePostWrite() {
   const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    submitLoading = true;
+
     const match: RegExpExecArray | null = urlRegex.exec(md.value ?? '');
     const thumbnail = match ? match[1] : '';
 
@@ -93,15 +96,18 @@ export function usePostWrite() {
         : subtitle.value;
 
     if (titleError) {
+      submitLoading = false;
       return;
     }
 
     if (!title.value) {
+      submitLoading = false;
       setTitleError('이름을 입력해주세요');
       return;
     }
 
     if (regex.test(title.value) || title.value.length > 24) {
+      submitLoading = false;
       setTitleError('올바른 이름을 입력해주세요.');
       return;
     }
@@ -141,6 +147,8 @@ export function usePostWrite() {
         date,
       });
     }
+
+    submitLoading = false;
   };
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -265,5 +273,6 @@ export function usePostWrite() {
     getFileData,
     getFileError,
     getFileLoading,
+    submitLoading,
   };
 }

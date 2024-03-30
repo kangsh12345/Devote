@@ -67,14 +67,21 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const id = session?.user.id;
 
   try {
-    const response = await withdrawAccount(id, session?.user.dirName);
+    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
+      const response = await withdrawAccount(id, session?.user.dirName);
 
-    console.log(response);
+      console.log(response);
 
-    return NextResponse.json(
-      { message: `회원 탈퇴 성공`, success: true },
-      { status: 200 },
-    );
+      return NextResponse.json(
+        { message: `회원 탈퇴 성공`, success: true },
+        { status: 200 },
+      );
+    } else {
+      return NextResponse.json(
+        { message: `더이상 지나갈 수 없다만,,?` },
+        { status: 400 },
+      );
+    }
   } catch (error) {
     return NextResponse.json({ message: `회원 탈퇴 실패` }, { status: 400 });
   }

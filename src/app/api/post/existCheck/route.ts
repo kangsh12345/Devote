@@ -1,4 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/src/utils/auth';
 import { existPost } from '@/src/utils/fs';
 import path from 'path';
 
@@ -18,23 +21,44 @@ async function existCheckPost(path: string) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest, res: NextResponse) {
   const { path } = await req.json();
+
+  const session = await getServerSession(
+    req as unknown as NextApiRequest,
+    {
+      ...res,
+      getHeader: (name: string) => {
+        res.headers?.get(name);
+      },
+      setHeader: (name: string, value: string) => {
+        res.headers?.set(name, value);
+      },
+    } as unknown as NextApiResponse,
+    authOptions,
+  );
 
   console.log(`existCHeckPost: ${path}`);
 
   try {
-    const response = await existCheckPost(path);
+    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
+      const response = await existCheckPost(path);
 
-    console.log(response);
+      console.log(response);
 
-    if (response === 'not exist') {
+      if (response === 'not exist') {
+        return NextResponse.json(
+          { success: true, exist: false },
+          { status: 200 },
+        );
+      }
+      return NextResponse.json({ success: true, exist: true }, { status: 200 });
+    } else {
       return NextResponse.json(
-        { success: true, exist: false },
-        { status: 200 },
+        { message: `더이상 지나갈 수 없다만,,?` },
+        { status: 400 },
       );
     }
-    return NextResponse.json({ success: true, exist: true }, { status: 200 });
   } catch (error) {
     console.error(error);
   }

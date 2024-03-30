@@ -21,6 +21,7 @@ export interface CreateInputModalProps {
   inputError: string;
   setInputError: Dispatch<SetStateAction<string>>;
   clearInput?: boolean;
+  loading?: boolean;
 }
 
 export const CreateInputModal = ({
@@ -39,6 +40,7 @@ export const CreateInputModal = ({
   inputError,
   setInputError,
   clearInput = true,
+  loading = false,
 }: CreateInputModalProps) => {
   const specialRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
   const doublespaceRegex = /\s\s+/g;
@@ -55,6 +57,7 @@ export const CreateInputModal = ({
       leftButtonText={leftButtonText}
       rightButtonText={rightButtonText}
       clearInput={clearInput}
+      loading={loading}
     >
       <Input
         label={inputLabel}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
+import { useClickOutside } from '@/src/utils/useClickOutside';
 
 import { Box } from '../Box';
 import { Divide } from '../Divide';
@@ -24,6 +25,12 @@ export const AvatarMenu = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const domNodeRef = useClickOutside<HTMLDivElement>(handleClose);
+
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -35,6 +42,7 @@ export const AvatarMenu = ({
           disabled,
         }),
       ]}
+      ref={domNodeRef}
     >
       <Box
         width="9"

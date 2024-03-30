@@ -12,6 +12,7 @@ export interface ModalProps {
   rightButtonText: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   handle: () => void;
+  loading?: boolean;
 }
 
 export const Modal = ({
@@ -23,6 +24,7 @@ export const Modal = ({
   setOpen,
   handle,
   children,
+  loading = false,
 }: PropsWithChildren<ModalProps>) => {
   return (
     <Portal selector="#portal">
@@ -49,6 +51,7 @@ export const Modal = ({
           title={title}
           leftButtonText={leftButtonText}
           rightButtonText={rightButtonText}
+          loading={loading}
         >
           {children}
         </ModalContent>

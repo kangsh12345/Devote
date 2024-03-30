@@ -32,6 +32,8 @@ export function useSettings() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const name = useInput({ initialValue: storeName });
 
+  let submitLoading = false;
+
   const {
     mutate: updateName,
     data: updateNameData,
@@ -86,17 +88,27 @@ export function useSettings() {
   };
 
   const handleNameChange = async () => {
-    if (name.value === session?.user.name) return;
+    submitLoading = true;
+
+    if (name.value === session?.user.name) {
+      submitLoading = false;
+      return;
+    }
     if (name.value === '') {
+      submitLoading = false;
       setNameError('닉네임을 입력해주세요.');
       return;
     }
 
-    if (nameError) return;
+    if (nameError) {
+      submitLoading = false;
+      return;
+    }
 
     updateName({ name: name.value });
-    // TODO: mutate 미리 prefetch 적용 예정
     router.refresh();
+
+    submitLoading = false;
   };
 
   const handleWithdraw = async () => {
@@ -185,5 +197,6 @@ export function useSettings() {
     handleNameModalOpen,
     handleNameChange,
     handleWithdraw,
+    submitLoading,
   };
 }

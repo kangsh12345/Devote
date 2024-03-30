@@ -32,6 +32,7 @@ export const FolderBox = () => {
     session,
     currentDirectory,
     handleCreateRootDirectory,
+    createDirectoryLoading,
   } = useFolderBox();
 
   return (
@@ -96,6 +97,7 @@ export const FolderBox = () => {
                     value={directory.value}
                     inputError={inputError}
                     setInputError={setInputError}
+                    loading={createDirectoryLoading}
                   />
                 )}
                 {createFileOpen && (
@@ -109,6 +111,7 @@ export const FolderBox = () => {
                     value={file.value}
                     inputError={inputError}
                     setInputError={setInputError}
+                    loading={createDirectoryLoading}
                   />
                 )}
               </Box>

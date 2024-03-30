@@ -4,6 +4,7 @@ import { useExistCheckMutation } from '@/src/hooks/api/post/useExistCheckMutatio
 import { useRemoveFileMutation } from '@/src/hooks/api/post/useRemoveFileMutation';
 import { useRenameMutation } from '@/src/hooks/api/post/useRenameMutation';
 import { useTree } from '@/src/stores/Tree/useTree';
+import { useClickOutside } from '@/src/utils/useClickOutside';
 import useInput from '@/src/utils/useInput';
 import { toast } from 'react-hot-toast';
 
@@ -23,6 +24,11 @@ export function usePostCard(props: PostCardProps) {
     resetAtom,
   } = usePostCardAtoms();
   const { folderPageTree: tree, setFolderPageTree: setTree } = useTree();
+  const handleClose = () => {
+    if (!modfiyOpen && !deleteOpen) props.setIsOpen(false);
+  };
+
+  const domNodeRef = useClickOutside<HTMLDivElement>(handleClose);
 
   const folderName = useInput({ initialValue: storeFolderName });
 
@@ -39,6 +45,8 @@ export function usePostCard(props: PostCardProps) {
   const thumnail = props.thumbnail ?? '';
 
   const imageUrl = thumnail === '' ? '/image/NoPhoto.png' : thumnail;
+
+  let submitLoading = false;
 
   const {
     mutate: removeFile,
@@ -68,15 +76,20 @@ export function usePostCard(props: PostCardProps) {
   };
 
   const handleModifyFolder = async (name: string, type: string) => {
+    submitLoading = true;
+
     if (inputError) {
+      submitLoading = false;
       return;
     }
     if (!folderName.value) {
+      submitLoading = false;
       setInputError('이름을 입력해주세요');
       return;
     }
 
     if (regex.test(folderName.value) || folderName.value.length > 24) {
+      submitLoading = false;
       setInputError('올바른 이름을 입력해주세요.');
       return;
     }
@@ -89,16 +102,20 @@ export function usePostCard(props: PostCardProps) {
       const existCheckResponse = await existCheck({ path: reqPath });
 
       if (existCheckResponse && existCheckResponse.exist) {
+        submitLoading = false;
         setInputError('동일 경로 같은 파일 존재');
         return;
       }
     } else {
+      submitLoading = false;
       return;
     }
 
     if (props.own && !inputError && folderName.value) {
       rename({ path: props.path, newPath: reqPath });
     }
+
+    submitLoading = false;
   };
 
   useEffect(() => {
@@ -183,5 +200,7 @@ export function usePostCard(props: PostCardProps) {
     renameLoading,
     handleDeleteFolder,
     handleModifyFolder,
+    domNodeRef,
+    submitLoading,
   };
 }

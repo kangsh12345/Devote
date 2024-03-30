@@ -85,24 +85,31 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }: RequestBody = await req.json();
 
   try {
-    await updatePost({
-      id,
-      userId,
-      newPath,
-      thumbnail,
-      title,
-      subTitle,
-    });
+    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
+      await updatePost({
+        id,
+        userId,
+        newPath,
+        thumbnail,
+        title,
+        subTitle,
+      });
 
-    await createPost({
-      fullPath: path,
-      name,
-      title,
-      md: md ?? '',
-      date,
-    });
+      await createPost({
+        fullPath: path,
+        name,
+        title,
+        md: md ?? '',
+        date,
+      });
 
-    return NextResponse.json({ success: true }, { status: 200 });
+      return NextResponse.json({ success: true }, { status: 200 });
+    } else {
+      return NextResponse.json(
+        { message: `더이상 지나갈 수 없다만,,?` },
+        { status: 400 },
+      );
+    }
   } catch (error) {
     return NextResponse.json({ success: false }, { status: 400 });
   }

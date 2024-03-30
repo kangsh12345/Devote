@@ -1,45 +1,45 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import jwtDecode from 'jwt-decode';
+// import { NextRequest, NextResponse } from 'next/server';
+// import { PrismaClient } from '@prisma/client';
+// import jwtDecode from 'jwt-decode';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
-async function signUp(credential: string) {
-  const decoded: { name: string; email: string; picture: string } =
-    jwtDecode(credential);
+// async function signUp(credential: string) {
+//   const decoded: { name: string; email: string; picture: string } =
+//     jwtDecode(credential);
 
-  try {
-    const response = await prisma.user.upsert({
-      where: {
-        email: decoded.email,
-      },
-      update: {
-        name: decoded.name,
-        image: decoded.picture,
-      },
-      create: {
-        email: decoded.email,
-        name: decoded.name,
-        image: decoded.picture,
-      },
-    });
+//   try {
+//     const response = await prisma.user.upsert({
+//       where: {
+//         email: decoded.email,
+//       },
+//       update: {
+//         name: decoded.name,
+//         image: decoded.picture,
+//       },
+//       create: {
+//         email: decoded.email,
+//         name: decoded.name,
+//         image: decoded.picture,
+//       },
+//     });
 
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
-}
+//     return response;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-export async function GET(req: NextRequest) {
-  const credential = req.nextUrl.searchParams.get('credential');
+// export async function GET(req: NextRequest) {
+//   const credential = req.nextUrl.searchParams.get('credential');
 
-  try {
-    const products = await signUp(String(credential));
-    return NextResponse.json(
-      { items: products, message: `Success` },
-      { status: 200 },
-    );
-  } catch (error) {
-    return NextResponse.json({ message: `Failed` }, { status: 400 });
-  }
-}
+//   try {
+//     const products = await signUp(String(credential));
+//     return NextResponse.json(
+//       { items: products, message: `Success` },
+//       { status: 200 },
+//     );
+//   } catch (error) {
+//     return NextResponse.json({ message: `Failed` }, { status: 400 });
+//   }
+// }

@@ -1,3 +1,5 @@
+// TODO: BLOCK
+
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -37,11 +39,15 @@ export async function POST(req: NextRequest) {
   const request: RequestBody = await req.json();
 
   try {
-    const response = await signIn(request);
+    // const response = await signIn(request);
 
+    // return NextResponse.json(
+    //   { user: response, message: `Success` },
+    //   { status: 200 },
+    // );
     return NextResponse.json(
-      { user: response, message: `Success` },
-      { status: 200 },
+      { message: `더이상 지나갈 수 없다네요네` },
+      { status: 400 },
     );
   } catch (error) {
     return NextResponse.json(

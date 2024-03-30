@@ -15,9 +15,10 @@ export interface PostSubHeaderProps {
 }
 
 export const PostSubHeader = ({ fullPath, path, own }: PostSubHeaderProps) => {
-  const { open, setOpen, router, handleRemoveFile } = usePostSubHeader({
-    path: fullPath,
-  });
+  const { open, setOpen, router, handleRemoveFile, removeFileLoading } =
+    usePostSubHeader({
+      path: fullPath,
+    });
 
   return (
     <Box className={styles.root({})}>
@@ -54,6 +55,7 @@ export const PostSubHeader = ({ fullPath, path, own }: PostSubHeaderProps) => {
                 leftButtonText="취소"
                 rightButtonText="삭제"
                 withCloseButton={false}
+                loading={removeFileLoading}
               >
                 <Box as="span" textDecoration="underline">
                   {fullPath}

@@ -15,6 +15,7 @@ export interface InputModalProps {
   setInputError: Dispatch<SetStateAction<string>>;
   handle: (event: MouseEvent<HTMLButtonElement>) => void;
   clearInput: boolean;
+  loading?: boolean;
 }
 
 export const InputModal = ({
@@ -29,6 +30,7 @@ export const InputModal = ({
   handle,
   children,
   clearInput,
+  loading = false,
 }: PropsWithChildren<InputModalProps>) => {
   return (
     <Portal selector="#portal">
@@ -63,6 +65,7 @@ export const InputModal = ({
           leftButtonText={leftButtonText}
           rightButtonText={rightButtonText}
           clearInput={clearInput}
+          loading={loading}
         >
           {children}
         </InputModalContent>

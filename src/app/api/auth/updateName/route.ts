@@ -24,26 +24,33 @@ export async function POST(req: NextRequest, res: NextResponse) {
   );
 
   try {
-    const response = await prisma.user.update({
-      where: { id: session?.user.id },
-      data: {
-        name: name,
-      },
-    });
+    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
+      const response = await prisma.user.update({
+        where: { id: session?.user.id },
+        data: {
+          name: name,
+        },
+      });
 
-    await prisma.post.updateMany({
-      where: { userId: session?.user.id },
-      data: {
-        name: name,
-      },
-    });
+      await prisma.post.updateMany({
+        where: { userId: session?.user.id },
+        data: {
+          name: name,
+        },
+      });
 
-    console.log(response);
+      console.log(response);
 
-    return NextResponse.json(
-      { message: '닉네임이 변경되었습니다.', success: true },
-      { status: 200 },
-    );
+      return NextResponse.json(
+        { message: '닉네임이 변경되었습니다.', success: true },
+        { status: 200 },
+      );
+    } else {
+      return NextResponse.json(
+        { message: `더이상 지나갈 수 없다만,,?` },
+        { status: 400 },
+      );
+    }
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 400 });
   }
