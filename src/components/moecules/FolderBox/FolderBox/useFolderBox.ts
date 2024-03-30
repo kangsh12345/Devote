@@ -151,7 +151,8 @@ export function useFolderBox() {
       });
 
       const checkTreeUpdate =
-        queryId + '/' + querySlug === dirName.replace(/\/[^\/]*$/, '');
+        queryId + (query.slug ? '/' + querySlug : '') ===
+        dirName.replace(/\/[^\/]*$/, '');
 
       if (
         createDirectoryResponse &&
@@ -168,6 +169,8 @@ export function useFolderBox() {
         !createDirectoryResponse.exist &&
         checkTreeUpdate
       ) {
+        console.log('hi');
+
         const newFolderPageTreeItem: DirectoryTreeProps = {
           path: dirName,
           name: dirName.split('/').at(-1) ?? '',
