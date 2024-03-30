@@ -172,7 +172,7 @@ export function useFolderBox() {
         console.log('hi');
 
         const newFolderPageTreeItem: DirectoryTreeProps = {
-          path: dirName,
+          path: dirName + (type === 'file' && '.md'),
           name: dirName.split('/').at(-1) ?? '',
           type: type === 'file' ? 'file' : 'folder',
           thumbnail: '',

@@ -12,13 +12,15 @@ async function removePost(path: string, type: string) {
   try {
     const response = removeFile(fullPath, type);
 
-    const removePrisma = await prisma.post.delete({
-      where: {
-        path: path.replace('.md', ''),
-      },
-    });
+    if (type === 'file') {
+      const postDeleteResponse = await prisma.post.delete({
+        where: {
+          path: path.replace('.md', ''),
+        },
+      });
 
-    console.log(`remove Success: ${removePrisma}`);
+      console.log(postDeleteResponse);
+    }
 
     return response;
   } catch (error) {
@@ -31,6 +33,8 @@ export async function POST(req: NextRequest) {
 
   try {
     const response = await removePost(path, type);
+
+    console.log(`remove : ${response}`);
 
     if (response) {
       return NextResponse.json({ success: true }, { status: 200 });
