@@ -1,5 +1,6 @@
 // import star from '@phosphor-icons/core/fill/star-fill.svg';
 import Image from 'next/image';
+import { format } from 'date-fns';
 
 // import { format } from 'date-fns';
 import { Avatars } from '../../atoms/Avatars';
@@ -62,8 +63,7 @@ export const CardHover = ({
                 color="textTertiary"
                 paddingLeft="2"
               >
-                {/* {format(new Date(date), 'yyyy년 M월 d일')} */}
-                {date}
+                {format(new Date(date), 'yyyy년 M월 d일')}
               </Box>
             </Stack>
           </Box>

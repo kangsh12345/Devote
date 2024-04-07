@@ -52,7 +52,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
               thumbnail: '',
               title: fileTitle,
               subTitle: '',
-              date: format(new Date(), 'yyyy-MM-dd'),
+              date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
             },
           });
 

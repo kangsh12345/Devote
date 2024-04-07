@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, RefObject, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import { DotsThreeOutline, FolderNotch } from '@phosphor-icons/react';
 
@@ -28,7 +28,6 @@ export type PostCardProps = {
   idx: number;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  domNodeRef: RefObject<HTMLDivElement>;
 };
 
 export const PostCard = (props: PostCardProps) => {

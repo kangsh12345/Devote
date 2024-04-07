@@ -11,7 +11,7 @@ async function findRecentPost() {
     const stack: DirectoryTreeProps[] = [];
 
     fileInfo.map(item => {
-      stack.push({
+      stack.unshift({
         path: item.path,
         name: item.path.split('/').at(-1) ?? '',
         type: 'file',
@@ -22,7 +22,11 @@ async function findRecentPost() {
       });
     });
 
-    return stack;
+    return stack.sort((a, b) => {
+      if (a.name === '자기소개') return -1;
+      if (b.name === '자기소개') return 1;
+      return 0;
+    });
   } catch (error) {
     console.error(error);
   }

@@ -174,6 +174,16 @@ export const findDirectory = (
       userName: name,
       date,
     });
+
+    const introIndex = stack.findIndex(
+      item => item.name === '자기소개.md' && item.type === 'file',
+    );
+
+    if (introIndex > -1) {
+      const introFile = stack.splice(introIndex, 1)[0];
+      stack.unshift(introFile);
+    }
+
     stack.sort((a, b) => {
       return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
     });
