@@ -6,5 +6,6 @@ export const treeAtom = atom<TreeProps>({
   path: '',
   name: '',
   type: 'folder',
+  createdAt: new Date(),
   children: [],
 });

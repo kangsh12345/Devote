@@ -41,7 +41,13 @@ export function useRemoveFileMutation() {
 
             const newTree: TreeProps | undefined = old
               ? old.tree
-              : { path: '', name: '', type: 'folder', children: [] };
+              : {
+                  path: '',
+                  name: '',
+                  type: 'folder',
+                  createdAt: new Date(),
+                  children: [],
+                };
 
             const removeItem = (t: TreeProps, targetPath: string) => {
               let filteredChildren = t.children.filter(
@@ -56,7 +62,13 @@ export function useRemoveFileMutation() {
             };
 
             const change = removeItem(
-              newTree ?? { path: '', name: '', type: 'folder', children: [] },
+              newTree ?? {
+                path: '',
+                name: '',
+                type: 'folder',
+                createdAt: new Date(),
+                children: [],
+              },
               path,
             );
 
@@ -66,6 +78,7 @@ export function useRemoveFileMutation() {
                 path: old?.tree?.path ?? '',
                 name: old?.tree?.name ?? '',
                 type: old?.tree?.type ?? 'folder',
+                createdAt: old?.tree?.createdAt ?? new Date(),
                 children: change,
               },
               message: old?.message ?? 'success',

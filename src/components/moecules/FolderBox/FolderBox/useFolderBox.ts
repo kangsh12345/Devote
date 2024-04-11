@@ -258,6 +258,7 @@ export function useFolderBox() {
           path: '',
           name: '',
           type: 'folder',
+          createdAt: new Date(),
           children: [],
         },
       );

@@ -12,6 +12,7 @@ export function useFolderBoxOtherAtoms() {
       path: '',
       name: '',
       type: 'folder',
+      createdAt: new Date(),
       children: [],
     });
   };

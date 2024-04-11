@@ -35,6 +35,7 @@ export function useFolderBoxAtoms() {
       path: '',
       name: '',
       type: 'folder',
+      createdAt: new Date(),
       children: [],
     });
     setInputError('');

@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import fs from 'fs';
 import matter from 'gray-matter';
+import * as fsP from 'node:fs/promises';
 import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
@@ -18,6 +19,7 @@ export interface TreeProps {
   path: string;
   name: string;
   type: 'file' | 'folder';
+  createdAt: Date;
   children: TreeProps[];
 }
 
@@ -92,45 +94,6 @@ export const createDirectory = ({
   return 'exist';
 };
 
-export const findAllDirectory = (path: string) => {
-  const stack: TreeProps[] = [];
-
-  let tempStack: TreeProps;
-
-  try {
-    fs.readdirSync(path, { withFileTypes: true }).forEach(file => {
-      const destPath = `${path}/${file.name}`;
-
-      if (file.isDirectory()) {
-        tempStack = {
-          path: destPath.replace(`${rootDirectory}/`, ''),
-          name: file.name,
-          type: 'folder',
-          children: findAllDirectory(destPath),
-        };
-      } else {
-        tempStack = {
-          path: destPath.replace(
-            new RegExp(`${rootDirectory}/|\\.md`, 'g'),
-            '',
-          ),
-          name: file.name.replace('.md', ''),
-          type: 'file',
-          children: [],
-        };
-      }
-      stack.push(tempStack);
-      stack.sort((a, b) => {
-        return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
-      });
-    });
-  } catch (error) {
-    console.error(error);
-  }
-
-  return stack;
-};
-
 function extractInfoByPath(
   array: FileInfoProps[],
   pathToMatch: string,
@@ -144,6 +107,49 @@ function extractInfoByPath(
         date: item.date ?? '',
       }
     : { name: '', thumbnail: '', subTitle: '', date: '' };
+}
+
+export async function findAllDirectory(dirPath: string): Promise<TreeProps[]> {
+  const stack: TreeProps[] = [];
+  try {
+    const dirEntries = await fsP.readdir(dirPath, { withFileTypes: true });
+    for (const dirent of dirEntries) {
+      const fullPath = path.join(dirPath, dirent.name);
+      const stats = await fsP.stat(fullPath);
+
+      const item: TreeProps = {
+        path: fullPath.replace(new RegExp(`${rootDirectory}/|\\.md`, 'g'), ''),
+        name: dirent.name.replace('.md', ''),
+        type: dirent.isDirectory() ? 'folder' : 'file',
+        createdAt: stats.birthtime,
+        children: [],
+      };
+
+      if (dirent.isDirectory()) {
+        item.children = await findAllDirectory(fullPath);
+      }
+
+      stack.push(item);
+    }
+
+    stack.sort((a, b) => {
+      // 폴더 우선 정렬
+      if (a.type !== b.type) {
+        return a.type === 'folder' ? -1 : 1;
+      }
+
+      // '자기소개.md' 파일 우선 처리
+      if (a.name === '자기소개' && a.type === 'file') return -1;
+      if (b.name === '자기소개' && b.type === 'file') return 1;
+
+      // 나머지 파일들은 생성 시간 기준 정렬
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  return stack;
 }
 
 export const findDirectory = (
@@ -173,6 +179,10 @@ export const findDirectory = (
       subTitle,
       userName: name,
       date,
+    });
+
+    stack.sort((a, b) => {
+      return a.date > b.date ? -1 : 1;
     });
 
     const introIndex = stack.findIndex(

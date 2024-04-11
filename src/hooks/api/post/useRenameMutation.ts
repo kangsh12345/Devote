@@ -39,7 +39,13 @@ export function useRenameMutation() {
 
             const newTree: TreeProps | undefined = old
               ? old.tree
-              : { path: '', name: '', type: 'folder', children: [] };
+              : {
+                  path: '',
+                  name: '',
+                  type: 'folder',
+                  createdAt: new Date(),
+                  children: [],
+                };
 
             const renameItem = (
               t: TreeProps,
@@ -64,7 +70,13 @@ export function useRenameMutation() {
             };
 
             const change = renameItem(
-              newTree ?? { path: '', name: '', type: 'folder', children: [] },
+              newTree ?? {
+                path: '',
+                name: '',
+                type: 'folder',
+                createdAt: new Date(),
+                children: [],
+              },
               path,
               newPath,
             );
@@ -75,6 +87,7 @@ export function useRenameMutation() {
                 path: old?.tree?.path ?? '',
                 name: old?.tree?.name ?? '',
                 type: old?.tree?.type ?? 'folder',
+                createdAt: old?.tree?.createdAt ?? new Date(),
                 children: change.children,
               },
               message: old?.message ?? 'success',

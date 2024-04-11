@@ -10,11 +10,12 @@ async function getAllOtherDirectory(dirName: string) {
     path: dirName,
     name: dirName,
     type: 'folder',
+    createdAt: new Date(),
     children: [],
   };
 
   try {
-    const response = findAllDirectory(path);
+    const response = await findAllDirectory(path);
 
     console.log(response);
 

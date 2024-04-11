@@ -9,6 +9,7 @@ export const treeAtom = atom<TreeProps>({
   path: '',
   name: '',
   type: 'folder',
+  createdAt: new Date(),
   children: [],
 });
 export const inputErrorAtom = atom<string>('');
