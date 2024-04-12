@@ -8,6 +8,7 @@ export const instance = axios.create({
     process.env.NODE_ENV === 'development'
       ? developmentApiUrl
       : 'http://localhost:3000',
+  headers: { 'Content-Type': 'application/json' },
 });
 
 // export function setHttpClientBearerAuthorization(bearerToken: string) {

@@ -82,7 +82,7 @@ export const createDirectory = ({
         name,
         title: inputDirName,
         md: '',
-        date: format(new Date(), 'yyyy-MM-dd'),
+        date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
       });
     } else {
       fs.mkdirSync(`${rootDirectory}/${dirName}`, { recursive: true });
@@ -161,6 +161,7 @@ export const findDirectory = (
 
   fs.readdirSync(fullPath, { withFileTypes: true }).forEach(file => {
     const destPath = `${fullPath}/${file.name}`;
+    const relPath = destPath.replace(`${rootDirectory}/`, '');
 
     const info = extractInfoByPath(
       fileInfo,
@@ -171,14 +172,20 @@ export const findDirectory = (
 
     console.log(`findDirectory: ${JSON.stringify(info)}`);
 
+    let ddate = undefined;
+    if (file.isDirectory()) {
+      const stats = fs.statSync(destPath);
+      ddate = stats.birthtime;
+    }
+
     stack.push({
-      path: destPath.replace(`${rootDirectory}/`, ''),
+      path: relPath,
       name: file.name,
       type: file.isDirectory() ? 'folder' : 'file',
       thumbnail,
       subTitle,
       userName: name,
-      date,
+      date: file.isDirectory() ? String(ddate) : date,
     });
 
     stack.sort((a, b) => {
