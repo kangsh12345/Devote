@@ -24,6 +24,16 @@ globalStyle('body .w-md-editor-text-pre > code, body .w-md-editor-text-input', {
   whiteSpace: 'pre-wrap',
 });
 
+globalStyle('body .wmde-markdown img', {
+  display: 'block',
+  margin: '0 auto',
+});
+
+// .my-custom-md-editor img {
+//   display: block;
+//   margin: 0 auto; /* 상하 마진 없이 좌우 마진 자동으로 조정 */
+// }
+
 globalStyle('body .w-md-editor-text', {
   paddingBottom: '48px',
 });
