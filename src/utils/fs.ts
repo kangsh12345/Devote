@@ -63,35 +63,35 @@ export const createDirectory = ({
   type: string;
 }) => {
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
-  const inputDirName = dirName.substring(dirName.lastIndexOf('/') + 1);
+  const inputDirName = path.basename(dirName);
 
   if (regex.test(inputDirName) || inputDirName.length > 24) {
     return 'valid false';
   }
 
-  const isExists = fs.existsSync(
-    `${rootDirectory}/${dirName}${type === 'file' && '.md'}`,
+  const fullPath = path.join(
+    rootDirectory,
+    dirName + (type === 'file' ? '.md' : ''),
   );
+  const exists = fs.existsSync(fullPath);
 
-  console.log(`isExist: ${isExists}`);
-
-  if (!isExists) {
+  if (!exists) {
     if (type === 'file') {
       createPost({
-        fullPath: dirName,
+        fullPath,
         name,
         title: inputDirName,
         md: '',
         date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
       });
     } else {
-      fs.mkdirSync(`${rootDirectory}/${dirName}`, { recursive: true });
+      fs.mkdirSync(fullPath, { recursive: true });
     }
 
     return 'create success';
   }
 
-  return 'exist';
+  return 'already exists';
 };
 
 function extractInfoByPath(
@@ -249,26 +249,39 @@ export async function createPost({
   md,
   date,
 }: PostData) {
-  const lastSlashIndex = fullPath.lastIndexOf('/');
-  const filePath = fullPath.substring(0, lastSlashIndex + 1);
-  const fileName = fullPath.substring(lastSlashIndex);
-
   const data = `---\nname: '${name}'\ntitle: '${title}'\ndate: '${date}'\n---\n${md}`;
 
-  if (fileName.replace('/', '') === title) {
-    fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
-    console.log(`${fileName} Post Create`);
-  } else {
-    fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
-    fs.rename(
-      `${rootDirectory}/${fullPath}.md`,
-      `${rootDirectory}/${filePath + title}.md`,
-      function (err) {
-        if (err) throw err;
-        console.log(`${fileName} => ${title} Post Renamed`);
-      },
+  try {
+    fs.writeFileSync(fullPath, data);
+    console.log(`${title} Post Created`);
+
+    const fileName = path.basename(fullPath);
+    if (fileName.replace('.md', '') !== title) {
+      const newPath = path.join(path.dirname(fullPath), `${title}.md`);
+      fs.renameSync(fullPath, newPath);
+      console.log(`${fileName} renamed to ${title}.md`);
+    }
+  } catch (error) {
+    console.error(
+      `Failed to create or rename post: ${(error as unknown as Error).message}`,
     );
   }
+
+  // TODO: 일단 write까지 변경하고 테스트
+  // if (fileName.replace('/', '') === title) {
+  //   fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
+  //   console.log(`${fileName} Post Create`);
+  // } else {
+  //   fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
+  //   fs.rename(
+  //     `${rootDirectory}/${fullPath}.md`,
+  //     `${rootDirectory}/${filePath + title}.md`,
+  //     function (err) {
+  //       if (err) throw err;
+  //       console.log(`${fileName} => ${title} Post Renamed`);
+  //     },
+  //   );
+  // }
 }
 
 export async function removeFile(fullPath: string, type: string) {

@@ -94,7 +94,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         title,
         subTitle,
       });
-
+      //TODO: 다음은 여기 변경
       await createPost({
         fullPath: path,
         name,
