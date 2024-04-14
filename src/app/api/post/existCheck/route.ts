@@ -1,8 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/utils/auth';
 import { existPost } from '@/src/utils/fs';
+import { getSession } from '@/src/utils/getSession';
 import path from 'path';
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
@@ -21,45 +19,30 @@ async function existCheckPost(path: string) {
   }
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { path } = await req.json();
 
-  const session = await getServerSession(
-    req as unknown as NextApiRequest,
-    {
-      ...res,
-      getHeader: (name: string) => {
-        res.headers?.get(name);
-      },
-      setHeader: (name: string, value: string) => {
-        res.headers?.set(name, value);
-      },
-    } as unknown as NextApiResponse,
-    authOptions,
-  );
+  const session = await getSession();
 
-  console.log(`existCHeckPost: ${path}`);
+  if (session?.user.id !== String(process.env.NEXT_PUBLIC_USERID)) {
+    return NextResponse.json(
+      { message: `더이상 지나갈 수 없다만,,?` },
+      { status: 400 },
+    );
+  }
 
   try {
-    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
-      const response = await existCheckPost(path);
+    const response = await existCheckPost(path);
 
-      console.log(response);
-
-      if (response === 'not exist') {
-        return NextResponse.json(
-          { success: true, exist: false },
-          { status: 200 },
-        );
-      }
-      return NextResponse.json({ success: true, exist: true }, { status: 200 });
-    } else {
-      return NextResponse.json(
-        { message: `더이상 지나갈 수 없다만,,?` },
-        { status: 400 },
-      );
-    }
+    return NextResponse.json(
+      { success: true, exist: response === 'exist' },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(error);
+    return NextResponse.json(
+      { success: false, error: 'Internal server error' },
+      { status: 500 },
+    );
   }
 }

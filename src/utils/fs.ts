@@ -266,22 +266,6 @@ export async function createPost({
       `Failed to create or rename post: ${(error as unknown as Error).message}`,
     );
   }
-
-  // TODO: 일단 write까지 변경하고 테스트
-  // if (fileName.replace('/', '') === title) {
-  //   fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
-  //   console.log(`${fileName} Post Create`);
-  // } else {
-  //   fs.writeFileSync(`${rootDirectory}/${fullPath}.md`, data);
-  //   fs.rename(
-  //     `${rootDirectory}/${fullPath}.md`,
-  //     `${rootDirectory}/${filePath + title}.md`,
-  //     function (err) {
-  //       if (err) throw err;
-  //       console.log(`${fileName} => ${title} Post Renamed`);
-  //     },
-  //   );
-  // }
 }
 
 export async function removeFile(fullPath: string, type: string) {
@@ -355,14 +339,11 @@ export async function renameFile(fullPath: string, fullNewPath: string) {
   return true;
 }
 
-export async function existPost(fullPath: string) {
-  const isExists = fs.existsSync(fullPath);
-
-  console.log(fullPath);
-
-  if (!isExists) {
-    return 'not exist';
-  } else {
+export async function existPost(fullPath: string): Promise<string> {
+  try {
+    await fsP.access(fullPath);
     return 'exist';
+  } catch (error) {
+    return 'not exist';
   }
 }
