@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/utils/auth';
 import { createPost } from '@/src/utils/fs';
+import { getSession } from '@/src/utils/getSession';
 import { PrismaClient } from '@prisma/client';
+import path from 'path';
 
 const prisma = new PrismaClient();
+const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
 interface RequestBody {
   id: number;
@@ -18,64 +18,14 @@ interface RequestBody {
   date: string;
 }
 
-interface UpdatePostProps {
-  id: number;
-  userId: string;
-  newPath: string;
-  thumbnail: string;
-  title: string;
-  subTitle: string;
-}
-
-async function updatePost({
-  id,
-  userId,
-  newPath,
-  thumbnail,
-  title,
-  subTitle,
-}: UpdatePostProps) {
-  try {
-    const response = await prisma.post.update({
-      where: {
-        id,
-        userId,
-      },
-      data: {
-        path: newPath,
-        thumbnail,
-        title,
-        subTitle,
-      },
-    });
-
-    console.log(response);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function POST(req: NextRequest, res: NextResponse) {
-  const session = await getServerSession(
-    req as unknown as NextApiRequest,
-    {
-      ...res,
-      getHeader: (name: string) => {
-        res.headers?.get(name);
-      },
-      setHeader: (name: string, value: string) => {
-        res.headers?.set(name, value);
-      },
-    } as unknown as NextApiResponse,
-    authOptions,
-  );
-
-  const userId = session?.user.id;
-  const name = session?.user.name;
-
+async function handleRequest(
+  req: NextRequest,
+  userId: string,
+  userName: string,
+): Promise<NextResponse> {
   const {
     id,
-    path,
+    path: paths,
     newPath,
     thumbnail,
     title,
@@ -84,33 +34,46 @@ export async function POST(req: NextRequest, res: NextResponse) {
     date,
   }: RequestBody = await req.json();
 
+  const fullPath = path.join(rootDirectory, paths + '.md');
+
   try {
-    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
-      await updatePost({
-        id,
-        userId,
-        newPath,
-        thumbnail,
-        title,
-        subTitle,
+    await prisma.$transaction(async prisma => {
+      await prisma.post.update({
+        where: { id, userId },
+        data: { path: newPath, thumbnail, title, subTitle },
       });
-      //TODO: 다음은 여기 변경
+
       await createPost({
-        fullPath: path,
-        name,
+        fullPath,
+        name: userName,
         title,
         md: md ?? '',
         date,
       });
+    });
 
-      return NextResponse.json({ success: true }, { status: 200 });
-    } else {
-      return NextResponse.json(
-        { message: `더이상 지나갈 수 없다만,,?` },
-        { status: 400 },
-      );
-    }
+    return NextResponse.json(
+      { success: true, message: '파일 생성에 성공했습니다.' },
+      { status: 200 },
+    );
   } catch (error) {
-    return NextResponse.json({ success: false }, { status: 400 });
+    console.error(error);
+    return NextResponse.json(
+      { success: false, message: (error as unknown as Error).message },
+      { status: 400 },
+    );
+  }
+}
+
+export async function POST(req: NextRequest) {
+  const session = await getSession();
+
+  if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
+    return await handleRequest(req, session.user.id, session.user.name);
+  } else {
+    return NextResponse.json(
+      { message: `더이상 지나갈 수 없다만,,?` },
+      { status: 400 },
+    );
   }
 }
