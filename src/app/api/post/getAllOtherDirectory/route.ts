@@ -4,7 +4,7 @@ import path from 'path';
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
-async function getAllOtherDirectory(dirName: string) {
+async function getAllOtherDirectory(dirName: string): Promise<TreeProps> {
   const path = `${rootDirectory}/${dirName}`;
   const tree: TreeProps = {
     path: dirName,
@@ -15,15 +15,12 @@ async function getAllOtherDirectory(dirName: string) {
   };
 
   try {
-    const response = await findAllDirectory(path);
-
-    console.log(response);
-
-    tree.children = response;
-    return tree;
+    tree.children = await findAllDirectory(path);
   } catch (error) {
     console.error(error);
   }
+
+  return tree;
 }
 
 export async function POST(req: NextRequest) {
@@ -40,13 +37,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        tree: {
-          path: '',
-          name: '',
-          type: 'folder',
-          children: [],
-        },
-        message: error,
+        tree: [],
+        message: (error as unknown as Error).message,
       },
       { status: 400 },
     );

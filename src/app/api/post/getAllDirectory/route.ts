@@ -1,14 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/utils/auth';
+import { NextResponse } from 'next/server';
 import { findAllDirectory, TreeProps } from '@/src/utils/fs';
+import { getSession } from '@/src/utils/getSession';
 import path from 'path';
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
-async function getAllDirectory(dirName: string) {
-  const path = `${rootDirectory}/${dirName}`;
+async function getAllDirectory(dirName: string): Promise<TreeProps> {
+  const fullPath = `${rootDirectory}/${dirName}`;
   const tree: TreeProps = {
     path: dirName,
     name: dirName,
@@ -18,31 +16,15 @@ async function getAllDirectory(dirName: string) {
   };
 
   try {
-    const response = await findAllDirectory(path);
-
-    console.log(response);
-
-    tree.children = response;
-    return tree;
+    tree.children = await findAllDirectory(fullPath);
   } catch (error) {
     console.error(error);
   }
+  return tree;
 }
 
-export async function GET(req: NextRequest, res: NextResponse) {
-  const session = await getServerSession(
-    req as unknown as NextApiRequest,
-    {
-      ...res,
-      getHeader: (name: string) => {
-        res.headers?.get(name);
-      },
-      setHeader: (name: string, value: string) => {
-        res.headers?.set(name, value);
-      },
-    } as unknown as NextApiResponse,
-    authOptions,
-  );
+export async function GET() {
+  const session = await getSession();
 
   if (session) {
     const response = await getAllDirectory(session.user.dirName);
@@ -53,7 +35,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     );
   }
   return NextResponse.json(
-    { success: false, tree: [], message: 'no authorization' },
+    { success: false, tree: [], message: 'Unauthorization' },
     { status: 400 },
   );
 }
