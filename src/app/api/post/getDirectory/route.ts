@@ -4,26 +4,20 @@ import { PrismaClient } from '@prisma/client';
 import path from 'path';
 
 const prisma = new PrismaClient();
-
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
-async function getDirectory(path: string) {
-  const fullPath = `${rootDirectory}/${path}`;
+async function getDirectory(dirPath: string) {
+  const fullPath = `${rootDirectory}/${dirPath}`;
 
   try {
     const fileInfo = await prisma.post.findMany({
-      where: {
-        path: {
-          startsWith: `${path}/`,
-        },
-      },
+      where: { path: { startsWith: `${dirPath}/` } },
     });
 
-    const response = findDirectory(fullPath, path, fileInfo);
-
-    return response;
+    return await findDirectory(fullPath, dirPath, fileInfo);
   } catch (error) {
     console.error(error);
+    throw new Error('Failed to retrieve directory information.');
   }
 }
 
@@ -33,10 +27,9 @@ export async function POST(req: NextRequest) {
   try {
     const response = await getDirectory(path);
 
-    const userName = await prisma.user.findFirst({
-      where: {
-        dirName: path.split('/')[0],
-      },
+    const userName = await prisma.user.findUnique({
+      where: { dirName: path.split('/')[0] },
+      select: { name: true },
     });
 
     return NextResponse.json(
@@ -45,5 +38,10 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     console.error(error);
+
+    return NextResponse.json(
+      { success: false, message: 'Internal Server Error' },
+      { status: 500 },
+    );
   }
 }

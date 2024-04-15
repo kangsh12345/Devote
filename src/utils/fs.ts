@@ -157,62 +157,63 @@ export async function findAllDirectory(dirPath: string): Promise<TreeProps[]> {
   return stack;
 }
 
-export const findDirectory = (
+export async function findDirectory(
   fullPath: string,
-  path: string,
+  relativePath: string,
   fileInfo: FileInfoProps[],
-) => {
-  const stack: DirectoryTreeProps[] = [];
+): Promise<DirectoryTreeProps[]> {
+  const dirEntries = await fs.promises.readdir(fullPath, {
+    withFileTypes: true,
+  });
 
-  fs.readdirSync(fullPath, { withFileTypes: true }).forEach(file => {
-    const destPath = `${fullPath}/${file.name}`;
+  const promsies = dirEntries.map(async dirent => {
+    const destPath = `${fullPath}/${dirent.name}`;
     const relPath = destPath.replace(`${rootDirectory}/`, '');
 
     const info = extractInfoByPath(
       fileInfo,
-      `${path}/${file.name}`.replaceAll('.md', ''),
+      `${relativePath}/${dirent.name}`.replaceAll('.md', ''),
     );
 
-    const { thumbnail, subTitle, name, date } = info || {};
+    const { thumbnail, name, subTitle, date } = info || {};
 
-    console.log(`findDirectory: ${JSON.stringify(info)}`);
-
-    let ddate = undefined;
-    if (file.isDirectory()) {
-      const stats = fs.statSync(destPath);
-      ddate = stats.birthtime;
+    let ddate = '';
+    if (dirent.isDirectory()) {
+      const stats = await fs.promises.stat(destPath);
+      ddate = stats.birthtime.toISOString();
     }
 
-    stack.push({
+    const obj: DirectoryTreeProps = {
       path: relPath,
-      name: file.name,
-      type: file.isDirectory() ? 'folder' : 'file',
-      thumbnail,
-      subTitle,
+      name: dirent.name,
+      type: dirent.isDirectory() ? 'folder' : 'file',
+      thumbnail: thumbnail,
       userName: name,
-      date: file.isDirectory() ? String(ddate) : date,
-    });
+      subTitle: subTitle,
+      date: dirent.isDirectory() ? ddate : date,
+    };
 
-    stack.sort((a, b) => {
-      return a.date > b.date ? -1 : 1;
-    });
-
-    const introIndex = stack.findIndex(
-      item => item.name === '자기소개.md' && item.type === 'file',
-    );
-
-    if (introIndex > -1) {
-      const introFile = stack.splice(introIndex, 1)[0];
-      stack.unshift(introFile);
-    }
-
-    stack.sort((a, b) => {
-      return (a.type === 'file' ? 1 : -1) - (b.type === 'file' ? 1 : -1);
-    });
+    return obj;
   });
 
-  return stack;
-};
+  const stack = await Promise.all(promsies);
+
+  stack.sort((a, b) => (a.date > b.date ? -1 : 1));
+
+  const introIndex = stack.findIndex(
+    item => item.name === '자기소개.md' && item.type === 'file',
+  );
+
+  if (introIndex > -1) {
+    const introFile = stack.splice(introIndex, 1)[0];
+    stack.unshift(introFile);
+  }
+
+  return stack.sort((a, b) => {
+    if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;
+    return a.date.localeCompare(b.date);
+  });
+}
 
 export const findFile = async (path: string) => {
   const fileContents = fs.readFileSync(path, 'utf8');
