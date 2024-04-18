@@ -21,20 +21,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const mkdirResponse = createDirectory({ dirName, name, type });
-
-    if (mkdirResponse === 'create success') {
+    await prisma.$transaction(async () => {
       if (type === 'rootDirectory') {
-        const response = await prisma.user.update({
+        await prisma.user.update({
           where: { id: id },
-          data: {
-            dirName: dirName,
-          },
+          data: { dirName: dirName },
         });
-
-        console.log(response);
       } else if (type === 'file') {
-        const response = await prisma.post.create({
+        await prisma.post.create({
           data: {
             userId: id,
             name,
@@ -45,39 +39,28 @@ export async function POST(req: NextRequest) {
             date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
           },
         });
-
-        console.log(response);
       }
+    });
+    // 제대로 동작하는지 확인
+    // TODO: Folder 페이지 순서대로 안나옴 에러 추후 확인후 수정
 
-      return NextResponse.json(
-        { success: true, exist: false, message: mkdirResponse },
-        { status: 200 },
-      );
+    const mkdirResponse = createDirectory({ dirName, name, type });
+
+    if (
+      mkdirResponse !== 'create success' &&
+      mkdirResponse !== 'already exists'
+    ) {
+      throw new Error(mkdirResponse);
     }
+
     return NextResponse.json(
-      { success: true, exist: true, message: mkdirResponse },
+      {
+        success: true,
+        exist: mkdirResponse === 'already exists',
+        message: mkdirResponse,
+      },
       { status: 200 },
     );
-    // const result = await prisma.$transaction(async prisma => {
-    //   if (type === 'rootDirectory') {
-    //     await prisma.user.update({
-    //       where: { id: id },
-    //       data: { dirName: dirName },
-    //     });
-    //   } else if (type === 'file') {
-    //     await prisma.post.create({
-    //       data: {
-    //         userId: id,
-    //         name,
-    //         path: dirName,
-    //         thumbnail: '',
-    //         title: fileTitle,
-    //         subTitle: '',
-    //         date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-    //       },
-    //     });
-    //   }
-    // });
   } catch (error) {
     return NextResponse.json(
       { success: false, exist: true, message: error },
