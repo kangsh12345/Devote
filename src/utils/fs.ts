@@ -215,27 +215,20 @@ export async function findDirectory(
   });
 }
 
-export const findFile = async (path: string) => {
-  const fileContents = fs.readFileSync(path, 'utf8');
-
+export const findFile = async (filePath: string) => {
+  const fileContents = fs.readFileSync(filePath, 'utf8');
   const matterResult = matter(fileContents);
-
-  const { data, content } = matterResult;
 
   // TODO: 추후 SSG로 변경할때 아래 remark 이용
   const processedContent = await remark()
     .use(html)
     .process(matterResult.content);
 
-  const contentHtml = processedContent.toString();
-
   return {
-    contentHtml,
-    content,
-    ...(data as {
-      date: string;
-      title: string;
-    }),
+    contentHtml: processedContent.toString(),
+    content: matterResult.content,
+    date: matterResult.data.date,
+    title: matterResult.data.title,
   };
 };
 
