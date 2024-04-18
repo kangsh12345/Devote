@@ -6,29 +6,35 @@ const prisma = new PrismaClient();
 
 async function findRecentPost() {
   try {
-    const fileInfo = await prisma.post.findMany();
-
-    const stack: DirectoryTreeProps[] = [];
-
-    fileInfo.map(item => {
-      stack.unshift({
-        path: item.path,
-        name: item.path.split('/').at(-1) ?? '',
-        type: 'file',
-        thumbnail: item.thumbnail,
-        subTitle: item.subTitle,
-        userName: item.name,
-        date: item.date,
-      });
+    const fileInfo = await prisma.post.findMany({
+      select: {
+        path: true,
+        thumbnail: true,
+        subTitle: true,
+        name: true,
+        date: true,
+      },
+      orderBy: {
+        date: 'desc',
+      },
     });
 
-    return stack.sort((a, b) => {
-      if (a.name === '자기소개') return -1;
-      if (b.name === '자기소개') return 1;
-      return 0;
-    });
+    const stack: DirectoryTreeProps[] = fileInfo.map(item => ({
+      path: item.path,
+      name: item.path.split('/').pop() ?? '',
+      type: 'file',
+      thumbnail: item.thumbnail,
+      subTitle: item.subTitle,
+      userName: item.name,
+      date: item.date,
+    }));
+
+    return stack.sort((a, b) =>
+      a.name === '자기소개' ? -1 : b.name === '자기소개' ? 1 : 0,
+    );
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 
@@ -41,6 +47,9 @@ export async function GET() {
       { status: 200 },
     );
   } catch (error) {
-    console.error(error);
+    return NextResponse.json(
+      { success: false, message: 'Unable to retrieve recent posts.' },
+      { status: 500 },
+    );
   }
 }
