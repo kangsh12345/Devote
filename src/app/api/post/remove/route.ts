@@ -1,8 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/utils/auth';
 import { removeFile } from '@/src/utils/fs';
+import { getSession } from '@/src/utils/getSession';
 import { PrismaClient } from '@prisma/client';
 import path from 'path';
 
@@ -13,58 +11,61 @@ async function removePost(path: string, type: string) {
   const fullPath = `${rootDirectory}/${path}`;
 
   try {
-    const response = removeFile(fullPath, type);
+    const result = await prisma.$transaction(async () => {
+      if (type === 'file') {
+        await prisma.post.delete({
+          where: { path: path.replace('.md', '') },
+        });
+      }
 
-    if (type === 'file') {
-      const postDeleteResponse = await prisma.post.delete({
-        where: {
-          path: path.replace('.md', ''),
-        },
-      });
+      const response = await removeFile(fullPath, type);
 
-      console.log(postDeleteResponse);
-    }
+      if (!response) {
+        throw new Error('파일 삭제 도중 에러가 발생했습니다.');
+      }
 
-    return response;
+      return { success: true, message: '파일 삭제를 성공하였습니다.' };
+    });
+
+    console.log('Transaction successful:', result);
+    return result;
   } catch (error) {
-    console.error(error);
+    console.error('Transaction failed:', error);
+    return { success: false, message: '파일 삭제 도중 에러가 발생했습니다.' };
   }
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { path, type } = await req.json();
 
-  const session = await getServerSession(
-    req as unknown as NextApiRequest,
-    {
-      ...res,
-      getHeader: (name: string) => {
-        res.headers?.get(name);
-      },
-      setHeader: (name: string, value: string) => {
-        res.headers?.set(name, value);
-      },
-    } as unknown as NextApiResponse,
-    authOptions,
-  );
+  const session = await getSession();
+
+  if (session?.user.id !== String(process.env.NEXT_PUBLIC_USERID)) {
+    return NextResponse.json(
+      { message: `더이상 지나갈 수 없다만,,?` },
+      { status: 400 },
+    );
+  }
 
   try {
-    if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
-      const response = await removePost(path, type);
+    const response = await removePost(path, type);
 
-      console.log(`remove : ${response}`);
-
-      if (response) {
-        return NextResponse.json({ success: true }, { status: 200 });
-      }
-      return NextResponse.json({ success: false }, { status: 200 });
+    if (response.success) {
+      return NextResponse.json(
+        { success: true, message: response.message },
+        { status: 200 },
+      );
     } else {
       return NextResponse.json(
-        { message: `더이상 지나갈 수 없다만,,?` },
-        { status: 400 },
+        { success: false, message: response.message },
+        { status: 500 },
       );
     }
   } catch (error) {
-    console.error(error);
+    console.error(`POST function error: `, error);
+    return NextResponse.json(
+      { success: false, error: 'Internal server error' },
+      { status: 500 },
+    );
   }
 }
