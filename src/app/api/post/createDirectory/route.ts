@@ -41,8 +41,6 @@ export async function POST(req: NextRequest) {
         });
       }
     });
-    // 제대로 동작하는지 확인
-    // TODO: Folder 페이지 순서대로 안나옴 에러 추후 확인후 수정
 
     const mkdirResponse = createDirectory({ dirName, name, type });
 

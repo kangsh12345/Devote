@@ -124,7 +124,7 @@ async function processEntry(
   };
 }
 
-function sortDirectoryEntries(entries: TreeProps[]): void {
+function sortTreeEntries(entries: TreeProps[]): void {
   entries.sort((a, b) => {
     // 폴더 우선 정렬
     if (a.type !== b.type) {
@@ -140,6 +140,25 @@ function sortDirectoryEntries(entries: TreeProps[]): void {
   });
 }
 
+function sortDirectoryEntries(entries: DirectoryTreeProps[]): void {
+  entries.sort((a, b) => {
+    // 폴더 우선 정렬
+    if (a.type !== b.type) {
+      return a.type === 'folder' ? -1 : 1;
+    }
+
+    // '자기소개.md' 파일 우선 처리
+    if (a.name === '자기소개.md' && a.type === 'file') return -1;
+    if (b.name === '자기소개.md' && b.type === 'file') return 1;
+
+    // 나머지 파일들은 생성 시간 기준 정렬
+    const aDate = new Date(a.date);
+    const bDate = new Date(b.date);
+
+    return bDate.getTime() - aDate.getTime();
+  });
+}
+
 export async function findAllDirectory(dirPath: string): Promise<TreeProps[]> {
   const stack: TreeProps[] = [];
   try {
@@ -149,7 +168,7 @@ export async function findAllDirectory(dirPath: string): Promise<TreeProps[]> {
       stack.push(item);
     }
 
-    sortDirectoryEntries(stack);
+    sortTreeEntries(stack);
   } catch (error) {
     console.error(error);
   }
@@ -193,26 +212,16 @@ export async function findDirectory(
       date: dirent.isDirectory() ? ddate : date,
     };
 
+    console.log(`findDirectory ${dirent.name}: ${JSON.stringify(obj)}`);
+
     return obj;
   });
 
   const stack = await Promise.all(promsies);
 
-  stack.sort((a, b) => (a.date > b.date ? -1 : 1));
+  sortDirectoryEntries(stack);
 
-  const introIndex = stack.findIndex(
-    item => item.name === '자기소개.md' && item.type === 'file',
-  );
-
-  if (introIndex > -1) {
-    const introFile = stack.splice(introIndex, 1)[0];
-    stack.unshift(introFile);
-  }
-
-  return stack.sort((a, b) => {
-    if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;
-    return a.date.localeCompare(b.date);
-  });
+  return stack;
 }
 
 export const findFile = async (filePath: string) => {
