@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
   const fileTitle = dirName.split('/').pop();
 
-  if (session?.user.id !== String(process.env.NEXT_PUBLIC_USERID)) {
+  if (!session || session.user.id !== String(process.env.NEXT_PUBLIC_USERID)) {
     return NextResponse.json(
       { message: `더이상 지나갈 수 없다만,,?` },
       { status: 400 },

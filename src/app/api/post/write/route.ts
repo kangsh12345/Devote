@@ -59,7 +59,7 @@ async function handleRequest(
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { success: false, message: (error as unknown as Error).message },
+      { success: false, message: '파일 생성 도중 에러가 발생했습니다.' },
       { status: 400 },
     );
   }
@@ -68,12 +68,12 @@ async function handleRequest(
 export async function POST(req: NextRequest) {
   const session = await getSession();
 
-  if (session?.user.id === String(process.env.NEXT_PUBLIC_USERID)) {
-    return await handleRequest(req, session.user.id, session.user.name);
-  } else {
+  if (!session || session.user.id !== String(process.env.NEXT_PUBLIC_USERID)) {
     return NextResponse.json(
       { message: `더이상 지나갈 수 없다만,,?` },
       { status: 400 },
     );
+  } else {
+    return await handleRequest(req, session.user.id, session.user.name);
   }
 }
