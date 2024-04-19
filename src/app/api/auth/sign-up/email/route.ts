@@ -33,7 +33,7 @@ async function signUp(info: RequestBody) {
 }
 
 export async function POST(req: NextRequest) {
-  const request: RequestBody = await req.json();
+  // const request: RequestBody = await req.json();
 
   try {
     // const response = await signUp(request);

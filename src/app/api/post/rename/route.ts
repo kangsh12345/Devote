@@ -22,7 +22,6 @@ async function renamePost(oldPath: string, newPath: string) {
             path: newPath.replace('.md', ''),
             title: newPath.replace('.md', '').split('/').at(-1),
           },
-          // 파일 생성했을때 post write 페이지에서 제대로 작동하는지 확인해보기
         });
       }
     });

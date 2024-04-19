@@ -241,13 +241,15 @@ export const findFile = async (filePath: string) => {
   };
 };
 
-export const rootDirectoryCheck = (dirName: string) => {
-  const isExists = fs.existsSync(`${rootDirectory}/${dirName}`);
+export const rootDirectoryCheck = async (dirName: string) => {
+  const fullPath = path.join(rootDirectory, dirName);
 
-  if (isExists) {
+  try {
+    await fsP.access(fullPath);
+    return true;
+  } catch (error) {
     return false;
   }
-  return true;
 };
 
 export async function createPost({
