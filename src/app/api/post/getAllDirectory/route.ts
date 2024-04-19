@@ -26,16 +26,28 @@ async function getAllDirectory(dirName: string): Promise<TreeProps> {
 export async function GET() {
   const session = await getSession();
 
-  if (session) {
-    const response = await getAllDirectory(session.user.dirName);
+  try {
+    if (session) {
+      const response = await getAllDirectory(session.user.dirName);
 
+      return NextResponse.json(
+        { success: true, tree: response, message: 'success' },
+        { status: 200 },
+      );
+    }
     return NextResponse.json(
-      { success: true, tree: response, message: 'success' },
-      { status: 200 },
+      { success: false, tree: [], message: 'Unauthorization' },
+      { status: 400 },
+    );
+  } catch (error) {
+    console.error('Get all directory failed:', error);
+    return NextResponse.json(
+      {
+        success: false,
+        tree: [],
+        message: '파일을 불러오는 도중 에러가 발생했습니다.',
+      },
+      { status: 400 },
     );
   }
-  return NextResponse.json(
-    { success: false, tree: [], message: 'Unauthorization' },
-    { status: 400 },
-  );
 }

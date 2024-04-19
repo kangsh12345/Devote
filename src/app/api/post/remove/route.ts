@@ -62,9 +62,9 @@ export async function POST(req: NextRequest) {
       );
     }
   } catch (error) {
-    console.error(`POST function error: `, error);
+    console.error(`Remove failed`, error);
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
+      { success: false, message: '삭제 도중 에러가 발생했습니다.' },
       { status: 500 },
     );
   }

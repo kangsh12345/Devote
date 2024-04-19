@@ -43,12 +43,21 @@ export async function GET() {
     const response = await findRecentPost();
 
     return NextResponse.json(
-      { tree: response, success: true },
+      {
+        tree: response,
+        success: true,
+        message: '파일 불러오는데 성공하였습니다.',
+      },
       { status: 200 },
     );
   } catch (error) {
+    console.error('Get recent post failed:', error);
     return NextResponse.json(
-      { success: false, message: 'Unable to retrieve recent posts.' },
+      {
+        tree: [],
+        success: false,
+        message: '파일을 불러오는 도중 에러가 발생했습니다.',
+      },
       { status: 500 },
     );
   }

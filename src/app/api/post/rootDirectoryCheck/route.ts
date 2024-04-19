@@ -27,9 +27,9 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
-    console.error('Error in POST request:', error);
+    console.error('Check root directory failed:', error);
     return NextResponse.json(
-      { success: false, message: 'server error' },
+      { success: false, message: '파일 체크 도중 에러가 발생했습니다.' },
       { status: 400 },
     );
   }

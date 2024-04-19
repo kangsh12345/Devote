@@ -46,7 +46,8 @@ export async function POST(req: NextRequest) {
 
     if (
       mkdirResponse !== 'create success' &&
-      mkdirResponse !== 'already exists'
+      mkdirResponse !== 'already exists' &&
+      mkdirResponse !== 'valid false'
     ) {
       throw new Error(mkdirResponse);
     }
@@ -60,8 +61,13 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
+    console.log('Directory Create failed:', error);
     return NextResponse.json(
-      { success: false, exist: true, message: error },
+      {
+        success: false,
+        exist: true,
+        message: '파일 생성 도중 에러가 발생했습니다.',
+      },
       { status: 500 },
     );
   }

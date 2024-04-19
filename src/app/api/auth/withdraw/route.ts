@@ -51,7 +51,10 @@ export async function GET() {
 
     return NextResponse.json({ message, success: true }, { status: 200 });
   } catch (error) {
-    console.log('transaction failed:', error);
-    return NextResponse.json({ message: `회원 탈퇴 실패` }, { status: 400 });
+    console.error('Account withdraw failed:', error);
+    return NextResponse.json(
+      { message: `회원 탈퇴 도중 에러가 발생했습니다.` },
+      { status: 400 },
+    );
   }
 }

@@ -34,11 +34,13 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
+    console.error('Get all other directory failed:', error);
+
     return NextResponse.json(
       {
         success: false,
         tree: [],
-        message: (error as unknown as Error).message,
+        message: '파일을 불러오는 도중 에러가 발생했습니다.',
       },
       { status: 400 },
     );

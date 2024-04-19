@@ -33,14 +33,24 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(
-      { tree: response, success: true, userName: userName?.name },
+      {
+        tree: response,
+        success: true,
+        userName: userName?.name,
+        message: '파일 불러오는데 성공하였습니다.',
+      },
       { status: 200 },
     );
   } catch (error) {
-    console.error(error);
+    console.error('Get directory failed:', error);
 
     return NextResponse.json(
-      { success: false, message: 'Internal Server Error' },
+      {
+        tree: [],
+        success: false,
+        userName: '',
+        message: '파일을 불러오는 도중 에러가 발생했습니다.',
+      },
       { status: 500 },
     );
   }

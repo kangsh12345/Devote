@@ -35,13 +35,17 @@ export async function POST(req: NextRequest) {
     const response = await existCheckPost(path);
 
     return NextResponse.json(
-      { success: true, exist: response === 'exist' },
+      { success: true, exist: response === 'exist', message: '사용 가능' },
       { status: 200 },
     );
   } catch (error) {
-    console.error(error);
+    console.error('Exist check failed:', error);
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
+      {
+        success: false,
+        exist: true,
+        message: '중복 체크 도중 에러가 발생했습니다.',
+      },
       { status: 500 },
     );
   }

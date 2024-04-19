@@ -49,13 +49,19 @@ export async function POST(req: NextRequest) {
     const response = await renamePost(path, newPath);
 
     if (response) {
-      return NextResponse.json({ success: true }, { status: 200 });
+      return NextResponse.json(
+        { success: true, message: '이름 변경에 성공했습니다.' },
+        { status: 200 },
+      );
     }
-    return NextResponse.json({ success: false }, { status: 200 });
-  } catch (error) {
-    console.error(error);
     return NextResponse.json(
-      { success: false, message: 'Internal server error' },
+      { success: false, message: '이름 변경에 실패했습니다.' },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error('Rename failed:', error);
+    return NextResponse.json(
+      { success: false, message: '이름 변경 도중 에러가 발생했습니다.' },
       { status: 500 },
     );
   }

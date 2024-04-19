@@ -9,6 +9,7 @@ const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 export interface GetFileResponse {
   success: boolean;
   exist: boolean;
+  message: string;
   data: {
     contentHtml: string;
     content: string;
@@ -35,12 +36,18 @@ async function findPostFile(postPath: string): Promise<GetFileResponse> {
   ]);
 
   if (!fileResponse) {
-    return { success: false, exist: false, data: null };
+    return {
+      success: false,
+      exist: false,
+      message: '파일을 불러오기를 실패했습니다.',
+      data: null,
+    };
   }
 
   return {
     success: true,
     exist: true,
+    message: '파일 불러오는데 성공했습니다.',
     data: {
       contentHtml: fileResponse.contentHtml,
       content: fileResponse.content,
@@ -55,7 +62,22 @@ async function findPostFile(postPath: string): Promise<GetFileResponse> {
 
 export async function POST(req: NextRequest) {
   const { path } = await req.json();
-  const response = await findPostFile(path);
+  try {
+    const response = await findPostFile(path);
 
-  return NextResponse.json(response, { status: response.success ? 200 : 404 });
+    return NextResponse.json(response, {
+      status: response.success ? 200 : 404,
+    });
+  } catch (error) {
+    console.error('Get file failed:', error);
+    return NextResponse.json(
+      {
+        success: false,
+        exist: true,
+        data: null,
+        mmessage: '파일을 불러오는 도중 에러가 발생했습니다.',
+      },
+      { status: 400 },
+    );
+  }
 }

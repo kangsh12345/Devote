@@ -57,7 +57,7 @@ async function handleRequest(
       { status: 200 },
     );
   } catch (error) {
-    console.error(error);
+    console.error('Write failed:', error);
     return NextResponse.json(
       { success: false, message: '파일 생성 도중 에러가 발생했습니다.' },
       { status: 400 },

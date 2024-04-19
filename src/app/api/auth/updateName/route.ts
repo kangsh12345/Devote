@@ -38,9 +38,9 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
-    console.error('Database transaction failed:', error);
+    console.error('Name update failed:', error);
     return NextResponse.json(
-      { message: error, success: false },
+      { message: '닉네임 변경 도중 에러가 발생했습니다.', success: false },
       { status: 400 },
     );
   }
