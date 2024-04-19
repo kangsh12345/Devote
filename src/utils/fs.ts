@@ -310,12 +310,13 @@ export async function renameFile(fullPath: string, fullNewPath: string) {
 
   try {
     await rename(fullPath, fullNewPath);
+    console.log(`${fullPath} has been renamed to ${fullNewPath}`);
+    return true;
   } catch (error) {
     if (error) {
       console.error('이름 변경 중 오류 발생:', error);
-      return;
+      return false;
     }
-    console.log(`${fullPath} => ${fullNewPath} 이름으로 변경되었습니다`);
   }
 
   if (fullPath.indexOf('.md') !== -1)
