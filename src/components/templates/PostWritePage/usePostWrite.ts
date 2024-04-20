@@ -184,7 +184,7 @@ export function usePostWrite() {
 
   useEffect(() => {
     if (postWriteData && postWriteData.success) {
-      toast.success('글 생성이 완료되었습니다.');
+      toast.success(postWriteData.message);
       router.push(`/posts/${filePath}?title=${title.value}`);
     }
   }, [postWriteData]);

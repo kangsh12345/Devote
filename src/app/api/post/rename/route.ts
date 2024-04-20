@@ -50,12 +50,12 @@ export async function POST(req: NextRequest) {
 
     if (response) {
       return NextResponse.json(
-        { success: true, message: '이름 변경에 성공했습니다.' },
+        { success: true, message: '파일 이름이 변경 되었습니다.' },
         { status: 200 },
       );
     }
     return NextResponse.json(
-      { success: false, message: '이름 변경에 실패했습니다.' },
+      { success: false, message: '파일 이름 변경에 실패했습니다.' },
       { status: 200 },
     );
   } catch (error) {

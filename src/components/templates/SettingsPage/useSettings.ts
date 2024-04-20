@@ -127,7 +127,7 @@ export function useSettings() {
     if (updateNameData && updateNameData.success) {
       resetAtoms();
       update({ user: { name: name.value } });
-      toast.success('이름이 변경되었습니다');
+      toast.success(updateNameData.message);
     }
   }, [updateNameData]);
 
@@ -142,7 +142,7 @@ export function useSettings() {
   useEffect(() => {
     if (updateProfileData && updateProfileData.success) {
       resetAtoms();
-      toast.success('프로필이 변경되었습니다');
+      toast.success(updateProfileData.message);
     }
   }, [updateProfileData]);
 

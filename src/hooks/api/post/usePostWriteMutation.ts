@@ -16,6 +16,7 @@ export interface PostWriteMutationRequest {
 
 export interface PostWriteMutationResponse {
   success: boolean;
+  message: string;
 }
 
 export function usePostWriteMutation() {

@@ -124,7 +124,7 @@ export function usePostCard(props: PostCardProps) {
 
   useEffect(() => {
     if (removeFileData && removeFileData.success) {
-      toast.success('파일이 삭제 되었습니다');
+      toast.success(removeFileData.message);
       setTree(tree.filter(item => item.path !== props.path));
     }
     props.setIsOpen(false);
@@ -133,7 +133,7 @@ export function usePostCard(props: PostCardProps) {
 
   useEffect(() => {
     if (renameData && renameData.success) {
-      toast.success('파일 이름이 변경 되었습니다');
+      toast.success(renameData.message);
       const changeTree = tree.map(item => {
         if (item.path === props.path) {
           item.path =

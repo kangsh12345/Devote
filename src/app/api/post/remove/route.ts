@@ -24,7 +24,7 @@ async function removePost(path: string, type: string) {
         throw new Error('파일 삭제 도중 에러가 발생했습니다.');
       }
 
-      return { success: true, message: '파일 삭제를 성공하였습니다.' };
+      return { success: true, message: '파일이 삭제 되었습니다.' };
     });
 
     console.log('Transaction successful:', result);

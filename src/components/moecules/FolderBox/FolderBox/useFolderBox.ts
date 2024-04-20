@@ -242,7 +242,10 @@ export function useFolderBox() {
       getAllDirectory();
     }
 
-    if (createDirectoryData && createDirectoryData.message === 'exist') {
+    if (
+      createDirectoryData &&
+      createDirectoryData.message === 'already exists'
+    ) {
       setInputError('동일 경로에 같은 이름의 폴더/파일을 생성할 수 없습니다.');
     }
 

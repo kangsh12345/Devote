@@ -34,13 +34,13 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(
-      { message: '닉네임이 변경되었습니다.', success: true },
+      { message: '이름이 변경되었습니다.', success: true },
       { status: 200 },
     );
   } catch (error) {
     console.error('Name update failed:', error);
     return NextResponse.json(
-      { message: '닉네임 변경 도중 에러가 발생했습니다.', success: false },
+      { message: '이름 변경 도중 에러가 발생했습니다.', success: false },
       { status: 400 },
     );
   }

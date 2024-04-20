@@ -53,13 +53,13 @@ async function handleRequest(
     });
 
     return NextResponse.json(
-      { success: true, message: '파일 생성에 성공했습니다.' },
+      { success: true, message: '글 생성이 완료되었습니다.' },
       { status: 200 },
     );
   } catch (error) {
     console.error('Write failed:', error);
     return NextResponse.json(
-      { success: false, message: '파일 생성 도중 에러가 발생했습니다.' },
+      { success: false, message: '글 생성 도중 에러가 발생했습니다.' },
       { status: 400 },
     );
   }

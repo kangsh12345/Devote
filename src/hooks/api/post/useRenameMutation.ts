@@ -16,6 +16,7 @@ export interface RenameMutationRequest {
 
 export interface RenameMutationResponse {
   success: boolean;
+  message: string;
 }
 
 export function useRenameMutation() {

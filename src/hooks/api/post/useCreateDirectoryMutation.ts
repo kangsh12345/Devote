@@ -13,7 +13,7 @@ export interface CreateDirectoryMutationRequest {
 export interface CreateDirectoryMutationResponse {
   success: boolean;
   exist: boolean;
-  message: 'valid false' | 'create success' | 'exist';
+  message: 'valid false' | 'create success' | 'already exists';
 }
 
 export function useCreateDirectoryMutation() {

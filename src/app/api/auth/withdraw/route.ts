@@ -23,13 +23,13 @@ async function withdrawAccount(id: string, dirName: string) {
 
       await removeFile(fullPath, 'folder');
 
-      return '회원 탈퇴 성공';
+      return '회원 탈퇴 성공하였습니다.';
     });
 
     return result;
   } catch (error) {
     console.error(error);
-    throw new Error('회원 탈퇴 실패');
+    throw new Error('회원 탈퇴 도중 에러가 발생했습니다.');
   }
 }
 

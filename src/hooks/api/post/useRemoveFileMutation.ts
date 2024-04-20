@@ -16,6 +16,7 @@ export interface RemoveFileMutatioonRequest {
 
 export interface RemoveFileMutationResponse {
   success: boolean;
+  message: string;
 }
 
 export function useRemoveFileMutation() {
