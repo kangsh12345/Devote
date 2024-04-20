@@ -16,6 +16,14 @@ async function removePost(path: string, type: string) {
         await prisma.post.delete({
           where: { path: path.replace('.md', '') },
         });
+      } else {
+        await prisma.post.deleteMany({
+          where: {
+            path: {
+              startsWith: path,
+            },
+          },
+        });
       }
 
       const response = await removeFile(fullPath, type);
