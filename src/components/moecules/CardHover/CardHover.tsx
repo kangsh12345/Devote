@@ -2,14 +2,11 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
 
-// import { format } from 'date-fns';
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Card } from '../../atoms/Card';
 import { Hover } from '../../atoms/Hover';
 import { Stack } from '../../atoms/Stack';
-// import { IconText } from '../../atoms/Text';
-// import * as styles from './cardHover.css';
 
 export interface CardHoverProps {
   userName: string;

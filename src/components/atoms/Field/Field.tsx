@@ -67,7 +67,6 @@ export const Field = ({
     </Box>
   );
 
-  // Allow children to consume ids or try to clone ids onto it
   let content: ReactNode | null;
   if (typeof children === 'function')
     content = (

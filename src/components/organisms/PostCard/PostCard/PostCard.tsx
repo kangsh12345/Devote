@@ -132,8 +132,6 @@ export const PostCard = (props: PostCardProps) => {
           <Box
             display={props.hover === props.idx ? 'flex' : 'none'}
             position="absolute"
-            // right="5"
-            // top="-1.5"
             right={direction === 'row' ? '5' : '1'}
             top={direction === 'row' ? '-1.5' : '9'}
             zIndex="10"

@@ -30,9 +30,6 @@ export const Button = ({
   children,
   onClick,
 }: PropsWithChildren<ButtonProps>) => {
-  // const iconSize =
-  //   size === 'lg' || size === 'md' ? '4' : size === 'sm' ? '3.5' : '3';
-
   return (
     <Box
       className={styles.root({ size, variant, radius, color, disabled })}

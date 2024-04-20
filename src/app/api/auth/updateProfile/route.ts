@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     console.error('Profile update failed:', error);
     return NextResponse.json(
       { message: '프로필 업데이트 도중 에러가 발생했습니다.', success: false },
-      { status: 400 },
+      { status: 500 },
     );
   }
 }

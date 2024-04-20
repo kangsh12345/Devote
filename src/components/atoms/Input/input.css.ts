@@ -227,7 +227,6 @@ export const ghost = recipe({
 });
 
 export const variants = recipe({
-  // base: [style([container, text, atoms({ paddingX: '4' })])],
   variants: {
     size: {
       lg: [style([container, text, atoms({ paddingX: '4' })])],
@@ -250,8 +249,6 @@ export const variants = recipe({
 
 export const max = style([
   atoms({
-    // TODO: Yet
-    // backgroundColor: 'foregroundSecondary',
     borderRadius: 'md',
     color: { base: 'textSecondary', hover: 'textPrimary' },
     cursor: 'pointer',

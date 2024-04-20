@@ -89,12 +89,10 @@ export const Toc = ({ size = 'md', content, disabled = false }: TocProps) => {
                           textDecoration: 'none',
                           textDecorationLine: 'none',
                         }}
-                        // 같은 내용일 경우 이상하게 동작함
                         href={`#${li.title}`}
                         onClick={() => handleSelect(li.title)}
                         key={idx}
                       >
-                        {/* <Box as="a"></Box> */}
                         {li.title}
                       </Link>
                     </Box>

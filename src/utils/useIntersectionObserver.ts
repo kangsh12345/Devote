@@ -10,7 +10,6 @@ export const useIntersectionObserver = (
     headingElementsRef.current = {};
 
     const callback: IntersectionObserverCallback = headings => {
-      // 모든 제목을 reduce로 순회해서 headingElementsRef.current에 키 밸류 형태로 할당.
       headingElementsRef.current = headings.reduce(
         (map: any, headingElement) => {
           map[headingElement.target.id] = headingElement;

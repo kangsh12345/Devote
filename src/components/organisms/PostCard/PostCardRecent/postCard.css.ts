@@ -7,7 +7,6 @@ export const rootRow = recipe({
     position: 'relative',
     padding: '5',
     flexShrink: 0,
-    // maxWidth: '96',
   }),
 });
 

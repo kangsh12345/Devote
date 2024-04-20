@@ -3,19 +3,12 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import {
-  // FilePlus,
-  // FolderPlus,
-  ListBullets,
-  // MagnifyingGlass,
-  SquaresFour,
-} from '@phosphor-icons/react';
+import { ListBullets, SquaresFour } from '@phosphor-icons/react';
 
 import { AvatarMenu, Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { BreadcrumbDynamicEllipsis } from '../../atoms/BreadcrumbDynamicEllipsis';
 import { Button } from '../../atoms/Button';
-// import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';

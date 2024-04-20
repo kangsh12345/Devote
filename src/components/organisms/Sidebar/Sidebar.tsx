@@ -7,12 +7,10 @@ import { useParams, usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useSidebarResizer } from '@/src/utils/useSidebarResizer';
 import clock from '@phosphor-icons/core/duotone/clock-countdown-duotone.svg';
-// import fire from '@phosphor-icons/core/duotone/fire-duotone.svg';
 import gear from '@phosphor-icons/core/duotone/gear-duotone.svg';
 import signin from '@phosphor-icons/core/duotone/sign-in-duotone.svg';
 import signout from '@phosphor-icons/core/duotone/sign-out-duotone.svg';
 
-// import star from '@phosphor-icons/core/duotone/star-duotone.svg';
 import { Box } from '../../atoms/Box';
 import { CopyRight } from '../../atoms/CopyRight';
 import { Stack } from '../../atoms/Stack';

@@ -7,7 +7,6 @@ export const root = recipe({
     atoms({
       position: 'relative',
       flexDirection: 'column',
-      // width: 'fit',
       height: 'viewHeight',
       backgroundColor: 'backgroundBase',
       borderColor: 'borderPrimary',
@@ -29,16 +28,7 @@ export const root = recipe({
       drawer: atoms({ display: 'flex', flexShrink: 0 }),
     },
   },
-  compoundVariants: [
-    // {
-    //   variants: { isOpen: true, type: 'sidebar' },
-    //   style: atoms({ width: '65' }),
-    // },
-    // {
-    //   variants: { isOpen: false, type: 'sidebar' },
-    //   style: atoms({ width: 'fit' }),
-    // },
-  ],
+  compoundVariants: [],
 });
 
 export const resizeBar = atoms({

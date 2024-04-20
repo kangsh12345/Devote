@@ -46,8 +46,8 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: `이메일 회원가입 실패` },
-      { status: 400 },
+      { success: false, message: `이메일 회원가입 도중 에러가 발생했습니다.` },
+      { status: 500 },
     );
   }
 }

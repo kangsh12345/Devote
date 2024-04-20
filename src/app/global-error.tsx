@@ -11,8 +11,8 @@ export default function ErrorUI({ error, reset }: ErrorUIProps) {
   return (
     <html>
       <body>
-        <h2>Something went wrong!</h2>
-        <button onClick={() => reset()}>Try again</button>
+        <h2>{(error as Error).message}</h2>
+        <button onClick={() => reset()}>새로고침</button>
       </body>
     </html>
   );

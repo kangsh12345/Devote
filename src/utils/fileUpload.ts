@@ -10,10 +10,4 @@ const fileUpload = async (file: File): Promise<string> => {
   return getDownloadURL(storageRef);
 };
 
-// const fileUpload = (file: File) => {
-//   const imageURL = URL.createObjectURL(file);
-
-//   return imageURL;
-// };
-
 export default fileUpload;

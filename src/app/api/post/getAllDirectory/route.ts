@@ -47,7 +47,7 @@ export async function GET() {
         tree: [],
         message: '파일을 불러오는 도중 에러가 발생했습니다.',
       },
-      { status: 400 },
+      { status: 500 },
     );
   }
 }

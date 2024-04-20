@@ -112,7 +112,6 @@ export function usePostWrite() {
       return;
     }
 
-    // 여기부터 같은 동선상 exist 체크
     if (session && title.value !== fileTitle) {
       const existCheckResult = await existCheck({
         path: filePath + title.value + '.md',

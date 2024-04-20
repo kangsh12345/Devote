@@ -169,8 +169,6 @@ export function useFolderBox() {
         !createDirectoryResponse.exist &&
         checkTreeUpdate
       ) {
-        console.log('hi');
-
         const newFolderPageTreeItem: DirectoryTreeProps = {
           path: dirName + (type === 'file' && '.md'),
           name: (dirName.split('/').at(-1) ?? '') + (type === 'file' && '.md'),
@@ -185,16 +183,13 @@ export function useFolderBox() {
           newFolderPageTreeItem,
           ...folderPageTree,
         ].sort((a, b) => {
-          // 폴더 우선 정렬
           if (a.type !== b.type) {
             return a.type === 'folder' ? -1 : 1;
           }
 
-          // '자기소개.md' 파일 우선 처리
           if (a.name === '자기소개.md' && a.type === 'file') return -1;
           if (b.name === '자기소개.md' && b.type === 'file') return 1;
 
-          // 나머지 파일들은 생성 시간 기준 정렬
           const aDate = new Date(a.date);
           const bDate = new Date(b.date);
 

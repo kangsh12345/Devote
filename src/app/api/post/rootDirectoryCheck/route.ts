@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     console.error('Check root directory failed:', error);
     return NextResponse.json(
       { success: false, message: '파일 체크 도중 에러가 발생했습니다.' },
-      { status: 400 },
+      { status: 500 },
     );
   }
 }

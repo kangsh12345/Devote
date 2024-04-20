@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
   if (!session || session.user.id !== String(process.env.NEXT_PUBLIC_USERID)) {
     return NextResponse.json(
       { message: `더이상 지나갈 수 없다만,,?`, success: false },
-      { status: 400 },
+      { status: 500 },
     );
   } else {
     return await handleRequest(req, session.user.id, session.user.name);

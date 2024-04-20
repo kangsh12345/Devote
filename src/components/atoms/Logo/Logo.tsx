@@ -1,4 +1,3 @@
-// import { Text } from '@/src/components/atoms/Typography';
 import { Box } from '../Box';
 
 export interface LogoProps {
@@ -10,12 +9,12 @@ export const Logo = ({ size = 'md' }: LogoProps) => {
     size === 'xl'
       ? '10'
       : size === 'lg'
-      ? '7'
-      : size === 'md'
-      ? '5'
-      : size === 'sm'
-      ? '3'
-      : '5';
+        ? '7'
+        : size === 'md'
+          ? '5'
+          : size === 'sm'
+            ? '3'
+            : '5';
 
   return (
     <Box fontSize={logoSize} fontWeight={700} color="textPrimary">

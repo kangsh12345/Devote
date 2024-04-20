@@ -10,16 +10,8 @@ import { toast } from 'react-hot-toast';
 import { useFolderPostAtoms } from './atoms/useFolderPostAtoms';
 
 export function useFolderPost() {
-  const {
-    // tree,
-    // setTree,
-    userName,
-    setUserName,
-    hover,
-    setHover,
-    isOpen,
-    setIsOpen,
-  } = useFolderPostAtoms();
+  const { userName, setUserName, hover, setHover, isOpen, setIsOpen } =
+    useFolderPostAtoms();
 
   const { folderPageTree: tree, setFolderPageTree: setTree } = useTree();
 

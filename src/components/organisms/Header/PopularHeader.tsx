@@ -8,7 +8,6 @@ import { ListBullets, SquaresFour } from '@phosphor-icons/react';
 import { AvatarMenu } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Button } from '../../atoms/Button';
-// import { Select } from '../../atoms/Select';
 import { Stack } from '../../atoms/Stack';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { ListToggle } from '../../atoms/Toggle';

@@ -54,7 +54,7 @@ export async function GET() {
     console.error('Account withdraw failed:', error);
     return NextResponse.json(
       { message: `회원 탈퇴 도중 에러가 발생했습니다.`, success: false },
-      { status: 400 },
+      { status: 500 },
     );
   }
 }

@@ -19,7 +19,7 @@ export const BreadcrumbFileDynamicEllipsis = ({
   const [pathSegments] = useState<string[]>(fullPath.split('/'));
   const [currentPathIndex, setCurrentPathIndex] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({}); // 타입 지정
+  const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({});
 
   const handleEllipsisClick = () => setIsOpen(!isOpen);
 
@@ -36,7 +36,6 @@ export const BreadcrumbFileDynamicEllipsis = ({
     router.push(pathToNavigate);
   };
 
-  // TODO: onClickOutSide에 대해 더 공부해서 popver click outside 시 !open 시키기
   const updatePopoverPosition = () => {
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
@@ -73,7 +72,6 @@ export const BreadcrumbFileDynamicEllipsis = ({
     };
 
     const updateDisplayPath = () => {
-      // 전체 경로를 기반으로 초기 displayPath 설정
       let tempIndex = 0;
       let tempDisplayPath = pathSegments.join(' / ');
       while (

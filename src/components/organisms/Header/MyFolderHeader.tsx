@@ -1,7 +1,6 @@
 'use client';
 
 import { Dispatch, SetStateAction, useState } from 'react';
-// import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { ListBullets, SquaresFour } from '@phosphor-icons/react';
 
@@ -27,7 +26,6 @@ export const MyFolderHeader = ({
   setIsActive,
   path,
 }: HeaderProps) => {
-  // const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { data: session } = useSession();

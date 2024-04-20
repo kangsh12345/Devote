@@ -14,7 +14,6 @@ type SetAtom<Args extends any[], Result> = (...args: Args) => Result;
 
 type CustomMDEditorProps = {
   md: string | undefined;
-  // setMd: (value: SetStateAction<string | undefined>) => void;
   setMd: SetAtom<[SetStateAction<string | undefined>], void>;
   own: boolean;
 };

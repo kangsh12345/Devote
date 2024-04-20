@@ -45,7 +45,6 @@ export const avatarBreakpoint = atoms({
 
 export const titleEllpsis = [
   atoms({
-    // display: 'flex',
     fontSize: '2',
     marginTop: '0.5',
     fontWeight: 400,

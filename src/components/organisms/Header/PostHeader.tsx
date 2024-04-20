@@ -1,14 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-// import Image from 'next/image';
-// import star from '@phosphor-icons/core/fill/star-fill.svg';
 import { format } from 'date-fns';
 
 import { Avatars } from '../../atoms/Avatars';
 import { Box } from '../../atoms/Box';
 import { Stack } from '../../atoms/Stack';
-// import { IconText } from '../../atoms/Text';
 import { ThemeSwitcher } from '../../atoms/ThemeSwitcher';
 import { Drawer } from '../../moecules/Drawer';
 import { HeaderLogo } from '../../moecules/HeaderLogo';
