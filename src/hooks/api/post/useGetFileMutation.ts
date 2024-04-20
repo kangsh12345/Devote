@@ -21,6 +21,7 @@ export interface GetFileMutationResponse {
         name: string | null;
       }
     | undefined;
+  message: string;
 }
 
 export function useGetFileMutation() {

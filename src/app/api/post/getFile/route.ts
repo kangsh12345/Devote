@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
         success: false,
         exist: true,
         data: null,
-        mmessage: '파일을 불러오는 도중 에러가 발생했습니다.',
+        message: '파일을 불러오는 도중 에러가 발생했습니다.',
       },
       { status: 400 },
     );

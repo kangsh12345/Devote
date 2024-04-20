@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     //   { status: 200 },
     // );
     return NextResponse.json(
-      { message: `더이상 지나갈 수 없다네요네` },
+      { success: false, message: `더이상 지나갈 수 없다네요네` },
       { status: 400 },
     );
   } catch (error) {

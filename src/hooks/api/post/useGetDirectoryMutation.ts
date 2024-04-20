@@ -12,6 +12,7 @@ export interface GetDirectoryResponse {
   tree: DirectoryTreeProps[] | undefined;
   success: boolean;
   userName: string | null | undefined;
+  message: string;
 }
 
 export function useGetDirectoryMutation() {

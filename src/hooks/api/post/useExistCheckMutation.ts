@@ -10,6 +10,7 @@ export interface ExistCheckMutationRequest {
 export interface ExistCheckMutationResponse {
   success: boolean;
   exist: boolean;
+  message: string;
 }
 
 export function useExistCheckMutation() {

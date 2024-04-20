@@ -7,6 +7,7 @@ const GetRecentPostQueryKey = '/api/post/getRecentPost';
 export interface GetRecentPostQueryResponse {
   tree: DirectoryTreeProps[];
   success: boolean;
+  message: string;
 }
 
 export function useGetRecentPostQuery() {

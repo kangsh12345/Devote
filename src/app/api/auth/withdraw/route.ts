@@ -38,7 +38,7 @@ export async function GET() {
 
   if (!session || session.user.id !== String(process.env.NEXT_PUBLIC_USERID)) {
     return NextResponse.json(
-      { message: `더이상 지나갈 수 없다만,,?` },
+      { message: `더이상 지나갈 수 없다만,,?`, success: false },
       { status: 400 },
     );
   }
@@ -53,7 +53,7 @@ export async function GET() {
   } catch (error) {
     console.error('Account withdraw failed:', error);
     return NextResponse.json(
-      { message: `회원 탈퇴 도중 에러가 발생했습니다.` },
+      { message: `회원 탈퇴 도중 에러가 발생했습니다.`, success: false },
       { status: 400 },
     );
   }
