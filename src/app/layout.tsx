@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Devote',
   description: '개인 폴더 공간을 이용해서 블로그를 제작해보세요.',
   icons: {
-    icon: '/image/Devote.svg',
+    icon: '/image/icon.svg',
   },
 };
 

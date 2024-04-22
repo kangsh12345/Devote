@@ -1,34 +1,62 @@
-'use client';
+import { PostSidePage } from '@/src/components/templates/PostSidePage/PostSidePage';
 
-import { useParams, useSearchParams } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import { Box } from '@/src/components/atoms/Box';
-import { FilePostPage } from '@/src/components/templates/FilePostPage';
-import { FolderPostPage } from '@/src/components/templates/FolderPostPage';
+interface IProductDetailPageParams {
+  params: {
+    id: string;
+    slug?: string[];
+  };
+  searchParams: { title: string };
+}
+
+interface ItemMetadata {
+  title: string;
+  subTitle: string;
+  thumbnail: string;
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: IProductDetailPageParams) {
+  const { id, slug } = params;
+  const arr = [id, ...(slug ?? []), searchParams.title ?? ''].join('/');
+  console.log(`searchParams: ${arr}`);
+
+  if (!searchParams.title) {
+    return {
+      generator: 'Devote',
+      title: [id, ...(slug ?? [])].pop(),
+      openGraph: {
+        title: [id, ...(slug ?? [])].pop(),
+        sitName: 'Devote',
+        images: '/image/icon.svg',
+        type: 'website',
+      },
+    };
+  }
+
+  const apiUrl = `http://localhost:3000/api/post/getMetadata?fullPath=${encodeURIComponent(
+    arr,
+  )}`;
+
+  const { title, subTitle, thumbnail }: ItemMetadata = await fetch(apiUrl).then(
+    res => res.json(),
+  );
+
+  return {
+    generator: 'Devote',
+    title: title,
+    description: subTitle,
+    openGraph: {
+      title: title,
+      description: subTitle,
+      sitName: 'Devote',
+      images: { thumbnail },
+      type: 'website',
+    },
+  };
+}
 
 export default function PostPage() {
-  const query = useSearchParams();
-  const title = query.get('title') ?? '';
-
-  const { data: session } = useSession();
-
-  const param = useParams();
-  const id = decodeURIComponent(decodeURIComponent(param.id));
-  const slug = param.slug
-    ? decodeURIComponent(decodeURIComponent(param.slug))
-    : '';
-
-  const currentFilePath = param.id && `${id}${slug ? `/${slug}` : ''}`;
-
-  const own = param.id && id === session?.user.dirName ? true : false;
-
-  return (
-    <Box>
-      {title ? (
-        <FilePostPage title={title} own={own} path={currentFilePath} />
-      ) : (
-        <FolderPostPage />
-      )}
-    </Box>
-  );
+  return <PostSidePage />;
 }

@@ -11,7 +11,11 @@ import {
 import * as styles from './folderPostPage.css';
 import { useFolderPost } from './useFolderPost';
 
-export const FolderPostPage = () => {
+export interface FolderPostPageProps {
+  own: boolean;
+}
+
+export const FolderPostPage = ({ own }: FolderPostPageProps) => {
   const {
     tree,
     userName,
@@ -20,7 +24,6 @@ export const FolderPostPage = () => {
     isOpen,
     setIsOpen,
     pathBack,
-    own,
     path,
     pathArray,
     session,

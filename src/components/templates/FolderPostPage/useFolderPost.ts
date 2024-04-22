@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useGetDirectoryMutation } from '@/src/hooks/api/post/useGetDirectoryMutation';
 import { useTree } from '@/src/stores/Tree/useTree';
@@ -21,11 +21,6 @@ export function useFolderPost() {
   const path = decodeURIComponent(decodeURIComponent(pathName));
   const pathArray = path.split('/');
   const pathBack = pathArray.slice(2, -1).join('/');
-
-  const param = useParams();
-  const id = decodeURIComponent(decodeURIComponent(param.id));
-
-  const own = param.id && id === session?.user.dirName ? true : false;
 
   const {
     mutate: getDirectory,
@@ -68,7 +63,6 @@ export function useFolderPost() {
     setIsOpen,
     getDirectoryLoading,
     pathBack,
-    own,
     path,
     pathArray,
     session,
