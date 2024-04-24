@@ -21,26 +21,31 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await prisma.$transaction(async () => {
-      if (type === 'rootDirectory') {
-        await prisma.user.update({
-          where: { id: id },
-          data: { dirName: dirName },
-        });
-      } else if (type === 'file') {
-        await prisma.post.create({
-          data: {
-            userId: id,
-            name,
-            path: dirName,
-            thumbnail: '',
-            title: fileTitle,
-            subTitle: '',
-            date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-          },
-        });
-      }
-    });
+    await prisma.$transaction(
+      async () => {
+        if (type === 'rootDirectory') {
+          await prisma.user.update({
+            where: { id: id },
+            data: { dirName: dirName },
+          });
+        } else if (type === 'file') {
+          await prisma.post.create({
+            data: {
+              userId: id,
+              name,
+              path: dirName,
+              thumbnail: '',
+              title: fileTitle,
+              subTitle: '',
+              date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+            },
+          });
+        }
+      },
+      {
+        timeout: 10000, // 10초로 타임아웃 설정
+      },
+    );
 
     const mkdirResponse = createDirectory({ dirName, name, type });
 

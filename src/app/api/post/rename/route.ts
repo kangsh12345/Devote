@@ -12,19 +12,24 @@ async function renamePost(oldPath: string, newPath: string) {
   const fullNewPath = `${rootDirectory}/${newPath}`;
 
   try {
-    await prisma.$transaction(async () => {
-      if (fullPath.indexOf('.md') !== -1) {
-        await prisma.post.update({
-          where: {
-            path: oldPath.replace('.md', ''),
-          },
-          data: {
-            path: newPath.replace('.md', ''),
-            title: newPath.replace('.md', '').split('/').at(-1),
-          },
-        });
-      }
-    });
+    await prisma.$transaction(
+      async () => {
+        if (fullPath.indexOf('.md') !== -1) {
+          await prisma.post.update({
+            where: {
+              path: oldPath.replace('.md', ''),
+            },
+            data: {
+              path: newPath.replace('.md', ''),
+              title: newPath.replace('.md', '').split('/').at(-1),
+            },
+          });
+        }
+      },
+      {
+        timeout: 10000, // 10초로 타임아웃 설정
+      },
+    );
 
     return await renameFile(fullPath, fullNewPath);
   } catch (error) {

@@ -11,29 +11,34 @@ async function removePost(path: string, type: string) {
   const fullPath = `${rootDirectory}/${path}`;
 
   try {
-    const result = await prisma.$transaction(async () => {
-      if (type === 'file') {
-        await prisma.post.delete({
-          where: { path: path.replace('.md', '') },
-        });
-      } else {
-        await prisma.post.deleteMany({
-          where: {
-            path: {
-              startsWith: path,
+    const result = await prisma.$transaction(
+      async () => {
+        if (type === 'file') {
+          await prisma.post.delete({
+            where: { path: path.replace('.md', '') },
+          });
+        } else {
+          await prisma.post.deleteMany({
+            where: {
+              path: {
+                startsWith: path,
+              },
             },
-          },
-        });
-      }
+          });
+        }
 
-      const response = await removeFile(fullPath, type);
+        const response = await removeFile(fullPath, type);
 
-      if (!response) {
-        throw new Error('파일 삭제 도중 에러가 발생했습니다.');
-      }
+        if (!response) {
+          throw new Error('파일 삭제 도중 에러가 발생했습니다.');
+        }
 
-      return { success: true, message: '파일이 삭제 되었습니다.' };
-    });
+        return { success: true, message: '파일이 삭제 되었습니다.' };
+      },
+      {
+        timeout: 10000, // 10초로 타임아웃 설정
+      },
+    );
 
     console.log('Transaction successful:', result);
     return result;

@@ -11,20 +11,25 @@ async function withdrawAccount(id: string, dirName: string) {
   const fullPath = `${rootDirectory}/${dirName}`;
 
   try {
-    const result = await prisma.$transaction(async prisma => {
-      await prisma.user.delete({ where: { id } });
-      await prisma.post.deleteMany({ where: { userId: id } });
-      const account = await prisma.account.findFirst({
-        where: { userId: id },
-      });
-      if (account) {
-        await prisma.account.delete({ where: { id: account.id } });
-      }
+    const result = await prisma.$transaction(
+      async prisma => {
+        await prisma.user.delete({ where: { id } });
+        await prisma.post.deleteMany({ where: { userId: id } });
+        const account = await prisma.account.findFirst({
+          where: { userId: id },
+        });
+        if (account) {
+          await prisma.account.delete({ where: { id: account.id } });
+        }
 
-      await removeFile(fullPath, 'folder');
+        await removeFile(fullPath, 'folder');
 
-      return '회원 탈퇴 성공하였습니다.';
-    });
+        return '회원 탈퇴 성공하였습니다.';
+      },
+      {
+        timeout: 10000, // 10초로 타임아웃 설정
+      },
+    );
 
     return result;
   } catch (error) {

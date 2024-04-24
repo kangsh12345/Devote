@@ -17,21 +17,26 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await prisma.$transaction(async () => {
-      await prisma.user.update({
-        where: { id: session.user.id },
-        data: {
-          name: name,
-        },
-      });
+    await prisma.$transaction(
+      async () => {
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            name: name,
+          },
+        });
 
-      await prisma.post.updateMany({
-        where: { userId: session.user.id },
-        data: {
-          name: name,
-        },
-      });
-    });
+        await prisma.post.updateMany({
+          where: { userId: session.user.id },
+          data: {
+            name: name,
+          },
+        });
+      },
+      {
+        timeout: 10000, // 10초로 타임아웃 설정
+      },
+    );
 
     return NextResponse.json(
       { message: '이름이 변경되었습니다.', success: true },

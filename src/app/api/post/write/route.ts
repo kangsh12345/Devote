@@ -37,20 +37,25 @@ async function handleRequest(
   const fullPath = path.join(rootDirectory, paths + '.md');
 
   try {
-    await prisma.$transaction(async prisma => {
-      await prisma.post.update({
-        where: { id, userId },
-        data: { path: newPath, thumbnail, title, subTitle },
-      });
+    await prisma.$transaction(
+      async prisma => {
+        await prisma.post.update({
+          where: { id, userId },
+          data: { path: newPath, thumbnail, title, subTitle },
+        });
 
-      await createPost({
-        fullPath,
-        name: userName,
-        title,
-        md: md ?? '',
-        date,
-      });
-    });
+        await createPost({
+          fullPath,
+          name: userName,
+          title,
+          md: md ?? '',
+          date,
+        });
+      },
+      {
+        timeout: 10000, // 10초로 타임아웃 설정
+      },
+    );
 
     return NextResponse.json(
       { success: true, message: '글 생성이 완료되었습니다.' },
