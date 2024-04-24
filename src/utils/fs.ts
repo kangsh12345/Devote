@@ -350,3 +350,23 @@ export async function existPost(fullPath: string): Promise<string> {
     return 'not exist';
   }
 }
+
+export async function getMetadataPaths(
+  dir: string,
+  prefix = '',
+): Promise<string[]> {
+  const paths: string[] = [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      const relPath = prefix + entry.name;
+      paths.push(relPath);
+      const subPaths = await getMetadataPaths(fullPath, relPath + '/');
+      paths.push(...subPaths);
+    }
+  }
+
+  return paths;
+}

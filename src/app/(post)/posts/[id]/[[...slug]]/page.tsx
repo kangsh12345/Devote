@@ -20,7 +20,6 @@ export async function generateMetadata({
 }: IProductDetailPageParams) {
   const { id, slug } = params;
   const arr = [id, ...(slug ?? []), searchParams.title ?? ''].join('/');
-  console.log(`searchParams: ${arr}`);
 
   if (!searchParams.title) {
     return {
@@ -35,9 +34,9 @@ export async function generateMetadata({
     };
   }
 
-  const apiUrl = `http://localhost:3000/api/post/getMetadata?fullPath=${encodeURIComponent(
-    arr,
-  )}`;
+  const apiUrl = `${String(
+    process.env.NEXTAUTH_URL,
+  )}/api/post/getMetadata?fullPath=${encodeURIComponent(arr)}`;
 
   const { title, subTitle, thumbnail }: ItemMetadata = await fetch(apiUrl).then(
     res => res.json(),
