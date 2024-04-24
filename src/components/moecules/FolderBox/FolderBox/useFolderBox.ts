@@ -170,8 +170,9 @@ export function useFolderBox() {
         checkTreeUpdate
       ) {
         const newFolderPageTreeItem: DirectoryTreeProps = {
-          path: dirName + (type === 'file' && '.md'),
-          name: (dirName.split('/').at(-1) ?? '') + (type === 'file' && '.md'),
+          path: dirName + (type === 'file' ? '.md' : ''),
+          name:
+            (dirName.split('/').at(-1) ?? '') + (type === 'file' ? '.md' : ''),
           type: type === 'file' ? 'file' : 'folder',
           thumbnail: '',
           userName: session.user.name,
