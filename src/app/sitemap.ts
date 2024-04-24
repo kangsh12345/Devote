@@ -24,30 +24,30 @@ const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const posts: PostsProps = await getPosts();
 
   const postsPath = posts.paths.map(item => ({
-    url: `${process.env.NEXTAUTH_URL}/posts/${item}`,
+    url: `String(${process.env.NEXTAUTH_URL})/posts/${item}`,
     lastModified: new Date(),
   }));
 
   return [
     ...postsPath,
     {
-      url: `${process.env.NEXTAUTH_URL}`,
+      url: `String(${process.env.NEXTAUTH_URL})`,
       lastModified: new Date(),
     },
     {
-      url: `${process.env.NEXTAUTH_URL}/auth/signin`,
+      url: `String(${process.env.NEXTAUTH_URL})/auth/signin`,
       lastModified: new Date(),
     },
     {
-      url: `${process.env.NEXTAUTH_URL}/auth/signup`,
+      url: `String(${process.env.NEXTAUTH_URL})/auth/signup`,
       lastModified: new Date(),
     },
     {
-      url: `${process.env.NEXTAUTH_URL}/settings`,
+      url: `String(${process.env.NEXTAUTH_URL})/settings`,
       lastModified: new Date(),
     },
     {
-      url: `${process.env.NEXTAUTH_URL}/write`,
+      url: `String(${process.env.NEXTAUTH_URL})/write`,
       lastModified: new Date(),
     },
   ];
