@@ -26,9 +26,7 @@ async function withdrawAccount(id: string, dirName: string) {
 
         return '회원 탈퇴 성공하였습니다.';
       },
-      {
-        timeout: 10000, // 10초로 타임아웃 설정
-      },
+      { timeout: 10000 },
     );
 
     return result;

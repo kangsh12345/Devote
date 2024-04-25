@@ -33,9 +33,7 @@ export async function POST(req: NextRequest) {
           },
         });
       },
-      {
-        timeout: 10000, // 10초로 타임아웃 설정
-      },
+      { timeout: 10000 },
     );
 
     return NextResponse.json(

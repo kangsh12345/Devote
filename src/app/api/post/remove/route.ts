@@ -35,9 +35,7 @@ async function removePost(path: string, type: string) {
 
         return { success: true, message: '파일이 삭제 되었습니다.' };
       },
-      {
-        timeout: 10000, // 10초로 타임아웃 설정
-      },
+      { timeout: 10000 },
     );
 
     console.log('Transaction successful:', result);
