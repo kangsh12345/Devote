@@ -12,7 +12,7 @@ async function removePost(path: string, type: string) {
 
   try {
     const result = await prisma.$transaction(
-      async () => {
+      async prisma => {
         if (type === 'file') {
           await prisma.post.delete({
             where: { path: path.replace('.md', '') },
@@ -27,11 +27,7 @@ async function removePost(path: string, type: string) {
           });
         }
 
-        const response = await removeFile(fullPath, type);
-
-        if (!response) {
-          throw new Error('파일 삭제 도중 에러가 발생했습니다.');
-        }
+        await removeFile(fullPath, type);
 
         return { success: true, message: '파일이 삭제 되었습니다.' };
       },
