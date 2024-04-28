@@ -53,13 +53,11 @@ export interface FileInfoProps {
 
 const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
-export const createDirectory = ({
+export const createDirectoryCheck = async ({
   dirName,
-  name,
   type,
 }: {
   dirName: string;
-  name: string;
   type: string;
 }) => {
   const regex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]|\s\s+/gi;
@@ -73,9 +71,28 @@ export const createDirectory = ({
     rootDirectory,
     dirName + (type === 'file' ? '.md' : ''),
   );
-  const exists = fs.existsSync(fullPath);
+  if (fs.existsSync(fullPath)) return 'already exists';
 
-  if (!exists) {
+  return 'success';
+};
+
+export const createDirectory = async ({
+  dirName,
+  name,
+  type,
+}: {
+  dirName: string;
+  name: string;
+  type: string;
+}) => {
+  try {
+    const inputDirName = path.basename(dirName);
+
+    const fullPath = path.join(
+      rootDirectory,
+      dirName + (type === 'file' ? '.md' : ''),
+    );
+
     if (type === 'file') {
       createPost({
         fullPath,
@@ -89,9 +106,9 @@ export const createDirectory = ({
     }
 
     return 'create success';
+  } catch (error) {
+    throw new Error('파일 생성 도중 에러가 발생했습니다.');
   }
-
-  return 'already exists';
 };
 
 function extractInfoByPath(

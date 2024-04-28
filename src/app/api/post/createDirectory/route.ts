@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createDirectory } from '@/src/utils/fs';
+import { createDirectory, createDirectoryCheck } from '@/src/utils/fs';
 import { getSession } from '@/src/utils/getSession';
 import { PrismaClient } from '@prisma/client';
 import { format } from 'date-fns';
@@ -21,8 +21,21 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await prisma.$transaction(
-      async () => {
+    const checkResponse = await createDirectoryCheck({ dirName, type });
+
+    if (checkResponse !== 'success') {
+      return NextResponse.json(
+        {
+          success: true,
+          exist: checkResponse === 'already exists',
+          message: checkResponse,
+        },
+        { status: 200 },
+      );
+    }
+
+    const result = await prisma.$transaction(
+      async prisma => {
         if (type === 'rootDirectory') {
           await prisma.user.update({
             where: { id: id },
@@ -41,25 +54,17 @@ export async function POST(req: NextRequest) {
             },
           });
         }
+
+        return await createDirectory({ dirName, name, type });
       },
       { timeout: 10000 },
     );
 
-    const mkdirResponse = createDirectory({ dirName, name, type });
-
-    if (
-      mkdirResponse !== 'create success' &&
-      mkdirResponse !== 'already exists' &&
-      mkdirResponse !== 'valid false'
-    ) {
-      throw new Error(mkdirResponse);
-    }
-
     return NextResponse.json(
       {
         success: true,
-        exist: mkdirResponse === 'already exists',
-        message: mkdirResponse,
+        exist: result === 'already exists',
+        message: result,
       },
       { status: 200 },
     );
