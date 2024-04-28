@@ -292,6 +292,7 @@ export async function createPost({
     console.error(
       `Failed to create or rename post: ${(error as unknown as Error).message}`,
     );
+    throw new Error('파일을 쓰는 도중 에러가 발생했습니다.');
   }
 }
 
