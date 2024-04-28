@@ -13,7 +13,7 @@ async function renamePost(oldPath: string, newPath: string) {
 
   try {
     await prisma.$transaction(
-      async () => {
+      async prisma => {
         if (fullPath.indexOf('.md') !== -1) {
           await prisma.post.update({
             where: {
@@ -25,11 +25,12 @@ async function renamePost(oldPath: string, newPath: string) {
             },
           });
         }
+        return await renameFile(fullPath, fullNewPath);
       },
       { timeout: 10000 },
     );
 
-    return await renameFile(fullPath, fullNewPath);
+    return true;
   } catch (error) {
     console.error(error);
     return false;
