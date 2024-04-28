@@ -300,7 +300,7 @@ export async function removeFile(fullPath: string, type: string) {
     await fsP.stat(fullPath);
   } catch (error) {
     console.error('File or directory does not exist:', error);
-    return false;
+    throw new Error('파일이 존재하지 않아 에러가 발생했습니다.');
   }
 
   try {
@@ -310,10 +310,10 @@ export async function removeFile(fullPath: string, type: string) {
       await fsP.rm(fullPath, { recursive: true, force: true });
     }
     console.log(`${fullPath} has been deleted.`);
-    return true;
+    return;
   } catch (error) {
     console.error(`Error deleting ${type}`, error);
-    return false;
+    throw new Error('파일 삭제 도중 에러가 발생했습니다.');
   }
 }
 
