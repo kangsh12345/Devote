@@ -24,9 +24,13 @@ export async function generateMetadata({
   if (!searchParams.title) {
     return {
       generator: 'Devote',
-      title: [id, ...(slug ?? [])].pop(),
+      title: decodeURIComponent(
+        decodeURIComponent([id, ...(slug ?? [])].pop() ?? ''),
+      ),
       openGraph: {
-        title: [id, ...(slug ?? [])].pop(),
+        title: decodeURIComponent(
+          decodeURIComponent([id, ...(slug ?? [])].pop() ?? ''),
+        ),
         sitName: 'Devote',
         images: '/image/icon.svg',
         type: 'website',
