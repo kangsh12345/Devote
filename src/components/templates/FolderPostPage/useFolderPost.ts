@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useGetDirectoryMutation } from '@/src/hooks/api/post/useGetDirectoryMutation';
 import { useTree } from '@/src/stores/Tree/useTree';
@@ -16,6 +16,8 @@ export function useFolderPost() {
   const { folderPageTree: tree, setFolderPageTree: setTree } = useTree();
 
   const { data: session } = useSession();
+
+  const router = useRouter();
 
   const pathName = usePathname();
   const path = decodeURIComponent(decodeURIComponent(pathName));
@@ -45,6 +47,7 @@ export function useFolderPost() {
 
   useEffect(() => {
     if (getDirectoryError) {
+      router.push('/');
       toast.error(
         (getDirectoryError as Error).message ??
           '폴더를 불러오다 에러가 발생했습니다',

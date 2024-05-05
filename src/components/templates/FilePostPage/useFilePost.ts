@@ -72,6 +72,7 @@ export function useFilePost({ title, path }: FilePostProps) {
 
   useEffect(() => {
     if (getFileError) {
+      router.push('/');
       toast.error(
         (getFileError as Error).message ??
           '파일을 불러오다 에러가 발생했습니다',
