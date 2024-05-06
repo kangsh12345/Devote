@@ -1,13 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 
-const developmentApiUrl =
-  process.env.API_DEVELOPMENT ?? 'http://localhost:3000';
-
 export const instance = axios.create({
   baseURL:
-    process.env.NODE_ENV === 'development'
-      ? developmentApiUrl
-      : 'http://localhost:3000',
+    process.env.NEXT_PUBLIC_NODE_ENV === 'development'
+      ? process.env.NEXT_PUBLIC_API_DEVELOPMENT
+      : process.env.NEXT_PUBLIC_API_PRODUCTION,
   headers: { 'Content-Type': 'application/json' },
 });
 
