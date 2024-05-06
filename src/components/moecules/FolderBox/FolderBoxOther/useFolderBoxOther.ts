@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useGetAllOtherDirectoryMutation } from '@/src/hooks/api/post/useGetAllOtherDirectoryMutation';

@@ -13,6 +13,7 @@ interface RequestBody {
   image: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function signUp(info: RequestBody) {
   try {
     const response = await prisma.user.create({
@@ -32,6 +33,7 @@ async function signUp(info: RequestBody) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function POST(req: NextRequest) {
   // const request: RequestBody = await req.json();
 

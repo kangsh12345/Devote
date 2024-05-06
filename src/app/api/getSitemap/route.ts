@@ -6,11 +6,13 @@ const rootDirectory = path.join(process.cwd(), 'public/assets/blog');
 
 export async function GET() {
   try {
-    const paths = await getMetadataPaths(rootDirectory);
+    const paths = (await getMetadataPaths(rootDirectory)) || [];
 
-    NextResponse.json({ paths, success: true }, { status: 200 });
+    if (paths.length === 0) throw new Error('No paths available for sitemap.');
+
+    return NextResponse.json({ paths, success: true }, { status: 200 });
   } catch (error) {
     console.error('Get sitemap failed:', error);
-    NextResponse.json({ paths: [], success: false }, { status: 500 });
+    return NextResponse.json({ paths: [], success: false }, { status: 500 });
   }
 }

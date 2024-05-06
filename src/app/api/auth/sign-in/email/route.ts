@@ -11,6 +11,7 @@ interface RequestBody {
   password: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function signIn(info: RequestBody) {
   try {
     const response = await prisma.user.findFirst({
@@ -36,6 +37,7 @@ async function signIn(info: RequestBody) {
 }
 
 export async function POST(req: NextRequest) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const request: RequestBody = await req.json();
 
   try {

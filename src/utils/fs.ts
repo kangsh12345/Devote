@@ -367,7 +367,7 @@ export async function getMetadataPaths(
   prefix = '',
 ): Promise<string[]> {
   const paths: string[] = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const entries = await fsP.readdir(dir, { withFileTypes: true });
 
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);

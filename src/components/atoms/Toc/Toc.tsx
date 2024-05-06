@@ -78,6 +78,7 @@ export const Toc = ({ size = 'md', content, disabled = false }: TocProps) => {
                 if (li.count && li.count < 4) {
                   return (
                     <Box
+                      key={idx}
                       className={styles.liValue({
                         active: value === li.title,
                         heading: li.count === 3 ? 3 : li.count === 2 ? 2 : 1,

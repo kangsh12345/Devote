@@ -1,6 +1,6 @@
 import { ElementType, ReactNode } from 'react';
 import { Sprinkles, sprinkles } from '@/src/css';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 import { Box } from '../Box';
 import * as styles from './typography.css';
@@ -21,20 +21,20 @@ export const useTextStyle = ({ size, weight, color }: TextStyleProps) => {
     size === 'hero'
       ? styles.hero[weight].typo
       : size === 'h1'
-      ? styles.h1[weight].typo
-      : size === 'h2'
-      ? styles.h2[weight].typo
-      : size === 'h3'
-      ? styles.h3[weight].typo
-      : size === 'h4'
-      ? styles.h4[weight].typo
-      : size === 'body1'
-      ? styles.body1[weight].typo
-      : size === 'body2'
-      ? styles.body2[weight].typo
-      : size === 'caption'
-      ? styles.caption[weight].typo
-      : '';
+        ? styles.h1[weight].typo
+        : size === 'h2'
+          ? styles.h2[weight].typo
+          : size === 'h3'
+            ? styles.h3[weight].typo
+            : size === 'h4'
+              ? styles.h4[weight].typo
+              : size === 'body1'
+                ? styles.body1[weight].typo
+                : size === 'body2'
+                  ? styles.body2[weight].typo
+                  : size === 'caption'
+                    ? styles.caption[weight].typo
+                    : '';
 
   return clsx(typo, sprinkles({ color: color }));
 };

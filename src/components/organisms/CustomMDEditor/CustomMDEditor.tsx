@@ -206,7 +206,7 @@ export const CustomMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
                 preview="edit"
                 height="100%"
                 value={md}
-                onChange={setMd}
+                onChange={value => setMd(value || '')}
                 visibleDragbar={false}
                 hideToolbar={true}
                 textareaProps={{ placeholder: '내용을 작성해보세요.' }}
@@ -229,7 +229,7 @@ export const CustomMDEditor = ({ md, setMd }: CustomMDEditorProps) => {
                   preview="preview"
                   height="100%"
                   value={md}
-                  onChange={setMd}
+                  onChange={value => setMd(value || '')}
                   visibleDragbar={false}
                   previewOptions={{
                     remarkPlugins: [[remarkBreaks]],
