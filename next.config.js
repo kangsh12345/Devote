@@ -19,10 +19,8 @@ const nextConfig = {
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   webpack: config => {
-    // config.splitChunks = false;
     // config.webpack.optimization.splitChunks = false;
-    // config.NextConfig.optimization.splitChunks = false;
-    config.config.optimization.splitChunks = false;
+    config.NextConfig.optimization.splitChunks = false;
 
     return config;
   },
