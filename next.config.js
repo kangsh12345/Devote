@@ -31,7 +31,7 @@ const nextConfig = {
       },
       {
         source: '/api/:path*',
-        destination: 'https://devote-blog.vercel.app/:path*',
+        destination: 'https://devote-blog.vercel.app/api/:path*',
       },
     ];
   },
