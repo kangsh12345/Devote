@@ -18,6 +18,11 @@ const nextConfig = {
     ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  webpack: config => {
+    config.optimization.splitChunks = false;
+
+    return config;
+  },
   async rewrites() {
     return [
       {
