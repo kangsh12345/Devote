@@ -29,6 +29,10 @@ const nextConfig = {
         source: '/v0/:path*',
         destination: 'https://firebasestorage.googleapis.com/v0/:path*',
       },
+      {
+        source: '/:path*',
+        destination: 'https://devote-blog.vercel.app/:path*',
+      },
     ];
   },
 };
