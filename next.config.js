@@ -1,6 +1,9 @@
-const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin');
+// const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin');
 
-const withVanillaExtract = createVanillaExtractPlugin();
+// const withVanillaExtract = createVanillaExtractPlugin();
+
+// const withVanillaExtract = require('@vanilla-extract/next-plugin');
+import withVanillaExtract from '@vanilla-extract/next-plugin';
 
 const removeImports = require('next-remove-imports')();
 
@@ -18,12 +21,11 @@ const nextConfig = {
     ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  webpack: config => {
-    // config.webpack.optimization.splitChunks = false;
-    config.NextConfig.optimization.splitChunks = false;
+  // webpack: config => {
+  //   // config.webpack.optimization.splitChunks = false;
 
-    return config;
-  },
+  //   return config;
+  // },
   async rewrites() {
     return [
       {
