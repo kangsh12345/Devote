@@ -17,8 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const siteTitle = 'Devote';
-
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko" data-color-mode="light">
