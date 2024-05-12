@@ -6,7 +6,9 @@ import { Toaster } from 'react-hot-toast';
 
 import { Box } from '../components/atoms/Box';
 import { Sidebar } from '../components/organisms/Sidebar';
+import { GA_TRACKING_ID } from '../utils/gtag';
 import AuthSession from './AuthSession';
+import GoogleAnalytics from './googleAnalytics';
 import ReactQueryProvider from './ReactQueryProvider';
 
 export const metadata: Metadata = {
@@ -22,6 +24,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko" data-color-mode="light">
       <body>
         <main>
+          <GoogleAnalytics
+            GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_ID ?? ''}
+          />
           <ReactQueryProvider>
             <AuthSession>
               <ThemeProvider defaultMode={getThemeMode() ?? 'light'}>
