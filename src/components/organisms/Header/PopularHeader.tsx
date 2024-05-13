@@ -69,22 +69,23 @@ export const PopularHeader = ({ isActive, setIsActive }: HeaderProps) => {
             size="md"
             icon={<MagnifyingGlass size={20} weight="duotone" />}
           /> */}
-          {!session ? (
-            <Link href="/auth/signin">
-              <Button
-                size="sm"
-                variant="solid"
-                radius="full"
-                color="black"
-                width="fit"
-              >
-                로그인
-              </Button>
-            </Link>
-          ) : (
-            session &&
-            session.user.image && <AvatarMenu image={session.user.image} />
-          )}
+          {process.env.NEXT_PUBLIC_NODE_ENV === 'development' &&
+            (!session ? (
+              <Link href="/auth/signin">
+                <Button
+                  size="sm"
+                  variant="solid"
+                  radius="full"
+                  color="black"
+                  width="fit"
+                >
+                  로그인
+                </Button>
+              </Link>
+            ) : (
+              session &&
+              session.user.image && <AvatarMenu image={session.user.image} />
+            ))}
         </Stack>
       </Box>
       <Box marginTop="-2" className={styles.switcher()}>

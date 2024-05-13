@@ -15,6 +15,7 @@ import { Box } from '../../atoms/Box';
 import { CopyRight } from '../../atoms/CopyRight';
 import { Stack } from '../../atoms/Stack';
 import { FolderBox, FolderBoxOther } from '../../moecules/FolderBox';
+import { ProductionFolderBoxOther } from '../../moecules/FolderBox/ProductionFolderBox/ProductionFolderBoxOther';
 import { SidebarLogo } from '../../moecules/SidebarLogo';
 import { SidebarNav } from '../../moecules/SidebarNav';
 import * as styles from './sidbar.css';
@@ -89,19 +90,28 @@ export const Sidebar = ({
               </Link>
             </Stack>
           </Box>
-          <Box className={styles.folderBoxWrapper}>
-            <Box height="fit">
-              <FolderBox />
-            </Box>
-            {param.id && !own && (
+          {process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? (
+            <Box className={styles.folderBoxWrapper}>
               <Box height="fit">
-                <FolderBoxOther />
+                <FolderBox />
               </Box>
-            )}
-          </Box>
+              {param.id && !own && (
+                <Box height="fit">
+                  <FolderBoxOther />
+                </Box>
+              )}
+            </Box>
+          ) : (
+            <Box className={styles.folderBoxWrapper}>
+              <Box height="fit">
+                <ProductionFolderBoxOther />
+              </Box>
+            </Box>
+          )}
           <Box className={styles.bottom({})}>
-            <Stack space="1">
-              {/* <Link href="/favorites">
+            {process.env.NEXT_PUBLIC_NODE_ENV === 'development' && (
+              <Stack space="1">
+                {/* <Link href="/favorites">
                 <SidebarNav
                   type="sub"
                   isActive={pathname === '/favorites' ? true : false}
@@ -110,40 +120,41 @@ export const Sidebar = ({
                   즐겨찾기
                 </SidebarNav>
               </Link> */}
-              {session ? (
-                <>
-                  <Link href="/settings">
+                {session ? (
+                  <>
+                    <Link href="/settings">
+                      <SidebarNav
+                        type="sub"
+                        isActive={pathname === '/settings' ? true : false}
+                        icon={<Image src={gear} alt="icon" fill sizes="100%" />}
+                      >
+                        설정
+                      </SidebarNav>
+                    </Link>
+                    <Box onClick={() => signOut({ callbackUrl: '/' })}>
+                      <SidebarNav
+                        type="sub"
+                        isActive={false}
+                        icon={
+                          <Image src={signout} alt="icon" fill sizes="100%" />
+                        }
+                      >
+                        로그아웃
+                      </SidebarNav>
+                    </Box>
+                  </>
+                ) : (
+                  <Link href="/auth/signin">
                     <SidebarNav
                       type="sub"
-                      isActive={pathname === '/settings' ? true : false}
-                      icon={<Image src={gear} alt="icon" fill sizes="100%" />}
+                      icon={<Image src={signin} alt="icon" fill sizes="100%" />}
                     >
-                      설정
+                      로그인
                     </SidebarNav>
                   </Link>
-                  <Box onClick={() => signOut({ callbackUrl: '/' })}>
-                    <SidebarNav
-                      type="sub"
-                      isActive={false}
-                      icon={
-                        <Image src={signout} alt="icon" fill sizes="100%" />
-                      }
-                    >
-                      로그아웃
-                    </SidebarNav>
-                  </Box>
-                </>
-              ) : (
-                <Link href="/auth/signin">
-                  <SidebarNav
-                    type="sub"
-                    icon={<Image src={signin} alt="icon" fill sizes="100%" />}
-                  >
-                    로그인
-                  </SidebarNav>
-                </Link>
-              )}
-            </Stack>
+                )}
+              </Stack>
+            )}
             <CopyRight />
           </Box>
         </Box>

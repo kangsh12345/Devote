@@ -26,7 +26,9 @@ export function NextAuthLoginButton({ name }: NextAuthLoginButtonProps) {
       width="fit"
       cursor="pointer"
       onClick={() => {
-        if (name === 'google') {
+        if (process.env.NEXT_PUBLIC_NODE_ENV !== 'development') {
+          toast.error('서버비가 없어서 로그인은 안돼요,,');
+        } else if (name === 'google') {
           signIn(name, { redirect: true, callbackUrl: callbackUrl ?? '/' });
         } else {
           toast.error('서버비가 없어서 로그인은 안돼요,,');

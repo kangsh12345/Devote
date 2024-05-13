@@ -77,24 +77,25 @@ export const Header = ({
           </Stack>
         </Box>
         <Stack space="3" direction="horizontal" align="center">
-          {!session ? (
-            <Box flexShrink={0}>
-              <Link href="/auth/signin">
-                <Button
-                  size="sm"
-                  variant="solid"
-                  radius="full"
-                  color="black"
-                  width="fit"
-                >
-                  로그인
-                </Button>
-              </Link>
-            </Box>
-          ) : (
-            session &&
-            session.user.image && <AvatarMenu image={session.user.image} />
-          )}
+          {process.env.NEXT_PUBLIC_NODE_ENV === 'development' &&
+            (!session ? (
+              <Box flexShrink={0}>
+                <Link href="/auth/signin">
+                  <Button
+                    size="sm"
+                    variant="solid"
+                    radius="full"
+                    color="black"
+                    width="fit"
+                  >
+                    로그인
+                  </Button>
+                </Link>
+              </Box>
+            ) : (
+              session &&
+              session.user.image && <AvatarMenu image={session.user.image} />
+            ))}
         </Stack>
       </Box>
       <Box marginTop="-2" className={styles.switcher()}>

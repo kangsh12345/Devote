@@ -6,7 +6,6 @@ import { Toaster } from 'react-hot-toast';
 
 import { Box } from '../components/atoms/Box';
 import { Sidebar } from '../components/organisms/Sidebar';
-import { GA_TRACKING_ID } from '../utils/gtag';
 import AuthSession from './AuthSession';
 import GoogleAnalytics from './googleAnalytics';
 import ReactQueryProvider from './ReactQueryProvider';
